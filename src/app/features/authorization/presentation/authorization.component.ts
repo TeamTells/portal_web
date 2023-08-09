@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {AuthorizationState} from "./state/authorization-state";
 import {Store} from "../../../core/mvi/store";
 import {AuthorizationExecutor} from "./state/authorization-executor";
-import {AuthorizationAction} from "./state/authorization-action";
+import {AuthorizationAction, AuthorizationActionTypes} from "./state/authorization-action";
 import {AuthorizationResultAction} from "./state/authorization-result-action";
 import {AuthorizationReducer} from "./state/authorization-reducer";
 
@@ -21,4 +21,5 @@ export class AuthorizationComponent extends Store<AuthorizationState, Authorizat
     super(state, executor, reducer);
   }
 
+    protected readonly AuthorizationActionTypes = AuthorizationActionTypes;
 }

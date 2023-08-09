@@ -5,6 +5,7 @@ import {ComponentsModule} from "../../core/components/components.module";
 import {AuthorizationState} from "./presentation/state/authorization-state";
 import {AuthorizationExecutor} from "./presentation/state/authorization-executor";
 import {AuthorizationReducer} from "./presentation/state/authorization-reducer";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -13,11 +14,13 @@ import {AuthorizationReducer} from "./presentation/state/authorization-reducer";
   exports: [
     AuthorizationComponent
   ],
-  imports: [
-    CommonModule,
-    ComponentsModule,
-    NgOptimizedImage,
-  ]
+    imports: [
+        CommonModule,
+        ComponentsModule,
+        NgOptimizedImage,
+        ReactiveFormsModule,
+        FormsModule,
+    ]
 })
 export class AuthorizationModule {
 }
