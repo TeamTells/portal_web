@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {AuthorizationModule} from "./authorization/authorization.module";
+import {AuthorizationModule} from "./features/authorization/authorization.module";
 
 @NgModule({
   declarations: [
