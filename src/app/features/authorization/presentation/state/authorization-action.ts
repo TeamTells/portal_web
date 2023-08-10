@@ -1,8 +1,11 @@
-export type AuthorizationAction = ChangeEmailAction | ChangePasswordAction
+export type AuthorizationAction = ChangeEmailAction
+    | ChangePasswordAction
+    | LoginAction
 
 export enum AuthorizationActionTypes {
     CHANGE_EMAIL,
-    CHANGE_PASSWORD
+    CHANGE_PASSWORD,
+    LOGIN
 }
 
 export interface ChangeEmailAction {
@@ -13,4 +16,8 @@ export interface ChangeEmailAction {
 export interface ChangePasswordAction {
     readonly type: AuthorizationActionTypes.CHANGE_PASSWORD
     readonly password: string
+}
+
+export interface LoginAction {
+    readonly type: AuthorizationActionTypes.LOGIN
 }

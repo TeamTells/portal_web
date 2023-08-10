@@ -1,18 +1,19 @@
 export abstract class Store<TState, TExecutor extends Executor<TState, TAction, TResultAction>, TAction, TResultAction> {
 
+    public state!: TState
     protected constructor(
-        public state: TState,
+        public initState: TState,
         private executor: TExecutor,
         reducer: Reducer<TState, TResultAction>
     ) {
-        executor.init(reducer, (): TState => state, (state) => {
+        this.state = initState
+        executor.init(reducer, (): TState => this.state, (state) => {
             this.state = state
         })
     }
 
 
     performAction(action: TAction): void {
-        console.log(action)
         this.executor.execute(action)
     }
 
@@ -20,7 +21,7 @@ export abstract class Store<TState, TExecutor extends Executor<TState, TAction, 
 
 export abstract class Executor<TState, TAction, TResultAction> {
 
-    private getState!: () => TState
+    protected getState!: () => TState
     private onReduced!: (state: TState) => void
     private reducer!: Reducer<TState, TResultAction>
 
@@ -36,7 +37,7 @@ export abstract class Executor<TState, TAction, TResultAction> {
 
     abstract execute(action: TAction): void
 
-    reduce(result: TResultAction) {
+    protected reduce(result: TResultAction) {
         this.onReduced(this.reducer.reduce(this.getState(), result))
     }
 
