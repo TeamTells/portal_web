@@ -15,10 +15,10 @@ export class AuthorizationReducer implements Reducer<AuthorizationState, Authori
                 return clone(state, {email: action.email, emailError: ""})
 
             case AuthorizationResultActionTypes.CHANGE_PASSWORD:
-                return clone(state, {password: action.password})
+                return clone(state, {password: action.password, passwordError: ""})
 
-            case AuthorizationResultActionTypes.EMAIL_VALIDATION_ERROR:
-                return clone(state, {emailError: action.error})
+            case AuthorizationResultActionTypes.VALIDATION_ERROR:
+                return clone(state, {emailError: action.emailError, passwordError: action.passwordError})
         }
     }
 

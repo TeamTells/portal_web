@@ -3,7 +3,7 @@ import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {AuthorizationComponent} from './presentation/authorization.component';
 import {ComponentsModule} from "../../core/components/components.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {emailValidatorFactory} from "../../core/validators/validators";
+import {emailValidatorFactory, passwordValidatorFactory} from "../../core/validators/validators";
 import {Validator} from "../../core/validators/validator";
 
 @NgModule({
@@ -23,8 +23,14 @@ import {Validator} from "../../core/validators/validator";
     ],
     providers:[
         {
-            provide: Validator,
+            provide: "EmailValidator",
+            useExisting: Validator,
             useFactory: emailValidatorFactory,
+        },
+        {
+            provide: "PasswordValidator",
+            useExisting: Validator,
+            useFactory: passwordValidatorFactory,
         }
     ]
 })

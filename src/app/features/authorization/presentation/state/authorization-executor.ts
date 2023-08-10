@@ -2,7 +2,7 @@ import {Executor} from "../../../../core/mvi/store";
 import {AuthorizationState} from "./authorization-state";
 import {AuthorizationAction, AuthorizationActionTypes} from "./authorization-action";
 import {AuthorizationResultAction, AuthorizationResultActionTypes} from "./authorization-result-action";
-import {inject, Injectable} from "@angular/core";
+import {Inject, inject, Injectable} from "@angular/core";
 import {Validator} from "../../../../core/validators/validator";
 
 @Injectable({
@@ -10,7 +10,10 @@ import {Validator} from "../../../../core/validators/validator";
 })
 export class AuthorizationExecutor extends Executor<AuthorizationState, AuthorizationAction, AuthorizationResultAction> {
 
-    constructor(private validator: Validator) {
+    constructor(
+        @Inject("EmailValidator") private emailValidator: Validator,
+        @Inject("PasswordValidator") private passwordValidator: Validator
+    ) {
         super();
     }
 
@@ -38,13 +41,14 @@ export class AuthorizationExecutor extends Executor<AuthorizationState, Authoriz
     }
 
     private handleLogin() {
-        //console.log(this.getState())
-        let error = this.validator.validate(this.getState().email)
+        let emailError = this.emailValidator.validate(this.getState().email)
+        let passwordError = this.passwordValidator.validate(this.getState().password)
 
-        if (error != null) {
+        if (emailError != null || passwordError != null) {
             this.reduce({
-                type: AuthorizationResultActionTypes.EMAIL_VALIDATION_ERROR,
-                error: error
+                type: AuthorizationResultActionTypes.VALIDATION_ERROR,
+                emailError: emailError != null ? emailError : "",
+                passwordError: passwordError != null ? passwordError : "",
             })
             return
         }

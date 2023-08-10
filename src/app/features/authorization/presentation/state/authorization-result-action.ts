@@ -1,11 +1,11 @@
 export type AuthorizationResultAction = ChangeEmailResultAction
     | ChangePasswordResultAction
-    | EmailValidationResultAction
+    | ValidationResultAction
 
 export enum AuthorizationResultActionTypes {
     CHANGE_EMAIL,
     CHANGE_PASSWORD,
-    EMAIL_VALIDATION_ERROR
+    VALIDATION_ERROR
 }
 
 export interface ChangeEmailResultAction {
@@ -18,7 +18,8 @@ export interface ChangePasswordResultAction {
     readonly password: string
 }
 
-export interface EmailValidationResultAction {
-    readonly type: AuthorizationResultActionTypes.EMAIL_VALIDATION_ERROR
-    readonly error: string
+export interface ValidationResultAction {
+    readonly type: AuthorizationResultActionTypes.VALIDATION_ERROR
+    readonly emailError: string,
+    readonly passwordError: string
 }

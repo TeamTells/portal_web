@@ -9,7 +9,6 @@ export class Validator {
 
     validate(value: String): string | null {
         let error = null
-        console.log(value)
 
         for (let rule of this.rules) {
             if (!rule.check(value)) {
