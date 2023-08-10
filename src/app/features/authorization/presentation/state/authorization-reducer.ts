@@ -4,7 +4,9 @@ import {AuthorizationResultAction, AuthorizationResultActionTypes} from "./autho
 import {Injectable} from "@angular/core";
 import {clone} from "cloneable-ts";
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class AuthorizationReducer implements Reducer<AuthorizationState, AuthorizationResultAction> {
 
     reduce(state: AuthorizationState, action: AuthorizationResultAction): AuthorizationState {

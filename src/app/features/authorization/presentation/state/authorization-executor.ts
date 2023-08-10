@@ -10,8 +10,6 @@ import {Injectable} from "@angular/core";
 export class AuthorizationExecutor extends Executor<AuthorizationState, AuthorizationAction, AuthorizationResultAction> {
 
     execute(action: AuthorizationAction) {
-        console.log(action)
-
         switch (action.type) {
             case AuthorizationActionTypes.CHANGE_EMAIL:
                 this.reduce({
