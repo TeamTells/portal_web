@@ -8,4 +8,5 @@ export class AuthorizationState {
   readonly emailError: String = ""
   readonly password: string = ""
   readonly passwordError: String = ""
+  readonly isLoading = false
 }

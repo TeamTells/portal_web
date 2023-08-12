@@ -4,6 +4,8 @@ import {AuthorizationAction, AuthorizationActionTypes} from "./authorization-act
 import {AuthorizationResultAction, AuthorizationResultActionTypes} from "./authorization-result-action";
 import {Inject, inject, Injectable} from "@angular/core";
 import {Validator} from "../../../../core/validators/validator";
+import {AuthService} from "../../domain/auth.service";
+import {AuthorizationNavigator} from "../navigation/authorization-navigator";
 
 @Injectable({
     providedIn: 'root'
@@ -12,7 +14,9 @@ export class AuthorizationExecutor extends Executor<AuthorizationState, Authoriz
 
     constructor(
         @Inject("EmailValidator") private emailValidator: Validator,
-        @Inject("PasswordValidator") private passwordValidator: Validator
+        @Inject("PasswordValidator") private passwordValidator: Validator,
+        private authService: AuthService,
+        private navigator: AuthorizationNavigator
     ) {
         super();
     }
@@ -53,7 +57,18 @@ export class AuthorizationExecutor extends Executor<AuthorizationState, Authoriz
             return
         }
 
-        console.log("authorize!!!")
+        this.authService.login()
+          .subscribe((result) => {
+            this.handleSubscribeResult(result)
+          })
+    }
+
+    private handleSubscribeResult(result: boolean) {
+      if (result) {
+        this.navigator.openMainPage()
+      } else {
+        // show error
+      }
     }
 
 }
