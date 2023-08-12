@@ -53,7 +53,7 @@ export class AuthorizationExecutor extends Executor<AuthorizationState, Authoriz
             return
         }
 
-        // Логика авторизации
+        console.log("authorize!!!")
     }
 
 }

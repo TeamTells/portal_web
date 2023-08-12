@@ -10,3 +10,4 @@ export let passwordValidatorFactory = () => new Validator([
     new EmptyRule("Пароль не может быть пустым"),
     new MinLengthRule("Пароль должен содержать минимум 8 символов", 8),
 ])
+

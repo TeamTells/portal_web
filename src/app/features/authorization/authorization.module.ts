@@ -3,8 +3,8 @@ import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {AuthorizationComponent} from './presentation/authorization.component';
 import {ComponentsModule} from "../../core/components/components.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {emailValidatorFactory, passwordValidatorFactory} from "../../core/validators/validators";
 import {Validator} from "../../core/validators/validator";
+import {EmailRule, EmptyRule} from "../../core/validators/rule";
 
 @NgModule({
     declarations: [
@@ -25,15 +25,23 @@ import {Validator} from "../../core/validators/validator";
         {
             provide: "EmailValidator",
             useExisting: Validator,
-            useFactory: emailValidatorFactory,
+            useFactory: AuthorizationModule.emailValidatorFactory,
         },
         {
             provide: "PasswordValidator",
             useExisting: Validator,
-            useFactory: passwordValidatorFactory,
+            useFactory: AuthorizationModule.passwordValidatorFactory,
         }
     ]
 })
 export class AuthorizationModule {
+
+  public static emailValidatorFactory = () => new Validator([
+    new EmptyRule("Введите E-mail"),
+  ])
+
+  public static passwordValidatorFactory = () => new Validator([
+    new EmptyRule("Введите пароль"),
+  ])
 
 }
