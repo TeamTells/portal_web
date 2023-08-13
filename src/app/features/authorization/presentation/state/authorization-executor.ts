@@ -56,11 +56,11 @@ export class AuthorizationExecutor extends Executor<AuthorizationState, Authoriz
             })
             return
         }
-
-        this.authService.login()
-          .subscribe((result) => {
-            this.handleSubscribeResult(result)
-          })
+        //
+        // this.authService.login()
+        //   .subscribe((result) => {
+        //     this.handleSubscribeResult(result)
+        //   })
     }
 
     private handleSubscribeResult(result: boolean) {

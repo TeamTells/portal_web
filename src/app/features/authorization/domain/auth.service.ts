@@ -1,9 +1,8 @@
 import {Observable} from "rxjs";
+import {LoginByPasswordData} from "./login-by-password-data";
 
 export abstract class AuthService {
 
-  abstract isLoggedIn: boolean
-
-  abstract login(): Observable<boolean>
+  abstract login(data: LoginByPasswordData): Observable<boolean>
 
 }

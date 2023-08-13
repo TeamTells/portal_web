@@ -1,22 +1,67 @@
 import {Injectable} from "@angular/core";
-import {delay, Observable, of, tap} from "rxjs";
+import {BehaviorSubject, map, Observable} from "rxjs";
 import {AuthService} from "../domain/auth.service";
+import {LoginByPasswordData} from "../domain/login-by-password-data";
+import {HttpClient} from "@angular/common/http";
+import {User} from "../domain/user";
+import {environment} from "../../../enviroment";
+import {Router} from "@angular/router";
 
 @Injectable({
-  providedIn: 'root',
+    providedIn: 'root',
 })
-export class AuthServiceImpl implements AuthService{
+export class AuthServiceImpl implements AuthService {
 
-  isLoggedIn = false;
+    private userSubject: BehaviorSubject<User | null>
+    public user: Observable<User | null>
+    private refreshTokenTimeout = 0;
 
-  login(): Observable<boolean> {
-    return of(true).pipe(
-      delay(1000),
-      tap(() => this.isLoggedIn = true)
-    );
-  }
+    constructor(
+        private http: HttpClient,
+        private router: Router
+    ) {
+        this.userSubject = new BehaviorSubject<User | null>(null)
+        this.user = this.userSubject.asObservable()
+    }
 
-  logout(): void {
-    this.isLoggedIn = false;
-  }
+    login(data: LoginByPasswordData): Observable<boolean> {
+        const body = {login: data.login, password: data.password}
+        return this.http.post<any>(`${environment.apiUrl}/users/login`, body)
+            .pipe(map(user => {
+                this.userSubject.next(user);
+                this.startRefreshTokenTimer();
+                return user;
+            }));
+    }
+
+    logout(): void {
+        this.http.post<any>(`${environment.apiUrl}/users/logout`, {}, {}).subscribe();
+        this.stopRefreshTokenTimer();
+        this.userSubject.next(null);
+        this.router.navigate(['/login']);
+    }
+
+    refreshToken() {
+        return this.http.post<any>(`${environment.apiUrl}/users/refresh-token`, {
+            refreshToken: ""
+        }).pipe(map((user) => {
+            this.userSubject.next(user);
+            this.startRefreshTokenTimer();
+            return user;
+        }));
+    }
+
+    private startRefreshTokenTimer() {
+        const user = this.userSubject.getValue()
+        if (user != null) {
+            const jwtToken = JSON.parse(atob(user.accessJwtToken.split('.')[1]));
+            const expires = new Date(jwtToken.exp * 1000);
+            const timeout = expires.getTime() - Date.now() - (60 * 1000);
+            this.refreshTokenTimeout = setTimeout(() => this.refreshToken().subscribe(), timeout);
+        }
+    }
+
+    private stopRefreshTokenTimer() {
+        clearTimeout(this.refreshTokenTimeout);
+    }
 }
