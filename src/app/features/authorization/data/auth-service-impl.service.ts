@@ -13,7 +13,7 @@ import {Router} from "@angular/router";
 export class AuthServiceImpl implements AuthService {
 
     private userSubject: BehaviorSubject<User | null>
-    public user: Observable<User | null>
+    public userObservable: Observable<User | null>
     private refreshTokenTimeout = 0;
 
     constructor(
@@ -21,12 +21,16 @@ export class AuthServiceImpl implements AuthService {
         private router: Router
     ) {
         this.userSubject = new BehaviorSubject<User | null>(null)
-        this.user = this.userSubject.asObservable()
+        this.userObservable = this.userSubject.asObservable()
     }
 
-    login(data: LoginByPasswordData): Observable<boolean> {
+  getUser(): User | null {
+    return this.userSubject.getValue();
+  }
+
+  login(data: LoginByPasswordData): Observable<boolean> {
         const body = {login: data.login, password: data.password}
-        return this.http.post<any>(`${environment.apiUrl}/users/login`, body)
+        return this.http.post<any>(`${environment.apiUrl}/users/login`, body, {withCredentials: true})
             .pipe(map(user => {
                 this.userSubject.next(user);
                 this.startRefreshTokenTimer();
@@ -35,20 +39,19 @@ export class AuthServiceImpl implements AuthService {
     }
 
     logout(): void {
-        this.http.post<any>(`${environment.apiUrl}/users/logout`, {}, {}).subscribe();
+        this.http.post<any>(`${environment.apiUrl}/users/logout`, {}, {withCredentials: true}).subscribe();
         this.stopRefreshTokenTimer();
         this.userSubject.next(null);
         this.router.navigate(['/login']);
     }
 
     refreshToken() {
-        return this.http.post<any>(`${environment.apiUrl}/users/refresh-token`, {
-            refreshToken: ""
-        }).pipe(map((user) => {
-            this.userSubject.next(user);
-            this.startRefreshTokenTimer();
-            return user;
-        }));
+        return this.http.post<any>(`${environment.apiUrl}/users/refresh-token`, {}, {withCredentials: true})
+            .pipe(map((user) => {
+                this.userSubject.next(user);
+                this.startRefreshTokenTimer();
+                return user;
+            }));
     }
 
     private startRefreshTokenTimer() {
