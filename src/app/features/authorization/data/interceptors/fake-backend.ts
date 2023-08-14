@@ -75,6 +75,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
       const user = users.find(x => x.refreshTokens.includes(refreshToken));
 
+      console.log(user)
       if (!user) return unauthorized();
 
       user.refreshTokens = user.refreshTokens.filter(x => x !== refreshToken);

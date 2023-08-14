@@ -7,6 +7,9 @@ export function appInitializer(authService: AuthService) {
           complete: () => {
             console.info('complete')
             resolve(undefined)
+          },
+          error:() => {
+            resolve(undefined)
           }
         }
       )

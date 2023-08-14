@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {AuthService} from "../../authorization/domain/auth.service";
+import {AuthorizationActionTypes} from "../../authorization/presentation/state/authorization-action";
 
 @Component({
   selector: 'app-presentation',
@@ -7,4 +9,12 @@ import { Component } from '@angular/core';
 })
 export class MainComponent {
 
+  constructor(private authService: AuthService) {
+  }
+
+  logout() {
+    this.authService.logout()
+  }
+
+  protected readonly AuthorizationActionTypes = AuthorizationActionTypes;
 }
