@@ -1,12 +1,11 @@
-import {inject, NgModule} from '@angular/core';
+import {NgModule} from '@angular/core';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {AuthorizationComponent} from './presentation/view/authorization.component';
 import {ComponentsModule} from "../../core/components/components.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {Validator} from "../../core/validators/validator";
 import {EmptyRule} from "../../core/validators/rule";
-import {AuthServiceImpl} from "./data/auth-service-impl.service";
-import {AuthService} from "./domain/auth.service";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -21,6 +20,7 @@ import {AuthService} from "./domain/auth.service";
     ComponentsModule,
     NgOptimizedImage,
     ReactiveFormsModule,
+    HttpClientModule,
     FormsModule,
   ],
   providers: [

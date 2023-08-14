@@ -12,7 +12,7 @@ export class JwtInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let user = this.authService.getUser()
-    let accessJwtToken = user?.accessJwtToken
+    let accessJwtToken = user?.jwtToken
     const isApiUrl = request.url.startsWith(environment.apiUrl)
 
     if (accessJwtToken != undefined && isApiUrl) {
@@ -20,6 +20,8 @@ export class JwtInterceptor implements HttpInterceptor {
         setHeaders: {Authorization: `Bearer ${accessJwtToken}`}
       });
     }
+
+    console.log(request)
 
     return next.handle(request)
   }

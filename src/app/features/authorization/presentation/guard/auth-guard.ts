@@ -6,7 +6,7 @@ export const loginGuardFunction: CanActivateFn = () => {
   const authService = inject(AuthService)
   const router = inject(Router)
 
-  if (true) {
+  if (authService.isAuthenticated()) {
     return true
   }
 
@@ -17,7 +17,7 @@ export const alreadyLoginGuardFunction: CanActivateFn = () => {
   const authService = inject(AuthService)
   const router = inject(Router)
 
-  if (false) {
+  if (!authService.isAuthenticated()) {
     return true
   }
 

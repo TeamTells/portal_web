@@ -8,6 +8,8 @@ export abstract class AuthService {
 
   abstract getUser(): User | null
 
+  abstract isAuthenticated(): boolean
+
   abstract login(data: LoginByPasswordData): Observable<boolean>
 
   abstract logout(): void
