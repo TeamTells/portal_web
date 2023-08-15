@@ -7,9 +7,9 @@ import {AuthorizationReducer} from "../state/authorization-reducer";
 import {Store} from "../../../../core/mvi/store";
 
 @Component({
-    selector: 'app-authorization',
-    templateUrl: './authorization.component.html',
-    styleUrls: ['./authorization.component.scss']
+  selector: 'app-authorization',
+  templateUrl: './authorization.component.html',
+  styleUrls: ['./authorization.component.scss']
 })
 export class AuthorizationComponent extends Store<AuthorizationState, AuthorizationExecutor, AuthorizationAction, AuthorizationResultAction> {
 
@@ -21,5 +21,5 @@ export class AuthorizationComponent extends Store<AuthorizationState, Authorizat
     super(state, executor, reducer);
   }
 
-    protected readonly AuthorizationActionTypes = AuthorizationActionTypes;
+  protected readonly AuthorizationActionTypes = AuthorizationActionTypes;
 }

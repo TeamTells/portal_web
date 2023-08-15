@@ -1,20 +1,31 @@
-import { Component } from '@angular/core';
-import {AuthService} from "../../authorization/domain/auth.service";
-import {AuthorizationActionTypes} from "../../authorization/presentation/state/authorization-action";
+import {Component} from '@angular/core';
+import {Store} from "../../../core/mvi/store";
+import {MainState, NavItem} from "./state/main-state";
+import {MainExecutor} from "./state/main-executor";
+import {MainAction, MainActionTypes} from "./state/main-action";
+import {MainResultAction} from "./state/main-result-action";
+import {MainReducer} from "./state/main-reducer";
 
 @Component({
   selector: 'app-presentation',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
-export class MainComponent {
+export class MainComponent extends Store<MainState, MainExecutor, MainAction, MainResultAction> {
 
-  constructor(private authService: AuthService) {
+  constructor(
+    state: MainState,
+    executor: MainExecutor,
+    reducer: MainReducer
+  ) {
+    super(state, executor, reducer);
   }
 
-  logout() {
-    this.authService.logout()
+  getState() {
+    return this.state
   }
 
-  protected readonly AuthorizationActionTypes = AuthorizationActionTypes;
+  protected readonly MainActionTypes = MainActionTypes;
+  protected readonly NavItem = NavItem;
+
 }

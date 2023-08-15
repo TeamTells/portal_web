@@ -9,6 +9,7 @@ import {JwtInterceptor} from "./features/authorization/data/interceptors/jwt-int
 import {HTTP_INTERCEPTORS, HttpClient} from "@angular/common/http";
 import {fakeBackendProvider} from "./features/authorization/data/interceptors/fake-backend";
 import {appInitializer} from "./features/authorization/data/app-initializer";
+import {MainModule} from "./features/main/main.module";
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import {appInitializer} from "./features/authorization/data/app-initializer";
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AuthorizationModule
+    AuthorizationModule,
+    MainModule
   ],
   providers: [
     {

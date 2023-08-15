@@ -1,0 +1,7 @@
+.nav_selected_item {
+  @apply py-3 px-2 text-gray-950 border-b-2 border-red-500 font-semibold
+}
+
+.nav_item {
+  @apply py-3 px-2 text-gray-950 font-semibold hover:text-red-500 transition duration-300
+}
