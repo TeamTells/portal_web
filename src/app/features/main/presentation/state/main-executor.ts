@@ -41,8 +41,10 @@ export class MainExecutor extends Executor<MainState, MainAction, MainResultActi
         this.router.navigate(['news'])
         break
       case NavItem.EMPLOYEES:
-        console.log("sdf")
         this.router.navigate(['employees'])
+        break
+      case NavItem.SETTINGS:
+        this.router.navigate(['settings'])
         break
     }
   }

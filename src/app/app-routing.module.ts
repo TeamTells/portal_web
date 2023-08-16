@@ -5,14 +5,16 @@ import {AuthorizationComponent} from "./features/authorization/presentation/view
 import {alreadyLoginGuardFunction, loginGuardFunction} from "./features/authorization/presentation/guard/auth-guard";
 import {NewsComponent} from "./features/news/presentation/news.component";
 import {EmployeesComponent} from "./features/employees/presentation/employees.component";
+import {SettingsComponent} from "./features/settings/presentation/settings.component";
 
 const mainItems: Routes = [
   {path: 'news', component: NewsComponent},
-  {path: 'employees', component: EmployeesComponent}
+  {path: 'employees', component: EmployeesComponent},
+  {path: 'settings', component: SettingsComponent},
 ]
 
 const appRoutes: Routes = [
-  { path: 'login', component: AuthorizationComponent, canActivate: [alreadyLoginGuardFunction] },
+  {path: 'login', component: AuthorizationComponent, canActivate: [alreadyLoginGuardFunction]},
   {
     path: '',
     component: MainComponent,
