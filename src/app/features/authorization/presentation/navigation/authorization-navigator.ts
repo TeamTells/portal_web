@@ -10,7 +10,7 @@ export class AuthorizationNavigator {
   }
 
   openMainPage() {
-    this.router.navigate(['']).then(r => "")
+    this.router.navigate(['news']).then(r => "")
   }
 
 }

@@ -21,10 +21,6 @@ export class MainComponent extends Store<MainState, MainExecutor, MainAction, Ma
     super(state, executor, reducer);
   }
 
-  getState() {
-    return this.state
-  }
-
   protected readonly MainActionTypes = MainActionTypes;
   protected readonly NavItem = NavItem;
 

@@ -21,5 +21,5 @@ export const alreadyLoginGuardFunction: CanActivateFn = () => {
     return true
   }
 
-  return router.parseUrl('/')
+  return router.parseUrl('/main')
 }
