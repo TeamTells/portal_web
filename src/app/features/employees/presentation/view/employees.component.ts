@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { EmployeeListItemComponent } from './components/employee-list-item/employee-list-item.component';
 
 @Component({
   selector: 'app-presentation',

@@ -4,7 +4,7 @@ import {MainComponent} from "./features/main/presentation/main.component";
 import {AuthorizationComponent} from "./features/authorization/presentation/view/authorization.component";
 import {alreadyLoginGuardFunction, loginGuardFunction} from "./features/authorization/presentation/guard/auth-guard";
 import {NewsComponent} from "./features/news/presentation/news.component";
-import {EmployeesComponent} from "./features/employees/presentation/employees.component";
+import {EmployeesComponent} from "./features/employees/presentation/view/employees.component";
 import {SettingsComponent} from "./features/settings/presentation/settings.component";
 
 const mainItems: Routes = [

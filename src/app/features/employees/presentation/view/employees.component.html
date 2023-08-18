@@ -1,0 +1,26 @@
+<div class="flex h-screen">
+    <!-- Левый контейнер (меню) -->
+    <div class="w-1/4 bg-gray-200 p-4">
+    <!-- Пункты меню -->
+        <div class="flex items-center mb-4">
+            <div class="w-8 h-8 bg-blue-500 mr-2"></div>
+            <div>Пункт 1</div>
+        </div>
+        <div class="flex items-center mb-4">
+            <div class="w-8 h-8 bg-green-500 mr-2"></div>
+            <div>Пункт 2</div>
+        </div>
+    </div>
+`
+  <!-- Правый контейнер (основной контент) -->
+    <div class="flex-1 p-4">
+        <!-- Содержимое основного контента для выбранного пункта меню -->
+        <h1 class="text-2xl font-bold mb-4">Заголовок контента</h1>
+        <div class="w-3/5 p-4 bg-white">
+            <input type="text" class="w-full border p-2 mb-4" placeholder="Поиск">
+            <ul role="list" class="divide-y divide-gray-100">
+                <app-employee-list-item></app-employee-list-item>
+            </ul>
+        </div>
+    </div>
+</div>
