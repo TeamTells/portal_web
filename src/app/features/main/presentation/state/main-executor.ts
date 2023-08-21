@@ -46,6 +46,9 @@ export class MainExecutor extends Executor<MainState, MainAction, MainResultActi
       case NavItem.SETTINGS:
         this.router.navigate(['settings'])
         break
+      case NavItem.EDITOR:
+        this.router.navigate(['editor'])
+        break
     }
   }
 

@@ -10,5 +10,6 @@ export class MainState {
 export enum NavItem {
   NEWS,
   EMPLOYEES,
-  SETTINGS
+  SETTINGS,
+  EDITOR,
 }

@@ -46,6 +46,17 @@
     })"
               >Настройки
               </button>
+              <button
+                [ngClass]="{
+                  'nav_selected_item' : state.selectedItem == NavItem.SETTINGS,
+                  'nav_item' : state.selectedItem != NavItem.SETTINGS
+                 }"
+                (click)="performAction({
+                    type: MainActionTypes.SELECT_ITEM,
+                    item: NavItem.EDITOR
+    })"
+              >Редактор
+              </button>
             </div>
 
           </div>
