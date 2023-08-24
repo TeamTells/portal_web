@@ -10,6 +10,8 @@ import {HTTP_INTERCEPTORS, HttpClient} from "@angular/common/http";
 import {fakeBackendProvider} from "./features/authorization/data/interceptors/fake-backend";
 import {appInitializer} from "./features/authorization/data/app-initializer";
 import {MainModule} from "./features/main/main.module";
+import {EditorComponent} from "./features/editor/presentation/editor/editor.component";
+import {EditorModule} from "./features/editor/editor.module";
 
 @NgModule({
   declarations: [
@@ -19,7 +21,8 @@ import {MainModule} from "./features/main/main.module";
     BrowserModule,
     AppRoutingModule,
     AuthorizationModule,
-    MainModule
+    MainModule,
+    EditorModule
   ],
   providers: [
     {

@@ -48,8 +48,8 @@
               </button>
               <button
                 [ngClass]="{
-                  'nav_selected_item' : state.selectedItem == NavItem.SETTINGS,
-                  'nav_item' : state.selectedItem != NavItem.SETTINGS
+                  'nav_selected_item' : state.selectedItem == NavItem.EDITOR,
+                  'nav_item' : state.selectedItem != NavItem.EDITOR
                  }"
                 (click)="performAction({
                     type: MainActionTypes.SELECT_ITEM,
