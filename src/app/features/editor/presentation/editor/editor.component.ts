@@ -62,6 +62,9 @@ export class EditorComponent {
       },
     ];
 
+    const docStr = JSON.stringify(doc)
+    const docJson = JSON.parse(docStr)
+
     this.test = parser.parse(doc)
 
 

@@ -7,25 +7,45 @@ export class DocumentParser {
 
   space = "&nbsp"
 
-  parse(json: Array<Object>) {
-    json.forEach((element) => {
+  parse(json: Array<any>) {
+    const doc = document.createElement("div")
+    json.forEach((jsonElement, index) => {
+      switch (jsonElement.type) {
+        case "text":
+          const textDivElement = document.createElement("div")
+          textDivElement.innerHTML = jsonElement.text
+          textDivElement.setAttribute("style", "float: left;")
+          textDivElement.id = index.toString()
 
+          if (jsonElement.hasOwnProperty('style')) {
+            this.addTextStyle(textDivElement, jsonElement.style)
+          }
+
+          doc.appendChild(textDivElement)
+          break;
+        case "paragraph":
+          const paragraphElement = document.createElement("br")
+          const paragraphElement1 = document.createElement("br")
+          doc.appendChild(paragraphElement)
+          doc.appendChild(paragraphElement1)
+          break
+      }
     })
+    return doc.innerHTML
+  }
 
-    var element = document.createElement("div")
-    element.setAttribute("style", "overflow: hidden;")
-    var child1 = document.createElement("div")
-    child1.id = "0"
-    var child2 = document.createElement("div")
-    child2.id = "1"
-    element.appendChild(child1)
-    element.appendChild(child2)
-    child1.innerHTML = "Начало и"
-    child1.setAttribute("style", "float: left;")
-    child2.innerHTML = " конец"
-    child2.setAttribute("style", "float: left;")
-    console.log(element)
-    return element.innerHTML
+  private addTextStyle(element: HTMLElement, style: any) {
+    let styleClass = ""
+
+    if (style.hasOwnProperty('bold') && style.bold) {
+      styleClass += "font-bold"
+    }
+
+    if (style.hasOwnProperty('size')) {
+      styleClass += " text-2xl"
+    }
+
+    element.setAttribute("class", styleClass)
   }
 
 }
