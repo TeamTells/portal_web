@@ -24,10 +24,8 @@ export class DocumentParser {
           doc.appendChild(textDivElement)
           break;
         case "paragraph":
-          const paragraphElement = document.createElement("br")
-          const paragraphElement1 = document.createElement("br")
-          doc.appendChild(paragraphElement)
-          doc.appendChild(paragraphElement1)
+          doc.appendChild(document.createElement("br"))
+          doc.appendChild(document.createElement("br"))
           break
       }
     })
