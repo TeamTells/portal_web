@@ -9,24 +9,31 @@ export class DocumentParser {
 
   parse(json: Array<any>) {
     const doc = document.createElement("div")
+    let paragraph = document.createElement("div");
+
     json.forEach((jsonElement, index) => {
       switch (jsonElement.type) {
+
         case "text":
-          const textDivElement = document.createElement("div")
+          const textDivElement = document.createElement("span")
           textDivElement.innerHTML = jsonElement.text
-          textDivElement.setAttribute("style", "float: left;")
           textDivElement.id = index.toString()
 
           if (jsonElement.hasOwnProperty('style')) {
             this.addTextStyle(textDivElement, jsonElement.style)
           }
 
-          doc.appendChild(textDivElement)
+          paragraph.appendChild(textDivElement)
           break;
+
         case "paragraph":
-          doc.appendChild(document.createElement("br"))
-          doc.appendChild(document.createElement("br"))
+          doc.appendChild(paragraph)
+          const textDivParagraphElement = document.createElement("div")
+          textDivParagraphElement.appendChild(document.createElement("br"))
+          doc.appendChild(textDivParagraphElement)
+          paragraph = document.createElement("div")
           break
+
       }
     })
     return doc.innerHTML
