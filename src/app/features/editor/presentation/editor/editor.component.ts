@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {comment} from "postcss";
-import {compare} from 'fast-json-patch';
 import {DocumentParser} from "../../domain/document-parser";
+import {DocumentNode, Span} from "../../domain/models/models";
 
 @Component({
   selector: 'app-editor',
@@ -13,7 +13,7 @@ export class EditorComponent {
   test = "<h3>asfd</h3>"
   cursorPosition = 0
 
-  doc = [
+  doc: Array<DocumentNode | Span> = [
     {
       type: "text",
       text: "Сборка и запуск Angular приложения в Docker контейнере",
@@ -81,10 +81,10 @@ export class EditorComponent {
       const position = self.getCursorPosition(parent)
       self.cursorPosition = position
       self.modifyDoc(e)
-      //
-      // if (position != 0) {
-      //   self.setCursorPosition(parent, position)
-      // }
+
+      const selection = document.getSelection()
+      selection?.removeAllRanges()
+      self.setCursorPosition()
     });
     divMO.observe(div!, {childList: true, subtree: true, characterData: true});
 
@@ -96,7 +96,10 @@ export class EditorComponent {
     const strId = target.parentElement?.getAttribute("id")
     if (strId == null) return
     const id = +strId
-    this.doc[id].text = target.nodeValue?.toString()
+    const node = this.doc[id]
+    if (node instanceof Span) {
+      node.text = <string>target.nodeValue?.toString()
+    }
     this.test = this.parser.parse(this.doc)
   }
 
@@ -112,19 +115,21 @@ export class EditorComponent {
     return range.toString().length
   }
 
-  setCursorPosition(parent: any, position: number) {
+  setCursorPosition() {
+    const parent = document.getElementById("parent")
+    if (parent == null) return
     let child = parent.firstChild
-    while(position > 0) {
-      let length = child.textContent.length
-      if(position > length) {
+    let position = this.cursorPosition
+    while (position > 0) {
+      let length = child!.textContent!.length
+      if (position > length) {
         position -= length
-        child = child.nextSibling
-      }
-      else {
+        child = child!.nextSibling
+      } else {
         console.log(child)
         console.log(position)
-        if(child.nodeType == 3) return document.getSelection()?.collapse(child, position)
-        child = child.firstChild
+        if (child!.nodeType == 3) return document.getSelection()?.collapse(child, position)
+        child = child!.firstChild
       }
     }
   }
