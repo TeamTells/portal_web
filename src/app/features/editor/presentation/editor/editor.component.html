@@ -2,4 +2,21 @@
   <div contenteditable="true" style="outline:none;" class="md: flex mt-12 ms-12 me-12" id="parent">
     <div [innerHTML]="test | safeHtml"></div>
   </div>
+
+  <div class="idden md:flex items-center space-x-3">
+    <button
+      class="py-2 px-2 font-medium text-gray-950 rounded hover:bg-red-400 hover:text-white transition duration-300"
+      (click)="addParagraph()"
+    >
+      Новый абзац
+    </button>
+  </div>
+  <div class="idden md:flex items-center space-x-3" >
+    <button
+      class="py-2 px-2 font-medium text-gray-950 rounded hover:bg-red-400 hover:text-white transition duration-300"
+      (click)="findPatches()"
+    >
+      Вычислить патчи
+    </button>
+  </div>
 </div>

@@ -1,7 +1,9 @@
 import {Component} from '@angular/core';
 import {comment} from "postcss";
 import {DocumentParser} from "../../domain/document-parser";
-import {DocumentNode, Span} from "../../domain/models/models";
+import {Item, Paragraph, Text} from "../../domain/models/models";
+import {clone} from "cloneable-ts";
+import {compare} from 'fast-json-patch';
 
 @Component({
   selector: 'app-editor',
@@ -10,69 +12,72 @@ import {DocumentNode, Span} from "../../domain/models/models";
 })
 export class EditorComponent {
 
-  test = "<h3>asfd</h3>"
+  test = "<h3>temp</h3>"
   cursorPosition = 0
 
-  doc: Array<DocumentNode | Span> = [
-    {
-      type: "text",
-      text: "Сборка и запуск Angular приложения в Docker контейнере",
-      style: {
+  doc: Array<Paragraph | Text> = [
+    new Text(
+      "text",
+      "Сборка и запуск Angular приложения в Docker контейнере",
+      {
         bold: true,
         size: 32,
       }
-    },
-    {
-      type: "paragraph",
-    },
-    {
-      type: "text",
-      text: "В этой статье мы рассмотрим как собирать и запускать Angular приложение в Docker контейнере. Для этого будем использовать файл Dockerfile, где будут содержаться все необходимые инструкции. Наше приложение будет билдится и хостить свой production-ready код,",
-    },
-    {
-      type: "text",
-      text: " в контейнере",
-      style: {
+    ),
+    new Paragraph(
+      "paragraph",
+    ),
+    new Text(
+      "text",
+      "В этой статье мы рассмотрим как собирать и запускать Angular приложение в Docker контейнере. Для этого будем использовать файл Dockerfile, где будут содержаться все необходимые инструкции. Наше приложение будет билдится и хостить свой production-ready код,",
+    ),
+    new Text(
+      "text",
+      " в контейнере",
+      {
         bold: true,
         cursive: true,
       }
-    },
-    {
-      type: "text",
-      text: " с веб сервером NGINX.",
-    },
-    {
-      type: "paragraph",
-    },
-    {
-      type: "text",
-      text: "Условимся что у нас уже существует некое приложение sample-app, поэтому шаг с созданием приложения опустим.",
-    },
-    {
-      type: "paragraph",
-    },
-    {
-      type: "text",
-      text: "Создание Dockerfile и nginx.conf",
-      style: {
+    ),
+    new Text(
+      "text",
+      " с веб сервером NGINX.",
+    ),
+    new Paragraph(
+      "paragraph",
+    ),
+    new Text(
+      "text",
+      "Условимся что у нас уже существует некое приложение sample-app, поэтому шаг с созданием приложения опустим.",
+    ),
+    new Paragraph(
+      "paragraph",
+    ),
+    new Text(
+      "text",
+      "Создание Dockerfile и nginx.conf",
+      {
         bold: true,
         size: 32,
       }
-    },
-    {
-      type: "paragraph",
-    },
-    {
-      type: "text",
-      text: "Начинаем с того что создаем в корне нашего Angular приложения, файлы с именем Dockerfile и nginx.conf",
-    },
-    {
-      type: "paragraph",
-    },
+    ),
+    new Paragraph(
+      "paragraph",
+    ),
+    new Text(
+      "text",
+      "Начинаем с того что создаем в корне нашего Angular приложения, файлы с именем Dockerfile и nginx.conf",
+    ),
+    new Paragraph(
+      "paragraph",
+    ),
   ];
+
+  startDoc: Array<Paragraph | Text> = []
 
 
   constructor(private parser: DocumentParser) {
+    this.startDoc = clone(this.doc)
     const div = document.querySelector('div');
     const self = this
 
@@ -80,6 +85,7 @@ export class EditorComponent {
       const parent = document.getElementById("parent")
       const position = self.getCursorPosition(parent)
       self.cursorPosition = position
+
       self.modifyDoc(e)
 
       const selection = document.getSelection()
@@ -96,11 +102,11 @@ export class EditorComponent {
     const strId = target.parentElement?.getAttribute("id")
     if (strId == null) return
     const id = +strId
-    const node = this.doc[id]
-    if (node instanceof Span) {
-      node.text = <string>target.nodeValue?.toString()
-    }
-    this.test = this.parser.parse(this.doc)
+    const node: Item = this.doc[id]
+    const text: Text = <Text>node
+    text.text = <string>target.nodeValue?.toString()
+
+    this.parser.parse(this.doc)
   }
 
   getCursorPosition(parent: any) {
@@ -126,12 +132,21 @@ export class EditorComponent {
         position -= length
         child = child!.nextSibling
       } else {
-        console.log(child)
-        console.log(position)
         if (child!.nodeType == 3) return document.getSelection()?.collapse(child, position)
         child = child!.firstChild
       }
     }
+  }
+
+  addParagraph() {
+    this.doc.push(new Text("text", "a"))
+    this.doc.push(new Paragraph())
+    this.test = this.parser.parse(this.doc)
+  }
+
+  findPatches() {
+    console.log(compare(this.startDoc, this.doc))
+    this.startDoc = clone(this.doc)
   }
 
   protected readonly comment = comment;

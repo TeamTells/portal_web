@@ -12,7 +12,7 @@ export class DocumentParser {
     let paragraph = document.createElement("div");
 
     json.forEach((jsonElement, index) => {
-      switch (jsonElement.type) {
+      switch (jsonElement.type1) {
 
         case "text":
           const textDivElement = document.createElement("span")
@@ -29,6 +29,7 @@ export class DocumentParser {
         case "paragraph":
           doc.appendChild(paragraph)
           const textDivParagraphElement = document.createElement("div")
+          textDivParagraphElement.setAttribute("contenteditable", "false")
           textDivParagraphElement.appendChild(document.createElement("br"))
           doc.appendChild(textDivParagraphElement)
           paragraph = document.createElement("div")
