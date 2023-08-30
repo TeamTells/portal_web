@@ -172,7 +172,7 @@ export class EditorComponent {
       spans: [
         {
           id: uuidv4(),
-          text: ""
+          text: "<br>"
         }
       ]
     }
