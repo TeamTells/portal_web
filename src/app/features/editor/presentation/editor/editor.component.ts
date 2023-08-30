@@ -1,9 +1,10 @@
 import {Component} from '@angular/core';
 import {comment} from "postcss";
 import {DocumentParser} from "../../domain/document-parser";
-import {TextParagraph} from "../../domain/models/models";
+import {TextParagraph, TextSpan} from "../../domain/models/models";
 import {clone} from "cloneable-ts";
 import {compare} from 'fast-json-patch';
+import {v4 as uuidv4} from 'uuid';
 
 @Component({
   selector: 'app-editor',
@@ -95,11 +96,15 @@ export class EditorComponent {
       const parent = document.getElementById("parent")
       const position = self.getCursorPosition(parent)
 
+      if (position != 0) {
+        self.cursorPosition = position
+      }
+
       self.modifyDoc(e[0].target)
 
-      setTimeout(() => {
-        self.setCursorPosition(position)
-      }, 1000)
+      if (position == 0) {
+        self.setCursorPosition(self.cursorPosition)
+      }
     });
     divMO.observe(div!, {childList: true, subtree: true, characterData: true});
 
@@ -139,8 +144,6 @@ export class EditorComponent {
   }
 
   setCursorPosition(position: number) {
-    if (position == 0) return
-
     const parent = document.getElementById("parent")
     if (parent == null) return
     let child = parent.firstChild
@@ -164,8 +167,17 @@ export class EditorComponent {
   }
 
   addParagraph() {
-    // this.doc.push(new Text("text", "a"))
-    // this.doc.push(new Paragraph())
+    const paragraph = {
+      id: uuidv4(),
+      spans: [
+        {
+          id: uuidv4(),
+          text: ""
+        }
+      ]
+    }
+    this.doc.push(paragraph)
+    console.log(this.doc)
     this.test = this.parser.parse(this.doc)
   }
 
