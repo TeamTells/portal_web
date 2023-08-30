@@ -1,24 +1,23 @@
-export class Item {
+export class TextParagraph {
 
-  constructor(public type1: string) {
+  constructor(
+    public id: string,
+    public spans: Array<TextSpan>,
+  ) {
+
+  }
+}
+
+export class TextSpan {
+
+  constructor(
+    public id: string,
+    public text: string = "",
+    public style?: any | null
+  ) {
   }
 
 }
 
-export class Paragraph extends Item {
-
-  constructor(type1: string = "paragraph") {
-    super(type1)
-  }
-}
-
-export class Text extends Item {
-  constructor(type1: string = "text",
-              public text: string = "",
-              public style: any = "") {
-    super(type1);
-  }
-
-}
 
 

@@ -1,4 +1,5 @@
 import {Injectable} from "@angular/core";
+import {TextParagraph} from "./models/models";
 
 @Injectable({
   providedIn: 'root',
@@ -7,36 +8,32 @@ export class DocumentParser {
 
   space = "&nbsp"
 
-  parse(json: Array<any>) {
+  parse(paragraphs: Array<TextParagraph>) {
     const doc = document.createElement("div")
     let paragraph = document.createElement("div");
 
-    json.forEach((jsonElement, index) => {
-      switch (jsonElement.type1) {
+    paragraphs.forEach((textParagraph, index) => {
+      textParagraph.spans.forEach((textSpan, index) => {
+        const textDivElement = document.createElement("span")
+        textDivElement.innerHTML = textSpan.text
+        textDivElement.setAttribute("paragraphId", textParagraph.id)
+        textDivElement.setAttribute("spanId", textSpan.id)
 
-        case "text":
-          const textDivElement = document.createElement("span")
-          textDivElement.innerHTML = jsonElement.text
-          textDivElement.id = index.toString()
+        if (textSpan.hasOwnProperty('style')) {
+          this.addTextStyle(textDivElement, textSpan.style)
+        }
 
-          if (jsonElement.hasOwnProperty('style')) {
-            this.addTextStyle(textDivElement, jsonElement.style)
-          }
+        paragraph.appendChild(textDivElement)
+      })
 
-          paragraph.appendChild(textDivElement)
-          break;
-
-        case "paragraph":
-          doc.appendChild(paragraph)
-          const textDivParagraphElement = document.createElement("div")
-          textDivParagraphElement.setAttribute("contenteditable", "false")
-          textDivParagraphElement.appendChild(document.createElement("br"))
-          doc.appendChild(textDivParagraphElement)
-          paragraph = document.createElement("div")
-          break
-
-      }
+      doc.appendChild(paragraph)
+      const textDivParagraphElement = document.createElement("div")
+      textDivParagraphElement.setAttribute("contenteditable", "false")
+      textDivParagraphElement.appendChild(document.createElement("br"))
+      doc.appendChild(textDivParagraphElement)
+      paragraph = document.createElement("div")
     })
+
     return doc.innerHTML
   }
 
