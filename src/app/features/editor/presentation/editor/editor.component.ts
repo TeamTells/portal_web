@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {comment} from "postcss";
 import {DocumentParser} from "../../domain/document-parser";
-import {TextParagraph, TextSpan} from "../../domain/models/models";
+import {ImageParagraph, TextParagraph, TextSpan} from "../../domain/models/models";
 import {clone} from "cloneable-ts";
 import {compare} from 'fast-json-patch';
 import {v4 as uuidv4} from 'uuid';
@@ -16,8 +16,9 @@ export class EditorComponent {
   test = "<h3>temp</h3>"
   cursorPosition = 0
 
-  doc: Array<TextParagraph> = [
+  doc: Array<TextParagraph| ImageParagraph> = [
     {
+      type: "text",
       id: "1",
       spans: [
         {
@@ -31,6 +32,7 @@ export class EditorComponent {
       ]
     },
     {
+      type: "text",
       id: "2",
       spans: [
         {
@@ -52,6 +54,7 @@ export class EditorComponent {
       ]
     },
     {
+      type: "text",
       id: "3",
       spans: [
         {
@@ -61,7 +64,14 @@ export class EditorComponent {
       ]
     },
     {
+      type: "image",
       id: "4",
+      url: "assets/team_tels.png",
+      description: "Описание под картинкой"
+    },
+    {
+      type: "text",
+      id: "5",
       spans: [
         {
           id: "1",
@@ -74,7 +84,8 @@ export class EditorComponent {
       ]
     },
     {
-      id: "5",
+      type: "text",
+      id: "6",
       spans: [
         {
           id: "1",
@@ -84,7 +95,7 @@ export class EditorComponent {
     }
   ]
 
-  startDoc: Array<TextParagraph> = []
+  startDoc: Array<TextParagraph| ImageParagraph> = []
 
 
   constructor(private parser: DocumentParser) {
@@ -117,7 +128,7 @@ export class EditorComponent {
 
     const paragraph = this.doc.find((paragraph) => paragraph.id == paragraphId)
 
-    if (paragraph == undefined) return
+    if (paragraph == undefined || paragraph instanceof ImageParagraph) return
 
     const spanId = target.parentElement?.getAttribute("spanId")
     if (spanId == null) return
@@ -169,6 +180,7 @@ export class EditorComponent {
   addParagraph() {
     const paragraph = {
       id: uuidv4(),
+      type: "text",
       spans: [
         {
           id: uuidv4(),
