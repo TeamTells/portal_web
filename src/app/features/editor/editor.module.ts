@@ -1,7 +1,9 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { EditorComponent } from './presentation/editor/editor.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {EditorComponent} from './presentation/editor/editor.component';
 import {SafeHtmlPipe} from "./presentation/editor/safe-html-pipe";
+import {EditorService} from "./domain/EditorService";
+import {EditorServiceImpl} from "./data/EditorServiceImpl";
 
 
 @NgModule({
@@ -11,6 +13,13 @@ import {SafeHtmlPipe} from "./presentation/editor/safe-html-pipe";
   ],
   imports: [
     CommonModule
+  ],
+  providers: [
+    {
+      provide: EditorService,
+      useClass: EditorServiceImpl
+    },
   ]
 })
-export class EditorModule { }
+export class EditorModule {
+}

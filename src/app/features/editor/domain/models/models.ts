@@ -1,3 +1,5 @@
+export type Paragraph = TextParagraph | ImageParagraph
+
 export class TextParagraph {
 
   constructor(
