@@ -1,8 +1,5 @@
 import {Component} from '@angular/core';
 import {comment} from "postcss";
-import {clone} from "cloneable-ts";
-import {compare} from 'fast-json-patch';
-import {v4 as uuidv4} from 'uuid';
 import {Store} from "../../../../core/mvi/store";
 import {EditorState} from "./state/editor-state";
 import {EditorResultAction} from "./state/editor-result-action";
@@ -34,12 +31,16 @@ export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAc
     const divMO = new window.MutationObserver(function (e) {
       const parent = document.getElementById("parent")
       const position = self.getCursorPosition(parent)
+
       if (position != 0) {
         self.cursorPosition = position
       }
 
       self.modifyDoc(e[0].target)
 
+      // Переписать хак с установкой курсора
+      // например можно чекать не позицию а что обновляется
+      // и если весь документ досстанавливать позицию
       if (position == 0) {
         self.setCursorPosition(self.cursorPosition)
       }
@@ -98,26 +99,11 @@ export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAc
     }
   }
 
-  addParagraph() {
-    // const paragraph = {
-    //   id: uuidv4(),
-    //   type: "text",
-    //   spans: [
-    //     {
-    //       id: uuidv4(),
-    //       text: "<br>"
-    //     }
-    //   ]
-    // }
-    // this.doc.push(paragraph)
-    // console.log(this.doc)
-    // this.test = this.parser.parse(this.doc)
-  }
-
   findPatches() {
     // console.log(compare(this.startDoc, this.doc))
     // this.startDoc = clone(this.doc)
   }
 
   protected readonly comment = comment;
+  protected readonly EditorActionType = EditorActionType;
 }

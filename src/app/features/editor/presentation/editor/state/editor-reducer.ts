@@ -5,54 +5,76 @@ import {Injectable} from "@angular/core";
 import {clone} from "cloneable-ts";
 import {DocumentParser} from "../../../domain/document-parser";
 import {LongreadDocument, TextParagraph} from "../../../domain/models/models";
+import {v4 as uuidv4} from 'uuid';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class EditorReducer implements Reducer<EditorState, EditorResultAction> {
 
-    constructor(
-        private parser: DocumentParser,
-    ) {
+  constructor(
+    private parser: DocumentParser,
+  ) {
+  }
+
+  reduce(state: EditorState, action: EditorResultAction): EditorState {
+    switch (action.type) {
+      case EditorResultActionType.UPDATE_DOCUMENT:
+        return this.updateDocument(state, action.document)
+
+      case EditorResultActionType.MODIFY_TEXT_PARAGRAPH:
+        return this.modifyTextParagraph(state, action.value, action.paragraphId, action.spanId)
+
+      case EditorResultActionType.ADD_TEXT_PARAGRAPH:
+        return this.addTextParagraph(state)
     }
+  }
 
-    reduce(state: EditorState, action: EditorResultAction): EditorState {
-        switch (action.type) {
-            case EditorResultActionType.UPDATE_DOCUMENT:
-                return this.updateDocument(state, action.document)
+  private updateDocument(state: EditorState, newDocument: LongreadDocument): EditorState {
+    return clone(state, {
+      document: newDocument,
+      content: this.parser.parse(newDocument.paragraphs)
+    })
+  }
 
-            case EditorResultActionType.MODIFY_TEXT_PARAGRAPH:
-                return this.modifyTextParagraph(state, action.value, action.paragraphId, action.spanId)
+  private modifyTextParagraph(
+    state: EditorState,
+    value: string,
+    paragraphId: string,
+    spanId: string
+  ): EditorState {
+    const newDocument = clone(state.document)
+    const paragraph = newDocument.paragraphs
+      .find((paragraph) => paragraph.id == paragraphId)
+
+    if (paragraph == undefined || paragraph.type == "image") return state
+
+    const textSpan = (paragraph as TextParagraph).spans
+      .find((span) => span.id == spanId)
+
+    if (textSpan == undefined) return state;
+
+    textSpan.text = value
+
+    return this.updateDocument(state, newDocument)
+  }
+
+  private addTextParagraph(state: EditorState): EditorState {
+    const newDocument = clone(state.document)
+
+    const paragraph = {
+      id: uuidv4(),
+      type: "text",
+      spans: [
+        {
+          id: uuidv4(),
+          text: "<br>"
         }
+      ]
     }
+    newDocument.paragraphs.push(paragraph)
 
-    private updateDocument(state: EditorState, newDocument: LongreadDocument): EditorState {
-        return clone(state, {
-            document: newDocument,
-            content: this.parser.parse(newDocument.paragraphs)
-        })
-    }
-
-    private modifyTextParagraph(
-        state: EditorState,
-        value: string,
-        paragraphId: string,
-        spanId: string
-    ): EditorState {
-        const newDocument = clone(state.document)
-        const paragraph = newDocument.paragraphs
-            .find((paragraph) => paragraph.id == paragraphId)
-
-        if (paragraph == undefined || paragraph.type == "image") return state
-
-        const textSpan = (paragraph as TextParagraph).spans
-            .find((span) => span.id == spanId)
-
-        if (textSpan == undefined) return state;
-
-        textSpan.text = value
-
-        return this.updateDocument(state, newDocument)
-    }
+    return this.updateDocument(state, newDocument)
+  }
 
 }
