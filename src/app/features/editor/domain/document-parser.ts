@@ -69,15 +69,19 @@ export class DocumentParser {
     const imageParagraph = paragraph as ImageParagraph
 
     const imageDivElement = document.createElement("div")
+    imageDivElement.setAttribute("class", "flex flex-col")
 
     const imageElement = document.createElement("img")
     imageElement.setAttribute("paragraphId", imageParagraph.id)
+    imageElement.setAttribute("class", "place-self-center")
     imageElement.setAttribute("src", imageParagraph.url)
+    imageElement.setAttribute("title", "")
     imageDivElement.appendChild(imageElement)
 
     const textDivElement = document.createElement("div")
     textDivElement.innerHTML = imageParagraph.description
     textDivElement.setAttribute("paragraphId", imageParagraph.id)
+    textDivElement.setAttribute("class", "place-self-center")
     imageDivElement.appendChild(textDivElement)
     doc.appendChild(imageDivElement)
   }

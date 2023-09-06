@@ -57,7 +57,7 @@ export class EditorServiceImpl extends EditorService {
       {
         type: "image",
         id: "4",
-        url: "assets/team_tels.png",
+        url: "https://habrastorage.org/getpro/habr/upload_files/9f7/867/465/9f786746560ec91b5c7454503061a339.png",
         description: "Описание под картинкой"
       },
       {

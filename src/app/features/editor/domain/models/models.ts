@@ -1,5 +1,15 @@
 export type Paragraph = TextParagraph | ImageParagraph
 
+export class Document {
+
+  constructor(
+    public paragraphs: Array<Paragraph>,
+    public version: string,
+  ) {
+  }
+
+}
+
 export class TextParagraph {
 
   constructor(
@@ -32,6 +42,3 @@ export class ImageParagraph {
   }
 
 }
-
-
-
