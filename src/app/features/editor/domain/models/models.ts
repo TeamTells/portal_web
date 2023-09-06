@@ -1,10 +1,9 @@
 export type Paragraph = TextParagraph | ImageParagraph
 
-export class Document {
+export class LongreadDocument {
 
   constructor(
     public paragraphs: Array<Paragraph>,
-    public version: string,
   ) {
   }
 

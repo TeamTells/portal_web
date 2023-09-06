@@ -1,37 +1,39 @@
 import {Component} from '@angular/core';
 import {comment} from "postcss";
-import {DocumentParser} from "../../domain/document-parser";
-import {ImageParagraph, TextParagraph, TextSpan} from "../../domain/models/models";
 import {clone} from "cloneable-ts";
 import {compare} from 'fast-json-patch';
 import {v4 as uuidv4} from 'uuid';
-import {EditorService} from "../../domain/EditorService";
+import {Store} from "../../../../core/mvi/store";
+import {EditorState} from "./state/editor-state";
+import {EditorResultAction} from "./state/editor-result-action";
+import {EditorAction, EditorActionType} from "./state/editor-action";
+import {EditorExecutor} from "./state/editor-executor";
+import {EditorReducer} from "./state/editor-reducer";
 
 @Component({
   selector: 'app-editor',
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.scss']
 })
-export class EditorComponent {
+export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAction, EditorResultAction> {
 
-  test = "<h3>temp</h3>"
   cursorPosition = 0
-  doc: Array<TextParagraph| ImageParagraph> = []
-  startDoc: Array<TextParagraph| ImageParagraph> = []
 
   constructor(
-    private parser: DocumentParser,
-    private editorService: EditorService
+    state: EditorState,
+    executor: EditorExecutor,
+    reducer: EditorReducer
   ) {
-    this.doc = editorService.getDocumentBy("")
-    this.startDoc = clone(this.doc)
+    super(state, executor, reducer);
+    this.subscribeToUpdateHtml()
+  }
+
+  private subscribeToUpdateHtml() {
     const div = document.querySelector('div');
     const self = this
-
     const divMO = new window.MutationObserver(function (e) {
       const parent = document.getElementById("parent")
       const position = self.getCursorPosition(parent)
-
       if (position != 0) {
         self.cursorPosition = position
       }
@@ -43,28 +45,22 @@ export class EditorComponent {
       }
     });
     divMO.observe(div!, {childList: true, subtree: true, characterData: true});
-
-    this.test = parser.parse(this.doc)
   }
 
   modifyDoc(target: Node) {
     const paragraphId = target.parentElement?.getAttribute("paragraphId")
     if (paragraphId == null) return
 
-    const paragraph = this.doc.find((paragraph) => paragraph.id == paragraphId)
-
-    if (paragraph == undefined || paragraph instanceof ImageParagraph) return
-
     const spanId = target.parentElement?.getAttribute("spanId")
     if (spanId == null) return
 
-    const textSpan = paragraph.spans.find((span) => span.id == spanId)
-
-    if (textSpan == undefined) return;
-
-    textSpan.text = <string>target.nodeValue?.toString()
-
-    this.test = this.parser.parse(this.doc)
+    const value = <string>target.nodeValue?.toString()
+    this.performAction({
+      type: EditorActionType.MODIFY_TEXT_PARAGRAPH,
+      value: value,
+      paragraphId: paragraphId,
+      spanId: spanId
+    })
   }
 
   getCursorPosition(parent: any) {
@@ -103,24 +99,24 @@ export class EditorComponent {
   }
 
   addParagraph() {
-    const paragraph = {
-      id: uuidv4(),
-      type: "text",
-      spans: [
-        {
-          id: uuidv4(),
-          text: "<br>"
-        }
-      ]
-    }
-    this.doc.push(paragraph)
-    console.log(this.doc)
-    this.test = this.parser.parse(this.doc)
+    // const paragraph = {
+    //   id: uuidv4(),
+    //   type: "text",
+    //   spans: [
+    //     {
+    //       id: uuidv4(),
+    //       text: "<br>"
+    //     }
+    //   ]
+    // }
+    // this.doc.push(paragraph)
+    // console.log(this.doc)
+    // this.test = this.parser.parse(this.doc)
   }
 
   findPatches() {
-    console.log(compare(this.startDoc, this.doc))
-    this.startDoc = clone(this.doc)
+    // console.log(compare(this.startDoc, this.doc))
+    // this.startDoc = clone(this.doc)
   }
 
   protected readonly comment = comment;

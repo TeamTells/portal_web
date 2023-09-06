@@ -1,7 +1,7 @@
-import {Paragraph} from "./models/models";
+import {LongreadDocument, Paragraph} from "./models/models";
 
 export abstract class EditorService {
 
-  abstract getDocumentBy(uid: string): Array<Paragraph>
+  abstract getDocumentBy(uid: string): LongreadDocument
 
 }
