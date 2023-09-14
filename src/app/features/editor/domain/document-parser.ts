@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {ImageParagraph, TextParagraph, TextSpan} from "./models/models";
+import {ImageParagraph, LongreadDocument, TextParagraph, TextSpan} from "./models/models";
 
 @Injectable({
   providedIn: 'root',
@@ -8,11 +8,13 @@ export class DocumentParser {
 
   space = "&nbsp"
 
-  parse(paragraphs: Array<TextParagraph | ImageParagraph>) {
+  parse(longreadDocument: LongreadDocument) {
     const doc = document.createElement("div")
     let element = document.createElement("div");
 
-    paragraphs.forEach((paragraph, index) => {
+    this.addTitle(doc, longreadDocument.title)
+
+    longreadDocument.paragraphs.forEach((paragraph, index) => {
       if (paragraph.type == "text") {
         const textParagraph = paragraph as TextParagraph
 
@@ -23,12 +25,30 @@ export class DocumentParser {
         this.addImage(paragraph, doc)
       }
 
+      element.setAttribute("type", paragraph.type.toString())
       doc.appendChild(element)
-      this.addParagraphSeparator(doc)
       element = document.createElement("div")
+      element.setAttribute("class", "mt-4")
     })
 
     return doc.innerHTML
+  }
+
+  private addTitle(doc: HTMLElement, title: string) {
+    const titleElement = document.createElement("div")
+
+    titleElement.innerHTML = title
+    titleElement.setAttribute("class", "font-bold text-4xl mt-4 mb-4")
+    titleElement.setAttribute("type", "title")
+    if (title == "") {
+      titleElement.innerHTML = "<br>"
+      const placeHolderElement = document.createElement("div")
+      placeHolderElement.setAttribute("class", "font-bold text-4xl mt-4 mb-4 text-gray-400")
+      placeHolderElement.setAttribute("contenteditable", "false")
+      placeHolderElement.innerHTML = "Заголовок"
+      doc.appendChild(placeHolderElement)
+    }
+    doc.appendChild(titleElement)
   }
 
   private addTextSpanElement(element: HTMLElement, textSpan: TextSpan, paragraph: TextParagraph) {
@@ -42,13 +62,6 @@ export class DocumentParser {
     }
 
     element.appendChild(textDivElement)
-  }
-
-  private addParagraphSeparator(doc: HTMLElement) {
-    const textDivParagraphElement = document.createElement("div")
-    textDivParagraphElement.setAttribute("contenteditable", "false")
-    textDivParagraphElement.appendChild(document.createElement("br"))
-    doc.appendChild(textDivParagraphElement)
   }
 
   private addTextStyle(element: HTMLElement, style: any) {

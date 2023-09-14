@@ -3,6 +3,7 @@ export type Paragraph = TextParagraph | ImageParagraph
 export class LongreadDocument {
 
   constructor(
+    public title: string,
     public paragraphs: Array<Paragraph>,
   ) {
   }

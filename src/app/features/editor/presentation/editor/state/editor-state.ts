@@ -5,6 +5,6 @@ import {LongreadDocument} from "../../../domain/models/models";
   providedIn: 'root'
 })
 export class EditorState {
-  readonly document: LongreadDocument = new LongreadDocument([])
+  readonly document: LongreadDocument = new LongreadDocument("", [])
   readonly content: string = ""
 }

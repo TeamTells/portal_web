@@ -43,6 +43,15 @@ export class EditorExecutor extends Executor<EditorState, EditorAction, EditorRe
           }
         )
         break
+
+      case EditorActionType.MODIFY_TITLE:
+        this.reduce(
+          {
+            type: EditorResultActionType.MODIFY_TITLE,
+            value: action.value
+          }
+        )
+        break
     }
   }
 

@@ -29,6 +29,8 @@ export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAc
     const div = document.querySelector('div');
     const self = this
     const divMO = new window.MutationObserver(function (e) {
+      console.log(e)
+
       const parent = document.getElementById("parent")
       const position = self.getCursorPosition(parent)
 
@@ -36,7 +38,13 @@ export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAc
         self.cursorPosition = position
       }
 
-      self.modifyDoc(e[0].target)
+      e.forEach((record) => {
+        self.modifyDoc(record.target)
+
+        record.removedNodes.forEach((removedNodes) => {
+          self.removeNode(removedNodes)
+        })
+      })
 
       // Переписать хак с установкой курсора
       // например можно чекать не позицию а что обновляется
@@ -49,19 +57,40 @@ export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAc
   }
 
   modifyDoc(target: Node) {
+    const value = <string>target.nodeValue?.toString()
+
+    //if (target.parentElement?.getAttribute("type") == "title") {
+    //   this.performAction({
+    //     type: EditorActionType.MODIFY_TITLE,
+    //     value: value,
+    //   })
+    //return;
+    //}
     const paragraphId = target.parentElement?.getAttribute("paragraphId")
     if (paragraphId == null) return
 
     const spanId = target.parentElement?.getAttribute("spanId")
+
     if (spanId == null) return
 
-    const value = <string>target.nodeValue?.toString()
     this.performAction({
       type: EditorActionType.MODIFY_TEXT_PARAGRAPH,
       value: value,
       paragraphId: paragraphId,
       spanId: spanId
     })
+  }
+
+  private removeNode(target: Node) {
+    const paragraphId = (target as HTMLSpanElement)?.getAttribute("paragraphId")
+    console.log("paragraphId " + paragraphId)
+    if (paragraphId == null) return
+
+    const spanId = target.parentElement?.getAttribute("spanId")
+    console.log("spanId " + spanId)
+    if (spanId == null) return
+
+
   }
 
   getCursorPosition(parent: any) {

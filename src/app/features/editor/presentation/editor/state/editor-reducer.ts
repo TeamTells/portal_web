@@ -27,13 +27,16 @@ export class EditorReducer implements Reducer<EditorState, EditorResultAction> {
 
       case EditorResultActionType.ADD_TEXT_PARAGRAPH:
         return this.addTextParagraph(state)
+
+      case EditorResultActionType.MODIFY_TITLE:
+        return this.modifyTitle(state, action.value)
     }
   }
 
   private updateDocument(state: EditorState, newDocument: LongreadDocument): EditorState {
     return clone(state, {
       document: newDocument,
-      content: this.parser.parse(newDocument.paragraphs)
+      content: this.parser.parse(newDocument)
     })
   }
 
@@ -73,6 +76,14 @@ export class EditorReducer implements Reducer<EditorState, EditorResultAction> {
       ]
     }
     newDocument.paragraphs.push(paragraph)
+
+    return this.updateDocument(state, newDocument)
+  }
+
+  private modifyTitle(state: EditorState, value: string): EditorState {
+    const newDocument = clone(state.document, {
+      title: value
+    })
 
     return this.updateDocument(state, newDocument)
   }
