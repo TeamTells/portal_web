@@ -41,12 +41,16 @@ export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAc
       e.forEach((record) => {
         self.modifyDoc(record.target)
 
-        record.removedNodes.forEach((removedNodes) => {
-          self.removeNode(removedNodes as HTMLElement)
+        record.addedNodes.forEach((removedNodes) => {
+          if (removedNodes instanceof HTMLElement) {
+            self.addNode(removedNodes as HTMLElement)
+          }
         })
 
-        record.addedNodes.forEach((removedNodes) => {
-          //self.removeNode(removedNodes as HTMLElement)
+        record.removedNodes.forEach((removedNodes) => {
+          if (removedNodes instanceof HTMLElement) {
+            self.removeNode(removedNodes as HTMLElement)
+          }
         })
       })
 
@@ -57,7 +61,10 @@ export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAc
         self.setCursorPosition(self.cursorPosition)
       }
     });
-    divMO.observe(div!, {childList: true, subtree: true, characterData: true});
+
+    if (div != null) {
+      divMO.observe(div, {childList: true, subtree: true, characterData: true});
+    }
   }
 
   modifyDoc(target: Node) {
@@ -87,6 +94,20 @@ export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAc
 
   private removeNode(target: HTMLElement) {
     const paragraphId = target?.getAttribute("paragraphId")
+    if (paragraphId == null) return
+
+    const spanId = target?.getAttribute("spanId")
+    if (spanId == null) return
+
+    this.performAction({
+      type: EditorActionType.REMOVE_TEXT_SPAN,
+      paragraphId: paragraphId,
+      spanId: spanId
+    })
+  }
+
+  private addNode(target: HTMLElement) {
+    const paragraphId = target?.getAttribute("paragraphId")
     console.log("paragraphId " + paragraphId)
     if (paragraphId == null) return
 
@@ -94,8 +115,10 @@ export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAc
     console.log("spanId " + spanId)
     if (spanId == null) return
 
+    const value = <string>target.nodeValue?.toString()
     this.performAction({
-      type: EditorActionType.REMOVE_TEXT_SPAN,
+      type: EditorActionType.ADD_TEXT_SPAN,
+      value: value,
       paragraphId: paragraphId,
       spanId: spanId
     })
@@ -119,7 +142,9 @@ export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAc
     let child = parent.firstChild
 
     while (position > 0) {
-      let length = child!.textContent!.length
+      let length = child?.textContent?.length
+
+      if (length == undefined) return;
 
       if (position > length) {
         position -= length

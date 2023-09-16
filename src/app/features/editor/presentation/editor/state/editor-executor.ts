@@ -61,6 +61,17 @@ export class EditorExecutor extends Executor<EditorState, EditorAction, EditorRe
             spanId: action.spanId
           }
         )
+        break
+
+      case EditorActionType.ADD_TEXT_SPAN:
+        this.reduce(
+          {
+            type: EditorResultActionType.ADD_TEXT_SPAN,
+            value: action.value,
+            paragraphId: action.paragraphId,
+            spanId: action.spanId
+          }
+        )
     }
   }
 

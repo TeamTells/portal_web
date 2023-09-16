@@ -4,7 +4,7 @@ import {EditorResultAction, EditorResultActionType} from "./editor-result-action
 import {Injectable} from "@angular/core";
 import {clone} from "cloneable-ts";
 import {DocumentParser} from "../../../domain/document-parser";
-import {LongreadDocument, TextParagraph} from "../../../domain/models/models";
+import {LongreadDocument, Paragraph, TextParagraph, TextSpan} from "../../../domain/models/models";
 import {v4 as uuidv4} from 'uuid';
 
 @Injectable({
@@ -33,6 +33,9 @@ export class EditorReducer implements Reducer<EditorState, EditorResultAction> {
 
       case EditorResultActionType.REMOVE_TEXT_SPAN:
         return this.removeTextSpan(state, action.paragraphId, action.spanId)
+
+      case EditorResultActionType.ADD_TEXT_SPAN:
+        return this.splitParagraph(state, action.value, action.paragraphId, action.spanId)
     }
   }
 
@@ -84,7 +87,30 @@ export class EditorReducer implements Reducer<EditorState, EditorResultAction> {
       }
     })
 
-    console.log(newDocument)
+    return this.updateDocument(state, newDocument)
+  }
+
+  private splitParagraph(state: EditorState, value: string, paragraphId: string, spanId: string): EditorState {
+    const newDocument = clone(state.document)
+    const newParagraphs: Array<Paragraph> = []
+
+    newDocument.paragraphs.forEach((paragraph) => {
+      if (paragraph.id == paragraphId && paragraph.type == "text") {
+        const oldParagraph = clone(paragraph, {
+          id: uuidv4()
+        })
+        const newParagraph = clone(paragraph, {
+          id: uuidv4()
+        })
+
+        newParagraphs.push(oldParagraph)
+        newParagraphs.push(newParagraph)
+      } else {
+        newParagraphs.push(paragraph)
+      }
+    })
+
+    newDocument.paragraphs = newParagraphs
     return this.updateDocument(state, newDocument)
   }
 

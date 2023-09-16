@@ -4,14 +4,16 @@ export type EditorResultAction = UpdateDocumentResult |
   ModifyTextParagraphResult |
   AddTextParagraph |
   ModifyTitleResult |
-  RemoveParagraphResult
+  RemoveParagraphResult |
+  AddTextSpanResult
 
 export enum EditorResultActionType {
   UPDATE_DOCUMENT,
   MODIFY_TEXT_PARAGRAPH,
   ADD_TEXT_PARAGRAPH,
   MODIFY_TITLE,
-  REMOVE_TEXT_SPAN
+  REMOVE_TEXT_SPAN,
+  ADD_TEXT_SPAN
 }
 
 export interface UpdateDocumentResult {
@@ -37,6 +39,13 @@ export interface ModifyTitleResult {
 
 export interface RemoveParagraphResult {
   readonly type: EditorResultActionType.REMOVE_TEXT_SPAN,
+  readonly paragraphId: string,
+  readonly spanId: string
+}
+
+export interface AddTextSpanResult {
+  readonly type: EditorResultActionType.ADD_TEXT_SPAN,
+  readonly value: string,
   readonly paragraphId: string,
   readonly spanId: string
 }

@@ -15,6 +15,17 @@
             <div class="hidden md:flex items-center space-x-1">
               <button
                 [ngClass]="{
+                  'nav_selected_item' : state.selectedItem == NavItem.EDITOR,
+                  'nav_item' : state.selectedItem != NavItem.EDITOR
+                 }"
+                (click)="performAction({
+                    type: MainActionTypes.SELECT_ITEM,
+                    item: NavItem.EDITOR
+    })"
+              >Редактор
+              </button>
+              <button
+                [ngClass]="{
                   'nav_selected_item' : state.selectedItem == NavItem.NEWS,
                   'nav_item' : state.selectedItem != NavItem.NEWS
                  }"
@@ -45,17 +56,6 @@
                     item: NavItem.SETTINGS
     })"
               >Настройки
-              </button>
-              <button
-                [ngClass]="{
-                  'nav_selected_item' : state.selectedItem == NavItem.EDITOR,
-                  'nav_item' : state.selectedItem != NavItem.EDITOR
-                 }"
-                (click)="performAction({
-                    type: MainActionTypes.SELECT_ITEM,
-                    item: NavItem.EDITOR
-    })"
-              >Редактор
               </button>
             </div>
 
