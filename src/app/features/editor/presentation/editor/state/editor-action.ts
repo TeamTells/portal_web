@@ -1,12 +1,13 @@
 export type EditorAction = ModifyTextParagraph |
   AddTextParagraph |
-  ModifyTitle
+  ModifyTitle |
+  RemoveParagraph
 
 export enum EditorActionType {
-  MODIFY_TEXT_PARAGRAPH = 0,
-  ADD_TEXT_PARAGRAPH = 1,
-  MODIFY_TITLE = 2,
-  REMOVE
+  MODIFY_TEXT_PARAGRAPH,
+  ADD_TEXT_PARAGRAPH,
+  MODIFY_TITLE ,
+  REMOVE_TEXT_SPAN
 }
 
 export interface ModifyTextParagraph {
@@ -23,4 +24,10 @@ export interface AddTextParagraph {
 export interface ModifyTitle {
   readonly type: EditorActionType.MODIFY_TITLE,
   readonly value: string
+}
+
+export interface RemoveParagraph {
+  readonly type: EditorActionType.REMOVE_TEXT_SPAN,
+  readonly paragraphId: string,
+  readonly spanId: string
 }

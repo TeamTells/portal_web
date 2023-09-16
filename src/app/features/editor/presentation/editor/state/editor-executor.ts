@@ -52,6 +52,15 @@ export class EditorExecutor extends Executor<EditorState, EditorAction, EditorRe
           }
         )
         break
+
+      case EditorActionType.REMOVE_TEXT_SPAN:
+        this.reduce(
+          {
+            type: EditorResultActionType.REMOVE_TEXT_SPAN,
+            paragraphId: action.paragraphId,
+            spanId: action.spanId
+          }
+        )
     }
   }
 

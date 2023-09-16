@@ -30,6 +30,9 @@ export class EditorReducer implements Reducer<EditorState, EditorResultAction> {
 
       case EditorResultActionType.MODIFY_TITLE:
         return this.modifyTitle(state, action.value)
+
+      case EditorResultActionType.REMOVE_TEXT_SPAN:
+        return this.removeTextSpan(state, action.paragraphId, action.spanId)
     }
   }
 
@@ -59,6 +62,29 @@ export class EditorReducer implements Reducer<EditorState, EditorResultAction> {
 
     textSpan.text = value
 
+    return this.updateDocument(state, newDocument)
+  }
+
+  private removeTextSpan(
+    state: EditorState,
+    paragraphId: string,
+    spanId: string
+  ): EditorState {
+    const newDocument = clone(state.document)
+    newDocument.paragraphs = newDocument.paragraphs.filter((paragraph) => {
+      if (paragraph.type == "text" && paragraph.id == paragraphId) {
+        const textParagraph = (paragraph as TextParagraph)
+        textParagraph.spans = textParagraph.spans.filter((span) => {
+          return span.id != spanId
+        })
+
+        return textParagraph.spans.length != 0
+      } else {
+        return true
+      }
+    })
+
+    console.log(newDocument)
     return this.updateDocument(state, newDocument)
   }
 

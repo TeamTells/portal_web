@@ -43,7 +43,7 @@ export class EditorServiceImpl extends EditorService {
                 }
               },
               {
-                id: "1",
+                id: "3",
                 text: " с веб сервером NGINX.",
               }
             ]

@@ -1,16 +1,17 @@
 import {LongreadDocument} from "../../../domain/models/models";
-import {EditorActionType} from "./editor-action";
 
 export type EditorResultAction = UpdateDocumentResult |
   ModifyTextParagraphResult |
   AddTextParagraph |
-  ModifyTitleResult
+  ModifyTitleResult |
+  RemoveParagraphResult
 
 export enum EditorResultActionType {
-  UPDATE_DOCUMENT = 0,
-  MODIFY_TEXT_PARAGRAPH = 1,
-  ADD_TEXT_PARAGRAPH = 2,
-  MODIFY_TITLE = 3
+  UPDATE_DOCUMENT,
+  MODIFY_TEXT_PARAGRAPH,
+  ADD_TEXT_PARAGRAPH,
+  MODIFY_TITLE,
+  REMOVE_TEXT_SPAN
 }
 
 export interface UpdateDocumentResult {
@@ -32,4 +33,10 @@ export interface AddTextParagraph {
 export interface ModifyTitleResult {
   readonly type: EditorResultActionType.MODIFY_TITLE,
   readonly value: string
+}
+
+export interface RemoveParagraphResult {
+  readonly type: EditorResultActionType.REMOVE_TEXT_SPAN,
+  readonly paragraphId: string,
+  readonly spanId: string
 }

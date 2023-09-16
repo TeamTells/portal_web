@@ -42,13 +42,17 @@ export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAc
         self.modifyDoc(record.target)
 
         record.removedNodes.forEach((removedNodes) => {
-          self.removeNode(removedNodes)
+          self.removeNode(removedNodes as HTMLElement)
+        })
+
+        record.addedNodes.forEach((removedNodes) => {
+          //self.removeNode(removedNodes as HTMLElement)
         })
       })
 
       // Переписать хак с установкой курсора
       // например можно чекать не позицию а что обновляется
-      // и если весь документ досстанавливать позицию
+      // и если весь документ восстанавливать позицию
       if (position == 0) {
         self.setCursorPosition(self.cursorPosition)
       }
@@ -81,16 +85,20 @@ export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAc
     })
   }
 
-  private removeNode(target: Node) {
-    const paragraphId = (target as HTMLSpanElement)?.getAttribute("paragraphId")
+  private removeNode(target: HTMLElement) {
+    const paragraphId = target?.getAttribute("paragraphId")
     console.log("paragraphId " + paragraphId)
     if (paragraphId == null) return
 
-    const spanId = target.parentElement?.getAttribute("spanId")
+    const spanId = target?.getAttribute("spanId")
     console.log("spanId " + spanId)
     if (spanId == null) return
 
-
+    this.performAction({
+      type: EditorActionType.REMOVE_TEXT_SPAN,
+      paragraphId: paragraphId,
+      spanId: spanId
+    })
   }
 
   getCursorPosition(parent: any) {
