@@ -4,6 +4,7 @@ import {EditorAction, EditorActionType} from "./editor-action";
 import {EditorResultAction, EditorResultActionType} from "./editor-result-action";
 import {Injectable} from "@angular/core";
 import {EditorService} from "../../../domain/EditorService";
+import {HtmlDocumentParser} from "../../../domain/html-document-parser";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,8 @@ import {EditorService} from "../../../domain/EditorService";
 export class EditorExecutor extends Executor<EditorState, EditorAction, EditorResultAction> {
 
   constructor(
-    private editorService: EditorService
+    private editorService: EditorService,
+    private htmlDocumentParser: HtmlDocumentParser
   ) {
     super()
   }
@@ -25,13 +27,12 @@ export class EditorExecutor extends Executor<EditorState, EditorAction, EditorRe
 
   execute(action: EditorAction): void {
     switch (action.type) {
-      case EditorActionType.MODIFY_TEXT_PARAGRAPH:
+      case EditorActionType.UPDATE_DOCUMENT:
+        const document = this.htmlDocumentParser.parse(action.element)
         this.reduce(
           {
-            type: EditorResultActionType.MODIFY_TEXT_PARAGRAPH,
-            value: action.value,
-            paragraphId: action.paragraphId,
-            spanId: action.spanId
+            type: EditorResultActionType.UPDATE_DOCUMENT,
+            document: document
           }
         )
         break
@@ -43,35 +44,6 @@ export class EditorExecutor extends Executor<EditorState, EditorAction, EditorRe
           }
         )
         break
-
-      case EditorActionType.MODIFY_TITLE:
-        this.reduce(
-          {
-            type: EditorResultActionType.MODIFY_TITLE,
-            value: action.value
-          }
-        )
-        break
-
-      case EditorActionType.REMOVE_TEXT_SPAN:
-        this.reduce(
-          {
-            type: EditorResultActionType.REMOVE_TEXT_SPAN,
-            paragraphId: action.paragraphId,
-            spanId: action.spanId
-          }
-        )
-        break
-
-      case EditorActionType.ADD_TEXT_SPAN:
-        this.reduce(
-          {
-            type: EditorResultActionType.ADD_TEXT_SPAN,
-            value: action.value,
-            paragraphId: action.paragraphId,
-            spanId: action.spanId
-          }
-        )
     }
   }
 

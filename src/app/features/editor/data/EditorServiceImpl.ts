@@ -10,32 +10,26 @@ export class EditorServiceImpl extends EditorService {
     return {
       title: "Сборка и запуск Angular приложения в Docker контейнере",
       paragraphs: [
-        // {
-        //   type: "text",
-        //   id: "1",
-        //   spans: [
-        //     {
-        //       id: "1",
-        //       text: "Сборка и запуск Angular приложения в Docker контейнере",
-        //       style: {
-        //         bold: true,
-        //         size: 32,
-        //       }
-        //     }
-        //   ]
-        // },
         {
           type: "text",
-          id:
-            "2",
+          spans: [
+            {
+              text: "Сборка и запуск Angular приложения в Docker контейнере",
+              style: {
+                bold: true,
+                size: 24,
+              }
+            }
+          ]
+        },
+        {
+          type: "text",
           spans:
             [
               {
-                id: "1",
                 text: "В этой статье мы рассмотрим как собирать и запускать Angular приложение в Docker контейнере. Для этого будем использовать файл Dockerfile, где будут содержаться все необходимые инструкции. Наше приложение будет билдится и хостить свой production-ready код,",
               },
               {
-                id: "2",
                 text: " в контейнере",
                 style: {
                   bold: true,
@@ -43,7 +37,6 @@ export class EditorServiceImpl extends EditorService {
                 }
               },
               {
-                id: "3",
                 text: " с веб сервером NGINX.",
               }
             ]

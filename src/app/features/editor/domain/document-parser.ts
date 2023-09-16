@@ -1,5 +1,6 @@
 import {Injectable} from "@angular/core";
-import {ImageParagraph, LongreadDocument, TextParagraph, TextSpan} from "./models/models";
+import {ImageParagraph, LongreadDocument, TextParagraph, TextSpan, TextStyle} from "./models/models";
+import {BOLD, CURSIVE, SEPARATOR, SIZE_24} from "./style-const";
 
 @Injectable({
   providedIn: 'root',
@@ -54,27 +55,32 @@ export class DocumentParser {
   private addTextSpanElement(element: HTMLElement, textSpan: TextSpan, paragraph: TextParagraph) {
     const textDivElement = document.createElement("span")
     textDivElement.innerHTML = textSpan.text
-    textDivElement.setAttribute("paragraphId", paragraph.id)
-    textDivElement.setAttribute("spanId", textSpan.id)
 
-    if (textSpan.hasOwnProperty('style')) {
+    if (textSpan.style != undefined) {
       this.addTextStyle(textDivElement, textSpan.style)
     }
 
     element.appendChild(textDivElement)
   }
 
-  private addTextStyle(element: HTMLElement, style: any) {
+  private addTextStyle(element: HTMLElement, style: TextStyle) {
     let styleClass = ""
 
     if (style.hasOwnProperty('bold') && style.bold) {
-      styleClass += "font-bold"
+      styleClass += BOLD
+    }
+
+    if (style.hasOwnProperty('cursive') && style.cursive) {
+      styleClass += SEPARATOR + CURSIVE
     }
 
     if (style.hasOwnProperty('size')) {
-      styleClass += " text-2xl"
+      if (style.size == 24) {
+        styleClass += SEPARATOR + SIZE_24
+      }
     }
 
+    console.log("style " + styleClass)
     element.setAttribute("class", styleClass)
   }
 
@@ -85,7 +91,6 @@ export class DocumentParser {
     imageDivElement.setAttribute("class", "flex flex-col")
 
     const imageElement = document.createElement("img")
-    imageElement.setAttribute("paragraphId", imageParagraph.id)
     imageElement.setAttribute("class", "place-self-center")
     imageElement.setAttribute("src", imageParagraph.url)
     imageElement.setAttribute("title", "")
@@ -93,7 +98,6 @@ export class DocumentParser {
 
     const textDivElement = document.createElement("div")
     textDivElement.innerHTML = imageParagraph.description
-    textDivElement.setAttribute("paragraphId", imageParagraph.id)
     textDivElement.setAttribute("class", "place-self-center")
     imageDivElement.appendChild(textDivElement)
     doc.appendChild(imageDivElement)

@@ -6,6 +6,7 @@ import {EditorResultAction} from "./state/editor-result-action";
 import {EditorAction, EditorActionType} from "./state/editor-action";
 import {EditorExecutor} from "./state/editor-executor";
 import {EditorReducer} from "./state/editor-reducer";
+import {HtmlDocumentParser} from "../../domain/html-document-parser";
 
 @Component({
   selector: 'app-editor',
@@ -19,7 +20,7 @@ export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAc
   constructor(
     state: EditorState,
     executor: EditorExecutor,
-    reducer: EditorReducer
+    reducer: EditorReducer,
   ) {
     super(state, executor, reducer);
     this.subscribeToUpdateHtml()
@@ -38,21 +39,12 @@ export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAc
         self.cursorPosition = position
       }
 
-      e.forEach((record) => {
-        self.modifyDoc(record.target)
-
-        record.addedNodes.forEach((removedNodes) => {
-          if (removedNodes instanceof HTMLElement) {
-            self.addNode(removedNodes as HTMLElement)
-          }
+      if (parent != null) {
+        self.performAction({
+          type: EditorActionType.UPDATE_DOCUMENT,
+          element: parent
         })
-
-        record.removedNodes.forEach((removedNodes) => {
-          if (removedNodes instanceof HTMLElement) {
-            self.removeNode(removedNodes as HTMLElement)
-          }
-        })
-      })
+      }
 
       // Переписать хак с установкой курсора
       // например можно чекать не позицию а что обновляется
@@ -65,63 +57,6 @@ export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAc
     if (div != null) {
       divMO.observe(div, {childList: true, subtree: true, characterData: true});
     }
-  }
-
-  modifyDoc(target: Node) {
-    const value = <string>target.nodeValue?.toString()
-
-    //if (target.parentElement?.getAttribute("type") == "title") {
-    //   this.performAction({
-    //     type: EditorActionType.MODIFY_TITLE,
-    //     value: value,
-    //   })
-    //return;
-    //}
-    const paragraphId = target.parentElement?.getAttribute("paragraphId")
-    if (paragraphId == null) return
-
-    const spanId = target.parentElement?.getAttribute("spanId")
-
-    if (spanId == null) return
-
-    this.performAction({
-      type: EditorActionType.MODIFY_TEXT_PARAGRAPH,
-      value: value,
-      paragraphId: paragraphId,
-      spanId: spanId
-    })
-  }
-
-  private removeNode(target: HTMLElement) {
-    const paragraphId = target?.getAttribute("paragraphId")
-    if (paragraphId == null) return
-
-    const spanId = target?.getAttribute("spanId")
-    if (spanId == null) return
-
-    this.performAction({
-      type: EditorActionType.REMOVE_TEXT_SPAN,
-      paragraphId: paragraphId,
-      spanId: spanId
-    })
-  }
-
-  private addNode(target: HTMLElement) {
-    const paragraphId = target?.getAttribute("paragraphId")
-    console.log("paragraphId " + paragraphId)
-    if (paragraphId == null) return
-
-    const spanId = target?.getAttribute("spanId")
-    console.log("spanId " + spanId)
-    if (spanId == null) return
-
-    const value = <string>target.nodeValue?.toString()
-    this.performAction({
-      type: EditorActionType.ADD_TEXT_SPAN,
-      value: value,
-      paragraphId: paragraphId,
-      spanId: spanId
-    })
   }
 
   getCursorPosition(parent: any) {
