@@ -7,7 +7,7 @@ import {
   TextSpan,
   TextStyle
 } from "./models/models";
-import {BOLD, CURSIVE, SEPARATOR, SIZE_24} from "./style-const";
+import {BOLD, CURSIVE, FontSize, SEPARATOR, SIZE_24, SIZE_30} from "./style-const";
 
 @Injectable({
   providedIn: 'root',
@@ -33,7 +33,6 @@ export class DocumentParser {
       placeHolderElement.setAttribute("contenteditable", "false")
       placeHolderElement.innerHTML = "Просто начните"
       doc.appendChild(placeHolderElement)
-
     }
 
     if (longreadDocument.paragraphs.length == 0) {
@@ -63,8 +62,10 @@ export class DocumentParser {
   private addTitle(doc: HTMLElement, title: string) {
     const titleElement = document.createElement("div")
     titleElement.innerHTML = title
-    titleElement.setAttribute("class", "font-bold text-4xl mt-4 mb-4  w-max")
+    titleElement.setAttribute("class", "font-bold text-4xl mt-4 mb-4  w-max min-w-full edit-area")
     titleElement.setAttribute("type", "title")
+    titleElement.setAttribute("placeholder", "title")
+    titleElement.setAttribute("contenteditable", "true")
 
     if (title == "" || title == "<br>") {
       titleElement.innerHTML = "<br>"
@@ -108,8 +109,12 @@ export class DocumentParser {
     }
 
     if (style.hasOwnProperty('size')) {
-      if (style.size == 24) {
-        styleClass += SEPARATOR + SIZE_24
+      styleClass += SEPARATOR
+
+      if (style.size === FontSize.SIZE_24) {
+        styleClass += SIZE_24
+      } else if (style.size === FontSize.SIZE_30) {
+        styleClass += SIZE_30
       }
     }
 

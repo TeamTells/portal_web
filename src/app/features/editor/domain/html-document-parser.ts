@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {LongreadDocument, Paragraph, ParagraphTypeConsts, TextParagraph, TextSpan, TextStyle} from "./models/models";
-import {BOLD, CURSIVE, SEPARATOR, SIZE_24} from "./style-const";
+import {BOLD, CURSIVE, FontSize, SEPARATOR, SIZE_24, SIZE_30} from "./style-const";
 
 @Injectable({
   providedIn: 'root',
@@ -70,7 +70,9 @@ export class HtmlDocumentParser {
         } else if (value == CURSIVE) {
           style.cursive = true
         } else if (value == SIZE_24) {
-          style.size = 24
+          style.size = FontSize.SIZE_24
+        } else if (value == SIZE_30) {
+          style.size = FontSize.SIZE_30
         }
       })
       return style

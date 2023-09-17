@@ -51,6 +51,16 @@ export class EditorExecutor extends Executor<EditorState, EditorAction, EditorRe
             type: EditorResultActionType.CHANGE_MENU_VISIBILITY
           }
         )
+        break
+
+      case EditorActionType.CHANGE_LAST_SPAN_STYLE:
+        this.reduce(
+          {
+            type: EditorResultActionType.CHANGE_LAST_SPAN_STYLE,
+            style: action.style
+          }
+        )
+        break
     }
   }
 

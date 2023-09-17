@@ -3,7 +3,7 @@ import {comment} from "postcss";
 import {Store} from "../../../../core/mvi/store";
 import {EditorState} from "./state/editor-state";
 import {EditorResultAction} from "./state/editor-result-action";
-import {EditorAction, EditorActionType} from "./state/editor-action";
+import {EditorAction, EditorActionType, TextSpanStyle} from "./state/editor-action";
 import {EditorExecutor} from "./state/editor-executor";
 import {EditorReducer} from "./state/editor-reducer";
 import {HtmlDocumentParser} from "../../domain/html-document-parser";
@@ -101,4 +101,5 @@ export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAc
 
   protected readonly comment = comment;
   protected readonly EditorActionType = EditorActionType;
+  protected readonly TextSpanStyle = TextSpanStyle;
 }
