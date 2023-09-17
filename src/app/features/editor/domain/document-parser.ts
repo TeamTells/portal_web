@@ -37,7 +37,7 @@ export class DocumentParser {
     }
 
     if (longreadDocument.paragraphs.length == 0) {
-      longreadDocument.paragraphs.push(new TextParagraph(ParagraphTypeConsts.text, [new TextSpan("<br>")]))
+      longreadDocument.paragraphs.push(new TextParagraph(ParagraphTypeConsts.text, [new TextSpan("")]))
     }
 
     longreadDocument.paragraphs.forEach((paragraph, index) => {
