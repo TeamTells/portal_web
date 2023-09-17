@@ -8,39 +8,47 @@ import {Injectable} from "@angular/core";
 export class EditorServiceImpl extends EditorService {
   getDocumentBy(uid: string): LongreadDocument {
     return {
-      title: "Сборка и запуск Angular приложения в Docker контейнере",
+      title: "<br>",
       paragraphs: [
-        {
-          type: "text",
-          spans: [
-            {
-              text: "Сборка и запуск Angular приложения в Docker контейнере",
-              style: {
-                bold: true,
-                size: 24,
-              }
-            }
-          ]
-        },
-        {
-          type: "text",
-          spans:
-            [
-              {
-                text: "В этой статье мы рассмотрим как собирать и запускать Angular приложение в Docker контейнере. Для этого будем использовать файл Dockerfile, где будут содержаться все необходимые инструкции. Наше приложение будет билдится и хостить свой production-ready код,",
-              },
-              {
-                text: " в контейнере",
-                style: {
-                  bold: true,
-                  cursive: true,
-                }
-              },
-              {
-                text: " с веб сервером NGINX.",
-              }
-            ]
-        }
+        // {
+        //   type: "text",
+        //   spans: [
+        //     {
+        //       text: "<br>"
+        //     }
+        //   ]
+        // },
+        // {
+        //   type: "text",
+        //   spans: [
+        //     {
+        //       text: "Сборка и запуск Angular приложения в Docker контейнере",
+        //       style: {
+        //         bold: true,
+        //         size: 24,
+        //       }
+        //     }
+        //   ]
+        // },
+        // {
+        //   type: "text",
+        //   spans:
+        //     [
+        //       {
+        //         text: "В этой статье мы рассмотрим как собирать и запускать Angular приложение в Docker контейнере. Для этого будем использовать файл Dockerfile, где будут содержаться все необходимые инструкции. Наше приложение будет билдится и хостить свой production-ready код,",
+        //       },
+        //       {
+        //         text: " в контейнере",
+        //         style: {
+        //           bold: true,
+        //           cursive: true,
+        //         }
+        //       },
+        //       {
+        //         text: " с веб сервером NGINX.",
+        //       }
+        //     ]
+        // }
         // ,
         // {
         //   type: "text",

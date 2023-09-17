@@ -50,3 +50,10 @@ export class TextStyle {
   }
 
 }
+
+export class ParagraphTypeConsts {
+
+  static text: string = "text"
+  static image: string = "image"
+
+}

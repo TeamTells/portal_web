@@ -1,5 +1,12 @@
 import {Injectable} from "@angular/core";
-import {ImageParagraph, LongreadDocument, TextParagraph, TextSpan, TextStyle} from "./models/models";
+import {
+  ImageParagraph,
+  LongreadDocument,
+  ParagraphTypeConsts,
+  TextParagraph,
+  TextSpan,
+  TextStyle
+} from "./models/models";
 import {BOLD, CURSIVE, SEPARATOR, SIZE_24} from "./style-const";
 
 @Injectable({
@@ -15,14 +22,32 @@ export class DocumentParser {
 
     this.addTitle(doc, longreadDocument.title)
 
+    const withPlaceholder = longreadDocument.paragraphs.length == 1 &&
+      longreadDocument.paragraphs[0].type == "text" &&
+      (longreadDocument.paragraphs[0] as TextParagraph).spans.length == 1 &&
+      (longreadDocument.paragraphs[0] as TextParagraph).spans[0].text == "<br>"
+
+    if (withPlaceholder) {
+      const placeHolderElement = document.createElement("div")
+      placeHolderElement.setAttribute("class", "absolute text-base text-gray-400")
+      placeHolderElement.setAttribute("contenteditable", "false")
+      placeHolderElement.innerHTML = "Просто начните"
+      doc.appendChild(placeHolderElement)
+
+    }
+
+    if (longreadDocument.paragraphs.length == 0) {
+      longreadDocument.paragraphs.push(new TextParagraph(ParagraphTypeConsts.text, [new TextSpan("<br>")]))
+    }
+
     longreadDocument.paragraphs.forEach((paragraph, index) => {
-      if (paragraph.type == "text") {
+      if (paragraph.type == ParagraphTypeConsts.text) {
         const textParagraph = paragraph as TextParagraph
 
         textParagraph.spans.forEach((textSpan, index) => {
-          this.addTextSpanElement(element, textSpan, textParagraph)
+          this.addTextSpanElement(element, textSpan, index == 0)
         })
-      } else if (paragraph.type == "image") {
+      } else if (paragraph.type == ParagraphTypeConsts.image) {
         this.addImage(paragraph, doc)
       }
 
@@ -37,24 +62,32 @@ export class DocumentParser {
 
   private addTitle(doc: HTMLElement, title: string) {
     const titleElement = document.createElement("div")
-
     titleElement.innerHTML = title
-    titleElement.setAttribute("class", "font-bold text-4xl mt-4 mb-4")
+    titleElement.setAttribute("class", "font-bold text-4xl mt-4 mb-4  w-max")
     titleElement.setAttribute("type", "title")
-    if (title == "") {
+
+    if (title == "" || title == "<br>") {
       titleElement.innerHTML = "<br>"
       const placeHolderElement = document.createElement("div")
-      placeHolderElement.setAttribute("class", "font-bold text-4xl mt-4 mb-4 text-gray-400")
+      placeHolderElement.setAttribute("class", "absolute font-bold text-5xl mt-4 mb-4 text-gray-400")
       placeHolderElement.setAttribute("contenteditable", "false")
       placeHolderElement.innerHTML = "Заголовок"
       doc.appendChild(placeHolderElement)
     }
+
     doc.appendChild(titleElement)
   }
 
-  private addTextSpanElement(element: HTMLElement, textSpan: TextSpan, paragraph: TextParagraph) {
+  private addTextSpanElement(element: HTMLElement, textSpan: TextSpan, isFirstSpan: boolean) {
     const textDivElement = document.createElement("span")
-    textDivElement.innerHTML = textSpan.text
+
+    let text = textSpan.text
+
+    if (text.length == 0) {
+      text = "<br>"
+    }
+
+    textDivElement.innerHTML = text
 
     if (textSpan.style != undefined) {
       this.addTextStyle(textDivElement, textSpan.style)
@@ -80,7 +113,6 @@ export class DocumentParser {
       }
     }
 
-    console.log("style " + styleClass)
     element.setAttribute("class", styleClass)
   }
 

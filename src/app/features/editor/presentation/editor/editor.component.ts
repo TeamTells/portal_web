@@ -30,8 +30,6 @@ export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAc
     const div = document.querySelector('div');
     const self = this
     const divMO = new window.MutationObserver(function (e) {
-      console.log(e)
-
       const parent = document.getElementById("parent")
       const position = self.getCursorPosition(parent)
 

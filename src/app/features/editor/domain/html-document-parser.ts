@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {LongreadDocument, Paragraph, TextParagraph, TextSpan, TextStyle} from "./models/models";
+import {LongreadDocument, Paragraph, ParagraphTypeConsts, TextParagraph, TextSpan, TextStyle} from "./models/models";
 import {BOLD, CURSIVE, SEPARATOR, SIZE_24} from "./style-const";
 
 @Injectable({
@@ -10,8 +10,9 @@ export class HtmlDocumentParser {
   space = "&nbsp"
 
   parse(html: HTMLElement) {
+    console.log(html)
+
     const parent = html.children[0]
-    console.log(parent as HTMLElement)
     const children = parent.children
 
     let title = ""
@@ -22,19 +23,16 @@ export class HtmlDocumentParser {
 
       if (type == "title") {
         title = element.innerHTML
-      } else if (type == "text") {
+      } else if (type == ParagraphTypeConsts.text) {
         this.addTextParagraph(paragraphs, element)
-      } else if (type == "image") {
+      } else if (type == ParagraphTypeConsts.image) {
 
       }
     }
 
-    const newDocument = new LongreadDocument(
+    return new LongreadDocument(
       title, paragraphs
     )
-
-    console.log(newDocument)
-    return newDocument
   }
 
   private addTextParagraph(paragraphs: Array<Paragraph>, element: Element) {
@@ -52,7 +50,7 @@ export class HtmlDocumentParser {
       spans.push(span)
     }
 
-    paragraphs.push(new TextParagraph("text", spans))
+    paragraphs.push(new TextParagraph(ParagraphTypeConsts.text, spans))
   }
 
   private createStyle(child: Element) {
