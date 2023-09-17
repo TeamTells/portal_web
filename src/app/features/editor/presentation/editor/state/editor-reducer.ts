@@ -4,7 +4,7 @@ import {EditorResultAction, EditorResultActionType} from "./editor-result-action
 import {Injectable} from "@angular/core";
 import {clone} from "cloneable-ts";
 import {DocumentParser} from "../../../domain/document-parser";
-import {LongreadDocument, Paragraph, TextParagraph, TextSpan} from "../../../domain/models/models";
+import {LongreadDocument} from "../../../domain/models/models";
 import {v4 as uuidv4} from 'uuid';
 
 @Injectable({
@@ -24,6 +24,9 @@ export class EditorReducer implements Reducer<EditorState, EditorResultAction> {
 
       case EditorResultActionType.ADD_TEXT_PARAGRAPH:
         return this.addTextParagraph(state)
+
+      case EditorResultActionType.CHANGE_MENU_VISIBILITY:
+        return this.changeMenuVisibility(state)
     }
   }
 
@@ -50,6 +53,10 @@ export class EditorReducer implements Reducer<EditorState, EditorResultAction> {
     newDocument.paragraphs.push(paragraph)
 
     return this.updateDocument(state, newDocument)
+  }
+
+  private changeMenuVisibility(state: EditorState): EditorState {
+    return clone(state, {isDropdownMenuVisible: !state.isDropdownMenuVisible})
   }
 
 }

@@ -1,9 +1,11 @@
 export type EditorAction = UpdateDocument |
-  AddTextParagraph
+  AddTextParagraph |
+  ChangeMenuVisibility
 
 export enum EditorActionType {
   UPDATE_DOCUMENT,
   ADD_TEXT_PARAGRAPH,
+  CHANGE_MENU_VISIBILITY,
 }
 
 export interface UpdateDocument {
@@ -13,4 +15,8 @@ export interface UpdateDocument {
 
 export interface AddTextParagraph {
   readonly type: EditorActionType.ADD_TEXT_PARAGRAPH
+}
+
+export interface ChangeMenuVisibility {
+  readonly type: EditorActionType.CHANGE_MENU_VISIBILITY
 }

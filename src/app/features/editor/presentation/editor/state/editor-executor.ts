@@ -44,6 +44,13 @@ export class EditorExecutor extends Executor<EditorState, EditorAction, EditorRe
           }
         )
         break
+
+      case EditorActionType.CHANGE_MENU_VISIBILITY:
+        this.reduce(
+          {
+            type: EditorResultActionType.CHANGE_MENU_VISIBILITY
+          }
+        )
     }
   }
 

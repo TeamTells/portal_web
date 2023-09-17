@@ -7,4 +7,5 @@ import {LongreadDocument} from "../../../domain/models/models";
 export class EditorState {
   readonly document: LongreadDocument = new LongreadDocument("", [])
   readonly content: string = ""
+  readonly isDropdownMenuVisible: boolean = false
 }
