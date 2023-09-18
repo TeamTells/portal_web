@@ -10,8 +10,6 @@ export class HtmlDocumentParser {
   space = "&nbsp"
 
   parse(html: HTMLElement) {
-    console.log(html)
-
     const parent = html.children[0]
     const children = parent.children
 

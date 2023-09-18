@@ -44,10 +44,13 @@ export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAc
         })
       }
 
+      //document.getElementById()
+
       // Переписать хак с установкой курсора
       // например можно чекать не позицию а что обновляется
       // и если весь документ восстанавливать позицию
       if (position == 0) {
+        console.log(self.cursorPosition)
         self.setCursorPosition(self.cursorPosition)
       }
     });
@@ -65,6 +68,8 @@ export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAc
 
     const anchorNode = selection.anchorNode
     if (anchorNode == null) return 0
+    console.log('selection.anchorNode')
+    console.log(selection.anchorNode)
     range.setEnd(anchorNode, selection.anchorOffset)
     return range.toString().length
   }

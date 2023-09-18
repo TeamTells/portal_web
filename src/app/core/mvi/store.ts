@@ -9,7 +9,6 @@ export abstract class Store<TState, TExecutor extends Executor<TState, TAction, 
   ) {
     this.state = initState
     executor.init(reducer, (): TState => this.state, (state) => {
-      console.log(state)
       this.state = state
     })
   }
