@@ -8,7 +8,7 @@ import {Injectable} from "@angular/core";
 export class EditorServiceImpl extends EditorService {
   getDocumentBy(uid: string): LongreadDocument {
     return {
-      title: "<br>",
+      title: "",
       paragraphs: [
         // {
         //   type: "text",

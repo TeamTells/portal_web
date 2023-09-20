@@ -37,13 +37,13 @@ export class EditorReducer implements Reducer<EditorState, EditorResultAction> {
 
   private updateDocument(state: EditorState, newDocument: LongreadDocument): EditorState {
     return clone(state, {
-      document: newDocument,
-      content: this.parser.parse(newDocument)
+      longreadDocument: newDocument,
+      content: this.parser.parse(newDocument, state.isDropdownMenuVisibleSet)
     })
   }
 
   private addTextParagraph(state: EditorState): EditorState {
-    const newDocument = clone(state.document)
+    const newDocument = clone(state.longreadDocument)
 
     const paragraph = {
       id: uuidv4(),
@@ -66,7 +66,7 @@ export class EditorReducer implements Reducer<EditorState, EditorResultAction> {
 
   private changeLastSpanStyle(state: EditorState, style: TextSpanStyle): EditorState {
     const newState = clone(state, {isDropdownMenuVisible: false})
-    const newDocument = newState.document
+    const newDocument = newState.longreadDocument
 
     if (newDocument.paragraphs.length == 0) {
       return state

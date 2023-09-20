@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {AfterViewInit, Component} from '@angular/core';
 import {comment} from "postcss";
 import {Store} from "../../../../core/mvi/store";
 import {EditorState} from "./state/editor-state";
@@ -44,14 +44,25 @@ export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAc
         })
       }
 
-      //document.getElementById()
+      const button = document.getElementById("menu-button-0")
+
+      self.subscribeToPlaceholderClick()
+      button?.addEventListener('click', (event) => {
+        const dropDown = document.getElementById("menu-drop-down-0")
+        console.log("wtf?")
+        if (dropDown != null) {
+          //console.log(document.activeElement)
+          dropDown.hidden = !dropDown.hidden
+          self.setCursorPosition(self.cursorPosition, parent)
+        }
+      })
 
       // Переписать хак с установкой курсора
       // например можно чекать не позицию а что обновляется
       // и если весь документ восстанавливать позицию
       if (position == 0) {
-        console.log(self.cursorPosition)
-        self.setCursorPosition(self.cursorPosition)
+        //console.log(self.cursorPosition)
+        self.setCursorPosition(self.cursorPosition, parent)
       }
     });
 
@@ -68,14 +79,14 @@ export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAc
 
     const anchorNode = selection.anchorNode
     if (anchorNode == null) return 0
-    console.log('selection.anchorNode')
-    console.log(selection.anchorNode)
+    // console.log('selection.anchorNode')
+    // console.log(selection.anchorNode)
     range.setEnd(anchorNode, selection.anchorOffset)
     return range.toString().length
   }
 
-  setCursorPosition(position: number) {
-    const parent = document.getElementById("parent")
+  setCursorPosition(position: number, target: HTMLElement | null) {
+    const parent = target
     if (parent == null) return
     let child = parent.firstChild
 
@@ -99,12 +110,37 @@ export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAc
     }
   }
 
-  findPatches() {
-    // console.log(compare(this.startDoc, this.doc))
-    // this.startDoc = clone(this.doc)
+  private subscribeToPlaceholderClick() {
+    // const parent = document.getElementById("parent")
+    //
+    // if (parent != null) {
+    //   parent.addEventListener('click', (event) => {
+    //     console.log(this.getCursorPosition(document.getElementById("ed_title")))
+    //   })
+    // }
+    //
+    // const titlePlaceholder = document.getElementById("ed_title_placeholder")
+    //
+    // if (titlePlaceholder != null) {
+    //   titlePlaceholder.hidden = !this.state.isTitlePlaceholderVisible()
+    //   titlePlaceholder.addEventListener('click', (event) => {
+    //     this.setCursorPosition(1, document.getElementById("ed_title"))
+    //     //console.log(this.getCursorPosition(parent))
+    //   })
+    // }
+    //
+    // const textPlaceholder = document.getElementById("ed_text_placeholder")
+    //
+    // if (textPlaceholder != null) {
+    //   textPlaceholder.hidden = !this.state.isTextPlaceholderVisible()
+    //
+    //   textPlaceholder.addEventListener('click', (event) => {
+    //     this.setCursorPosition(23, parent)
+    //     //console.log(this.getCursorPosition(parent))
+    //   })
+    // }
   }
 
-  protected readonly comment = comment;
   protected readonly EditorActionType = EditorActionType;
   protected readonly TextSpanStyle = TextSpanStyle;
 }

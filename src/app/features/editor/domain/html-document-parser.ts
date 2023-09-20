@@ -17,10 +17,14 @@ export class HtmlDocumentParser {
     let paragraphs: Array<Paragraph> = []
     for (let i = 0; i < children.length; i++) {
       const element = children[i]
-      const type = children[i].getAttribute("type")
+      const type = children[i].getAttribute("ed-type")
 
-      if (type == "title") {
-        title = element.innerHTML
+      if (type == ParagraphTypeConsts.title) {
+        if (element.innerHTML == "<br>") {
+          title = ""
+        } else {
+          title = element.innerHTML
+        }
       } else if (type == ParagraphTypeConsts.text) {
         this.addTextParagraph(paragraphs, element)
       } else if (type == ParagraphTypeConsts.image) {

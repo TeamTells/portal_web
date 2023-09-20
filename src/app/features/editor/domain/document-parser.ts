@@ -16,45 +16,36 @@ export class DocumentParser {
 
   space = "&nbsp"
 
-  parse(longreadDocument: LongreadDocument) {
+  constructor() {
+    this.addGlobalStyles()
+  }
+
+  parse(longreadDocument: LongreadDocument, isDropdownMenuVisibleSet: Set<string>) {
     const doc = document.createElement("div")
     let element = document.createElement("div");
 
     this.addTitle(doc, longreadDocument.title)
 
-    const withPlaceholder = longreadDocument.paragraphs.length == 1 &&
-      longreadDocument.paragraphs[0].type == "text" &&
-      (longreadDocument.paragraphs[0] as TextParagraph).spans.length == 1 &&
-      (longreadDocument.paragraphs[0] as TextParagraph).spans[0].text == "<br>"
-
-    if (withPlaceholder) {
-      const placeHolderElement = document.createElement("div")
-      placeHolderElement.setAttribute("class", "absolute text-base text-gray-400 ms-12 me-12")
-      placeHolderElement.setAttribute("contenteditable", "false")
-      placeHolderElement.innerHTML = "Просто начните"
-      doc.appendChild(placeHolderElement)
-    }
-
     if (longreadDocument.paragraphs.length == 0) {
       longreadDocument.paragraphs.push(new TextParagraph(ParagraphTypeConsts.text, [new TextSpan("")]))
     }
 
-    longreadDocument.paragraphs.forEach((paragraph, index) => {
+    longreadDocument.paragraphs.forEach((paragraph, paragraphIndex) => {
       if (paragraph.type == ParagraphTypeConsts.text) {
         const textParagraph = paragraph as TextParagraph
 
         textParagraph.spans.forEach((textSpan, index) => {
-          this.addTextSpanElement(element, textSpan, index == 0)
+          this.addTextSpanElement(element, textSpan, index == 0 && paragraphIndex == 0 && longreadDocument.paragraphs.length == 1 && (longreadDocument.paragraphs[0] as TextParagraph).spans.length == 1)
         })
 
       } else if (paragraph.type == ParagraphTypeConsts.image) {
         this.addImage(paragraph, doc)
       }
 
-      element.setAttribute("type", paragraph.type.toString())
-      element.setAttribute("class", "mt-4 ms-12 me-12")
+      element.setAttribute("ed-type", paragraph.type.toString())
+      element.setAttribute("class", "mt-4 ms-12 me-12 min-w-full")
       doc.appendChild(element)
-      this.addMenu(index, doc)
+      this.addMenu(paragraphIndex, doc, isDropdownMenuVisibleSet)
       element = document.createElement("div")
     })
 
@@ -64,19 +55,11 @@ export class DocumentParser {
   private addTitle(doc: HTMLElement, title: string) {
     const titleElement = document.createElement("div")
     titleElement.innerHTML = title
-    titleElement.setAttribute("class", "font-bold text-5xl mt-4 mb-4 ms-12 me-12 w-max min-w-full edit-area")
-    titleElement.setAttribute("type", "title")
-    titleElement.setAttribute("placeholder", "title")
+    titleElement.setAttribute("class", "font-bold text-5xl mt-4 mb-4 ms-12 me-12 w-max min-w-full")
+    titleElement.setAttribute("ed-type",  ParagraphTypeConsts.title)
     titleElement.setAttribute("contenteditable", "true")
-
-    if (title == "" || title == "<br>") {
-      titleElement.innerHTML = "<br>"
-      const placeHolderElement = document.createElement("div")
-      placeHolderElement.setAttribute("class", "absolute font-bold text-5xl mt-4 mb-4 ms-12 me-12 text-gray-400")
-      placeHolderElement.setAttribute("contenteditable", "false")
-      placeHolderElement.innerHTML = "Заголовок"
-      doc.appendChild(placeHolderElement)
-    }
+    titleElement.setAttribute("data-placeholder", "Заголовок")
+    titleElement.id = "ed_title"
 
     doc.appendChild(titleElement)
   }
@@ -86,7 +69,7 @@ export class DocumentParser {
 
     let text = textSpan.text
 
-    if (text.length == 0) {
+    if (text.length == 0 && !isFirstSpan) {
       text = "<br>"
     }
 
@@ -94,6 +77,10 @@ export class DocumentParser {
 
     if (textSpan.style != undefined) {
       this.addTextStyle(textDivElement, textSpan.style)
+    }
+
+    if (isFirstSpan) {
+      textDivElement.setAttribute("span-data-placeholder", "Просто начни")
     }
 
     element.appendChild(textDivElement)
@@ -142,17 +129,16 @@ export class DocumentParser {
     doc.appendChild(imageDivElement)
   }
 
-  private addMenu(paragraphIndex: number, doc: HTMLElement) {
+  private addMenu(paragraphIndex: number, doc: HTMLElement, isDropdownMenuVisibleSet: Set<string>) {
     const menuDiv = document.createElement("div")
     menuDiv.setAttribute("class", "relative inline-block text-left space-x-3 w-fit bottom-8")
     menuDiv.setAttribute("contenteditable", "false")
 
     const buttonDiv = document.createElement("div")
     const button = document.createElement("button")
+
+    button.id = "menu-button-" + paragraphIndex
     button.setAttribute("class", "py-2 px-2 rounded-full hover:bg-gray-200 hover:text-white transition duration-300")
-    // button.addEventListener('click', (event) => {
-    //
-    // })
 
     const svg = document.createElement("svg")
     svg.setAttribute("width", "24")
@@ -170,15 +156,18 @@ export class DocumentParser {
     buttonDiv.appendChild(button)
     menuDiv.appendChild(buttonDiv)
 
+    return
     const dropDownDiv = document.createElement("div")
     dropDownDiv.setAttribute("class", "absolute z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none")
     dropDownDiv.setAttribute("role", "menu")
     dropDownDiv.setAttribute("aria-orientation", "vertical")
     dropDownDiv.setAttribute("aria-labelledby", "menu-button")
     dropDownDiv.setAttribute("tabindex", "-1")
+    dropDownDiv.id = "menu-drop-down-" + paragraphIndex
 
     this.createDropDownDivPart(dropDownDiv)
     menuDiv.appendChild(dropDownDiv)
+
     doc.appendChild(menuDiv)
   }
 
@@ -206,6 +195,21 @@ export class DocumentParser {
     dropDownAText.textContent = text
 
     dropDownDiv.appendChild(dropDownAText)
+  }
+
+  private addGlobalStyles() {
+    const style = document.createElement('style')
+    style.innerHTML = `
+        div:empty:before {
+          content:attr(data-placeholder);
+          color:gray
+        }
+        span:empty:before {
+          content:attr(span-data-placeholder);
+          color:gray
+        }
+    `
+    document.head.appendChild(style)
   }
 
 }

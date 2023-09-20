@@ -55,5 +55,6 @@ export class ParagraphTypeConsts {
 
   static text: string = "text"
   static image: string = "image"
+  static title: string = "title"
 
 }
