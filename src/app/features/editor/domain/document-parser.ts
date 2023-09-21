@@ -81,6 +81,7 @@ export class DocumentParser {
 
     if (isFirstSpan) {
       textDivElement.setAttribute("span-data-placeholder", "Просто начни")
+      textDivElement.setAttribute("class", "newParagraphPlaceholder")
     }
 
     element.appendChild(textDivElement)
@@ -204,9 +205,14 @@ export class DocumentParser {
           content:attr(data-placeholder);
           color:gray
         }
-        span:empty:before {
-          content:attr(span-data-placeholder);
-          color:gray
+        .newParagraphPlaceholder {
+          display: inline-block;
+          outline: none
+        }
+
+        .newParagraphPlaceholder:empty::before {
+          content: attr(span-data-placeholder);
+          color: grey;
         }
     `
     document.head.appendChild(style)
