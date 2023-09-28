@@ -32,13 +32,17 @@ export class EditorReducer implements Reducer<EditorState, EditorResultAction> {
 
       case EditorResultActionType.CHANGE_LAST_SPAN_STYLE:
         return this.changeLastSpanStyle(state, action.style)
+
+
+      case EditorResultActionType.CHANGE_FOCUSED_PARAGRAPH_ID:
+        return this.changeFocusedParagraphId(state, action.focusedParagraphId)
     }
   }
 
   private updateDocument(state: EditorState, newDocument: LongreadDocument): EditorState {
     return clone(state, {
       longreadDocument: newDocument,
-      content: this.parser.parse(newDocument, state.isDropdownMenuVisibleSet)
+      content: this.parser.parse(newDocument, state.focusedParagraphId)
     })
   }
 
@@ -102,6 +106,13 @@ export class EditorReducer implements Reducer<EditorState, EditorResultAction> {
           FontSize.SIZE_24
         )
     }
+  }
+
+  private changeFocusedParagraphId(state: EditorState, focusedParagraphId: string): EditorState {
+    return clone(state, {
+      focusedParagraphId: focusedParagraphId,
+      content: this.parser.parse(state.longreadDocument, focusedParagraphId)
+    })
   }
 
 }

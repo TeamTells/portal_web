@@ -1,12 +1,10 @@
-import {AfterViewInit, Component} from '@angular/core';
-import {comment} from "postcss";
+import {Component} from '@angular/core';
 import {Store} from "../../../../core/mvi/store";
 import {EditorState} from "./state/editor-state";
 import {EditorResultAction} from "./state/editor-result-action";
 import {EditorAction, EditorActionType, TextSpanStyle} from "./state/editor-action";
 import {EditorExecutor} from "./state/editor-executor";
 import {EditorReducer} from "./state/editor-reducer";
-import {HtmlDocumentParser} from "../../domain/html-document-parser";
 
 @Component({
   selector: 'app-editor',
@@ -16,6 +14,15 @@ import {HtmlDocumentParser} from "../../domain/html-document-parser";
 export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAction, EditorResultAction> {
 
   cursorPosition = 0
+
+  private clickListener = () => {
+    console.log(document.getSelection()?.anchorNode?.parentElement)
+
+    this.performAction({
+      type: EditorActionType.CHANGE_FOCUSED_PARAGRAPH_ID,
+      focusedParagraphId: document.getSelection()?.anchorNode?.parentElement?.parentElement?.id || ""
+    })
+  }
 
   constructor(
     state: EditorState,
@@ -79,8 +86,7 @@ export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAc
 
     const anchorNode = selection.anchorNode
     if (anchorNode == null) return 0
-    // console.log('selection.anchorNode')
-    // console.log(selection.anchorNode)
+
     range.setEnd(anchorNode, selection.anchorOffset)
     return range.toString().length
   }
@@ -111,34 +117,12 @@ export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAc
   }
 
   private subscribeToPlaceholderClick() {
-    // const parent = document.getElementById("parent")
-    //
-    // if (parent != null) {
-    //   parent.addEventListener('click', (event) => {
-    //     console.log(this.getCursorPosition(document.getElementById("ed_title")))
-    //   })
-    // }
-    //
-    // const titlePlaceholder = document.getElementById("ed_title_placeholder")
-    //
-    // if (titlePlaceholder != null) {
-    //   titlePlaceholder.hidden = !this.state.isTitlePlaceholderVisible()
-    //   titlePlaceholder.addEventListener('click', (event) => {
-    //     this.setCursorPosition(1, document.getElementById("ed_title"))
-    //     //console.log(this.getCursorPosition(parent))
-    //   })
-    // }
-    //
-    // const textPlaceholder = document.getElementById("ed_text_placeholder")
-    //
-    // if (textPlaceholder != null) {
-    //   textPlaceholder.hidden = !this.state.isTextPlaceholderVisible()
-    //
-    //   textPlaceholder.addEventListener('click', (event) => {
-    //     this.setCursorPosition(23, parent)
-    //     //console.log(this.getCursorPosition(parent))
-    //   })
-    // }
+    const parent = document.getElementById("parent")
+
+    if (parent != null) {
+      parent.removeEventListener('click', this.clickListener)
+      parent.addEventListener('click', this.clickListener)
+    }
   }
 
   protected readonly EditorActionType = EditorActionType;

@@ -61,6 +61,16 @@ export class EditorExecutor extends Executor<EditorState, EditorAction, EditorRe
           }
         )
         break
+
+
+      case EditorActionType.CHANGE_FOCUSED_PARAGRAPH_ID:
+        this.reduce(
+            {
+              type: EditorResultActionType.CHANGE_FOCUSED_PARAGRAPH_ID,
+              focusedParagraphId: action.focusedParagraphId
+            }
+        )
+        break
     }
   }
 

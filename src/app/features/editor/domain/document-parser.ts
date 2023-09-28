@@ -20,7 +20,7 @@ export class DocumentParser {
     this.addGlobalStyles()
   }
 
-  parse(longreadDocument: LongreadDocument, isDropdownMenuVisibleSet: Set<string>) {
+  parse(longreadDocument: LongreadDocument, focusedParagraphId: string) {
     const doc = document.createElement("div")
     let element = document.createElement("div");
 
@@ -44,8 +44,15 @@ export class DocumentParser {
 
       element.setAttribute("ed-type", paragraph.type.toString())
       element.setAttribute("class", "mt-4 ms-12 me-12 min-w-full")
+      const paragraphId = "ed_paragraph_" + paragraphIndex
+      element.id = paragraphId
       doc.appendChild(element)
-      this.addMenu(paragraphIndex, doc, isDropdownMenuVisibleSet)
+
+      console.log("pid " + paragraphId)
+      console.log("fpid " + focusedParagraphId)
+      if (paragraphId == focusedParagraphId) {
+        this.addMenu(paragraphIndex, doc)
+      }
       element = document.createElement("div")
     })
 
@@ -130,7 +137,7 @@ export class DocumentParser {
     doc.appendChild(imageDivElement)
   }
 
-  private addMenu(paragraphIndex: number, doc: HTMLElement, isDropdownMenuVisibleSet: Set<string>) {
+  private addMenu(paragraphIndex: number, doc: HTMLElement) {
     const menuDiv = document.createElement("div")
     menuDiv.setAttribute("class", "relative inline-block text-left space-x-3 w-fit bottom-8")
     menuDiv.setAttribute("contenteditable", "false")
@@ -157,7 +164,6 @@ export class DocumentParser {
     buttonDiv.appendChild(button)
     menuDiv.appendChild(buttonDiv)
 
-    return
     const dropDownDiv = document.createElement("div")
     dropDownDiv.setAttribute("class", "absolute z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none")
     dropDownDiv.setAttribute("role", "menu")

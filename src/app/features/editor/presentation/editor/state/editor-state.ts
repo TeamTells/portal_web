@@ -8,7 +8,7 @@ export class EditorState {
   readonly longreadDocument: LongreadDocument = new LongreadDocument("", [])
   readonly content: string = ""
   readonly isDropdownMenuVisible: boolean = false
-  readonly isDropdownMenuVisibleSet: Set<string> = new Set<string>()
+  readonly focusedParagraphId: string  = ""
 
   isTitlePlaceholderVisible(): boolean {
     const title = this.longreadDocument.title
