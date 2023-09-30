@@ -10,109 +10,109 @@ import {TextSpanStyle} from "./editor-action";
 import {FontSize} from "../../../domain/style-const";
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class EditorReducer implements Reducer<EditorState, EditorResultAction> {
 
-  constructor(
-    private parser: DocumentParser,
-  ) {
-  }
-
-  reduce(state: EditorState, action: EditorResultAction): EditorState {
-    switch (action.type) {
-      case EditorResultActionType.UPDATE_DOCUMENT:
-        return this.updateDocument(state, action.document)
-
-      case EditorResultActionType.ADD_TEXT_PARAGRAPH:
-        return this.addTextParagraph(state)
-
-      case EditorResultActionType.CHANGE_MENU_VISIBILITY:
-        return this.changeMenuVisibility(state)
-
-      case EditorResultActionType.CHANGE_LAST_SPAN_STYLE:
-        return this.changeLastSpanStyle(state, action.style)
-
-
-      case EditorResultActionType.CHANGE_FOCUSED_PARAGRAPH_ID:
-        return this.changeFocusedParagraphId(state, action.focusedParagraphId)
+    constructor(
+        private parser: DocumentParser,
+    ) {
     }
-  }
 
-  private updateDocument(state: EditorState, newDocument: LongreadDocument): EditorState {
-    return clone(state, {
-      longreadDocument: newDocument,
-      content: this.parser.parse(newDocument, state.focusedParagraphId)
-    })
-  }
+    reduce(state: EditorState, action: EditorResultAction): EditorState {
+        switch (action.type) {
+            case EditorResultActionType.UPDATE_DOCUMENT:
+                return this.updateDocument(state, action.document)
 
-  private addTextParagraph(state: EditorState): EditorState {
-    const newDocument = clone(state.longreadDocument)
+            case EditorResultActionType.ADD_TEXT_PARAGRAPH:
+                return this.addTextParagraph(state)
 
-    const paragraph = {
-      id: uuidv4(),
-      type: "text",
-      spans: [
-        {
-          id: uuidv4(),
-          text: "<br>"
+            case EditorResultActionType.CHANGE_MENU_VISIBILITY:
+                return this.changeMenuVisibility(state)
+
+            case EditorResultActionType.CHANGE_LAST_SPAN_STYLE:
+                return this.changeLastSpanStyle(state, action.style)
+
+
+            case EditorResultActionType.CHANGE_FOCUSED_PARAGRAPH_ID:
+                return this.changeFocusedParagraphId(state, action.focusedParagraphId)
         }
-      ]
-    }
-    newDocument.paragraphs.push(paragraph)
-
-    return this.updateDocument(state, newDocument)
-  }
-
-  private changeMenuVisibility(state: EditorState): EditorState {
-    return clone(state, {isDropdownMenuVisible: !state.isDropdownMenuVisible})
-  }
-
-  private changeLastSpanStyle(state: EditorState, style: TextSpanStyle): EditorState {
-    const newState = clone(state, {isDropdownMenuVisible: false})
-    const newDocument = newState.longreadDocument
-
-    if (newDocument.paragraphs.length == 0) {
-      return state
     }
 
-    newDocument.paragraphs[newDocument.paragraphs.length - 1] = new TextParagraph(
-      ParagraphTypeConsts.text,
-      [
-        new TextSpan(
-          "",
-          this.createStyle(style)
-        )
-      ]
-    )
-
-    return this.updateDocument(newState, newDocument)
-  }
-
-  private createStyle(style: TextSpanStyle): TextStyle | undefined {
-    switch (style) {
-      case TextSpanStyle.TEXT:
-        return undefined
-      case TextSpanStyle.HEADER_1:
-        return new TextStyle(
-          true,
-          undefined,
-          FontSize.SIZE_30
-        )
-      case TextSpanStyle.HEADER_2:
-        return new TextStyle(
-          true,
-          undefined,
-          FontSize.SIZE_24
-        )
+    private updateDocument(state: EditorState, newDocument: LongreadDocument): EditorState {
+        return clone(state, {
+            longreadDocument: newDocument,
+            content: this.parser.parse(newDocument, state.focusedParagraphId, state.isDropdownMenuVisible)
+        })
     }
-  }
 
-  private changeFocusedParagraphId(state: EditorState, focusedParagraphId: string): EditorState {
-    return clone(state, {
-      focusedParagraphId: focusedParagraphId,
-      content: this.parser.parse(state.longreadDocument, focusedParagraphId)
-    })
-  }
+    private addTextParagraph(state: EditorState): EditorState {
+        const newDocument = clone(state.longreadDocument)
+
+        const paragraph = {
+            id: uuidv4(),
+            type: "text",
+            spans: [
+                {
+                    id: uuidv4(),
+                    text: "<br>"
+                }
+            ]
+        }
+        newDocument.paragraphs.push(paragraph)
+
+        return this.updateDocument(state, newDocument)
+    }
+
+    private changeMenuVisibility(state: EditorState): EditorState {
+        return clone(state, {isDropdownMenuVisible: !state.isDropdownMenuVisible})
+    }
+
+    private changeLastSpanStyle(state: EditorState, style: TextSpanStyle): EditorState {
+        const newState = clone(state, {isDropdownMenuVisible: false})
+        const newDocument = newState.longreadDocument
+
+        if (newDocument.paragraphs.length == 0) {
+            return state
+        }
+
+        newDocument.paragraphs[newDocument.paragraphs.length - 1] = new TextParagraph(
+            ParagraphTypeConsts.text,
+            [
+                new TextSpan(
+                    "",
+                    this.createStyle(style)
+                )
+            ]
+        )
+
+        return this.updateDocument(newState, newDocument)
+    }
+
+    private createStyle(style: TextSpanStyle): TextStyle | undefined {
+        switch (style) {
+            case TextSpanStyle.TEXT:
+                return undefined
+            case TextSpanStyle.HEADER_1:
+                return new TextStyle(
+                    true,
+                    undefined,
+                    FontSize.SIZE_30
+                )
+            case TextSpanStyle.HEADER_2:
+                return new TextStyle(
+                    true,
+                    undefined,
+                    FontSize.SIZE_24
+                )
+        }
+    }
+
+    private changeFocusedParagraphId(state: EditorState, focusedParagraphId: string): EditorState {
+        return clone(state, {
+            focusedParagraphId: focusedParagraphId,
+            content: this.parser.parse(state.longreadDocument, focusedParagraphId, state.isDropdownMenuVisible)
+        })
+    }
 
 }

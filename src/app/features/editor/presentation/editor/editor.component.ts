@@ -1,27 +1,34 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Store} from "../../../../core/mvi/store";
 import {EditorState} from "./state/editor-state";
 import {EditorResultAction} from "./state/editor-result-action";
 import {EditorAction, EditorActionType, TextSpanStyle} from "./state/editor-action";
 import {EditorExecutor} from "./state/editor-executor";
 import {EditorReducer} from "./state/editor-reducer";
+import {DropDown} from "../../domain/menu";
 
 @Component({
   selector: 'app-editor',
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.scss']
 })
-export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAction, EditorResultAction> {
+export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAction, EditorResultAction> implements OnInit {
 
-  cursorPosition = 0
-
+  private menu: HTMLElement | null = DropDown.create()
+  private dropDown: HTMLElement | null = null
+  private hideMenuListener = (event: MouseEvent) => {
+    console.log(event.target)
+    if (this.dropDown?.style.visibility == "visible") {
+      console.log("hide")
+      this.dropDown.style.visibility = "hidden"
+    }
+  }
   private clickListener = () => {
-    console.log(document.getSelection()?.anchorNode?.parentElement)
-
-    this.performAction({
-      type: EditorActionType.CHANGE_FOCUSED_PARAGRAPH_ID,
-      focusedParagraphId: document.getSelection()?.anchorNode?.parentElement?.parentElement?.id || ""
-    })
+    console.log(document.getSelection()?.anchorNode?.parentElement?.parentElement!)
+    const element = document.getSelection()?.anchorNode?.parentElement
+    if (this.menu != null) {
+      element?.parentElement?.insertBefore(this.menu, element)
+    }
   }
 
   constructor(
@@ -33,86 +40,48 @@ export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAc
     this.subscribeToUpdateHtml()
   }
 
+  ngOnInit(): void {
+
+  }
+
   private subscribeToUpdateHtml() {
     const div = document.querySelector('div');
     const self = this
     const divMO = new window.MutationObserver(function (e) {
+      self.dropDown = DropDown.create()
+      self.dropDown = document.getElementById("ed-drop-down")
+      console.log(e)
       const parent = document.getElementById("parent")
-      const position = self.getCursorPosition(parent)
 
-      if (position != 0) {
-        self.cursorPosition = position
-      }
-
-      if (parent != null) {
-        self.performAction({
-          type: EditorActionType.UPDATE_DOCUMENT,
-          element: parent
-        })
-      }
-
-      const button = document.getElementById("menu-button-0")
+      const button = document.getElementById("ed-menu-button")
 
       self.subscribeToPlaceholderClick()
-      button?.addEventListener('click', (event) => {
-        const dropDown = document.getElementById("menu-drop-down-0")
-        console.log("wtf?")
-        if (dropDown != null) {
-          //console.log(document.activeElement)
-          dropDown.hidden = !dropDown.hidden
-          self.setCursorPosition(self.cursorPosition, parent)
+      button?.addEventListener('click', (e) => {
+        document.removeEventListener("click", self.hideMenuListener)
+
+        if (self.dropDown?.style.visibility == "hidden") {
+          console.log("visible")
+          self.dropDown.style.visibility = "visible"
         }
+        e.stopPropagation()
+        //document.addEventListener("click", self.hideMenuListener)
+
       })
 
-      // Переписать хак с установкой курсора
-      // например можно чекать не позицию а что обновляется
-      // и если весь документ восстанавливать позицию
-      if (position == 0) {
-        //console.log(self.cursorPosition)
-        self.setCursorPosition(self.cursorPosition, parent)
+      if (self.dropDown?.style.visibility == "visible") {
+        window.onclick = () => {
+          console.log("hide")
+          if (self.dropDown?.style.visibility == "visible") {
+            self.dropDown!.style.visibility = "hidden"
+          }
+        }
       }
+
+
     });
 
     if (div != null) {
       divMO.observe(div, {childList: true, subtree: true, characterData: true});
-    }
-  }
-
-  getCursorPosition(parent: any) {
-    const selection = document.getSelection()
-    if (selection == null) return 0
-    const range = new Range()
-    range.setStart(parent, 0)
-
-    const anchorNode = selection.anchorNode
-    if (anchorNode == null) return 0
-
-    range.setEnd(anchorNode, selection.anchorOffset)
-    return range.toString().length
-  }
-
-  setCursorPosition(position: number, target: HTMLElement | null) {
-    const parent = target
-    if (parent == null) return
-    let child = parent.firstChild
-
-    while (position > 0) {
-      let length = child?.textContent?.length
-
-      if (length == undefined) return;
-
-      if (position > length) {
-        position -= length
-        child = child!.nextSibling
-      } else {
-        if (child!.nodeType == 3) {
-          child?.parentElement?.focus()
-          document?.getSelection()?.collapse(child, position)
-          return
-        }
-
-        child = child!.firstChild
-      }
     }
   }
 

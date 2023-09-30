@@ -20,11 +20,13 @@ export class DocumentParser {
     this.addGlobalStyles()
   }
 
-  parse(longreadDocument: LongreadDocument, focusedParagraphId: string) {
+  parse(
+    longreadDocument: LongreadDocument,
+    focusedParagraphId: string,
+    isDropdownVisible: boolean
+  ) {
     const doc = document.createElement("div")
     let element = document.createElement("div");
-
-    this.addTitle(doc, longreadDocument.title)
 
     if (longreadDocument.paragraphs.length == 0) {
       longreadDocument.paragraphs.push(new TextParagraph(ParagraphTypeConsts.text, [new TextSpan("")]))
@@ -46,29 +48,14 @@ export class DocumentParser {
       element.setAttribute("class", "mt-4 ms-12 me-12 min-w-full")
       const paragraphId = "ed_paragraph_" + paragraphIndex
       element.id = paragraphId
-      doc.appendChild(element)
 
-      console.log("pid " + paragraphId)
-      console.log("fpid " + focusedParagraphId)
-      if (paragraphId == focusedParagraphId) {
-        this.addMenu(paragraphIndex, doc)
-      }
+        //this.addMenu(paragraphIndex, doc, isDropdownVisible)
+
+      doc.appendChild(element)
       element = document.createElement("div")
     })
 
     return doc.innerHTML
-  }
-
-  private addTitle(doc: HTMLElement, title: string) {
-    const titleElement = document.createElement("div")
-    titleElement.innerHTML = title
-    titleElement.setAttribute("class", "font-bold text-5xl mt-4 mb-4 ms-12 me-12 w-max min-w-full")
-    titleElement.setAttribute("ed-type",  ParagraphTypeConsts.title)
-    titleElement.setAttribute("contenteditable", "true")
-    titleElement.setAttribute("data-placeholder", "Заголовок")
-    titleElement.id = "ed_title"
-
-    doc.appendChild(titleElement)
   }
 
   private addTextSpanElement(element: HTMLElement, textSpan: TextSpan, isFirstSpan: boolean) {
@@ -77,7 +64,7 @@ export class DocumentParser {
     let text = textSpan.text
 
     if (text.length == 0 && !isFirstSpan) {
-      text = "<br>"
+      //text = "<br>"
     }
 
     textDivElement.innerHTML = text
@@ -137,15 +124,15 @@ export class DocumentParser {
     doc.appendChild(imageDivElement)
   }
 
-  private addMenu(paragraphIndex: number, doc: HTMLElement) {
+  private addMenu(paragraphIndex: number, doc: HTMLElement, isDropdownVisible: Boolean) {
     const menuDiv = document.createElement("div")
-    menuDiv.setAttribute("class", "relative inline-block text-left space-x-3 w-fit bottom-8")
+    menuDiv.setAttribute("class", "absolute mb-8")
     menuDiv.setAttribute("contenteditable", "false")
 
     const buttonDiv = document.createElement("div")
     const button = document.createElement("button")
 
-    button.id = "menu-button-" + paragraphIndex
+    button.id = "ed-menu-button"
     button.setAttribute("class", "py-2 px-2 rounded-full hover:bg-gray-200 hover:text-white transition duration-300")
 
     const svg = document.createElement("svg")
@@ -164,16 +151,17 @@ export class DocumentParser {
     buttonDiv.appendChild(button)
     menuDiv.appendChild(buttonDiv)
 
-    const dropDownDiv = document.createElement("div")
-    dropDownDiv.setAttribute("class", "absolute z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none")
-    dropDownDiv.setAttribute("role", "menu")
-    dropDownDiv.setAttribute("aria-orientation", "vertical")
-    dropDownDiv.setAttribute("aria-labelledby", "menu-button")
-    dropDownDiv.setAttribute("tabindex", "-1")
-    dropDownDiv.id = "menu-drop-down-" + paragraphIndex
+    if (isDropdownVisible) {
+      const dropDownDiv = document.createElement("div")
+      dropDownDiv.setAttribute("class", "absolute z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none")
+      dropDownDiv.setAttribute("role", "menu")
+      dropDownDiv.setAttribute("aria-orientation", "vertical")
+      dropDownDiv.setAttribute("aria-labelledby", "menu-button")
+      dropDownDiv.setAttribute("tabindex", "-1")
 
-    this.createDropDownDivPart(dropDownDiv)
-    menuDiv.appendChild(dropDownDiv)
+      this.createDropDownDivPart(dropDownDiv)
+      menuDiv.appendChild(dropDownDiv)
+    }
 
     doc.appendChild(menuDiv)
   }
