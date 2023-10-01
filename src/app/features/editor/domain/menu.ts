@@ -2,7 +2,7 @@ export class DropDown {
 
   static create() {
     const menuDiv = document.createElement("div")
-    menuDiv.setAttribute("class", "absolute mt-4")
+    menuDiv.setAttribute("class", "absolute mt-3")
     menuDiv.setAttribute("contenteditable", "false")
 
     const buttonDiv = document.createElement("div")

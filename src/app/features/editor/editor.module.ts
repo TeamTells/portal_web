@@ -4,12 +4,14 @@ import {EditorComponent} from './presentation/editor/editor.component';
 import {SafeHtmlPipe} from "./presentation/editor/safe-html-pipe";
 import {EditorService} from "./domain/EditorService";
 import {EditorServiceImpl} from "./data/EditorServiceImpl";
+import {CastPipe} from "./presentation/editor/cast-pipe";
 
 
 @NgModule({
   declarations: [
     EditorComponent,
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    CastPipe
   ],
   imports: [
     CommonModule

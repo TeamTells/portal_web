@@ -1,6 +1,21 @@
-<div class="bg-white flex h-screen flex-col">
-  <div contenteditable="true" class="font-bold text-5xl mt-12 mb-4 ms-12 me-12 w-max min-w-full" data-placeholder="Заголовок" style="outline:none;" ></div>
-  <div contenteditable="true" style="outline:none;" class="md: flex mt-4 ms-0 me-0 container" id="parent">
-    <div [innerHTML]="state.content | safeHtml"></div>
+<div class="bg-white flex h-screen flex-col" contenteditable="true" style="outline:none;">
+  <div contenteditable="true" class="font-bold text-5xl mt-12 mb-4 ms-12 me-12 w-max min-w-full"
+       data-placeholder="Заголовок" style="outline:none;"></div>
+  <!--  <div contenteditable="true" style="outline:none;" class="md: flex mt-4 ms-0 me-0 container" id="parent">-->
+  <!--    <div [innerHTML]="state.content | safeHtml"></div>-->
+  <!--  </div>-->
+
+
+  <div id="parent">
+    <div
+      class="mt-4 ps-12 pe-12"
+      *ngFor="let paragraph of state.longreadDocument.paragraphs"
+      [attr.paragraph-type]="paragraph.type"
+    >
+    <span *ngFor="let span of (paragraph | cast : TextParagraph).spans">
+        {{span.text}}
+      </span>
+
+    </div>
   </div>
 </div>

@@ -1,99 +1,98 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {Store} from "../../../../core/mvi/store";
 import {EditorState} from "./state/editor-state";
 import {EditorResultAction} from "./state/editor-result-action";
-import {EditorAction, EditorActionType, TextSpanStyle} from "./state/editor-action";
+import {EditorAction} from "./state/editor-action";
 import {EditorExecutor} from "./state/editor-executor";
 import {EditorReducer} from "./state/editor-reducer";
 import {DropDown} from "../../domain/menu";
+import {ParagraphTypeConsts, TextParagraph} from "../../domain/models/models";
 
 @Component({
-  selector: 'app-editor',
-  templateUrl: './editor.component.html',
-  styleUrls: ['./editor.component.scss']
+    selector: 'app-editor',
+    templateUrl: './editor.component.html',
+    styleUrls: ['./editor.component.scss']
 })
-export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAction, EditorResultAction> implements OnInit {
+export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAction, EditorResultAction> {
 
-  private menu: HTMLElement | null = DropDown.create()
-  private dropDown: HTMLElement | null = null
-  private hideMenuListener = (event: MouseEvent) => {
-    console.log(event.target)
-    if (this.dropDown?.style.visibility == "visible") {
-      console.log("hide")
-      this.dropDown.style.visibility = "hidden"
-    }
-  }
-  private clickListener = () => {
-    console.log(document.getSelection()?.anchorNode?.parentElement?.parentElement!)
-    const element = document.getSelection()?.anchorNode?.parentElement
-    if (this.menu != null) {
-      element?.parentElement?.insertBefore(this.menu, element)
-    }
-  }
+    private menu: HTMLElement | null = DropDown.create()
+    private dropDown: HTMLElement | null = null
 
-  constructor(
-    state: EditorState,
-    executor: EditorExecutor,
-    reducer: EditorReducer,
-  ) {
-    super(state, executor, reducer);
-    this.subscribeToUpdateHtml()
-  }
-
-  ngOnInit(): void {
-
-  }
-
-  private subscribeToUpdateHtml() {
-    const div = document.querySelector('div');
-    const self = this
-    const divMO = new window.MutationObserver(function (e) {
-      self.dropDown = DropDown.create()
-      self.dropDown = document.getElementById("ed-drop-down")
-      console.log(e)
-      const parent = document.getElementById("parent")
-
-      const button = document.getElementById("ed-menu-button")
-
-      self.subscribeToPlaceholderClick()
-      button?.addEventListener('click', (e) => {
-        document.removeEventListener("click", self.hideMenuListener)
-
-        if (self.dropDown?.style.visibility == "hidden") {
-          console.log("visible")
-          self.dropDown.style.visibility = "visible"
+    private menuButtonClickListener = (e: MouseEvent) => {
+        if (this.dropDown?.style.visibility == "hidden") {
+            this.dropDown.style.visibility = "visible"
+        } else if (this.dropDown?.style.visibility == "visible") {
+            this.dropDown.style.visibility = "hidden"
         }
         e.stopPropagation()
-        //document.addEventListener("click", self.hideMenuListener)
+    }
 
-      })
-
-      if (self.dropDown?.style.visibility == "visible") {
-        window.onclick = () => {
-          console.log("hide")
-          if (self.dropDown?.style.visibility == "visible") {
-            self.dropDown!.style.visibility = "hidden"
-          }
+    private documentClickListener = () => {
+        console.log("hide")
+        if (this.dropDown?.style.visibility == "visible") {
+            this.dropDown!.style.visibility = "hidden"
         }
-      }
-
-
-    });
-
-    if (div != null) {
-      divMO.observe(div, {childList: true, subtree: true, characterData: true});
     }
-  }
 
-  private subscribeToPlaceholderClick() {
-    const parent = document.getElementById("parent")
-
-    if (parent != null) {
-      parent.removeEventListener('click', this.clickListener)
-      parent.addEventListener('click', this.clickListener)
+    private keyClickListener = (event: KeyboardEvent) => {
+        if (event.key == 'Enter') {
+            this.setMenuButton()
+        }
     }
-  }
 
-  protected readonly EditorActionType = EditorActionType;
-  protected readonly TextSpanStyle = TextSpanStyle;
+    private menuClickListener = () => {
+        this.setMenuButton()
+    }
+
+    constructor(
+        state: EditorState,
+        executor: EditorExecutor,
+        reducer: EditorReducer,
+    ) {
+        super(state, executor, reducer);
+        this.subscribeToUpdateHtml()
+    }
+
+    private setMenuButton() {
+        const element = document.getSelection()?.anchorNode?.parentElement
+        const paragraphType = element?.getAttribute("paragraph-type")
+
+        if (this.menu != null && paragraphType == ParagraphTypeConsts.text && element?.children.length == 1 && element?.children[0].textContent == "") {
+            element?.parentElement?.insertBefore(this.menu, element)
+        }
+    }
+
+    private subscribeToUpdateHtml() {
+        const div = document.querySelector('div');
+        const self = this
+        const divMO = new window.MutationObserver(function (e: MutationRecord[]) {
+            self.initDropdownMenu()
+        });
+
+        if (div != null) {
+            divMO.observe(div, {childList: true, subtree: true, characterData: true});
+        }
+    }
+
+    private initDropdownMenu() {
+        this.dropDown = document.getElementById("ed-drop-down")
+
+        const parent = document.getElementById("parent")
+
+        parent?.removeEventListener('click', this.menuClickListener)
+        parent?.addEventListener('click', this.menuClickListener)
+
+        const button = document.getElementById("ed-menu-button")
+
+        button?.removeEventListener('click', this.menuButtonClickListener)
+        button?.addEventListener('click', this.menuButtonClickListener)
+
+        document.removeEventListener('click', this.documentClickListener)
+        document.addEventListener('click', this.documentClickListener)
+
+        document?.removeEventListener('keyup', this.keyClickListener)
+        document?.addEventListener('keyup', this.keyClickListener)
+    }
+
+    protected readonly TextParagraph = TextParagraph;
 }
