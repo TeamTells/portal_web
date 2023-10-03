@@ -6,16 +6,17 @@
   <!--  </div>-->
 
 
-  <div id="parent">
+  <div id="parent" contenteditable="false">
     <div
       class="mt-4 ps-12 pe-12"
       *ngFor="let paragraph of state.longreadDocument.paragraphs"
       [attr.paragraph-type]="paragraph.type"
     >
-    <span *ngFor="let span of (paragraph | cast : TextParagraph).spans" data-placeholder="Просто начни">
-        {{span.text}}
-      </span>
-
+    <span contenteditable="true"
+          id="ed-text-span"
+          style="outline:none"
+          *ngFor="let span of (paragraph | cast : TextParagraph).spans"
+          span-data-placeholder="Просто начни">{{span.text}}</span>
     </div>
   </div>
 </div>

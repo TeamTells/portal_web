@@ -39,19 +39,6 @@ export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAc
         }
     }
 
-    private keyClickListener2 = (event: KeyboardEvent) => {
-        if (event.key == 'Enter') {
-            const isTitle = document.getSelection()?.anchorNode?.parentElement?.id == "ed-title" ||
-                (document.getSelection()?.anchorNode as HTMLElement).id == "ed-title"
-
-            if (isTitle) {
-                console.log("preventDefault")
-                event.preventDefault()
-                return
-            }
-        }
-    }
-
     private menuClickListener = () => {
         this.setMenuButton()
     }
@@ -66,7 +53,44 @@ export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAc
     }
 
     ngAfterViewInit(): void {
-        document?.addEventListener('keydown', this.keyClickListener2)
+        document?.addEventListener('keydown', (event: KeyboardEvent) => {
+            if (event.key == 'Enter') {
+                const selection = document.getSelection()
+                const anchorNode = selection?.anchorNode
+                const isTitle = anchorNode?.parentElement?.id == "ed-title" ||
+                    (document.getSelection()?.anchorNode as HTMLElement).id == "ed-title"
+
+                if (isTitle) {
+                    event.preventDefault()
+                    return
+                }
+
+                const isTextSpan = anchorNode?.parentElement?.id == "ed-text-span" ||
+                    (anchorNode?.parentElement?.firstChild as HTMLElement).id == "ed-text-span"
+
+                if (isTextSpan) {
+                    const isTextParagraph = anchorNode?.parentElement?.parentElement?.getAttribute("paragraph-type") == "text"
+                    if (isTextParagraph) {
+                        const paragraph = anchorNode?.parentElement?.parentElement.cloneNode()
+                        const span = document.createElement("span")
+                        span.setAttribute("contenteditable","true")
+                        span.id = "ed-text-span"
+                        span.innerHTML = "<br>"
+                        span.setAttribute("style", "outline:none")
+                        paragraph.appendChild(span)
+                        anchorNode?.parentElement?.parentElement?.parentElement?.append(paragraph)
+
+                        const range = document.createRange()
+                        range.selectNodeContents(span)
+                        range.collapse(false)
+                        selection?.removeAllRanges()
+                        selection?.addRange(range)
+                    }
+                    event.preventDefault()
+                    return;
+                }
+            }
+        })
     }
 
     private setMenuButton() {
