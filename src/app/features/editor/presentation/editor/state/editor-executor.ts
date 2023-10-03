@@ -30,8 +30,6 @@ export class EditorExecutor extends Executor<EditorState, EditorAction, EditorRe
       case EditorActionType.UPDATE_DOCUMENT:
         const document = this.htmlDocumentParser.parse(action.element)
 
-        console.log(document)
-
         this.reduce(
           {
             type: EditorResultActionType.UPDATE_DOCUMENT,

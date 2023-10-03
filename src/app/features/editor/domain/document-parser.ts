@@ -62,10 +62,10 @@ export class DocumentParser {
     const textDivElement = document.createElement("span")
 
     let text = textSpan.text
-
-    if (text.length == 0 && !isFirstSpan) {
-      //text = "<br>"
-    }
+    //
+    // if (text.length == 0) {
+    //   text = "<br>"
+    // }
 
     textDivElement.innerHTML = text
 
@@ -73,10 +73,10 @@ export class DocumentParser {
       this.addTextStyle(textDivElement, textSpan.style)
     }
 
-    if (isFirstSpan) {
-      textDivElement.setAttribute("span-data-placeholder", "Просто начни")
-      textDivElement.setAttribute("class", "newParagraphPlaceholder")
-    }
+    // if (isFirstSpan) {
+       textDivElement.setAttribute("class", "grow w-3/4 h-full")
+    //   textDivElement.setAttribute("class", "newParagraphPlaceholder")
+    // }
 
     element.appendChild(textDivElement)
   }
@@ -209,7 +209,7 @@ export class DocumentParser {
           color: grey;
         }
     `
-    document.head.appendChild(style)
+    //document.head.appendChild(style)
   }
 
 }

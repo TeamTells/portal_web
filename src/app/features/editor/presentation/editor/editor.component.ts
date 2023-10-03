@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {AfterViewInit, Component} from '@angular/core';
 import {Store} from "../../../../core/mvi/store";
 import {EditorState} from "./state/editor-state";
 import {EditorResultAction} from "./state/editor-result-action";
@@ -13,7 +13,7 @@ import {ParagraphTypeConsts, TextParagraph} from "../../domain/models/models";
     templateUrl: './editor.component.html',
     styleUrls: ['./editor.component.scss']
 })
-export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAction, EditorResultAction> {
+export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAction, EditorResultAction> implements AfterViewInit {
 
     private menu: HTMLElement | null = DropDown.create()
     private dropDown: HTMLElement | null = null
@@ -28,15 +28,27 @@ export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAc
     }
 
     private documentClickListener = () => {
-        console.log("hide")
         if (this.dropDown?.style.visibility == "visible") {
             this.dropDown!.style.visibility = "hidden"
         }
     }
 
-    private keyClickListener = (event: KeyboardEvent) => {
+    private keyShowMenuClickListener = (event: KeyboardEvent) => {
         if (event.key == 'Enter') {
             this.setMenuButton()
+        }
+    }
+
+    private keyClickListener2 = (event: KeyboardEvent) => {
+        if (event.key == 'Enter') {
+            const isTitle = document.getSelection()?.anchorNode?.parentElement?.id == "ed-title" ||
+                (document.getSelection()?.anchorNode as HTMLElement).id == "ed-title"
+
+            if (isTitle) {
+                console.log("preventDefault")
+                event.preventDefault()
+                return
+            }
         }
     }
 
@@ -53,6 +65,10 @@ export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAc
         this.subscribeToUpdateHtml()
     }
 
+    ngAfterViewInit(): void {
+        document?.addEventListener('keydown', this.keyClickListener2)
+    }
+
     private setMenuButton() {
         const element = document.getSelection()?.anchorNode?.parentElement
         const paragraphType = element?.getAttribute("paragraph-type")
@@ -67,10 +83,18 @@ export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAc
         const self = this
         const divMO = new window.MutationObserver(function (e: MutationRecord[]) {
             self.initDropdownMenu()
+            self.initTitle()
         });
 
         if (div != null) {
             divMO.observe(div, {childList: true, subtree: true, characterData: true});
+        }
+    }
+
+    private initTitle() {
+        const title = document.getElementById("ed-title")
+        if (title != null && title.innerHTML == "<br>") {
+            title.innerHTML = ""
         }
     }
 
@@ -90,8 +114,8 @@ export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAc
         document.removeEventListener('click', this.documentClickListener)
         document.addEventListener('click', this.documentClickListener)
 
-        document?.removeEventListener('keyup', this.keyClickListener)
-        document?.addEventListener('keyup', this.keyClickListener)
+        document?.removeEventListener('keyup', this.keyShowMenuClickListener)
+        document?.addEventListener('keyup', this.keyShowMenuClickListener)
     }
 
     protected readonly TextParagraph = TextParagraph;

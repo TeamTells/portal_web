@@ -40,6 +40,7 @@ export class EditorReducer implements Reducer<EditorState, EditorResultAction> {
     }
 
     private updateDocument(state: EditorState, newDocument: LongreadDocument): EditorState {
+        console.log(newDocument)
         return clone(state, {
             longreadDocument: newDocument,
             content: this.parser.parse(newDocument, state.focusedParagraphId, state.isDropdownMenuVisible)
