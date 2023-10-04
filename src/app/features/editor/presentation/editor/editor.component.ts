@@ -7,6 +7,8 @@ import {EditorExecutor} from "./state/editor-executor";
 import {EditorReducer} from "./state/editor-reducer";
 import {DropDown} from "../../domain/menu";
 import {ParagraphTypeConsts, TextParagraph} from "../../domain/models/models";
+import {StyleParser} from "../../domain/style-parser";
+import {Span} from "../../domain/span";
 
 @Component({
     selector: 'app-editor',
@@ -54,6 +56,17 @@ export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAc
 
     ngAfterViewInit(): void {
         document?.addEventListener('keydown', (event: KeyboardEvent) => {
+            if (event.key == 'Backspace' || event.key == 'Delete') {
+                const selection = document.getSelection()
+                const anchorNode = selection?.anchorNode
+                const parent = anchorNode?.parentElement?.parentElement
+                console.log(parent)
+                if (parent?.children?.length == 1 && parent?.children[0].children.length == 0) {
+                    parent?.append(Span.create())
+                    return;
+                }
+            }
+
             if (event.key == 'Enter') {
                 const selection = document.getSelection()
                 const anchorNode = selection?.anchorNode
@@ -69,33 +82,36 @@ export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAc
                     (anchorNode?.parentElement?.firstChild as HTMLElement).id == "ed-text-span"
 
                 if (isTextSpan) {
-                    const isTextParagraph = anchorNode?.parentElement?.parentElement?.getAttribute("paragraph-type") == "text" ||
-                        anchorNode?.parentElement?.getAttribute("paragraph-type") == "text"
-                    if (isTextParagraph) {
-                        const paragraph = anchorNode?.parentElement?.parentElement?.cloneNode()
-                        const span = document.createElement("span")
-                        span.setAttribute("contenteditable", "true")
-                        span.id = "ed-text-span"
-                        span.innerHTML = "<br>"
-                        span.setAttribute("style", "outline:none")
-                        paragraph?.appendChild(span)
-
-                        if (paragraph != null) {
-                            anchorNode?.parentElement?.parentElement?.parentElement
-                                ?.insertBefore(paragraph, anchorNode?.parentElement?.parentElement.nextSibling)
-                        }
-
-                        const range = document.createRange()
-                        range.selectNodeContents(span)
-                        range.collapse(false)
-                        selection?.removeAllRanges()
-                        selection?.addRange(range)
+                    if (anchorNode?.parentElement?.parentElement?.getAttribute("paragraph-type") == "text") {
+                        const paragraph = anchorNode?.parentElement?.parentElement
+                        this.addTextParagraph(paragraph, selection)
+                    } else if (anchorNode?.parentElement?.getAttribute("paragraph-type") == "text") {
+                        const paragraph = anchorNode?.parentElement
+                        this.addTextParagraph(paragraph, selection)
                     }
+
                     event.preventDefault()
                     return;
                 }
             }
         })
+    }
+
+    private addTextParagraph(element: HTMLElement | null, selection: Selection | null) {
+        const paragraph = element?.cloneNode()
+        const span = Span.create()
+        span.setAttribute("style", "outline:none")
+        paragraph?.appendChild(span)
+
+        if (paragraph != null) {
+            element?.parentElement?.insertBefore(paragraph, element.nextSibling)
+        }
+
+        const range = document.createRange()
+        range.selectNodeContents(span)
+        range.collapse(false)
+        selection?.removeAllRanges()
+        selection?.addRange(range)
     }
 
     private setMenuButton() {
@@ -148,4 +164,5 @@ export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAc
     }
 
     protected readonly TextParagraph = TextParagraph;
+    protected readonly StyleParser = StyleParser;
 }

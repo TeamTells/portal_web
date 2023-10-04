@@ -1,22 +1,27 @@
-<div class="bg-white flex h-screen flex-col" contenteditable="true" style="outline:none;">
-  <div contenteditable="true" class="font-bold text-5xl mt-12 mb-4 ms-12 me-12 w-max min-w-full" id="ed-title"
-       data-placeholder="Заголовок" style="outline:none;">{{state.longreadDocument.title}}</div>
-  <!--  <div contenteditable="true" style="outline:none;" class="md: flex mt-4 ms-0 me-0 container" id="parent">-->
-  <!--    <div [innerHTML]="state.content | safeHtml"></div>-->
-  <!--  </div>-->
+<div class="bg-white flex h-screen flex-col" contenteditable="false" style="outline:none;">
+    <div contenteditable="true" class="font-bold text-5xl mt-12 mb-4 ms-12 me-12 w-max min-w-full" id="ed-title"
+         data-placeholder="Заголовок" style="outline:none;">{{state.longreadDocument.title}}</div>
+    <!--  <div contenteditable="true" style="outline:none;" class="md: flex mt-4 ms-0 me-0 container" id="parent">-->
+    <!--    <div [innerHTML]="state.content | safeHtml"></div>-->
+    <!--  </div>-->
 
 
-  <div id="parent" contenteditable="false" class="outer">
-    <div
-      class="mt-4 ps-12 pe-12 inner"
-      *ngFor="let paragraph of state.longreadDocument.paragraphs"
-      [attr.paragraph-type]="paragraph.type"
-    >
-    <span contenteditable="true"
-          id="ed-text-span"
-          style="outline:none"
-          *ngFor="let span of (paragraph | cast : TextParagraph).spans"
-          span-data-placeholder="Просто начни">{{span.text}}</span>
+    <div id="parent">
+
+        <div contenteditable="true"
+             style="outline:none"
+             class="mt-4 ps-12 pe-12"
+             *ngFor="let paragraph of state.longreadDocument.paragraphs"
+             [attr.paragraph-type]="paragraph.type">
+
+            <span id="ed-text-span"
+                  *ngFor="let span of (paragraph | cast : TextParagraph).spans"
+                  [class]="StyleParser.addTextStyle(span.style)"
+                  span-data-plcaholder="Просто начните"
+                  [innerHTML]="span.text"></span>
+
+        </div>
+
     </div>
-  </div>
+
 </div>

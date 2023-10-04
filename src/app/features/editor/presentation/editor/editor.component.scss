@@ -1,49 +1,14 @@
 .drop_down_menu_item {
   @apply text-gray-700 block px-4 py-2 text-sm hover:bg-gray-200 transition duration-300
 }
-//
+
 div:empty:before {
   content:attr(data-placeholder);
   color:gray;
 }
 
-//
-//.newParagraphPlaceholder {
-//  display: inline-block;
-//  outline: none
-//}
-//
-
-//div:empty::before {
-//  color: grey;
-//}
-//div[data-placeholder]:not([data-placeholder=""]):empty::before {
-//  content: attr(data-placeholder);
-//}
-//div:empty::before {
-//  content: 'fallback placeholder';
-//}
-
-span:empty::before {
+span:empty:before {
   content: attr(span-data-placeholder);
   color: grey;
 }
 
-span.badge[contenteditable] {
-  display: inline-block;
-}
-span.badge[contenteditable]:blank::before {
-  content: 'Make a new tag';
-  display: inline-block;
-}
-span.badge[contenteditable]:blank:focus::before {
-  content: 'Start typing';
-}
-
-.outer {
-  -webkit-user-select: none;
-}
-
-.inner {
-  -webkit-user-select: initial;
-}
