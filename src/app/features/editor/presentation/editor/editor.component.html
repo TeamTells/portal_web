@@ -6,9 +6,9 @@
   <!--  </div>-->
 
 
-  <div id="parent" contenteditable="false">
+  <div id="parent" contenteditable="false" class="outer">
     <div
-      class="mt-4 ps-12 pe-12"
+      class="mt-4 ps-12 pe-12 inner"
       *ngFor="let paragraph of state.longreadDocument.paragraphs"
       [attr.paragraph-type]="paragraph.type"
     >

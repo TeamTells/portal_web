@@ -69,16 +69,21 @@ export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAc
                     (anchorNode?.parentElement?.firstChild as HTMLElement).id == "ed-text-span"
 
                 if (isTextSpan) {
-                    const isTextParagraph = anchorNode?.parentElement?.parentElement?.getAttribute("paragraph-type") == "text"
+                    const isTextParagraph = anchorNode?.parentElement?.parentElement?.getAttribute("paragraph-type") == "text" ||
+                        anchorNode?.parentElement?.getAttribute("paragraph-type") == "text"
                     if (isTextParagraph) {
-                        const paragraph = anchorNode?.parentElement?.parentElement.cloneNode()
+                        const paragraph = anchorNode?.parentElement?.parentElement?.cloneNode()
                         const span = document.createElement("span")
-                        span.setAttribute("contenteditable","true")
+                        span.setAttribute("contenteditable", "true")
                         span.id = "ed-text-span"
                         span.innerHTML = "<br>"
                         span.setAttribute("style", "outline:none")
-                        paragraph.appendChild(span)
-                        anchorNode?.parentElement?.parentElement?.parentElement?.append(paragraph)
+                        paragraph?.appendChild(span)
+
+                        if (paragraph != null) {
+                            anchorNode?.parentElement?.parentElement?.parentElement
+                                ?.insertBefore(paragraph, anchorNode?.parentElement?.parentElement.nextSibling)
+                        }
 
                         const range = document.createRange()
                         range.selectNodeContents(span)

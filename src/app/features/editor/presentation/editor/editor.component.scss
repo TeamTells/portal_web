@@ -39,3 +39,11 @@ span.badge[contenteditable]:blank::before {
 span.badge[contenteditable]:blank:focus::before {
   content: 'Start typing';
 }
+
+.outer {
+  -webkit-user-select: none;
+}
+
+.inner {
+  -webkit-user-select: initial;
+}
