@@ -59,11 +59,20 @@ export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAc
             if (event.key == 'Backspace' || event.key == 'Delete') {
                 const selection = document.getSelection()
                 const anchorNode = selection?.anchorNode
-                const parent = anchorNode?.parentElement?.parentElement
-                console.log(parent)
-                if (parent?.children?.length == 1 && parent?.children[0].children.length == 0) {
-                    parent?.append(Span.create())
-                    return;
+
+                if (anchorNode?.parentElement?.parentElement?.getAttribute("paragraph-type") == "text") {
+                    const parent = anchorNode?.parentElement?.parentElement
+                    if (parent?.children?.length == 1 && parent?.children[0].children.length == 0) {
+                        parent?.append(Span.create())
+                        return;
+                    }
+                } else if (anchorNode?.parentElement?.getAttribute("paragraph-type") == "text") {
+                    const parent = anchorNode?.parentElement
+                    console.log(parent.children[0].innerHTML)
+                    if (parent?.children?.length == 1 && parent.children[0].innerHTML == '<br>') {
+                        parent?.parentElement?.removeChild(parent)
+                        return;
+                    }
                 }
             }
 
