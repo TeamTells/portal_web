@@ -1,9 +1,10 @@
-import {TextStyle} from "./models/models";
-import {BOLD, CURSIVE, FontSize, SEPARATOR, SIZE_24, SIZE_30} from "./style-const";
+import {TextStyle} from "../models/models";
+import {BOLD, CURSIVE, FontSize, SEPARATOR, SIZE_24, SIZE_30} from "../style-const";
 
-export class StyleParser {
 
-    static addTextStyle(style: TextStyle|undefined): string {
+export class StyleUtils {
+
+    static addTextStyle(style: TextStyle | undefined): string {
         let styleClass = ""
 
         if (style == undefined) return styleClass
@@ -27,6 +28,10 @@ export class StyleParser {
         }
 
         return styleClass
+    }
+
+    static h1(): string {
+       return BOLD + SEPARATOR + SIZE_30
     }
 
 }

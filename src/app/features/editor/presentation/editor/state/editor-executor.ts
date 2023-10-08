@@ -3,7 +3,7 @@ import {EditorState} from "./editor-state";
 import {EditorAction, EditorActionType} from "./editor-action";
 import {EditorResultAction, EditorResultActionType} from "./editor-result-action";
 import {Injectable} from "@angular/core";
-import {EditorService} from "../../../domain/EditorService";
+import {EditorService} from "../../../domain/editor-service";
 import {HtmlDocumentParser} from "../../../domain/html-document-parser";
 
 @Injectable({

@@ -5,10 +5,11 @@ import {EditorResultAction} from "./state/editor-result-action";
 import {EditorAction} from "./state/editor-action";
 import {EditorExecutor} from "./state/editor-executor";
 import {EditorReducer} from "./state/editor-reducer";
-import {DropDown} from "../../domain/menu";
-import {ParagraphTypeConsts, TextParagraph} from "../../domain/models/models";
-import {StyleParser} from "../../domain/style-parser";
-import {Span} from "../../domain/span";
+import {DropDown} from "../../domain/html/menu";
+import {ImageParagraph, ParagraphTypeConsts, TextParagraph} from "../../domain/models/models";
+import {StyleUtils} from "../../domain/html/style-utils";
+import {Span} from "../../domain/html/span";
+import {MenuCallbackImpl} from "./menu-callback-impl";
 
 @Component({
     selector: 'app-editor',
@@ -17,8 +18,11 @@ import {Span} from "../../domain/span";
 })
 export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAction, EditorResultAction> implements AfterViewInit {
 
-    private menu: HTMLElement | null = DropDown.create()
     private dropDown: HTMLElement | null = null
+    private selectedElement: HTMLElement | null = null
+    private menu: HTMLElement | null = DropDown.create(new MenuCallbackImpl(() => {
+        return this.selectedElement
+    }))
 
     private menuButtonClickListener = (e: MouseEvent) => {
         if (this.dropDown?.style.visibility == "hidden") {
@@ -68,7 +72,6 @@ export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAc
                     }
                 } else if (anchorNode?.parentElement?.getAttribute("paragraph-type") == "text") {
                     const parent = anchorNode?.parentElement
-                    console.log(parent.children[0].innerHTML)
                     if (parent?.children?.length == 1 && parent.children[0].innerHTML == '<br>') {
                         parent?.parentElement?.removeChild(parent)
                         return;
@@ -126,8 +129,9 @@ export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAc
     private setMenuButton() {
         const element = document.getSelection()?.anchorNode?.parentElement
         const paragraphType = element?.getAttribute("paragraph-type")
-
         if (this.menu != null && paragraphType == ParagraphTypeConsts.text && element?.children.length == 1 && element?.children[0].textContent == "") {
+            this.selectedElement = element
+
             element?.parentElement?.insertBefore(this.menu, element)
         }
     }
@@ -173,5 +177,6 @@ export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAc
     }
 
     protected readonly TextParagraph = TextParagraph;
-    protected readonly StyleParser = StyleParser;
+    protected readonly StyleParser = StyleUtils;
+    protected readonly ImageParagraph = ImageParagraph;
 }

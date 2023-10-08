@@ -1,4 +1,4 @@
-import {EditorService} from "../domain/EditorService";
+import {EditorService} from "../domain/editor-service";
 import {LongreadDocument} from "../domain/models/models";
 import {Injectable} from "@angular/core";
 
@@ -8,7 +8,7 @@ import {Injectable} from "@angular/core";
 export class EditorServiceImpl extends EditorService {
   getDocumentBy(uid: string): LongreadDocument {
     return {
-      title: "",
+      title: "Docker",
       paragraphs: [
         {
           type: "text",

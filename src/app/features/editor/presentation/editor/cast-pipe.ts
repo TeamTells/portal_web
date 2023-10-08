@@ -1,10 +1,19 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {TextParagraph} from "../../domain/models/models";
+import {ImageParagraph, TextParagraph} from "../../domain/models/models";
 
 
-@Pipe({ name: 'cast' })
-export class CastPipe implements PipeTransform {
+@Pipe({ name: 'textCast' })
+export class TextCastPipe implements PipeTransform {
   transform(value: any, ...args: any[]): TextParagraph {
+    return value
+  }
+
+}
+
+
+@Pipe({ name: 'imageCast' })
+export class ImageCastPipe implements PipeTransform {
+  transform(value: any, ...args: any[]): ImageParagraph {
     return value
   }
 

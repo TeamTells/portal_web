@@ -1,10 +1,7 @@
 <div class="bg-white flex h-screen flex-col" contenteditable="false" style="outline:none;">
+
     <div contenteditable="true" class="font-bold text-5xl mt-12 mb-4 ms-12 me-12 w-max min-w-full" id="ed-title"
          data-placeholder="Заголовок" style="outline:none;">{{state.longreadDocument.title}}</div>
-    <!--  <div contenteditable="true" style="outline:none;" class="md: flex mt-4 ms-0 me-0 container" id="parent">-->
-    <!--    <div [innerHTML]="state.content | safeHtml"></div>-->
-    <!--  </div>-->
-
 
     <div id="parent">
 
@@ -15,10 +12,23 @@
              [attr.paragraph-type]="paragraph.type">
 
             <span id="ed-text-span"
-                  *ngFor="let span of (paragraph | cast : TextParagraph).spans"
+                  *ngFor="let span of (paragraph | textCast : TextParagraph).spans"
                   [class]="StyleParser.addTextStyle(span.style)"
                   span-data-plcaholder="Просто начните"
                   [innerHTML]="span.text"></span>
+
+            <div *ngIf="paragraph.type == 'image'"
+                 id="ed-image"
+                 contenteditable="false"
+                 class="flex flex-col ">
+
+                <img class="place-self-center"
+                     contenteditable="true"
+                     [src]="(paragraph | imageCast : ImageParagraph).url">
+
+                <div class="place-self-center">{{(paragraph | imageCast : ImageParagraph).description}}</div>
+
+            </div>
 
         </div>
 

@@ -1,6 +1,8 @@
+import {MenuCallbacks} from "../menu-callbacks";
+
 export class DropDown {
 
-  static create() {
+  static create(callbacks: MenuCallbacks) {
     const menuDiv = document.createElement("div")
     menuDiv.setAttribute("class", "absolute mt-3")
     menuDiv.setAttribute("contenteditable", "false")
@@ -36,24 +38,31 @@ export class DropDown {
     dropDownDiv.style.visibility = "hidden"
     dropDownDiv.id = "ed-drop-down"
 
-    this.createDropDownDivPart(dropDownDiv)
+    this.createDropDownDivPart(dropDownDiv, callbacks)
     menuDiv.appendChild(dropDownDiv)
 
     return menuDiv
   }
 
-  private static createDropDownDivPart(dropDownDiv: HTMLElement) {
+  private static createDropDownDivPart(dropDownDiv: HTMLElement, callbacks: MenuCallbacks) {
     const dropDownDivPart1 = document.createElement("div")
-    this.createDropDownAText(dropDownDivPart1, "menu-item-0", "Текст")
-    this.createDropDownAText(dropDownDivPart1, "menu-item-1", "Заголовок 1")
-    this.createDropDownAText(dropDownDivPart1, "menu-item-2", "Заголовок 2")
-    this.createDropDownAText(dropDownDivPart1, "menu-item-3", "Маркерованный список")
-    this.createDropDownAText(dropDownDivPart1, "menu-item-4", "Нумерованный список")
+
+    this.createDropDownAText(dropDownDivPart1, "menu-item-text", "Текст").onclick = () => {
+      callbacks.onTextClick()
+    }
+
+    this.createDropDownAText(dropDownDivPart1, "menu-item-h1", "Заголовок 1").onclick = () => {
+      callbacks.onH1Click()
+    }
+
+    this.createDropDownAText(dropDownDivPart1, "menu-item-h2", "Заголовок 2")
+    this.createDropDownAText(dropDownDivPart1, "menu-item-mark-list", "Маркерованный список")
+    this.createDropDownAText(dropDownDivPart1, "menu-item-mark-list-2", "Нумерованный список")
     dropDownDiv.appendChild(dropDownDivPart1)
 
     const dropDownDivPart2 = document.createElement("div")
-    this.createDropDownAText(dropDownDivPart2, "menu-item-5", "Изображение")
-    this.createDropDownAText(dropDownDivPart2, "menu-item-6", "Видео")
+    this.createDropDownAText(dropDownDivPart2, "menu-item-image", "Изображение")
+    this.createDropDownAText(dropDownDivPart2, "menu-item-video", "Видео")
     dropDownDiv.appendChild(dropDownDivPart2)
   }
 
@@ -62,10 +71,11 @@ export class DropDown {
     dropDownAText.setAttribute("class", "text-gray-700 block px-4 py-2 text-sm hover:bg-gray-200 transition duration-300")
     dropDownAText.setAttribute("role", "menuitem")
     dropDownAText.setAttribute("tabindex", "-1")
-    dropDownAText.setAttribute("id", id)
+    dropDownAText.id = id
     dropDownAText.textContent = text
 
     dropDownDiv.appendChild(dropDownAText)
+    return dropDownAText
   }
 
 }
