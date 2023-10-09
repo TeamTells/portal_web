@@ -61,7 +61,10 @@ export class DropDown {
     dropDownDiv.appendChild(dropDownDivPart1)
 
     const dropDownDivPart2 = document.createElement("div")
-    this.createDropDownAText(dropDownDivPart2, "menu-item-image", "Изображение")
+    this.createDropDownAText(dropDownDivPart2, "menu-item-image", "Изображение").onclick = () => {
+      callbacks.onAddImage()
+    }
+
     this.createDropDownAText(dropDownDivPart2, "menu-item-video", "Видео")
     dropDownDiv.appendChild(dropDownDivPart2)
   }

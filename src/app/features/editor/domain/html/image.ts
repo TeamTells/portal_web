@@ -13,6 +13,10 @@ export class Image {
 
         const textDivElement = document.createElement("div")
         textDivElement.setAttribute("class", "place-self-center")
+        textDivElement.setAttribute("contenteditable", "true")
+        imageDivElement.append(textDivElement)
+        textDivElement.innerHTML = "<br>"
+
         return imageDivElement
     }
 

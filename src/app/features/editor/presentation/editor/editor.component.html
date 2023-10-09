@@ -23,10 +23,11 @@
                  class="flex flex-col ">
 
                 <img class="place-self-center"
-                     contenteditable="true"
                      [src]="(paragraph | imageCast : ImageParagraph).url">
 
-                <div class="place-self-center">{{(paragraph | imageCast : ImageParagraph).description}}</div>
+                <div class="place-self-center"
+                     style="outline:none"
+                     contenteditable="true">{{(paragraph | imageCast : ImageParagraph).description}}</div>
 
             </div>
 

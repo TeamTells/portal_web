@@ -10,6 +10,7 @@ import {ImageParagraph, ParagraphTypeConsts, TextParagraph} from "../../domain/m
 import {StyleUtils} from "../../domain/html/style-utils";
 import {Span} from "../../domain/html/span";
 import {MenuCallbackImpl} from "./menu-callback-impl";
+import {Paragraph} from "../../domain/html/paragraph";
 
 @Component({
     selector: 'app-editor',
@@ -110,7 +111,7 @@ export class EditorComponent extends Store<EditorState, EditorExecutor, EditorAc
     }
 
     private addTextParagraph(element: HTMLElement | null, selection: Selection | null) {
-        const paragraph = element?.cloneNode()
+        const paragraph = Paragraph.create(ParagraphTypeConsts.text)
         const span = Span.create()
         span.setAttribute("style", "outline:none")
         paragraph?.appendChild(span)
