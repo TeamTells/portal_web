@@ -20,13 +20,14 @@
             <div *ngIf="paragraph.type == 'image'"
                  id="ed-image"
                  contenteditable="false"
-                 class="flex flex-col ">
+                 class="flex flex-col">
 
                 <img class="place-self-center"
                      [src]="(paragraph | imageCast : ImageParagraph).url">
 
-                <div class="place-self-center"
+                <div class="place-self-center mt-2"
                      style="outline:none"
+                     data-placeholder="Введите описание (не обязательно)"
                      contenteditable="true">{{(paragraph | imageCast : ImageParagraph).description}}</div>
 
             </div>

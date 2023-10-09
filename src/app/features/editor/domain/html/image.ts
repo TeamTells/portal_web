@@ -12,10 +12,11 @@ export class Image {
         imageDivElement.appendChild(imageElement)
 
         const textDivElement = document.createElement("div")
-        textDivElement.setAttribute("class", "place-self-center")
+        textDivElement.setAttribute("class", "place-self-center mt-2")
         textDivElement.setAttribute("contenteditable", "true")
+        textDivElement.setAttribute("style", "outline:none")
+        textDivElement.setAttribute("data-placeholder", "Введите описание (не обязательно)")
         imageDivElement.append(textDivElement)
-        textDivElement.innerHTML = "<br>"
 
         return imageDivElement
     }
