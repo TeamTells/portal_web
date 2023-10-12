@@ -6,10 +6,21 @@ import {alreadyLoginGuardFunction, loginGuardFunction} from "./features/authoriz
 import {NewsComponent} from "./features/news/presentation/news.component";
 import {EmployeesComponent} from "./features/employees/presentation/employees.component";
 import {SettingsComponent} from "./features/settings/presentation/settings.component";
+import { EmployeesNewComponent } from './features/employees/components/employee-new/employee-new.component';
+import { DepartmentInfoComponent } from './features/employees/components/department-info/department-info.component';
+import { RolesComponent } from './features/employees/components/roles/roles.component';
+import { EmployeesListComponent } from './features/employees/components/employees-list/employees-list.component';
+
+const employeesItems: Routes = [
+  {path: 'new-employee', component: EmployeesNewComponent},
+  {path: 'department/*', component: DepartmentInfoComponent},
+  {path: 'roles', component: RolesComponent},
+  {path: '**', component: EmployeesListComponent},
+]
 
 const mainItems: Routes = [
   {path: 'news', component: NewsComponent},
-  {path: 'employees', component: EmployeesComponent},
+  {path: 'employees', component: EmployeesComponent, children: employeesItems},
   {path: 'settings', component: SettingsComponent},
 ]
 

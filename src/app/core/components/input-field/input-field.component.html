@@ -1,0 +1,10 @@
+<div [ngClass]="class" class="overflow-hidden relative h-[56px] w-full max-w-[334px]">
+    <input (input)="onChangeValue($event)" [type]="type" [class.pt-0]="!placeholder" [defaultValue]="defaultValue"
+        class="peer h-full w-full px-[20px] pt-[14px] text-base font-normal text-tt-black tracking-wider border border-tt-light-gray outline-tt-light-gray outline-1 rounded-tt-input"
+        placeholder=" " />
+
+    <label *ngIf="placeholder"
+        class="pointer-events-none absolute left-[20px] top-[10px] flex h-full w-full select-none text-[12px] tracking-wider font-normal leading-none text-tt-light-gray transition-all peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-[20px] peer-focus:text-[12px] peer-focus:leading-none peer-focus:top-[10px]">
+        {{ placeholder }}
+    </label>
+</div>
