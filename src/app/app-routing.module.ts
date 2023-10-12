@@ -25,12 +25,12 @@ const mainItems: Routes = [
 ]
 
 const appRoutes: Routes = [
-  {path: 'login', component: AuthorizationComponent, canActivate: [alreadyLoginGuardFunction]},
+  // {path: 'login', component: AuthorizationComponent, canActivate: [alreadyLoginGuardFunction]},
 
   {
     path: '',
     component: MainComponent,
-    canActivate: [loginGuardFunction],
+    // canActivate: [loginGuardFunction],
     children: mainItems
   }
 ]
