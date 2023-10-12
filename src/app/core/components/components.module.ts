@@ -8,6 +8,7 @@ import { ButtonRedComponent } from './button-red/button-red.component';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { ButtonBackComponent } from './button-back/button-back.component';
 import { InputFieldComponent } from './input-field/input-field.component';
+import { SearchFieldComponent } from './search-field/search-field.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { InputFieldComponent } from './input-field/input-field.component';
     ButtonRedComponent,
     ButtonBackComponent,
     InputFieldComponent,
+    SearchFieldComponent,
   ],
   exports: [
     CardComponent,
@@ -27,6 +29,7 @@ import { InputFieldComponent } from './input-field/input-field.component';
     ButtonRedComponent,
     ButtonBackComponent,
     InputFieldComponent,
+    SearchFieldComponent,
   ],
   imports: [
     CommonModule,
