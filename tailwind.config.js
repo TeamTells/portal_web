@@ -11,6 +11,7 @@ module.exports = {
       },
       colors:{
         'red-rgba':'rgba(227,6,17,1)',
+        'gray-800':'rgba(220,225,230,1)',
       },
     },
   },
