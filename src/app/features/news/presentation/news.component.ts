@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { MenuItem } from './menuItem';
 @Component({
   selector: 'app-presentation',
   templateUrl: './news.component.html',
@@ -7,10 +7,10 @@ import { Component } from '@angular/core';
 })
 export class NewsComponent {
 
-  sections: any[] =[
-    'Програмирование и разработка ПО',
-    'Правила поведения в наше столовой',
-    'Списки проведения спортивных занятий'
-  ]
+    menuItems: MenuItem[] = [
+      new MenuItem('Программирование и разработка ПО'),
+      new MenuItem('Правила поведения в нашей столовой'),
+      new MenuItem('Списки проведение спортивных занятий'),
+    ]
 
 }

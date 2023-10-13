@@ -14,14 +14,16 @@ import { EmployeesModule } from './features/employees/employees.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AuthorizationModule,
     EmployeesModule,
-    MainModule
+    MainModule,
+    CommonModule,
+    NewsModule
   ],
   providers: [
     {
