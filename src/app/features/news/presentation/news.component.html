@@ -1,12 +1,24 @@
 <div>
     <div class="grid v-screen place-items-center mt-10">
-        <div>
-            <div class="p-2 w-700 h-9 flex justify-between">
+        <div class="h-80">
+            <div class="p-2 w-700 flex justify-between">
                 <h1 class="text-3xl font-semibold">Разделы</h1>
                 <button class="w-36 h-9 bg-red-600 rounded-lg text-white">Создать раздел</button>
             </div>
-            <div class="border-solid w-full h-10 bg-gray-400 relative  top-12">
-                <input type="text" class="h-full w-520 rounded-lg">
+            <div class="border-solid w-full h-10 relative top-12 flex">
+                <div class="w-520 bg-gray-800 flex space-x-3 rounded-lg">
+                    <i class="bi bi-search" style="font-size: 20px; opacity: 0.5; margin-left: 10px; margin-top: 5px;"></i>
+                    <input type="text" class="h-full w-96 bg-gray-800" placeholder="Введите название">
+                </div>
+                <div class="ml-9 mt-1 space-x-3">
+                    <i class="bi bi-star"></i>
+                    <span>Только избранные</span>
+                </div>
+            </div>
+            <div class="w-full h-48 bg-gray-800 mt-5 flex-col">
+                <div *ngFor="let sec of sections">
+                    <h1>{{sec}}</h1>
+                </div>
             </div>
         </div>
     </div>
