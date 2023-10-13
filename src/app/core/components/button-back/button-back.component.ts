@@ -8,10 +8,10 @@ import { Location } from '@angular/common';
 })
 export class ButtonBackComponent {
   
-  constructor(private _location: Location) {}
+  constructor(private location: Location) {}
 
   backClicked() {
-      this._location.back();
+      this.location.back();
   }
 
 }

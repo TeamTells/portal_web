@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { IMenuItem } from './menu-item/menu-item.component';
-import { MenuNavItem } from '../../presentation/employees.component';
+import { MenuItemEntity } from './menu-item/menu-item.component';
+import { EmployeesNavigator, MenuNavItem } from '../../navigation/employees-navigator';
 
 @Component({
   selector: 'employees-menu',
@@ -8,16 +8,16 @@ import { MenuNavItem } from '../../presentation/employees.component';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent {
-  @Output() public navigate: EventEmitter<MenuNavItem> = new EventEmitter<MenuNavItem>();
+  constructor(private navigator: EmployeesNavigator) {}
 
   public onNavItemClick(item: MenuNavItem): void {
     this.menuItems.forEach((element) => {
       element.type == item ? element.selected = true : element.selected = false
     });
-    this.navigate.emit(item);
+    this.navigator.showContent(item);
   }
 
-  public menuItems: IMenuItem[] = [
+  public menuItems: MenuItemEntity[] = [
     {
       text: "Пользователи",
       icon: "../../../../assets/menu-employees.svg",

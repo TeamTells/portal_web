@@ -8,6 +8,8 @@ import { DepartmentInfoComponent } from './components/department-info/department
 import { RouterOutlet } from '@angular/router';
 import { MenuComponent } from './components/menu/menu.component';
 import { MenuItemComponent } from './components/menu/menu-item/menu-item.component';
+import { DepartmentComponent } from './components/department/department.component';
+import { EmployeeItemComponent } from './components/employee-item/employee-item.component';
 
 
 
@@ -18,7 +20,9 @@ import { MenuItemComponent } from './components/menu/menu-item/menu-item.compone
     EmployeesNewComponent,
     DepartmentInfoComponent,
     MenuComponent,
-    MenuItemComponent
+    MenuItemComponent,
+    DepartmentComponent,
+    EmployeeItemComponent
   ],
   exports: [
     EmployeesComponent

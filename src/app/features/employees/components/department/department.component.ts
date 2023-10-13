@@ -1,13 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IDepartment } from '../../interfaces/idepartment';
+import { EmployeeEntity } from '../employee-item/employee-item.component';
 
 @Component({
   selector: 'app-core-department',
   templateUrl: './department.component.html',
   styleUrls: ['./department.component.scss']
 })
+
 export class DepartmentComponent implements OnInit{
-  @Input() public department: IDepartment = {
+  @Input() public department: DepartmentEntity = {
     id: -1,
     name: "Department",
     departments: [],
@@ -21,7 +22,7 @@ export class DepartmentComponent implements OnInit{
     this.getCountEmployees(this.department);
   }
 
-  getCountEmployees(folder: IDepartment):void
+  getCountEmployees(folder: DepartmentEntity):void
   {
     this.countOfEmployees += folder.employees.length;
     folder.departments.forEach(element => {
@@ -35,3 +36,10 @@ export class DepartmentComponent implements OnInit{
     this.show = !this.show;
   }
 }
+
+export interface DepartmentEntity{
+  id: number,
+  name: string,
+  departments: DepartmentEntity[],
+  employees: EmployeeEntity[]
+} 

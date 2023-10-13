@@ -1,6 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { IEmployee } from '../../interfaces/iemployee';
-
 @Component({
   selector: 'app-core-employee-item',
   templateUrl: './employee-item.component.html',
@@ -9,7 +7,7 @@ import { IEmployee } from '../../interfaces/iemployee';
 export class EmployeeItemComponent {
   showDots: boolean = false;
 
-  @Input() public employee: IEmployee = {
+  @Input() public employee: EmployeeEntity = {
     id: -1,
     img: "",
     name: "Name",
@@ -25,4 +23,11 @@ export class EmployeeItemComponent {
   {
     this.showDots = false;
   }
+}
+
+export interface EmployeeEntity{
+  id: number,
+  img: string,
+  name: string,
+  mail: string
 }

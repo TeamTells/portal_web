@@ -25,7 +25,6 @@ module.exports = {
       backgroundColor: {
         DEFAULT: "#FFF",
         "tt-bg": "#FFF",
-        // "tt-accent-bg": "#F2F3F7",
       },
     },
   },

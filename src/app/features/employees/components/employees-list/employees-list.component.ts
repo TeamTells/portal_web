@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { IEmployee } from 'src/app/core/interfaces/iemployee';
-import { IDepartment } from 'src/app/core/interfaces/idepartment';
 import { Router } from '@angular/router';
+import { DepartmentEntity } from 'src/app/features/employees/components/department/department.component';
+import { EmployeeEntity } from 'src/app/features/employees/components/employee-item/employee-item.component';
+import { EmployeesNavigator, MenuNavItem } from '../../navigation/employees-navigator';
 
 @Component({
   selector: 'employees-list',
@@ -9,14 +10,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./employees-list.component.scss']
 })
 export class EmployeesListComponent {
-  constructor(private router: Router){}
+  constructor(private navigator: EmployeesNavigator){}
 
   onCreateClick(): void
   {
-    this.router.navigate(['employees/new-employee'])
+    this.navigator.showContent(MenuNavItem.NEW_EMPLOYEE);
   }
 
-  mock_folder: IDepartment = {
+  mock_folder: DepartmentEntity = {
     id: -1,
     name: "Головной офис Йошкар-Ола",
     departments: [ 
@@ -44,7 +45,7 @@ export class EmployeesListComponent {
     ]
   };
 
-  mock_employees: IEmployee[] = [
+  mock_employees: EmployeeEntity[] = [
     {
       id: -1,
       name: "Воронин Дмитрий",

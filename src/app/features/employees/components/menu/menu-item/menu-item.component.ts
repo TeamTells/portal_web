@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { MenuNavItem } from '../../../presentation/employees.component';
+import { MenuNavItem } from '../../../navigation/employees-navigator';
 
 @Component({
   selector: 'employees-menu-item',
@@ -7,7 +7,7 @@ import { MenuNavItem } from '../../../presentation/employees.component';
   styleUrls: ['./menu-item.component.scss']
 })
 export class MenuItemComponent {
-  @Input() params!: IMenuItem;
+  @Input() params!: MenuItemEntity;
   @Output() public navigate: EventEmitter<MenuNavItem> = new EventEmitter<MenuNavItem>();
 
   public onNavItemClick(): void {
@@ -15,7 +15,7 @@ export class MenuItemComponent {
   }
 }
 
-export interface IMenuItem{
+export interface MenuItemEntity{
   icon: string;
   text: string;
   type: MenuNavItem;
