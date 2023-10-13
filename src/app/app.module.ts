@@ -10,16 +10,21 @@ import {HTTP_INTERCEPTORS, HttpClient} from "@angular/common/http";
 import {fakeBackendProvider} from "./features/authorization/data/interceptors/fake-backend";
 import {appInitializer} from "./features/authorization/data/app-initializer";
 import {MainModule} from "./features/main/main.module";
+import { CommonModule } from '@angular/common';
+import { NewsComponent } from './features/news/presentation/news.component';
+import { NewsModule } from './features/news/news.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AuthorizationModule,
-    MainModule
+    MainModule,
+    CommonModule,
+    NewsModule
   ],
   providers: [
     {

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NewsComponent } from './presentation/news.component';
+import { BrowserModule } from '@angular/platform-browser';
 
 
 
@@ -9,7 +10,8 @@ import { NewsComponent } from './presentation/news.component';
     NewsComponent
   ],
   imports: [
-    CommonModule
+    BrowserModule
+    
   ]
 })
 export class NewsModule { }
