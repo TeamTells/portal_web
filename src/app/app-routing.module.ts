@@ -22,6 +22,7 @@ const mainItems: Routes = [
   {path: 'news', component: NewsComponent},
   {path: 'employees', component: EmployeesComponent, children: employeesItems},
   {path: 'settings', component: SettingsComponent},
+  {path:'news/:id', component:SectionComponent}
 ]
 
 const appRoutes: Routes = [

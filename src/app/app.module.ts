@@ -11,6 +11,7 @@ import { fakeBackendProvider } from "./features/authorization/data/interceptors/
 import { appInitializer } from "./features/authorization/data/app-initializer";
 import { MainModule } from "./features/main/main.module";
 import { EmployeesModule } from './features/employees/employees.module';
+import { SectionModule } from './features/section/section.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { EmployeesModule } from './features/employees/employees.module';
     AuthorizationModule,
     EmployeesModule,
     MainModule,
-    NewsModule
+    NewsModule,
   ],
   providers: [
     {
