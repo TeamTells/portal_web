@@ -6,11 +6,13 @@ import {alreadyLoginGuardFunction, loginGuardFunction} from "./features/authoriz
 import {NewsComponent} from "./features/news/presentation/news.component";
 import {EmployeesComponent} from "./features/employees/presentation/employees.component";
 import {SettingsComponent} from "./features/settings/presentation/settings.component";
+import { SectionComponent } from './features/section/presentation/section.component';
 
 const mainItems: Routes = [
   {path: 'news', component: NewsComponent},
   {path: 'employees', component: EmployeesComponent},
   {path: 'settings', component: SettingsComponent},
+  {path:'news/:id', component:SectionComponent}
 ]
 
 const appRoutes: Routes = [

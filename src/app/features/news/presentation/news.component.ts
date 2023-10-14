@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MenuItem } from './menuItem';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-presentation',
   templateUrl: './news.component.html',
@@ -7,10 +8,12 @@ import { MenuItem } from './menuItem';
 })
 export class NewsComponent {
 
+  constructor(private router: Router){}
+
     menuItems: MenuItem[] = [
-      new MenuItem('Программирование и разработка ПО'),
-      new MenuItem('Правила поведения в нашей столовой'),
-      new MenuItem('Списки проведение спортивных занятий'),
+      new MenuItem(1,'Программирование и разработка ПО'),
+      new MenuItem(2,'Правила поведения в нашей столовой'),
+      new MenuItem(3,'Списки проведение спортивных занятий'),
     ]
 
     emojiToColorMap:{[emoji:string]: string} = {
@@ -30,6 +33,10 @@ export class NewsComponent {
         default:
           return '';
       }
+    }
+
+    navigateToSection(id: number){
+      this.router.navigate(['/news', id]);
     }
 
 }

@@ -13,6 +13,7 @@ import {MainModule} from "./features/main/main.module";
 import { CommonModule } from '@angular/common';
 import { NewsComponent } from './features/news/presentation/news.component';
 import { NewsModule } from './features/news/news.module';
+import { SectionModule } from './features/section/section.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import { NewsModule } from './features/news/news.module';
     AppRoutingModule,
     AuthorizationModule,
     MainModule,
-    NewsModule
+    NewsModule,
   ],
   providers: [
     {
