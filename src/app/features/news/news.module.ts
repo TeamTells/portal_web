@@ -10,8 +10,7 @@ import { BrowserModule } from '@angular/platform-browser';
     NewsComponent
   ],
   imports: [
-    BrowserModule
-    
+    CommonModule
   ]
 })
 export class NewsModule { }

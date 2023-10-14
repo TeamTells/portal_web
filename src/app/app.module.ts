@@ -22,7 +22,6 @@ import { EmployeesModule } from './features/employees/employees.module';
     AuthorizationModule,
     EmployeesModule,
     MainModule,
-    CommonModule,
     NewsModule
   ],
   providers: [
