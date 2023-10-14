@@ -7,6 +7,8 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
 import { ButtonBackComponent } from './button-back/button-back.component';
 import { InputFieldComponent } from './input-field/input-field.component';
 import { SearchFieldComponent } from './search-field/search-field.component';
+import { DropdownFieldComponent } from './dropdown-field/dropdown-field.component';
+import { FieldErrorMessageComponent } from './field-error-message/field-error-message.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,8 @@ import { SearchFieldComponent } from './search-field/search-field.component';
     ButtonBackComponent,
     InputFieldComponent,
     SearchFieldComponent,
+    DropdownFieldComponent,
+    FieldErrorMessageComponent,
   ],
   exports: [
     CardComponent,
@@ -24,6 +28,7 @@ import { SearchFieldComponent } from './search-field/search-field.component';
     ButtonBackComponent,
     InputFieldComponent,
     SearchFieldComponent,
+    DropdownFieldComponent,
   ],
   imports: [
     CommonModule,
