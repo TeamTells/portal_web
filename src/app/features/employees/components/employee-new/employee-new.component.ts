@@ -6,36 +6,38 @@ import { Component } from '@angular/core';
   styleUrls: ['./employee-new.component.scss']
 })
 export class EmployeesNewComponent {
-  dropdownItems = [
-    {
-      id: '1',
-      name: 'Item 1'
-    },
-    {
-      id: '2',
-      name: 'Item 2'
-    }, {
-      id: "3",
-      name: 'Item 3'
-    }, {
-      id: '4',
-      name: 'Item 4'
-    },
+  departments = [
+    { name: 'Департамент прыжков по канату', id: '1' },
+    { name: 'Департамент дрессировки', id: '2' },
+    { name: 'Департамент клоунов', id: '3' },
   ]
-
-  selectedItem?: {
-    id: string,
-    name: string,
-  } = {
-      id: '1',
-      name: 'Item 1'
-    };
-
-  onSelectItem = (id: string) => {
-    this.selectedItem = this.dropdownItems.find(item => item.id === id);
+  selectedDepartment?: {name: string, id: string};
+  onSelectDepartment = (id: string) => {
+    this.selectedDepartment = this.departments.find(department => department.id === id);
   }
 
-  onChangeName(name: string) {
-    console.log('Твоё имя: ', name)
+  roles = [
+    { name: 'Зритель', id: '1' },
+    { name: 'Тамада', id: '2' },
+    { name: 'Дрессировчик', id: '3' },
+    { name: 'Клоун', id: '4' },
+    { name: 'Акрабат', id: '4' },
+  ]
+  selectedRole?: {name: string, id: string};
+  onSelectRole = (id: string) => {
+    this.selectedRole = this.roles.find(role => role.id === id);
+  }
+  
+  rights = [
+    { name: 'Смотреть', id: '1' },
+    { name: 'Выступать', id: '2' },
+  ]
+  selectedRight?: {name: string, id: string};
+  onSelectRight = (id: string) => {
+    this.selectedRight = this.rights.find(right => right.id === id);
+  }
+
+  onSave() {
+    console.log('Save new user');
   }
 }
