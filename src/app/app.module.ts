@@ -23,7 +23,6 @@ import { NewsModule } from './features/news/news.module';
     AppRoutingModule,
     AuthorizationModule,
     MainModule,
-    CommonModule,
     NewsModule
   ],
   providers: [
