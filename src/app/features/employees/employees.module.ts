@@ -10,6 +10,8 @@ import { MenuComponent } from './components/menu/menu.component';
 import { MenuItemComponent } from './components/menu/menu-item/menu-item.component';
 import { DepartmentComponent } from './components/department/department.component';
 import { EmployeeItemComponent } from './components/employee-item/employee-item.component';
+import { RolesComponent } from './components/roles/roles.component';
+import { RoleItemComponent } from './components/roles/role-item/role-item.component';
 
 
 
@@ -22,7 +24,9 @@ import { EmployeeItemComponent } from './components/employee-item/employee-item.
     MenuComponent,
     MenuItemComponent,
     DepartmentComponent,
-    EmployeeItemComponent
+    EmployeeItemComponent,
+    RolesComponent,
+    RoleItemComponent
   ],
   exports: [
     EmployeesComponent

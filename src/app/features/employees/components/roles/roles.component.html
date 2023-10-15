@@ -1,2 +1,4 @@
-
-    
+<app-core-main-content-card>
+    <p class="my-auto font-medium text-tt-black text-[28px]" >Роли</p>
+    <app-role-item *ngFor="let item of roles" [role]="item" [class]="'mt-3'"/>
+</app-core-main-content-card>
