@@ -39,4 +39,8 @@ export class NewsComponent {
       this.router.navigate(['/news', id]);
     }
 
+    getmenuItemById(id:number):MenuItem | undefined{
+      return this.menuItems.find((item) => item.id === id);
+    }
+
 }
