@@ -8,6 +8,14 @@ import { Pages } from './pages';
 })
 export class SectionComponent {
 
+  constructor(){
+    document.body.style.overflowY = 'hidden';
+  }
+
+  favoritePages:Pages[] = [
+    new Pages(1,'Паттерны прогрмаирование')
+  ];
+
     pageItem: Pages[] = [
         new Pages(1,'Паттерны проектирование'),
         new Pages(2,'Строитель'),
@@ -15,5 +23,9 @@ export class SectionComponent {
         new Pages(4,'Основы проиграммирование'),
         new Pages(5, 'Основы веб разработки'),
     ]
+
+    addToFavorite(page: Pages){
+      this.favoritePages.push(page);
+    }
 
 }
