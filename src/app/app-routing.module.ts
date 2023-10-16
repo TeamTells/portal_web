@@ -7,12 +7,13 @@ import {NewsComponent} from "./features/news/presentation/news.component";
 import {EmployeesComponent} from "./features/employees/presentation/employees.component";
 import {SettingsComponent} from "./features/settings/presentation/settings.component";
 import {EditorComponent} from "./features/editor/presentation/editor/editor.component";
+import {EditorComponent2} from "./features/editor2/presentation/editor/editor2.component";
 
 const mainItems: Routes = [
   {path: 'news', component: NewsComponent},
   {path: 'employees', component: EmployeesComponent},
   {path: 'settings', component: SettingsComponent},
-  {path: 'editor', component: EditorComponent},
+  {path: 'editor', component: EditorComponent2},
 ]
 
 const appRoutes: Routes = [
