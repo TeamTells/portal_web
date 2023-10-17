@@ -12,6 +12,7 @@ import { DepartmentComponent } from './components/department/department.componen
 import { EmployeeItemComponent } from './components/employee-item/employee-item.component';
 import { RolesComponent } from './components/roles/roles.component';
 import { RoleItemComponent } from './components/roles/role-item/role-item.component';
+import { AddEmployeesComponent } from './components/add-employees/add-employees.component';
 
 
 
@@ -26,7 +27,8 @@ import { RoleItemComponent } from './components/roles/role-item/role-item.compon
     DepartmentComponent,
     EmployeeItemComponent,
     RolesComponent,
-    RoleItemComponent
+    RoleItemComponent,
+    AddEmployeesComponent
   ],
   exports: [
     EmployeesComponent

@@ -1,2 +1,49 @@
+<app-core-main-content-card>
+  <div class="flex justify-between">
+    <div class="flex">
+      <app-core-button-back class="my-auto"/>
+      <p class="ml-4 my-auto font-medium text-[28px]">{{department.name}}</p>
+    </div>
+    <app-core-button-light-gray class="my-auto" (buttonClick)="onChangeClicked()" [text]='strings.change'/>
+  </div>
+  <div class="mt-6 flex font-normal text-[16px]">
+    <p class="text-tt-light-gray">{{strings.supervisor}}:</p>
+    <p class="ml-1 text-tt-black">{{department.supervisor.name}}</p>
+  </div>
+</app-core-main-content-card>
 
+<div class="mt-7">
+  <app-core-main-content-card>
+
+    <div class="flex font-medium text-[20px]">
+      <p class="text-tt-black">{{strings.participants}}</p>
+      <p *ngIf="!isEmptyDepartment()" class="ml-1 text-tt-light-gray">({{countOfEmployees}})<p>
+    </div>
+
+    <app-core-search-field *ngIf="!isEmptyDepartment()" class="mt-6"/>
+
+    <div class="mt-6">
+        <div *ngIf="!isEmptyDepartment()" class="flex-column gap-3">
+            <app-core-add-employees/>
+            <app-core-department 
+                *ngFor="let item of department.departments"
+                [department]="item"
+                />
+            <app-core-employee-item 
+                *ngFor="let item of department.employees"
+                [employee]="item"
+                />
+        </div>
+      
+        <div *ngIf="isEmptyDepartment()">
+            <img src="../../../../../assets/empty-department.svg">
+            <p class="mt-1 text-center font-extrabold text-tt-black text-[16px]">{{strings.emptyText}}</p>
+            <div class="mt-4 text-center">
+                <app-core-button-red [text]="strings.add"/>
+            </div>
+        </div>
+    </div>
     
+
+  </app-core-main-content-card>
+</div>

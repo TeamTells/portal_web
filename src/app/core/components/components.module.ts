@@ -9,6 +9,7 @@ import { InputFieldComponent } from './input-field/input-field.component';
 import { SearchFieldComponent } from './search-field/search-field.component';
 import { DropdownFieldComponent } from './dropdown-field/dropdown-field.component';
 import { FieldErrorMessageComponent } from './field-error-message/field-error-message.component';
+import { ButtonLightGrayComponent } from './button-light-gray/button-light-gray.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { FieldErrorMessageComponent } from './field-error-message/field-error-me
     SearchFieldComponent,
     DropdownFieldComponent,
     FieldErrorMessageComponent,
+    ButtonLightGrayComponent
   ],
   exports: [
     CardComponent,
@@ -29,6 +31,7 @@ import { FieldErrorMessageComponent } from './field-error-message/field-error-me
     InputFieldComponent,
     SearchFieldComponent,
     DropdownFieldComponent,
+    ButtonLightGrayComponent
   ],
   imports: [
     CommonModule,

@@ -13,13 +13,17 @@ export class EmployeesNavigator {
   {
     switch (item) {
       case MenuNavItem.ROLES:
-        this.router.navigate(['employees/roles'])
-        break
+        this.router.navigate(['employees/roles']);
+        break;
       case MenuNavItem.USERS:
-        this.router.navigate(['employees'])
-        break
+        this.router.navigate(['employees']);
+        break;
       case MenuNavItem.NEW_EMPLOYEE:
-        this.router.navigate(['employees/new-employee'])
+        this.router.navigate(['employees/new-employee']);
+        break;
+      case MenuNavItem.DEPARTMENT:
+        this.router.navigate(['employees/department/*'])
+        break;
     }
   }
 }
@@ -27,5 +31,6 @@ export class EmployeesNavigator {
 export enum MenuNavItem{
   USERS,
   ROLES,
-  NEW_EMPLOYEE
+  NEW_EMPLOYEE, 
+  DEPARTMENT,
 }

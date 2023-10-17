@@ -17,33 +17,86 @@ export class EmployeesListComponent {
     this.navigator.showContent(MenuNavItem.NEW_EMPLOYEE);
   }
 
-  mock_folder: DepartmentEntity = {
-    id: -1,
-    name: "Головной офис Йошкар-Ола",
-    departments: [ 
-      {
-        id: -1,
-        name: "Охрана",
-        departments: [],
-        employees: [
-          {
+  mock_folders: DepartmentEntity[] = [
+    {
+      id: -1,
+      name: "Головной офис Йошкар-Ола",
+      supervisor: {
             id: -1,
             name: "Сергей Исхаков",
             mail: "se.isxakov@mail.ru",
             img: ""
-          }
-        ]
-      }
-    ],
-    employees: [
-      {
-        id: -1,
-        name: "Воронин Дмитрий",
-        mail: "de.voronin@mail.ru",
-        img: ""
-      }
-    ]
-  };
+          },
+      departments: [ 
+        {
+          id: -1,
+          name: "Охрана",
+          supervisor: {
+            id: -1,
+            name: "Сергей Исхаков",
+            mail: "se.isxakov@mail.ru",
+            img: ""
+          },
+          departments: [],
+          employees: [
+            {
+              id: -1,
+              name: "Сергей Исхаков",
+              mail: "se.isxakov@mail.ru",
+              img: ""
+            }
+          ]
+        }
+      ],
+      employees: [
+        {
+          id: -1,
+          name: "Воронин Дмитрий",
+          mail: "de.voronin@mail.ru",
+          img: ""
+        }
+      ]
+    },
+    {
+      id: -1,
+      name: "Головной офис Йошкар-Ола",
+      supervisor: {
+            id: -1,
+            name: "Сергей Исхаков",
+            mail: "se.isxakov@mail.ru",
+            img: ""
+          },
+      departments: [ 
+        {
+          id: -1,
+          name: "Охрана",
+          supervisor: {
+            id: -1,
+            name: "Сергей Исхаков",
+            mail: "se.isxakov@mail.ru",
+            img: ""
+          },
+          departments: [],
+          employees: [
+            {
+              id: -1,
+              name: "Сергей Исхаков",
+              mail: "se.isxakov@mail.ru",
+              img: ""
+            }
+          ]
+        }
+      ],
+      employees: [
+        {
+          id: -1,
+          name: "Воронин Дмитрий",
+          mail: "de.voronin@mail.ru",
+          img: ""
+        }
+      ]
+    }
+  ]
 
   mock_employees: EmployeeEntity[] = [
     {

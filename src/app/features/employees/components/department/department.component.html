@@ -9,8 +9,10 @@
       *ngIf="department.departments.length != 0 || department.employees.length != 0" 
       >
     <img class="w-9 h-7 my-auto ml-3 " src="../../../../assets/folder.svg">
-    <p class="ml-3 my-auto font-medium text-[16px] text-tt-dark-gray">{{department.name}}</p>
-    <p class="ml-1 my-auto font-medium text-[16px] text-tt-light-gray">({{countOfEmployees}})</p>
+    <button class="flex" (click)="onDepartmentClick()">
+      <p class="ml-3 my-auto font-medium text-[16px] text-tt-dark-gray">{{department.name}}</p>
+      <p class="ml-1 my-auto font-medium text-[16px] text-tt-light-gray">({{countOfEmployees}})</p>
+    </button>
   </div>
 
   <div class="pl-9" *ngIf="show">
