@@ -1,6 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { EmployeeEntity } from '../employee-item/employee-item.component';
-import { EmployeesNavigator, MenuNavItem } from '../../navigation/employees-navigator';
+import { Store } from 'src/app/core/mvi/store';
+import { DepartmentState } from './state/department-state';
+import { DepartmentExecutor } from './state/department-executor';
+import { DepartmentAction, DepartmentActionTypes } from './state/department-action';
+import { DepartmentResultAction } from './state/department-result-action';
+import { DepartmentReducer } from './state/department-reducer';
 
 @Component({
   selector: 'app-core-department',
@@ -8,7 +13,7 @@ import { EmployeesNavigator, MenuNavItem } from '../../navigation/employees-navi
   styleUrls: ['./department.component.scss']
 })
 
-export class DepartmentComponent implements OnInit{
+export class DepartmentComponent extends Store<DepartmentState, DepartmentExecutor, DepartmentAction, DepartmentResultAction> implements OnInit {
   @Input() public department: DepartmentEntity = {
     id: -1,
     name: "Department",
@@ -22,31 +27,17 @@ export class DepartmentComponent implements OnInit{
     employees: []
   };
   
-  show: boolean = false;
-  countOfEmployees: number = 0;
+  protected readonly DepartmentActionTypes = DepartmentActionTypes;
 
-  constructor(private navigator: EmployeesNavigator) {}
+  constructor(
+    state: DepartmentState,
+    executor: DepartmentExecutor,
+    reducer: DepartmentReducer) {
+      super(state, executor, reducer)
+    }
   
   ngOnInit(): void {
-    this.getCountEmployees(this.department);
-  }
-
-  getCountEmployees(folder: DepartmentEntity):void
-  {
-    this.countOfEmployees += folder.employees.length;
-    folder.departments.forEach(element => {
-      this.getCountEmployees(element);
-    });
-  }
-  
-  showTrigger(): void
-  { 
-    this.show = !this.show;
-  }
-
-  onDepartmentClick(): void
-  {
-    this.navigator.showContent(MenuNavItem.DEPARTMENT)
+    this.performAction({type: DepartmentActionTypes.GET_COUNT_EMPLOYEES, department: this.department})
   }
 }
 

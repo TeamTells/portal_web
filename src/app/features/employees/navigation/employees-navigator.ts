@@ -9,28 +9,33 @@ export class EmployeesNavigator {
   constructor( private router: Router) {
   }
 
-  public showContent(item: MenuNavItem)
+  public showContent(item: EmployeesNavEntity)
   {
-    switch (item) {
-      case MenuNavItem.ROLES:
+    switch (item.navItem) {
+      case EmployeesNavItem.ROLES:
         this.router.navigate(['employees/roles']);
         break;
-      case MenuNavItem.USERS:
+      case EmployeesNavItem.USERS:
         this.router.navigate(['employees']);
         break;
-      case MenuNavItem.NEW_EMPLOYEE:
+      case EmployeesNavItem.NEW_EMPLOYEE:
         this.router.navigate(['employees/new-employee']);
         break;
-      case MenuNavItem.DEPARTMENT:
-        this.router.navigate(['employees/department/*'])
+      case EmployeesNavItem.DEPARTMENT:
+        this.router.navigate(['employees/department/' + item.params])
         break;
     }
   }
 }
 
-export enum MenuNavItem{
+export enum EmployeesNavItem{
   USERS,
   ROLES,
   NEW_EMPLOYEE, 
   DEPARTMENT,
+}
+
+export interface EmployeesNavEntity{
+  navItem: EmployeesNavItem,
+  params: string
 }

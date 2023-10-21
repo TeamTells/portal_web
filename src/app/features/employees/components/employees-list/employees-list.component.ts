@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { DepartmentEntity } from 'src/app/features/employees/components/department/department.component';
 import { EmployeeEntity } from 'src/app/features/employees/components/employee-item/employee-item.component';
-import { EmployeesNavigator, MenuNavItem } from '../../navigation/employees-navigator';
+import { EmployeesNavigator, EmployeesNavItem } from '../../navigation/employees-navigator';
 
 @Component({
   selector: 'employees-list',
@@ -14,7 +14,7 @@ export class EmployeesListComponent {
 
   onCreateClick(): void
   {
-    this.navigator.showContent(MenuNavItem.NEW_EMPLOYEE);
+    this.navigator.showContent({navItem: EmployeesNavItem.NEW_EMPLOYEE, params: ""});
   }
 
   mock_folders: DepartmentEntity[] = [

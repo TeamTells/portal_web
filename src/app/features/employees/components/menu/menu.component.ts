@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { MenuItemEntity } from './menu-item/menu-item.component';
-import { EmployeesNavigator, MenuNavItem } from '../../navigation/employees-navigator';
+import { EmployeesNavigator, EmployeesNavItem } from '../../navigation/employees-navigator';
 
 @Component({
   selector: 'employees-menu',
@@ -10,24 +10,24 @@ import { EmployeesNavigator, MenuNavItem } from '../../navigation/employees-navi
 export class MenuComponent {
   constructor(private navigator: EmployeesNavigator) {}
 
-  public onNavItemClick(item: MenuNavItem): void {
+  public onNavItemClick(item: EmployeesNavItem): void {
     this.menuItems.forEach((element) => {
       element.type == item ? element.selected = true : element.selected = false
     });
-    this.navigator.showContent(item);
+    this.navigator.showContent({navItem: item, params: ""});
   }
 
   public menuItems: MenuItemEntity[] = [
     {
       text: "Пользователи",
       icon: "../../../../assets/menu-employees.svg",
-      type: MenuNavItem.USERS,
+      type: EmployeesNavItem.USERS,
       selected: true
     },
     {
       text: "Роли",
       icon: "../../../../assets/menu-roles.svg",
-      type: MenuNavItem.ROLES,
+      type: EmployeesNavItem.ROLES,
       selected: false
     }
   ]

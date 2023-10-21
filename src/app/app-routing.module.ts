@@ -13,9 +13,9 @@ import { EmployeesListComponent } from './features/employees/components/employee
 
 const employeesItems: Routes = [
   {path: 'new-employee', component: EmployeesNewComponent},
-  {path: 'department/*', component: DepartmentInfoComponent},
+  {path: 'department/:id', component: DepartmentInfoComponent},
   {path: 'roles', component: RolesComponent},
-  {path: '**', component: EmployeesListComponent},
+  {path: '', component: EmployeesListComponent},
 ]
 
 const mainItems: Routes = [
