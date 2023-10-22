@@ -1,28 +1,24 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {EditorComponent2} from './presentation/editor/editor-component2.component';
-import {SafeHtmlPipe} from "./presentation/editor/safe-html-pipe";
-import {EditorService} from "./domain/editor-service";
-import {EditorServiceImpl} from "./data/editor-service-impl";
-import {ImageCastPipe, TextCastPipe} from "./presentation/editor/cast-pipe";
-
+import {Editor2Service} from "./domain/editor-service";
+import {Editor2ServiceImpl} from "./data/editor-service-impl";
+import {SlateModule} from 'slate-angular';
+import {EditorComponent2} from "./presentation/editor/editor2.component";
 
 @NgModule({
-    declarations: [
-        EditorComponent2,
-        SafeHtmlPipe,
-        ImageCastPipe,
-        TextCastPipe
-    ],
-    imports: [
-        CommonModule
-    ],
-    providers: [
-        {
-            provide: EditorService,
-            useClass: EditorServiceImpl
-        },
-    ]
+  declarations: [
+  ],
+  imports: [
+    CommonModule,
+    SlateModule,
+    EditorComponent2,
+  ],
+  providers: [
+    {
+      provide: Editor2Service,
+      useClass: Editor2ServiceImpl
+    },
+  ]
 })
 export class EditorModule2 {
 }

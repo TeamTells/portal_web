@@ -11,7 +11,7 @@ import {fakeBackendProvider} from "./features/authorization/data/interceptors/fa
 import {appInitializer} from "./features/authorization/data/app-initializer";
 import {MainModule} from "./features/main/main.module";
 import {EditorComponent} from "./features/editor/presentation/editor/editor.component";
-import {EditorModule} from "./features/editor/editor.module";
+import {EditorModule2} from "./features/editor2/editor-module2.module";
 
 @NgModule({
   declarations: [
@@ -22,7 +22,7 @@ import {EditorModule} from "./features/editor/editor.module";
     AppRoutingModule,
     AuthorizationModule,
     MainModule,
-    EditorModule
+    EditorModule2
   ],
   providers: [
     {

@@ -1,7 +1,7 @@
-import {LongreadDocument} from "./models/models";
+import {DocumentDataModel} from "./model-types";
 
-export abstract class EditorService {
+export abstract class Editor2Service {
 
-    abstract getDocumentBy(uid: string): LongreadDocument
+    abstract getDocumentBy(uid: string): DocumentDataModel
 
 }

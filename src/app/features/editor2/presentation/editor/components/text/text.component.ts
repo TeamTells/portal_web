@@ -1,17 +1,18 @@
 import { ChangeDetectorRef, Component, ElementRef, Renderer2 } from '@angular/core';
 import {BaseTextComponent, SlateModule} from 'slate-angular';
+import {MarkTypes} from "../../../../domain/model-types";
 
-export enum MarkTypes {
-  bold = 'bold',
-  italic = 'italic',
-  underline = 'underlined',
-  strike = 'strike',
-  code = 'code-line'
-}
+// export enum MarkTypes {
+//   bold = 'bold',
+//   italic = 'italic',
+//   underline = 'underlined',
+//   strike = 'strike',
+//   code = 'code-line'
+// }
 
 @Component({
   selector: 'span[textMark]',
-  template: `<slate-leaves [context]="context" [viewContext]="viewContext" [viewContext]="viewContext"></slate-leaves>`,
+  template: `<slate-leaves [context]="context" [viewContext]="viewContext"></slate-leaves>`,
   host: {
     'data-slate-node': 'text'
   },
@@ -19,9 +20,9 @@ export enum MarkTypes {
   imports: [SlateModule]
 })
 export class DemoTextMarkComponent extends BaseTextComponent {
-  attributes = [];
+  attributes: string[] = [];
 
-  constructor(public elementRef: ElementRef, public renderer2: Renderer2, cdr: ChangeDetectorRef) {
+  constructor(public override elementRef: ElementRef, public renderer2: Renderer2, cdr: ChangeDetectorRef) {
     super(elementRef, cdr);
   }
 
@@ -31,7 +32,7 @@ export class DemoTextMarkComponent extends BaseTextComponent {
     });
     this.attributes = [];
     for (const key in this.text) {
-      if (Object.prototype.hasOwnProperty.call(this.text, key) && key !== 'text' && !!this.text[key]) {
+      if (this.text.hasOwnProperty(key) && key !== 'text' && !!this.text[key as MarkTypes]) {
         const attr = `slate-${key}`;
         this.renderer2.setAttribute(this.elementRef.nativeElement, attr, 'true');
         this.attributes.push(attr);
@@ -39,7 +40,7 @@ export class DemoTextMarkComponent extends BaseTextComponent {
     }
   }
 
-  onContextChange() {
+  override onContextChange() {
     super.onContextChange();
     this.applyTextMark();
   }

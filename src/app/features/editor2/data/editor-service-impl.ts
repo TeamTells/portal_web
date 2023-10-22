@@ -1,91 +1,58 @@
-import {EditorService} from "../domain/editor-service";
-import {LongreadDocument} from "../domain/models/models";
 import {Injectable} from "@angular/core";
+import {DocumentDataModel} from "../domain/model-types";
+import {Editor2Service} from "../domain/editor-service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class EditorServiceImpl extends EditorService {
-  getDocumentBy(uid: string): LongreadDocument {
-    return {
-      title: "Docker",
-      paragraphs: [
-        {
-          type: "text",
-          spans: [
-            {
-              text: "Сборка и запуск Angular приложения в Docker контейнере",
-              style: {
-                bold: true,
-                size: 24,
-              }
-            }
-          ]
-        },
-        {
-          type: "text",
-          spans:
-            [
-              {
-                text: "В этой статье мы рассмотрим как собирать и запускать Angular приложение в Docker контейнере. Для этого будем использовать файл Dockerfile, где будут содержаться все необходимые инструкции. Наше приложение будет билдится и хостить свой production-ready код,",
-              },
-              {
-                text: " в контейнере",
-                style: {
-                  bold: true,
-                  cursive: true,
-                }
-              },
-              {
-                text: " с веб сервером NGINX.",
-              }
-            ]
-        }
-        ,
-        {
-          type: "text",
-          spans:
-            [
-              {
-                text: "Условимся что у нас уже существует некое приложение sample-app, поэтому шаг с созданием приложения опустим.",
-              }
-            ]
-        }
-        ,
-        {
-          type: "image",
-          url:
-            "https://habrastorage.org/getpro/habr/upload_files/9f7/867/465/9f786746560ec91b5c7454503061a339.png",
-          description:
-            ""
-        }
-        ,
-        {
-          type: "text",
-          spans:
-            [
-              {
-                text: "Создание Dockerfile и nginx.conf",
-                style: {
-                  bold: true,
-                  size: 32,
-                }
-              }
-            ]
-        }
-        ,
-        {
-          type: "text",
-          spans:
-            [
-              {
-                text: "Начинаем с того что создаем в корне нашего Angular приложения, файлы с именем Dockerfile и nginx.conf",
-              }
-            ]
-        }
-      ]
-
-    }
+export class Editor2ServiceImpl extends Editor2Service {
+  getDocumentBy(uid: string): DocumentDataModel {
+    return [
+      {
+        type: 'paragraph',
+        children: [
+          {text: 'This is editable '},
+          {text: 'rich', bold: true},
+          {text: ' text, '},
+          {text: 'much', bold: true, italic: true},
+          {text: ' better than a '},
+          // {text: '<textarea>', 'code-line': true},
+          {text: '!'},
+        ],
+      },
+      // {
+      //   type: 'heading-one',
+      //   children: [{text: 'This is h1 '}],
+      // },
+      // {
+      //   type: 'heading-three',
+      //   children: [{text: 'This is h3 '}],
+      // },
+      // {
+      //   type: 'paragraph',
+      //   children: [
+      //     {
+      //       text: `Since it's rich text, you can do things like turn a selection of text `,
+      //     },
+      //     {text: 'bold', bold: true},
+      //     {
+      //       text: ', or add a semantically rendered block quote in the middle of the page, like this:',
+      //     },
+      //   ],
+      // },
+      // {
+      //   type: 'block-quote',
+      //   children: [{text: 'A wise quote.'}],
+      // },
+      // {
+      //   type: 'paragraph',
+      //   children: [{text: 'Try it out for yourself!'}],
+      // },
+      // {
+      //   type: 'paragraph',
+      //   children: [{text: ''}],
+      // },
+    ];
   }
 
 }
