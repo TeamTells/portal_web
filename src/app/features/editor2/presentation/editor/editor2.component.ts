@@ -9,8 +9,8 @@ import {
   CustomElement,
   CustomText,
   DocumentDataModel,
-  ElementTypes,
-  MarkTypes
+  ElementTypes, HeadingElement,
+  MarkTypes, ParagraphElement
 } from "../../domain/model-types";
 import {Editor2Service} from "../../domain/editor-service";
 import {SlateModule} from 'slate-angular';
@@ -53,25 +53,16 @@ export class EditorComponent2 implements OnInit {
     }
   }
 
-  // toggleBlock = (format) => {
-  //   const isActive = this.isBlockActive(format);
-  //   const isList = LIST_TYPES.includes(format);
-  //
-  //   Transforms.unwrapNodes(this.editor, {
-  //     match: (n) => LIST_TYPES.includes(Element.isElement(n) && n.type),
-  //     split: true,
-  //   });
-  //   const newProperties: CustomElement = {
-  //     children: [],
-  //     type: isActive ? 'paragraph' : isList ? 'list-item' : format,
-  //   };
-  //   Transforms.setNodes(this.editor, newProperties);
-  //
-  //   if (!isActive && isList) {
-  //     const block = {type: format, children: []};
-  //     Transforms.wrapNodes(this.editor, block);
-  //   }
-  // };
+  toggleHeadingOne = () => {
+    const format = "heading-one"
+    const isActive = this.isBlockActive(format);
+
+    Transforms.setNodes(
+      this.editor,
+      { type: isActive ? 'paragraph' : format },
+      { match: n => Element.isElement(n) && Editor.isBlock(this.editor, n) }
+    );
+  };
 
   toggleMark = (format: MarkTypes) => {
     console.log("Toggle mark ", format)
@@ -232,6 +223,9 @@ export class EditorComponent2 implements OnInit {
   };
 
   keydown = (event: KeyboardEvent) => {
+    if (isHotkey('mod+shift+1', event)) {
+      this.toggleHeadingOne();
+    }
     if (isHotkey('shift+enter', event)) {
       event.preventDefault();
       this.editor.insertText('\n', undefined);

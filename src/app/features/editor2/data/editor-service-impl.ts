@@ -9,6 +9,12 @@ export class Editor2ServiceImpl extends Editor2Service {
   getDocumentBy(uid: string): DocumentDataModel {
     return [
       {
+        type: 'heading-one',
+        children: [
+          {text: 'The Slate Editor'},
+        ],
+      },
+      {
         type: 'paragraph',
         children: [
           {text: 'This is editable '},
@@ -16,8 +22,12 @@ export class Editor2ServiceImpl extends Editor2Service {
           {text: ' text, '},
           {text: 'much', bold: true, italic: true},
           {text: ' better than a '},
-          // {text: '<textarea>', 'code-line': true},
-          {text: '!'},
+        ],
+      },
+      {
+        type: 'paragraph',
+        children: [
+          {text: '<textarea>'},
         ],
       },
       // {

@@ -161,4 +161,4 @@ declare module 'slate' {
   }
 }
 
-export type DocumentDataModel = [CustomElement]
+export type DocumentDataModel = CustomElement[]

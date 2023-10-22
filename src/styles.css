@@ -1,6 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 .slate-editable-container [slate-underlined][slate-strike] {
   text-decoration: underline line-through;
 }
@@ -49,6 +46,15 @@
 }
 .slate-editable-container .demo-element-link-active {
   box-shadow: 0 0 0 3px #ddd;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+h1 {
+  display: block;
+  font-size: 2em;
+  font-weight: bold;
 }
 
 /*# sourceMappingURL=styles.css.map */
