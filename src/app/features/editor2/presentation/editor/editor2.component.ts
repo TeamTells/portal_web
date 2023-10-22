@@ -1,10 +1,17 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {createEditor, Element} from 'slate';
+import {createEditor, Element, Editor, Transforms} from 'slate';
 import {withHistory} from 'slate-history';
 import {SlateEditableComponent, withAngular} from 'slate-angular';
 import isHotkey from 'is-hotkey';
 import {DemoTextMarkComponent} from './components/text/text.component';
-import {CustomEditor, CustomText, DocumentDataModel, MarkTypes} from "../../domain/model-types";
+import {
+  CustomEditor,
+  CustomElement,
+  CustomText,
+  DocumentDataModel,
+  ElementTypes,
+  MarkTypes
+} from "../../domain/model-types";
 import {Editor2Service} from "../../domain/editor-service";
 import {SlateModule} from 'slate-angular';
 import {FormsModule} from "@angular/forms";
@@ -54,7 +61,7 @@ export class EditorComponent2 implements OnInit {
   //     match: (n) => LIST_TYPES.includes(Element.isElement(n) && n.type),
   //     split: true,
   //   });
-  //   const newProperties: Element = {
+  //   const newProperties: CustomElement = {
   //     children: [],
   //     type: isActive ? 'paragraph' : isList ? 'list-item' : format,
   //   };
@@ -66,28 +73,29 @@ export class EditorComponent2 implements OnInit {
   //   }
   // };
 
-  // toggleMark = (format) => {
-  //   const isActive = this.isMarkActive(format);
-  //
-  //   if (isActive) {
-  //     Editor.removeMark(this.editor, format);
-  //   } else {
-  //     Editor.addMark(this.editor, format, true);
-  //   }
-  // };
-  //
-  // isBlockActive = (format) => {
-  //   const [match] = Editor.nodes(this.editor, {
-  //     match: (n) => !Editor.isEditor(n) && n.type === format,
-  //   });
-  //
-  //   return !!match;
-  // };
+  toggleMark = (format: MarkTypes) => {
+    console.log("Toggle mark ", format)
+    const isActive = this.isMarkActive(format);
 
-  // isMarkActive = (format: MarkTypes) => {
-  //   const marks = Editor.marks(this.editor);
-  //   return marks ? marks[format] === true : false;
-  // };
+    if (isActive) {
+      Editor.removeMark(this.editor, format);
+    } else {
+      Editor.addMark(this.editor, format, true);
+    }
+  };
+
+  isBlockActive = (format: ElementTypes) => {
+    const [match] = Editor.nodes(this.editor, {
+      match: (n) => !Editor.isEditor(n) && Element.isElement(n) && n.type === format,
+    });
+
+    return !!match;
+  };
+
+  isMarkActive = (format: MarkTypes) => {
+    const marks = Editor.marks(this.editor);
+    return marks ? marks[format] === true : false;
+  };
 
   // toolbarItems = [
   //   {
@@ -170,14 +178,19 @@ export class EditorComponent2 implements OnInit {
   editor: CustomEditor = withHistory(withAngular(createEditor()));
 
   valueChange(event: any) {
-    if (localStorage.getItem(SLATE_DEV_MODE_KEY)) {
+    // if (localStorage.getItem(SLATE_DEV_MODE_KEY)) {
+      console.log(
+        `event: ${JSON.stringify(
+          event
+        )}`
+      );
       console.log(
         `anchor: ${JSON.stringify(
           this.editor.selection?.anchor
         )}\nfocus:  ${JSON.stringify(this.editor.selection?.focus)}`
       );
       console.log('operations: ', this.editor.operations);
-    }
+    // }
   }
 
   renderElement = (element: Element & { type: string }) => {
@@ -227,7 +240,7 @@ export class EditorComponent2 implements OnInit {
       if (isHotkey(hotkey, event as any)) {
         event.preventDefault();
         const mark = HOTKEYS[hotkey as keyof typeof HOTKEYS];
-        // this.toggleMark(mark);
+        this.toggleMark(mark);
       }
     }
   };

@@ -9,7 +9,8 @@ import {AngularEditor} from "slate-angular";
 //   strike = 'strike',
 //   code = 'code-line',
 // }
-export type MarkTypes = keyof CustomText
+export type MarkTypes = keyof Omit<CustomText, "text">
+export type ElementTypes = CustomElement["type"]
 //
 // export type TTElement = Element & {
 //   type: string;
@@ -78,7 +79,7 @@ export type ListItemElement = { type: 'list-item'; children: Descendant[] }
 
 export type MentionElement = {
   type: 'mention'
-  character: string
+  // character: string
   children: CustomText[]
 }
 
@@ -109,7 +110,7 @@ export type CodeLineElement = {
   children: Descendant[]
 }
 
-type CustomElement =
+export type CustomElement =
   | BlockQuoteElement
   | BulletedListElement
   | CheckListItemElement

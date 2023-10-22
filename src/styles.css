@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.slate-editable-container [slate-underlined][slate-strike] {
+  text-decoration: underline line-through;
+}
+.slate-editable-container [slate-strike] {
+  text-decoration: line-through;
+}
+.slate-editable-container [slate-underlined] {
+  text-decoration: underline;
+}
+.slate-editable-container [slate-italic] {
+  font-style: italic;
+}
+.slate-editable-container [slate-bold] {
+  font-weight: bold;
+}
+.slate-editable-container [slate-code-line] {
+  margin: 0 4px;
+  padding: 2px 3px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 2px;
+  background-color: rgba(0, 0, 0, 0.06);
+}
+.slate-editable-container blockquote {
+  margin: 0;
+  margin-left: 0;
+  margin-right: 0;
+  color: #888;
+  padding-left: 10px !important;
+  border-left: 4px solid #eee;
+}
+.slate-editable-container h1,
+.slate-editable-container h2,
+.slate-editable-container h3 {
+  margin: 0px;
+}
+.slate-editable-container > [data-slate-node=element], .slate-editable-container > slate-block-card {
+  margin-bottom: 12px;
+}
+.slate-editable-container .demo-element-button {
+  margin: 0 0.1em;
+  background-color: #efefef;
+  padding: 2px 6px;
+  border: 1px solid #767676;
+  border-radius: 2px;
+  font-size: 0.9em;
+}
+.slate-editable-container .demo-element-link-active {
+  box-shadow: 0 0 0 3px #ddd;
+}
+
+/*# sourceMappingURL=styles.css.map */
