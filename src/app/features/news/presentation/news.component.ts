@@ -18,7 +18,7 @@ export class NewsComponent implements OnInit {
 
 
   ngOnInit(): void {
-      this.sectionService.getUsers().subscribe(
+      this.sectionService.getSections().subscribe(
         data => {
           this.sectionItem = data;
           console.log(data)
@@ -42,6 +42,5 @@ export class NewsComponent implements OnInit {
     navigateToSection(id: number){
       this.router.navigate(['/news', id]);
     }
-
 
 }
