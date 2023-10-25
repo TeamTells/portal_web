@@ -22,11 +22,17 @@ export class SectionEntity{
 
     constructor(){}
 
-    getUsers():Observable<any>{
+    getSections():Observable<any>{
         return of(this.data.section)
     }
     getPages():Observable<any>{
         return of(this.data.pages);
+    }
+    getSectionById(id: number):Observable<any>{
+        return of(this.data.section.find((element) => element.id = id))
+    }
+    getPageById():Observable<any>{
+        return of(this.data.pages)
     }
 
 }

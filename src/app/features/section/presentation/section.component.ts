@@ -12,28 +12,33 @@ import { SectionEntity } from '../../news/presentation/menuItem';
 })
 export class SectionComponent implements OnInit {
 
-  menuItemId!: number;
-  menuItemTitle!: string;
+  section:any;
+  page:any;
 
-  constructor( private route: ActivatedRoute,){
+  constructor( private route: ActivatedRoute, private SectionService: SectionEntity){
     document.body.style.overflowY = 'hidden';
   }
 
   ngOnInit(): void {
-      
+        this.route.paramMap.subscribe((params:any) => {
+          const taskId =+params.get('id');
+          this.SectionService.getSectionById(taskId).subscribe(
+            data => {
+              this.section = data;
+              console.log('data taked succsefully')
+            }
+          )
+        })
+        this.SectionService.getPages().subscribe(
+          data => {
+            this.page = data
+          }
+        )
   }
 
   favoritePages:Pages[] = [
     new Pages(1,'Паттерны прогрмаирование',true)
   ];
-
-    pageItem: Pages[] = [
-        new Pages(1,'Паттерны проектирование',true),
-        new Pages(2,'Строитель',false),
-        new Pages(3,'Наблюдатель',false),
-        new Pages(4,'Основы проиграммирование',false),
-        new Pages(5, 'Основы веб разработки',false),
-    ]
 
     addToFavorite(page: Pages){
       page.isFavorite = true;
