@@ -1,26 +1,30 @@
-import { Component } from '@angular/core';
-import { MenuItem } from './menuItem';
+import { Component, OnInit } from '@angular/core';
+import { SectionEntity } from './menuItem';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-presentation',
   templateUrl: './news.component.html',
   styleUrls: ['./news.component.scss']
 })
-export class NewsComponent {
+export class NewsComponent implements OnInit {
+  sectionItem:any;
 
-  constructor(private router: Router){}
+  emojiToColorMap:{[emoji:string]: string} = {
+    '🐠': 'bg-red-600',
+    '🍔': 'bg-blue-1000',
+    '🥎': 'bg-green-1000',
+  }
+  constructor(private router: Router, private sectionService:SectionEntity){}
 
-    menuItems: MenuItem[] = [
-      new MenuItem(1,'Программирование и разработка ПО'),
-      new MenuItem(2,'Правила поведения в нашей столовой'),
-      new MenuItem(3,'Списки проведение спортивных занятий'),
-    ]
 
-    emojiToColorMap:{[emoji:string]: string} = {
-      '🐠': 'bg-red-600',
-      '🍔': 'bg-blue-1000',
-      '🥎': 'bg-green-1000',
-    }
+  ngOnInit(): void {
+      this.sectionService.getUsers().subscribe(
+        data => {
+          this.sectionItem = data;
+          console.log(data)
+        }
+      )
+  }
 
     getEmoji(title:string){
       switch (title) {
@@ -39,8 +43,5 @@ export class NewsComponent {
       this.router.navigate(['/news', id]);
     }
 
-    getmenuItemById(id:number):MenuItem | undefined{
-      return this.menuItems.find((item) => item.id === id);
-    }
 
 }

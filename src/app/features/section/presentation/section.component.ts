@@ -2,7 +2,7 @@ import { Component,OnInit } from '@angular/core';
 import { Pages } from './pages';
 import { ActivatedRoute } from '@angular/router';
 
-import { MenuItem } from '../../news/presentation/menuItem';
+import { SectionEntity } from '../../news/presentation/menuItem';
 
 
 @Component({
@@ -15,26 +15,12 @@ export class SectionComponent implements OnInit {
   menuItemId!: number;
   menuItemTitle!: string;
 
-  menuItems: MenuItem[] = [ // Define your menuItems array here
-    new MenuItem(1, 'Программирование и разработка ПО'),
-    new MenuItem(2, 'Правила поведения в нашей столовой'),
-    new MenuItem(3, 'Списки проведение спортивных занятий'),
-  ];
-
   constructor( private route: ActivatedRoute,){
     document.body.style.overflowY = 'hidden';
   }
 
   ngOnInit(): void {
-      this.route.params.subscribe((params)=>{
-        this.menuItemId =+ params['id'];
-        const selectedItem = this.menuItems.find((item) => item.id === this.menuItemId);
-       
-        if(selectedItem){
-          this.menuItemTitle = selectedItem.title;
-        }
-        
-      })
+      
   }
 
   favoritePages:Pages[] = [
