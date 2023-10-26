@@ -1,41 +1,38 @@
 <div class="bg-gray-100 fixed top-0 right-0 left-0 bottom-0"></div>
 
 <app-core-card>
+  <img ngSrc="assets/team_tels.png" height="25" width="152" class="mb-2" />
 
-    <img ngSrc="assets/team_tels.png" height="25" width="152" class="mb-2">
+  <div class="mb-4">Введите email и пароль</div>
 
-    <div class="mb-4">Введите email и пароль</div>
+  <app-core-input-field
+    placeholder="E-mail"
+    type="text"
+    [error]="state.emailError.toString()"
+    (onChange)="
+      performAction({
+        type: AuthorizationActionTypes.CHANGE_EMAIL,
+        email: $event
+      })
+    "
+  />
+  <app-core-input-field
+    class="my-3"
+    placeholder="Пароль"
+    type="password"
+    [error]="state.passwordError.toString()"
+    (onChange)="
+      performAction({
+        type: AuthorizationActionTypes.CHANGE_PASSWORD,
+        password: $event
+      })
+    "
+  />
 
-    <input
-        #email
-        type="text"
-        class="border rounded w-full py-2 px-4"
-        placeholder="E-mail"
-        (keyup)="performAction({
-                    type: AuthorizationActionTypes.CHANGE_EMAIL,
-                    email: email.value
-    })"
-    >
-
-    <p class="mb-2 text-red-700 text-xs">{{ state.emailError }}</p>
-
-    <input
-        #password
-        type="password"
-        class="border rounded w-full py-2 px-4 mb-2"
-        placeholder="Пароль"
-        (keyup)="performAction({
-                    type: AuthorizationActionTypes.CHANGE_PASSWORD,
-                    password: password.value
-    })"
-    >
-
-    <p class="mb-2 text-red-700 text-xs">{{ state.passwordError }}</p>
-
-    <button
-            class="py-3 px-4 w-full bg-red-700 text-white rounded-lg mt-1"
-            (click)="performAction({type: AuthorizationActionTypes.LOGIN})"
-    >Войти
-    </button>
-
+  <button
+    class="py-3 px-4 w-full bg-tt-red text-tt-white rounded-lg mt-1"
+    (click)="performAction({ type: AuthorizationActionTypes.LOGIN })"
+  >
+    Войти
+  </button>
 </app-core-card>
