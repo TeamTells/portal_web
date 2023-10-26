@@ -48,22 +48,13 @@ export class EmployeeNewReducer
         return clone(state, { password: action.password, passwordError: '' });
 
       case EmployeeNewResultActionTypes.SELECT_DEPARTMENT:
-        console.log(action.department);
-        return clone(state, {
-          department: action.department,
-        });
+        return { ...state, department: action.department };
 
       case EmployeeNewResultActionTypes.SELECT_ROLE:
-        console.log(action.role);
-        return clone(state, {
-          role: action.role,
-        });
+        return { ...state, role: action.role };
 
       case EmployeeNewResultActionTypes.SELECT_RIGHT:
-        console.log(action.right);
-        return clone(state, {
-          right: action.right,
-        });
+        return { ...state, right: action.right };
 
       case EmployeeNewResultActionTypes.VALIDATION_ERROR:
         return clone(state, {
