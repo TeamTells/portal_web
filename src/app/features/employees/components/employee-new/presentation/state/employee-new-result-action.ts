@@ -42,7 +42,7 @@ export interface ChangePatronymicResultAction {
 
 export interface ChangeDateOfBirthResultAction {
   readonly type: EmployeeNewResultActionTypes.CHANGE_DATE_OF_BIRTH;
-  readonly dateOfDirth: string;
+  readonly dateOfBirth: string;
 }
 
 export interface ChangeEmailResultAction {

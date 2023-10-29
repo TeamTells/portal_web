@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { EmployeesComponent } from './presentation/employees.component';
 import { ComponentsModule } from 'src/app/core/components/components.module';
 import { EmployeesListComponent } from './components/employees-list/employees-list.component';
-import { EmployeesNewComponent } from './components/employee-new/employee-new.component';
 import { DepartmentInfoComponent } from './components/department-info/department-info.component';
 import { RouterOutlet } from '@angular/router';
 import { MenuComponent } from './components/menu/menu.component';
@@ -13,14 +12,12 @@ import { EmployeeItemComponent } from './components/employee-item/employee-item.
 import { RolesComponent } from './components/roles/roles.component';
 import { RoleItemComponent } from './components/roles/role-item/role-item.component';
 import { AddEmployeesComponent } from './components/add-employees/add-employees.component';
-
-
+import { EmployeeNewModule } from './components/employee-new/employee-new.module';
 
 @NgModule({
   declarations: [
     EmployeesComponent,
     EmployeesListComponent,
-    EmployeesNewComponent,
     DepartmentInfoComponent,
     MenuComponent,
     MenuItemComponent,
@@ -28,15 +25,9 @@ import { AddEmployeesComponent } from './components/add-employees/add-employees.
     EmployeeItemComponent,
     RolesComponent,
     RoleItemComponent,
-    AddEmployeesComponent
+    AddEmployeesComponent,
   ],
-  exports: [
-    EmployeesComponent
-  ],
-  imports: [
-    CommonModule,
-    ComponentsModule,
-    RouterOutlet
-  ]
+  exports: [EmployeesComponent, EmployeeNewModule],
+  imports: [CommonModule, ComponentsModule, RouterOutlet],
 })
-export class EmployeesModule { }
+export class EmployeesModule {}

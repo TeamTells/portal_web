@@ -31,7 +31,7 @@ export class EmployeeNewReducer
 
       case EmployeeNewResultActionTypes.CHANGE_DATE_OF_BIRTH:
         return clone(state, {
-          dateOfBirth: action.dateOfDirth,
+          dateOfBirth: action.dateOfBirth,
           dateOfBirthErorr: '',
         });
 
@@ -60,7 +60,7 @@ export class EmployeeNewReducer
         return clone(state, {
           firstNameError: action.firstNameError,
           lastNameError: action.lastNameError,
-          dateOfBirth: action.dateOfBirthError,
+          dateOfBirthErorr: action.dateOfBirthError,
           emailError: action.emailError,
           passwordError: action.passwordError,
         });

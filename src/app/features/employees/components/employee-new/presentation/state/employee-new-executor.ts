@@ -20,8 +20,15 @@ export class EmployeeNewExecutor extends Executor<
   EmployeeNewResultAction
 > {
   constructor(
-    @Inject('EmailValidator') private emailValidator: Validator,
-    @Inject('PasswordValidator') private passwordValidator: Validator
+    @Inject('NewEmployeeEmailValidator') private emailValidator: Validator,
+    @Inject('NewEmployeePasswordValidator')
+    private passwordValidator: Validator,
+    @Inject('NewEmployeeFirstNameValidator')
+    private firstNameValidator: Validator,
+    @Inject('NewEmployeeLastNameValidator')
+    private lastNameValidator: Validator,
+    @Inject('NewEmployeeDateOfBirthValidator')
+    private dateOfBirthValidator: Validator
   ) {
     super();
   }
@@ -52,7 +59,7 @@ export class EmployeeNewExecutor extends Executor<
       case EmployeeNewActionTypes.CHANGE_DATE_OF_BIRTH:
         this.reduce({
           type: EmployeeNewResultActionTypes.CHANGE_DATE_OF_BIRTH,
-          dateOfDirth: action.dateOfBirth,
+          dateOfBirth: action.dateOfBirth,
         });
         break;
 
@@ -104,15 +111,30 @@ export class EmployeeNewExecutor extends Executor<
     let passwordError = this.passwordValidator.validate(
       this.getState().password
     );
+    let firstNameError = this.firstNameValidator.validate(
+      this.getState().firstName
+    );
+    let lastNameError = this.lastNameValidator.validate(
+      this.getState().lastName
+    );
+    let dateOfBirthError = this.dateOfBirthValidator.validate(
+      this.getState().dateOfBirth
+    );
 
-    if (emailError != null || passwordError != null) {
+    if (
+      emailError != null ||
+      passwordError != null ||
+      firstNameError != null ||
+      lastNameError != null ||
+      dateOfBirthError != null
+    ) {
       this.reduce({
         type: EmployeeNewResultActionTypes.VALIDATION_ERROR,
         emailError: emailError != null ? emailError : '',
         passwordError: passwordError != null ? passwordError : '',
-        dateOfBirthError: '',
-        firstNameError: '',
-        lastNameError: '',
+        firstNameError: firstNameError != null ? firstNameError : '',
+        lastNameError: lastNameError != null ? lastNameError : '',
+        dateOfBirthError: dateOfBirthError != null ? dateOfBirthError : '',
       });
       return;
     }
