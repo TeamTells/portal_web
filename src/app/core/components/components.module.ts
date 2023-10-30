@@ -10,6 +10,10 @@ import { SearchFieldComponent } from './search-field/search-field.component';
 import { DropdownFieldComponent } from './dropdown-field/dropdown-field.component';
 import { FieldErrorMessageComponent } from './field-error-message/field-error-message.component';
 import { ButtonLightGrayComponent } from './button-light-gray/button-light-gray.component';
+import { PopupMenuComponent } from './popup-menu/popup-menu.component';
+import { PopupMenuButtonComponent } from './popup-menu/popup-menu-button/popup-menu-button.component';
+import { PopupMenuContentComponent } from './popup-menu/popup-menu-content/popup-menu-content.component';
+import { PopupMenuOptionComponent } from './popup-menu/popup-menu-option/popup-menu-option.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +25,11 @@ import { ButtonLightGrayComponent } from './button-light-gray/button-light-gray.
     SearchFieldComponent,
     DropdownFieldComponent,
     FieldErrorMessageComponent,
-    ButtonLightGrayComponent
+    ButtonLightGrayComponent,
+    PopupMenuComponent,
+    PopupMenuButtonComponent,
+    PopupMenuContentComponent,
+    PopupMenuOptionComponent
   ],
   exports: [
     CardComponent,
@@ -31,7 +39,11 @@ import { ButtonLightGrayComponent } from './button-light-gray/button-light-gray.
     InputFieldComponent,
     SearchFieldComponent,
     DropdownFieldComponent,
-    ButtonLightGrayComponent
+    ButtonLightGrayComponent,
+    PopupMenuComponent,
+    PopupMenuButtonComponent,
+    PopupMenuContentComponent,
+    PopupMenuOptionComponent
   ],
   imports: [
     CommonModule,
