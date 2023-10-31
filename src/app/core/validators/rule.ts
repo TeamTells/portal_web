@@ -55,7 +55,6 @@ export class DateRule extends Rule {
     const maxYear = new Date().getFullYear();
     if (!(year >= 1900 && year <= maxYear)) return false;
 
-    // Проверка на существование даты
     const date = new Date(year, month, day);
     return (
       day === date.getDate() &&

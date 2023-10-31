@@ -101,12 +101,12 @@ export class EmployeeNewExecutor extends Executor<
         break;
 
       case EmployeeNewActionTypes.CREATE:
-        this.handleLogin();
+        this.handleCreate();
         break;
     }
   }
 
-  private handleLogin() {
+  private handleCreate() {
     let emailError = this.emailValidator.validate(this.getState().email);
     let passwordError = this.passwordValidator.validate(
       this.getState().password
