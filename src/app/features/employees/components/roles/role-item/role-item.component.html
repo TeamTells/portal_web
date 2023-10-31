@@ -1,7 +1,32 @@
-<div [ngClass]="class" class="flex justify-between items-center">
-    <div class="px-2 py-[6px]">
+<div [ngClass]="class" class="flex justify-between items-center px-2 py-[6px]">
+    <div class="">
             <p class="font-medium text-tt-black">{{role.role}}</p>
             <p class="max-w-fit font-normal text-tt-light-gray text-[14px]">{{role.description}}</p>
     </div>
-    <img class="ml-4" src="../../../../../../assets/lock.svg">
+    <div class="ml-4 w-[20px] max-w-max h-[20px]">
+        <app-popup-menu [leftOffset]="0" [topOffset]="0">
+            <app-popup-menu-button>
+                <img class="w-[20px] max-w-max h-[20px]" src="../../../../../../assets/lock.svg">
+            </app-popup-menu-button>
+            
+                <app-popup-menu-content>
+                    <app-popup-menu-option [class]="['border-b-[1px]', 'border-#F2F3F7']">
+                        <div class="w-[20px] h-[20px] bg-red-400" >
+
+                        </div>
+                    </app-popup-menu-option>
+                    <app-popup-menu-option [class]="['border-b-[1px]', 'border-#F2F3F7']">
+                        <div class="w-[20px] h-[20px] bg-red-400">
+
+                        </div>
+                    </app-popup-menu-option>
+                    <app-popup-menu-option class="">
+                        <div class="w-[20px] h-[20px] bg-red-400">
+
+                        </div>
+                    </app-popup-menu-option>
+                </app-popup-menu-content>
+            
+        </app-popup-menu>
+    </div>
 </div>
