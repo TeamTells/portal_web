@@ -92,8 +92,15 @@
               "browserTarget": "portal_web:build:production"
             },
             "development": {
-              "browserTarget": "portal_web:build:development"
+              "browserTarget": "portal_web:build:development",
+            },
+            "staging": {
+              "browserTarget": "portal_web:build:staging"
             }
+          },
+          "options": {
+            "browserTarget": "move-safe:build",
+            "proxyConfig": "src/proxy.conf.json"
           },
           "defaultConfiguration": "development"
         },
