@@ -1,11 +1,13 @@
 import {Injectable} from "@angular/core";
-import {BehaviorSubject, map, Observable} from "rxjs";
+import {BehaviorSubject, catchError, map, mergeMap, Observable, of} from "rxjs";
 import {AuthService} from "../domain/auth.service";
 import {LoginByPasswordData} from "../domain/login-by-password-data";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse, HttpStatusCode} from "@angular/common/http";
 import {User} from "../domain/user";
-import {environment} from "../../../enviroment";
 import {Router} from "@angular/router";
+import {environment} from "../../../../environments/environment";
+import {LoginResponseJson} from "./json/login-response-json";
+import {LoginStatus} from "../domain/login-status";
 
 @Injectable({
   providedIn: 'root',
@@ -32,14 +34,25 @@ export class AuthServiceImpl implements AuthService {
     return this.getUser() != null;
   }
 
-  login(data: LoginByPasswordData): Observable<boolean> {
-    const body = {login: data.login, password: data.password}
-    return this.http.post<any>(`${environment.apiUrl}/users/login`, body, {withCredentials: true})
-      .pipe(map(user => {
-        this.userSubject.next(user);
-        this.startRefreshTokenTimer();
-        return user;
-      }));
+  login(data: LoginByPasswordData): Observable<LoginStatus> {
+    return this.http.get<any>(`${environment.apiUrl}/authorization/salt/${data.login}`)
+      .pipe(mergeMap((response) => {
+          const body = {login: data.login, password: data.password}
+          return this.http.post<LoginResponseJson>(`${environment.apiUrl}/authorization/login`, body, {withCredentials: true})
+            .pipe(map(response => {
+              this.userSubject.next(new User(response.accessJwtToken));
+              this.startRefreshTokenTimer();
+              return LoginStatus.SUCCESS;
+            }));
+        }),
+        catchError(err => {
+          if (err instanceof HttpErrorResponse && err.status == HttpStatusCode.NotFound) {
+            return of(LoginStatus.INCORRECT_CREDENTIALS)
+          } else {
+            return of(LoginStatus.UNKNOWN)
+          }
+        })
+      )
   }
 
   logout(): void {
