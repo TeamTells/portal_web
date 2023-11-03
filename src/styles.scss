@@ -57,6 +57,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+
+    html,
+    body {
+        font-family: 'Open Sans', sans-serif;
+    }
+}
 h1 {
   display: block;
   font-size: 2em;

@@ -6,12 +6,12 @@ import {AuthorizationModule} from "./features/authorization/authorization.module
 import {AuthService} from "./features/authorization/domain/auth.service";
 import {AuthServiceImpl} from "./features/authorization/data/auth-service-impl.service";
 import {JwtInterceptor} from "./features/authorization/data/interceptors/jwt-interceptor";
-import {HTTP_INTERCEPTORS, HttpClient} from "@angular/common/http";
+import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {fakeBackendProvider} from "./features/authorization/data/interceptors/fake-backend";
 import {appInitializer} from "./features/authorization/data/app-initializer";
 import {MainModule} from "./features/main/main.module";
-import {EditorComponent} from "./features/editor/presentation/editor/editor.component";
 import {EditorModule2} from "./features/editor2/editor-module2.module";
+import {EmployeesModule} from './features/employees/employees.module';
 
 @NgModule({
   declarations: [
@@ -22,15 +22,16 @@ import {EditorModule2} from "./features/editor2/editor-module2.module";
     AppRoutingModule,
     AuthorizationModule,
     MainModule,
-    EditorModule2
+    EditorModule2,
+    EmployeesModule
   ],
   providers: [
     {
       provide: AuthService,
       useClass: AuthServiceImpl
     },
-    { provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [AuthService] },
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    {provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [AuthService]},
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     fakeBackendProvider
   ],
   bootstrap: [AppComponent]
