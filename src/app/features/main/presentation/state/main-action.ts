@@ -1,9 +1,10 @@
 import {NavItem} from "./main-state";
 
-export type MainAction = ChangeItemAction | LogoutAction
+export type MainAction = ChangeItemAction | LogoutAction | SideBarAction
 export enum MainActionTypes {
   SELECT_ITEM,
   LOGOUT,
+  SHOW_SIDEBAR,
 }
 
 export interface ChangeItemAction {
@@ -13,4 +14,8 @@ export interface ChangeItemAction {
 
 export interface LogoutAction {
   readonly type: MainActionTypes.LOGOUT
+}
+
+export interface SideBarAction {
+  readonly type: MainActionTypes.SHOW_SIDEBAR
 }
