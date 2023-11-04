@@ -4,13 +4,14 @@ import {AuthService} from "../domain/auth.service";
 import {LoginByPasswordData} from "../domain/login-by-password-data";
 import {HttpClient, HttpErrorResponse, HttpHeaders, HttpStatusCode} from "@angular/common/http";
 import {User} from "../domain/user";
-import {Navigation, Router} from "@angular/router";
 import {environment} from "../../../../environments/environment";
 import {LoginResponseJson} from "./json/login-response-json";
 import {LoginStatus} from "../domain/login-status";
 import {jwtDecode} from "jwt-decode";
 import {clone} from "cloneable-ts";
 import {AuthorizationNavigator} from "../presentation/navigation/authorization-navigator";
+import {CryptUtils} from "../../../core/crypt/crypt-utils";
+import {SaltResponseJson} from "./json/salt-response-json";
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +24,6 @@ export class AuthServiceImpl implements AuthService {
 
   constructor(
     private http: HttpClient,
-    private router: Router,
     private navigator: AuthorizationNavigator
   ) {
     this.userSubject = new BehaviorSubject<User | null>(null)
@@ -39,9 +39,10 @@ export class AuthServiceImpl implements AuthService {
   }
 
   login(data: LoginByPasswordData): Observable<LoginStatus> {
-    return this.http.get<any>(`${environment.apiUrl}/authorization/salt/${data.login}`)
+    return this.http.get<SaltResponseJson>(`${environment.apiUrl}/authorization/salt/${data.login}`)
       .pipe(mergeMap((response) => {
-          const body = {login: data.login, password: data.password}
+          const hashPassword = CryptUtils.toSha256Hash(data.password, response.salt)
+          const body = {login: data.login, password: hashPassword}
           return this.http.post<LoginResponseJson>(`${environment.apiUrl}/authorization/login`, body, {withCredentials: true})
             .pipe(map(response => {
               this.userSubject.next(new User(response.accessJwtToken));
@@ -68,7 +69,7 @@ export class AuthServiceImpl implements AuthService {
 
   refreshToken() {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      headers: new HttpHeaders({'Content-Type': 'application/json'}),
 
       withCredentials: true,
       observe: 'response' as 'response'
@@ -76,7 +77,7 @@ export class AuthServiceImpl implements AuthService {
 
     return this.http.get<LoginResponseJson>(`${environment.apiUrl}/authorization/refresh-token`, httpOptions)
       .pipe(map(response => {
-        this.userSubject.next(clone(this.userSubject.getValue(), { jwtToken:  response.body?.refreshToken}));
+        this.userSubject.next(clone(this.userSubject.getValue(), {jwtToken: response.body?.refreshToken}));
         this.startRefreshTokenTimer();
         return response;
       }));
