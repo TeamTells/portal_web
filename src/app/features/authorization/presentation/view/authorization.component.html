@@ -1,5 +1,8 @@
 <div class="bg-gray-100 fixed top-0 right-0 left-0 bottom-0"></div>
 
+<!--Ждем компонент-->
+<div class="absolute w-min h-min bg-red-100 px-2 py-2 mt-2 mr-2" *ngIf="state.loginError != null">{{state.loginError}}</div>
+
 <app-core-card>
   <img ngSrc="assets/team_tels.png" height="25" width="152" class="mb-2" />
 
@@ -32,7 +35,9 @@
   <button
     class="py-3 px-4 w-full bg-tt-red text-tt-white rounded-lg mt-1"
     (click)="performAction({ type: AuthorizationActionTypes.LOGIN })"
-  >
-    Войти
-  </button>
+  >Войти</button>
+
+  <!--Ждем компонент-->
+  <div *ngIf="state.isLoading">Загрузка...</div>
+
 </app-core-card>

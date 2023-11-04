@@ -2,12 +2,15 @@ import {Injectable} from "@angular/core";
 import {BehaviorSubject, catchError, map, mergeMap, Observable, of} from "rxjs";
 import {AuthService} from "../domain/auth.service";
 import {LoginByPasswordData} from "../domain/login-by-password-data";
-import {HttpClient, HttpErrorResponse, HttpStatusCode} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse, HttpHeaders, HttpStatusCode} from "@angular/common/http";
 import {User} from "../domain/user";
-import {Router} from "@angular/router";
+import {Navigation, Router} from "@angular/router";
 import {environment} from "../../../../environments/environment";
 import {LoginResponseJson} from "./json/login-response-json";
 import {LoginStatus} from "../domain/login-status";
+import {jwtDecode} from "jwt-decode";
+import {clone} from "cloneable-ts";
+import {AuthorizationNavigator} from "../presentation/navigation/authorization-navigator";
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +23,8 @@ export class AuthServiceImpl implements AuthService {
 
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private navigator: AuthorizationNavigator
   ) {
     this.userSubject = new BehaviorSubject<User | null>(null)
     this.userObservable = this.userSubject.asObservable()
@@ -56,28 +60,37 @@ export class AuthServiceImpl implements AuthService {
   }
 
   logout(): void {
-    this.http.post<any>(`${environment.apiUrl}/users/logout`, {}, {withCredentials: true}).subscribe();
+    this.http.post<any>(`${environment.apiUrl}/authorization/logout`, {}, {withCredentials: true}).subscribe();
     this.stopRefreshTokenTimer();
     this.userSubject.next(null);
-    this.router.navigate(['/login']);
+    this.navigator.openLogin()
   }
 
   refreshToken() {
-    return this.http.post<any>(`${environment.apiUrl}/users/refresh-token`, {}, {withCredentials: true})
-      .pipe(map((user) => {
-        this.userSubject.next(user);
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+
+      withCredentials: true,
+      observe: 'response' as 'response'
+    };
+
+    return this.http.get<LoginResponseJson>(`${environment.apiUrl}/authorization/refresh-token`, httpOptions)
+      .pipe(map(response => {
+        this.userSubject.next(clone(this.userSubject.getValue(), { jwtToken:  response.body?.refreshToken}));
         this.startRefreshTokenTimer();
-        return user;
+        return response;
       }));
   }
 
   private startRefreshTokenTimer() {
     const user = this.userSubject.getValue()
     if (user != null) {
-      const jwtToken = JSON.parse(atob(user.jwtToken.split('.')[1]));
-      const expires = new Date(jwtToken.exp * 1000);
-      const timeout = expires.getTime() - Date.now() - (60 * 1000);
-      this.refreshTokenTimeout = setTimeout(() => this.refreshToken().subscribe(), timeout);
+      const decodedToken = jwtDecode(user.jwtToken)
+      const exp = decodedToken.exp
+      if (exp != undefined) {
+        const timeout = exp - Date.now() - (60 * 1000);
+        this.refreshTokenTimeout = setTimeout(() => this.refreshToken().subscribe(), timeout);
+      }
     }
   }
 
