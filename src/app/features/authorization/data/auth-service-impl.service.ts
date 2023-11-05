@@ -84,12 +84,15 @@ export class AuthServiceImpl implements AuthService {
   }
 
   private startRefreshTokenTimer() {
+    console.log("startRefreshTokenTimer " + this.userSubject.getValue())
     const user = this.userSubject.getValue()
+    console.log("startRefreshTokenTimer " + user)
     if (user != null) {
       const decodedToken = jwtDecode(user.jwtToken)
       const exp = decodedToken.exp
       if (exp != undefined) {
         const timeout = exp - Date.now() - (60 * 1000);
+        console.log(timeout)
         this.refreshTokenTimeout = setTimeout(() => this.refreshToken().subscribe(), timeout);
       }
     }
