@@ -81,6 +81,20 @@
                   "with": "src/environments/environment.staging.ts"
                 }
               ]
+            },
+            "fake_api": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.fake_api.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "development"
@@ -92,10 +106,13 @@
               "browserTarget": "portal_web:build:production"
             },
             "development": {
-              "browserTarget": "portal_web:build:development",
+              "browserTarget": "portal_web:build:development"
             },
             "staging": {
               "browserTarget": "portal_web:build:staging"
+            },
+            "fake_api": {
+              "browserTarget": "portal_web:build:fake_api"
             }
           },
           "options": {

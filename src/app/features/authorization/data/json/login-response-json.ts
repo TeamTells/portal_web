@@ -1,8 +1,7 @@
 export class LoginResponseJson {
 
   constructor(
-    readonly accessJwtToken: string,
-    readonly refreshToken: string,
+    readonly accessJwtToken: string
   ) {
   }
 
