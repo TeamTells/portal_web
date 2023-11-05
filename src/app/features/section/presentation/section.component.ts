@@ -40,10 +40,4 @@ export class SectionComponent implements OnInit {
       this.favoritePages.push(page);
     }
 
-    emojiToColorMap:{[emoji:string]: string} = {
-      '🐠': 'bg-red-600',
-      '🍔': 'bg-blue-1000',
-      '🥎': 'bg-green-1000',
-    }
-
 }

@@ -22,18 +22,17 @@ export class FakeSectionEntity{
 
     constructor(){}
 
-    //Getting data from fake imitation server serctions, pages
+    //Getting data from fake imitation server serctions, pages in real api it will loks like this,but with http
+    
+    //GET METHODS
     getSections():Observable<any>{
         return of(this.data.sections)
     }
+    getSectionById(id: number):Observable<any>{
+        return of(this.data.sections.find((element) => element.id === id))
+    }
     getPages():Observable<any>{
         return of(this.data.pages);
-    }
-    getSectionById(id: number):Observable<any>{
-        return of(this.data.sections.find((element) => element.id = id))
-    }
-    getPageById():Observable<any>{
-        return of(this.data.pages)
     }
 
 }
