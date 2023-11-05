@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SectionEntity } from './menuItem';
+import { FakeSectionEntity } from '../state/sectionEntity';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-presentation',
@@ -14,11 +14,11 @@ export class NewsComponent implements OnInit {
     '🍔': 'bg-blue-1000',
     '🥎': 'bg-green-1000',
   }
-  constructor(private router: Router, private sectionService:SectionEntity){}
+  constructor(private router: Router, private FakesectionService:FakeSectionEntity){}
 
 
   ngOnInit(): void {
-      this.sectionService.getSections().subscribe(
+      this.FakesectionService.getSections().subscribe(
         data => {
           this.sectionItem = data;
           console.log(data)
@@ -26,18 +26,6 @@ export class NewsComponent implements OnInit {
       )
   }
 
-    getEmoji(title:string){
-      switch (title) {
-        case 'Программирование и разработка ПО':
-          return '🐠';
-        case 'Правила поведения в нашей столовой':
-          return '🍔';
-        case 'Списки проведение спортивных занятий':
-          return '🥎';
-        default:
-          return '';
-      }
-    }
 
     navigateToSection(id: number){
       this.router.navigate(['/news', id]);

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NewsComponent } from './presentation/news.component';
 import { BrowserModule } from '@angular/platform-browser';
-import { SectionEntity } from './presentation/menuItem';
+import { FakeSectionEntity } from './state/sectionEntity';
 
 
 
@@ -14,7 +14,7 @@ import { SectionEntity } from './presentation/menuItem';
     CommonModule
   ],
   providers:[
-    SectionEntity
+    FakeSectionEntity
   ]
 })
 export class NewsModule { }

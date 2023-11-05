@@ -4,15 +4,15 @@ import { Observable, of } from "rxjs";
 @Injectable({
     providedIn:'root'
 })
-export class SectionEntity{
+export class FakeSectionEntity{
     data = {
-        section:[
-            {id:1, title:'Программирование и разработка ПО'},
-            {id:2, title:'Правила поведения в нашей столовой'},
-            {id:3,title:'Списки проведение спортивных занятий'}
+        sections:[
+            {id:1, title:'Программирование и разработка ПО',picture:'🐠'},
+            {id:2, title:'Правила поведения в нашей столовой',picture:'🍔'},
+            {id:3,title:'Списки проведение спортивных занятий',picture:'🥎'}
         ],
         pages:[
-           {id:1,title:'Паттерны проектирование', isFavorite:true},
+           {id:1,title:'Паттерны проектирование', isFavorite:true,},
            {id:2, title:'Строитель', isFavorite:false},
            {id:3,title:'Наблюдатель', isFavorite:false},
            {id:4, title:'Основы проиграммирование', isFavorite: false},
@@ -22,14 +22,16 @@ export class SectionEntity{
 
     constructor(){}
 
+
+    //Getting data from fake imitation server serctions, pages
     getSections():Observable<any>{
-        return of(this.data.section)
+        return of(this.data.sections)
     }
     getPages():Observable<any>{
         return of(this.data.pages);
     }
     getSectionById(id: number):Observable<any>{
-        return of(this.data.section.find((element) => element.id = id))
+        return of(this.data.sections.find((element) => element.id = id))
     }
     getPageById():Observable<any>{
         return of(this.data.pages)
