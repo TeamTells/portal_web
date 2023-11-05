@@ -1,14 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NewsComponent } from './presentation/news.component';
-import { BrowserModule } from '@angular/platform-browser';
+import { SectionsComponent } from './presentation/sections.component';
 import { FakeSectionEntity } from './state/sectionEntity';
 
 
 
 @NgModule({
   declarations: [
-    NewsComponent
+    SectionsComponent
   ],
   imports: [
     CommonModule
@@ -17,4 +16,4 @@ import { FakeSectionEntity } from './state/sectionEntity';
     FakeSectionEntity
   ]
 })
-export class NewsModule { }
+export class SectionsModule { }

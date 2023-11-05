@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FakeSectionEntity } from '../state/sectionEntity';
 import { Router } from '@angular/router';
+import { SectionsNavigator } from '../navigation/sections.navigator';
 @Component({
   selector: 'app-presentation',
-  templateUrl: './news.component.html',
-  styleUrls: ['./news.component.scss']
+  templateUrl: './sections.component.html',
+  styleUrls: ['./sections.component.scss']
 })
-export class NewsComponent implements OnInit {
+export class SectionsComponent implements OnInit {
   sectionItem:any;
 
   emojiToColorMap:{[emoji:string]: string} = {
@@ -14,21 +15,19 @@ export class NewsComponent implements OnInit {
     '🍔': 'bg-blue-1000',
     '🥎': 'bg-green-1000',
   }
-  constructor(private router: Router, private FakesectionService:FakeSectionEntity){}
+  constructor(private FakesectionService:FakeSectionEntity ,private navigator:SectionsNavigator){}
 
 
   ngOnInit(): void {
       this.FakesectionService.getSections().subscribe(
         data => {
           this.sectionItem = data;
-          console.log(data)
         }
       )
   }
 
-
-    navigateToSection(id: number){
-      this.router.navigate(['/news', id]);
+    toSection(id: number){
+          this.navigator.navigateToSection(id);      
     }
 
 }

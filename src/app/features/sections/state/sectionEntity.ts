@@ -22,7 +22,6 @@ export class FakeSectionEntity{
 
     constructor(){}
 
-
     //Getting data from fake imitation server serctions, pages
     getSections():Observable<any>{
         return of(this.data.sections)

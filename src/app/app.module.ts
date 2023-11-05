@@ -23,7 +23,7 @@ import { SectionModule } from './features/section/section.module';
     AuthorizationModule,
     EmployeesModule,
     MainModule,
-    NewsModule,
+    SectionsModule
   ],
   providers: [
     {
