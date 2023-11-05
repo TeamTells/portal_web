@@ -1,8 +1,6 @@
 import { Component,OnInit } from '@angular/core';
-import { Pages } from './pages';
 import { ActivatedRoute } from '@angular/router';
-
-import { SectionEntity } from '../../news/presentation/menuItem';
+import { FakeSectionEntity } from '../../news/state/sectionEntity';
 
 
 @Component({
@@ -15,32 +13,29 @@ export class SectionComponent implements OnInit {
   section:any;
   page:any;
 
-  constructor( private route: ActivatedRoute, private SectionService: SectionEntity){
+  constructor( private route: ActivatedRoute, private FakeSectionService: FakeSectionEntity){
     document.body.style.overflowY = 'hidden';
   }
 
   ngOnInit(): void {
         this.route.paramMap.subscribe((params:any) => {
           const taskId =+params.get('id');
-          this.SectionService.getSectionById(taskId).subscribe(
+          this.FakeSectionService.getSectionById(taskId).subscribe(
             data => {
               this.section = data;
               console.log('data taked succsefully')
             }
           )
         })
-        this.SectionService.getPages().subscribe(
+        this.FakeSectionService.getPages().subscribe(
           data => {
             this.page = data
           }
         )
   }
+    favoritePages!: any[];
 
-  favoritePages:Pages[] = [
-    new Pages(1,'Паттерны прогрмаирование',true)
-  ];
-
-    addToFavorite(page: Pages){
+    addToFavorite(page:any){
       page.isFavorite = true;
       this.favoritePages.push(page);
     }
@@ -49,19 +44,6 @@ export class SectionComponent implements OnInit {
       '🐠': 'bg-red-600',
       '🍔': 'bg-blue-1000',
       '🥎': 'bg-green-1000',
-    }
-
-    getEmoji(title:string){
-      switch (title) {
-        case 'Программирование и разработка ПО':
-          return '🐠';
-        case 'Правила поведения в нашей столовой':
-          return '🍔';
-        case 'Списки проведение спортивных занятий':
-          return '🥎';
-        default:
-          return '';
-      }
     }
 
 }
