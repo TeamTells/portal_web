@@ -1,6 +1,6 @@
 import { Component,OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FakeSectionEntity } from '../../news/state/sectionEntity';
+import { FakeSectionEntity } from '../../sections/state/sectionEntity';
 
 
 @Component({
@@ -23,13 +23,13 @@ export class SectionComponent implements OnInit {
           this.FakeSectionService.getSectionById(taskId).subscribe(
             data => {
               this.section = data;
-              console.log('data taked succsefully')
+              console.log(data)
             }
           )
         })
         this.FakeSectionService.getPages().subscribe(
-          data => {
-            this.page = data
+           newData=> {
+            this.page = newData
           }
         )
   }

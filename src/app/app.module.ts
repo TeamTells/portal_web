@@ -11,8 +11,8 @@ import {fakeBackendProvider} from "./features/authorization/data/interceptors/fa
 import {appInitializer} from "./features/authorization/data/app-initializer";
 import {MainModule} from "./features/main/main.module";
 import { CommonModule } from '@angular/common';
-import { NewsComponent } from './features/news/presentation/news.component';
-import { NewsModule } from './features/news/news.module';
+import { SectionsComponent} from './features/sections/presentation/sections.component';
+import { SectionsModule } from './features/sections/sections.module';
 import { SectionModule } from './features/section/section.module';
 
 @NgModule({
@@ -24,7 +24,7 @@ import { SectionModule } from './features/section/section.module';
     AppRoutingModule,
     AuthorizationModule,
     MainModule,
-    NewsModule,
+    SectionsModule
   ],
   providers: [
     {
