@@ -30,8 +30,8 @@ import { SectionModule } from './features/section/section.module';
       provide: AuthService,
       useClass: AuthServiceImpl
     },
-    { provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [AuthService] },
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    {provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [AuthService]},
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     fakeBackendProvider
   ],
   bootstrap: [AppComponent]

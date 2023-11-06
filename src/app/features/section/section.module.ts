@@ -1,8 +1,6 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { SectionComponent } from './presentation/section.component';
-import { RouterOutlet } from '@angular/router';
-import { FakeSectionService } from '../sections/state/section.service';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {SectionComponent} from './presentation/section.component';
 
 @NgModule({
   declarations: [
@@ -11,8 +9,7 @@ import { FakeSectionService } from '../sections/state/section.service';
   imports: [
     CommonModule,
   ],
-  providers:[
-    FakeSectionService
-  ]
+  providers: []
 })
-export class SectionModule { }
+export class SectionModule {
+}

@@ -1,13 +1,14 @@
-import { Injectable } from "@angular/core";
-import { Router } from "@angular/router";
+import {Injectable} from "@angular/core";
+import {Router} from "@angular/router";
 
 @Injectable({
-    providedIn:'root'
+  providedIn: 'root'
 })
-export class SectionsNavigator{
-    constructor(private router:Router){}
+export class SectionsNavigator {
+  constructor(private router: Router) {
+  }
 
-    navigateToSection(id:number){
-        this.router.navigate(['/sections',id])
-    }
+  navigateToSection(id: number) {
+    this.router.navigate(['/sections', id])
+  }
 }

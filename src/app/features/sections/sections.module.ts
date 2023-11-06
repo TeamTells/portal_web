@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SectionsComponent } from './presentation/sections.component';
-import { FakeSectionService } from './state/section.service';
-
-
+import {FakeSectionService} from "./data/fake-section-service";
+import {SectionRepository} from "./domain/section-repository";
 
 @NgModule({
   declarations: [
@@ -13,7 +12,10 @@ import { FakeSectionService } from './state/section.service';
     CommonModule
   ],
   providers:[
-    FakeSectionService
+    {
+      provide: SectionRepository,
+      useClass: FakeSectionService
+    },
   ]
 })
 export class SectionsModule { }

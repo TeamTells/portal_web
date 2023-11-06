@@ -1,6 +1,6 @@
-import { Component,OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { FakeSectionService } from '../../sections/state/section.service';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {SectionRepository} from "../../sections/domain/section-repository";
 
 
 @Component({
@@ -10,34 +10,28 @@ import { FakeSectionService } from '../../sections/state/section.service';
 })
 export class SectionComponent implements OnInit {
 
-  section:any;
-  page:any;
+  section: any;
+  page: any;
 
-  constructor( private route: ActivatedRoute, private fakeSectionService: FakeSectionService){
+  constructor(private route: ActivatedRoute, private sectionService: SectionRepository) {
     document.body.style.overflowY = 'hidden';
   }
 
   ngOnInit(): void {
-        this.route.paramMap.subscribe((params:any) => {
-          const taskId =+params.get('id');
-          this.fakeSectionService.getSectionById(taskId).subscribe(
-            data => {
-              this.section = data;
-              console.log(data)
-            }
-          )
-        })
-        this.fakeSectionService.getPages().subscribe(
-           newData=> {
-            this.page = newData
-          }
-        )
+    // this.route.paramMap.subscribe((params: any) => {
+    //   const taskId = +params.get('id');
+    //   this.fakeSectionService.getSectionById(taskId).subscribe(
+    //     data => {
+    //       this.section = data;
+    //       console.log(data)
+    //     }
+    //   )
+    // })
+    // this.fakeSectionService.getPages().subscribe(
+    //   newData => {
+    //     this.page = newData
+    //   }
+    // )
   }
-    favoritePages!: any[];
-
-    addToFavorite(page:any){
-      page.isFavorite = true;
-      this.favoritePages.push(page);
-    }
 
 }
