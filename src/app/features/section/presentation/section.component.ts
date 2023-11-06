@@ -1,6 +1,6 @@
 import { Component,OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FakeSectionEntity } from '../../sections/state/sectionEntity';
+import { FakeSectionService } from '../../sections/state/section.service';
 
 
 @Component({
@@ -13,21 +13,21 @@ export class SectionComponent implements OnInit {
   section:any;
   page:any;
 
-  constructor( private route: ActivatedRoute, private FakeSectionService: FakeSectionEntity){
+  constructor( private route: ActivatedRoute, private fakeSectionService: FakeSectionService){
     document.body.style.overflowY = 'hidden';
   }
 
   ngOnInit(): void {
         this.route.paramMap.subscribe((params:any) => {
           const taskId =+params.get('id');
-          this.FakeSectionService.getSectionById(taskId).subscribe(
+          this.fakeSectionService.getSectionById(taskId).subscribe(
             data => {
               this.section = data;
               console.log(data)
             }
           )
         })
-        this.FakeSectionService.getPages().subscribe(
+        this.fakeSectionService.getPages().subscribe(
            newData=> {
             this.page = newData
           }

@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
-
+import { SectionEntity } from "./section-entity.model";
 @Injectable({
     providedIn:'root'
 })
-export class FakeSectionEntity{
+export class FakeSectionService{
     data = {
         sections:[
             {id:1, title:'Программирование и разработка ПО',picture:'🐠'},
@@ -21,7 +21,6 @@ export class FakeSectionEntity{
     };
 
     constructor(){}
-
     //Getting data from fake imitation server serctions, pages in real api it will loks like this,but with http
     
     //GET METHODS
