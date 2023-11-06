@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SectionComponent } from './presentation/section.component';
 import { RouterOutlet } from '@angular/router';
-import { FakeSectionEntity } from '../sections/state/sectionEntity';
+import { FakeSectionService } from '../sections/state/section.service';
 
 @NgModule({
   declarations: [
@@ -12,7 +12,7 @@ import { FakeSectionEntity } from '../sections/state/sectionEntity';
     CommonModule,
   ],
   providers:[
-    FakeSectionEntity
+    FakeSectionService
   ]
 })
 export class SectionModule { }

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SectionsComponent } from './presentation/sections.component';
-import { FakeSectionEntity } from './state/sectionEntity';
+import { FakeSectionService } from './state/section.service';
 
 
 
@@ -13,7 +13,7 @@ import { FakeSectionEntity } from './state/sectionEntity';
     CommonModule
   ],
   providers:[
-    FakeSectionEntity
+    FakeSectionService
   ]
 })
 export class SectionsModule { }
