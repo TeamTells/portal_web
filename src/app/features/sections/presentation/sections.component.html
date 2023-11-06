@@ -1,6 +1,6 @@
 <div class="flex h-screen flex-col bg-white">
 
-    <div class="mt-6 px-56">
+    <div class="mt-6 lg:px-56 md:px-40 sm:px-8 max-sm:px-8">
 
         <div class="flex justify-between w-full">
             <h1 class="text-3xl font-semibold relative">Разделы</h1>
@@ -14,6 +14,7 @@
                 <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
 
                 <div class="relative">
+
                     <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                         <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
                              xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -21,8 +22,9 @@
                                   d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                         </svg>
                     </div>
+
                     <input type="search" id="default-search"
-                           class="w-96 ps-10 pt-2 pb-2 pe-4 text-sm text-gray-700 rounded-lg bg-gray-200"
+                           class="lg:w-96 md:w-72 sm:w-60 max-sm:w-48 ps-10 pt-2 pb-2 pe-4 text-sm text-gray-700 rounded-lg bg-gray-200"
                            placeholder="Введите назание" required>
                 </div>
 
