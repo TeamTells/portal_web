@@ -12,6 +12,7 @@ import { appInitializer } from "./features/authorization/data/app-initializer";
 import { MainModule } from "./features/main/main.module";
 import { EmployeesModule } from './features/employees/employees.module';
 import { SectionModule } from './features/section/section.module';
+import {SectionsModule} from "./features/sections/sections.module";
 
 @NgModule({
   declarations: [

@@ -37,7 +37,7 @@ export class MainExecutor extends Executor<MainState, MainAction, MainResultActi
 
   private showPage(item: NavItem) {
     switch (item) {
-      case NavItem.NEWS:
+      case NavItem.SECTIONS:
         this.router.navigate(['sections'])
         break
       case NavItem.EMPLOYEES:

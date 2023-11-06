@@ -4,11 +4,11 @@ import {Injectable} from "@angular/core";
   providedIn: 'root'
 })
 export class MainState {
-  readonly selectedItem: NavItem = NavItem.NEWS
+  readonly selectedItem: NavItem = NavItem.SECTIONS
 }
 
 export enum NavItem {
-  NEWS,
+  SECTIONS,
   EMPLOYEES,
   SETTINGS
 }
