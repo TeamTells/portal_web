@@ -16,7 +16,7 @@ import {ComponentsModule} from "../../core/components/components.module";
   providers:[
     {
       provide: SectionService,
-      useClass: SectionService
+      useClass: SectionServiceImpl
     },
   ]
 })

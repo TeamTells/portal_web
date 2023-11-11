@@ -4,23 +4,25 @@ import {SectionService} from "../domain/section-service";
 import {SectionEntity} from "../domain/section-entity";
 
 @Component({
-  selector: 'app-presentation',
-  templateUrl: './sections.component.html',
-  styleUrls: ['./sections.component.scss']
+    selector: 'app-presentation',
+    templateUrl: './sections.component.html',
+    styleUrls: ['./sections.component.scss']
 })
 export class SectionsComponent implements OnInit {
 
-  sections: Array<SectionEntity> = []
+    sections: Array<SectionEntity> = []
 
-  constructor(private sectionRepository: SectionService, private navigator: SectionsNavigator) {
-  }
+    constructor(private sectionRepository: SectionService, private navigator: SectionsNavigator) {
+    }
 
-  ngOnInit(): void {
-    this.sections = this.sectionRepository.getSections()
-  }
+    ngOnInit(): void {
+        this.sectionRepository.getSections().subscribe(sections => {
+            this.sections = sections
+        })
+    }
 
-  toSection(id: number) {
-    this.navigator.navigateToSection(id);
-  }
+    toSection(id: number) {
+        this.navigator.navigateToSection(id);
+    }
 
 }
