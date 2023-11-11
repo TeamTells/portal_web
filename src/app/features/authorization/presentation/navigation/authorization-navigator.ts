@@ -13,4 +13,8 @@ export class AuthorizationNavigator {
     this.router.navigate(['news']).then(r => "")
   }
 
+  openLogin() {
+    this.router.navigate(['/login']);
+  }
+
 }
