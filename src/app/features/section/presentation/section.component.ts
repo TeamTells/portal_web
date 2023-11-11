@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {SectionRepository} from "../../sections/domain/section-repository";
+import {SectionService} from "../../sections/domain/section-service";
 
 
 @Component({
@@ -13,7 +13,7 @@ export class SectionComponent implements OnInit {
   section: any;
   page: any;
 
-  constructor(private route: ActivatedRoute, private sectionService: SectionRepository) {
+  constructor(private route: ActivatedRoute, private sectionService: SectionService) {
     document.body.style.overflowY = 'hidden';
   }
 

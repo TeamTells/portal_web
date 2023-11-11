@@ -1,6 +1,6 @@
 import {SectionEntity} from "./section-entity";
 
-export abstract class SectionRepository {
+export abstract class SectionService {
 
   abstract getSections(): Array<SectionEntity>
 

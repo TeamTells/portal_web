@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SectionsComponent } from './presentation/sections.component';
-import {FakeSectionService} from "./data/fake-section-service";
-import {SectionRepository} from "./domain/section-repository";
+import {SectionServiceImpl} from "./data/section-service-impl";
+import {SectionService} from "./domain/section-service";
 import {ComponentsModule} from "../../core/components/components.module";
 
 @NgModule({
@@ -15,8 +15,8 @@ import {ComponentsModule} from "../../core/components/components.module";
   ],
   providers:[
     {
-      provide: SectionRepository,
-      useClass: FakeSectionService
+      provide: SectionService,
+      useClass: SectionService
     },
   ]
 })
