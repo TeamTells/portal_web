@@ -3,6 +3,8 @@ import {SectionsNavigator} from '../navigation/sections.navigator';
 import {SectionService} from "../domain/section-service";
 import {SectionEntity} from "../domain/section-entity";
 import {AuthorizationActionTypes} from "../../authorization/presentation/state/authorization-action";
+import {CreateSectionState, SectionsState} from "./state/sections-state";
+import {clone} from "cloneable-ts";
 
 @Component({
     selector: 'app-presentation',
@@ -11,14 +13,26 @@ import {AuthorizationActionTypes} from "../../authorization/presentation/state/a
 })
 export class SectionsComponent implements OnInit {
 
-    sections: Array<SectionEntity> = []
+    state: SectionsState = new SectionsState()
 
     constructor(private sectionRepository: SectionService, private navigator: SectionsNavigator) {
     }
 
     ngOnInit(): void {
         this.sectionRepository.getSections().subscribe(sections => {
-            this.sections = sections
+            this.state = clone(this.state, {sections: sections})
+        })
+    }
+
+    onSectionChange(title: string) {
+        this.state = clone(this.state, {
+            createSectionState: clone(this.state.createSectionState, {title: title})
+        })
+    }
+
+    changeCreateSectionModalVisibility(isVisible: boolean) {
+        this.state = clone(this.state, {
+            createSectionState: clone(this.state.createSectionState, {isVisible: isVisible})
         })
     }
 
