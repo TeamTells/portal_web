@@ -30,7 +30,7 @@ export class SectionServiceImpl implements SectionService {
     }
 
     fetchSections() {
-        this.http.get<SectionsResponseJson>(`${environment.apiUrl}/documentation/section/create`)
+        this.http.get<SectionsResponseJson>(`${environment.apiUrl}/documentation/section/list`)
             .pipe(map(sectionResponse => {
                 const listSection: Array<SectionEntity> = sectionResponse.sections.map(section => {
                     return new SectionEntity(
@@ -51,7 +51,7 @@ export class SectionServiceImpl implements SectionService {
             thumbnailUrl: section.url
         }
 
-        this.http.post<any>(`${environment.apiUrl}/documentation/section/list`, body)
+        this.http.post<any>(`${environment.apiUrl}/documentation/section/create`, body)
             .subscribe(_ => {
                 this.fetchSections()
             })

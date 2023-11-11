@@ -42,7 +42,7 @@ export class SectionsComponent implements OnInit {
     }
 
     createSection() {
-        const section = new SectionEntity(SectionEntity.NO_ID, this.state.createSectionState.title, "")
+        const section = new SectionEntity(SectionEntity.NO_ID, this.state.createSectionState.title, "https://cdn1.iconfinder.com/data/icons/logotypes/32/circle-linkedin-512.png")
         this.changeCreateSectionModalVisibility(false)
         this.sectionService.createSection(section)
     }
