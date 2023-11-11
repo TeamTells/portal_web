@@ -3,8 +3,12 @@ import {Observable} from "rxjs";
 
 export abstract class SectionService {
 
-  abstract getSections(): Observable<Array<SectionEntity>>
+    abstract sections: Observable<Array<SectionEntity>>
 
-  abstract getSection(sectionId: number): SectionEntity | undefined
+    abstract fetchSections(): void
+
+    abstract createSection(section: SectionEntity): void
+
+    abstract getSection(sectionId: number): SectionEntity | undefined
 
 }

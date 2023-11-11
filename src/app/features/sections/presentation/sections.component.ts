@@ -3,7 +3,7 @@ import {SectionsNavigator} from '../navigation/sections.navigator';
 import {SectionService} from "../domain/section-service";
 import {SectionEntity} from "../domain/section-entity";
 import {AuthorizationActionTypes} from "../../authorization/presentation/state/authorization-action";
-import {CreateSectionState, SectionsState} from "./state/sections-state";
+import {SectionsState} from "./state/sections-state";
 import {clone} from "cloneable-ts";
 
 @Component({
@@ -15,13 +15,14 @@ export class SectionsComponent implements OnInit {
 
     state: SectionsState = new SectionsState()
 
-    constructor(private sectionRepository: SectionService, private navigator: SectionsNavigator) {
+    constructor(private sectionService: SectionService, private navigator: SectionsNavigator) {
     }
 
     ngOnInit(): void {
-        this.sectionRepository.getSections().subscribe(sections => {
+        this.sectionService.sections.subscribe(sections => {
             this.state = clone(this.state, {sections: sections})
         })
+        this.sectionService.fetchSections()
     }
 
     onSectionChange(title: string) {
@@ -32,12 +33,18 @@ export class SectionsComponent implements OnInit {
 
     changeCreateSectionModalVisibility(isVisible: boolean) {
         this.state = clone(this.state, {
-            createSectionState: clone(this.state.createSectionState, {isVisible: isVisible})
+            createSectionState: clone(this.state.createSectionState, {isVisible: isVisible, title: ""})
         })
     }
 
     toSection(id: number) {
         this.navigator.navigateToSection(id);
+    }
+
+    createSection() {
+        const section = new SectionEntity(SectionEntity.NO_ID, this.state.createSectionState.title, "")
+        this.changeCreateSectionModalVisibility(false)
+        this.sectionService.createSection(section)
     }
 
     protected readonly AuthorizationActionTypes = AuthorizationActionTypes;

@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {SectionEntity} from "../domain/section-entity";
 import {SectionService} from "../domain/section-service";
-import {map, Observable} from "rxjs";
+import {BehaviorSubject, map, Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {SectionsResponseJson} from "./json/sections-response-json";
 import {environment} from "../../../../environments/environment";
@@ -11,7 +11,9 @@ import {environment} from "../../../../environments/environment";
 })
 export class SectionServiceImpl implements SectionService {
 
-    private sections: Array<SectionEntity> = []
+    private mutableSections: BehaviorSubject<Array<SectionEntity>> = new BehaviorSubject<Array<SectionEntity>>([])
+
+    sections: Observable<Array<SectionEntity>> = this.mutableSections.asObservable()
 
     pages = {
         pages: [
@@ -27,8 +29,8 @@ export class SectionServiceImpl implements SectionService {
 
     }
 
-    getSections(): Observable<Array<SectionEntity>> {
-        return this.http.get<SectionsResponseJson>(`${environment.apiUrl}/documentation/section/list`)
+    fetchSections() {
+        this.http.get<SectionsResponseJson>(`${environment.apiUrl}/documentation/section/create`)
             .pipe(map(sectionResponse => {
                 const listSection: Array<SectionEntity> = sectionResponse.sections.map(section => {
                     return new SectionEntity(
@@ -37,15 +39,26 @@ export class SectionServiceImpl implements SectionService {
                         section.thumbnailUrl
                     )
                 })
-                this.sections = listSection
                 return listSection;
-            }))
+            })).subscribe(sections => {
+            this.mutableSections.next(sections)
+        })
+    }
+
+    createSection(section: SectionEntity) {
+        const body = {
+            title: section.title,
+            thumbnailUrl: section.url
+        }
+
+        this.http.post<any>(`${environment.apiUrl}/documentation/section/list`, body)
+            .subscribe(_ => {
+                this.fetchSections()
+            })
     }
 
     getSection(sectionId: number): SectionEntity | undefined {
-        return this.sections.find(section => {
-            section.id == sectionId
-        });
+        return undefined
     }
 
 }

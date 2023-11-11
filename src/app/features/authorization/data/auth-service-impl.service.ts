@@ -77,16 +77,14 @@ export class AuthServiceImpl implements AuthService {
 
     return this.http.get<LoginResponseJson>(`${environment.apiUrl}/authorization/refresh-token`, httpOptions)
       .pipe(map(response => {
-        this.userSubject.next(clone(this.userSubject.getValue(), {jwtToken: response.body?.accessJwtToken}));
+        this.userSubject.next(new User(response.body?.accessJwtToken!));
         this.startRefreshTokenTimer();
         return response;
       }));
   }
 
   private startRefreshTokenTimer() {
-    console.log("startRefreshTokenTimer " + this.userSubject.getValue())
     const user = this.userSubject.getValue()
-    console.log("startRefreshTokenTimer " + user)
     if (user != null) {
       const decodedToken = jwtDecode(user.jwtToken)
       const exp = decodedToken.exp

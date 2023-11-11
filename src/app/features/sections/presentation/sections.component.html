@@ -90,8 +90,8 @@
                     (onChange)="onSectionChange($event)"
             />
             <div class="px-4 pb-4 flex justify-end">
-                <app-core-button-light-gray text="Отмена"/>
-                <app-core-button-red text="Создать" class="ms-3"/>
+                <app-core-button-light-gray text="Отмена" (buttonClick)="changeCreateSectionModalVisibility(false)"/>
+                <app-core-button-red text="Создать" class="ms-3" (buttonClick)="createSection()"/>
             </div>
         </div>
     </div>
