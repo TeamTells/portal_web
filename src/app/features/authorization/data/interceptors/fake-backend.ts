@@ -1,29 +1,42 @@
-import { Injectable } from '@angular/core';
-import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS, HttpHeaders } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
-import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {
+  HttpRequest,
+  HttpResponse,
+  HttpHandler,
+  HttpEvent,
+  HttpInterceptor,
+  HTTP_INTERCEPTORS,
+  HttpHeaders
+} from '@angular/common/http';
+import {Observable, of, throwError} from 'rxjs';
+import {delay, mergeMap, materialize, dematerialize} from 'rxjs/operators';
 
 const usersKey = 'angular-9-jwt-refresh-token-users';
 const users: FakeUser[] = JSON.parse(localStorage.getItem(usersKey)!) || [];
 
 if (!users.length) {
-  users.push({ id: 1,  firstName: 'Test', lastName: 'User', login: 'test', password: 'test', refreshTokens: [] });
+  users.push({
+    id: 1,
+    login: 'test',
+    password: 'e057cab20ad95e02d15baada6e394ef62884769d7006a1cd09bd8b0e43b76d22',
+    salt: "test_salt",
+    refreshTokens: []
+  });
   localStorage.setItem(usersKey, JSON.stringify(users));
 }
 
 interface FakeUser {
   id: number
-  firstName: string
-  lastName: string
   login: string
   password: string
+  salt: string
   refreshTokens: string []
 }
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const { url, method, headers, body } = request;
+    const {url, method, headers, body} = request;
 
     return of(null)
       .pipe(mergeMap(handleRoute))
@@ -32,38 +45,39 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       .pipe(dematerialize());
 
     function handleRoute() {
-      switch (true) {
-        case url.endsWith('/users/login') && method === 'POST':
-          return authenticate();
-        case url.endsWith('/users/refresh-token') && method === 'POST':
-          return refreshToken();
-        case url.endsWith('/users/logout') && method === 'POST':
-          return revokeToken();
-        case url.endsWith('/users') && method === 'GET':
-          return getUsers();
-        default:
-          return next.handle(request);
+      if (url.startsWith("fake_backend")) {
+        switch (true) {
+          case url.endsWith('/authorization/login') && method === 'POST':
+            return authenticate();
+          case url.endsWith('/authorization/refresh-token') && method === 'GET':
+            return refreshToken();
+          case url.endsWith('/authorization/logout') && method === 'POST':
+            return revokeToken();
+          case url.includes('/authorization/salt') && method === 'GET':
+            return getSalt(url);
+          default:
+            return next.handle(request);
+        }
+      } else {
+        return next.handle(request)
       }
     }
 
     function authenticate() {
-      const { login, password } = body;
+      const {login, password} = body;
       const user = users.find(x => x.login === login && x.password === password);
 
       console.log(users)
       console.log(body)
-      if (!user) return error({message: 'Login or password is incorrect'});
+      if (!user) return throwError({status: 404, error: {message: 'Login or password is incorrect'}});
 
       user.refreshTokens.push(generateRefreshToken());
-      localStorage.setItem(usersKey, JSON.stringify(users));
+      console.log(users)
 
+      localStorage.setItem(usersKey, JSON.stringify(users));
       return ok({
         body: {
-          id: user.id,
-          login: user.login,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          jwtToken: generateJwtToken()
+          accessJwtToken: generateJwtToken()
         }
       })
     }
@@ -84,11 +98,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
       return ok({
         body: {
-          id: user.id,
-          login: user.login,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          jwtToken: generateJwtToken()
+          jwtAccessToken: generateJwtToken()
         }
       })
     }
@@ -101,30 +111,30 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
       if (user == undefined) throw Error("revokeToken() user included " + refreshToken + "not found")
 
-      // revoke token and save
       user.refreshTokens = user.refreshTokens.filter(x => x !== refreshToken);
       localStorage.setItem(usersKey, JSON.stringify(users));
 
       return ok({});
     }
 
-    function getUsers() {
-      if (!isLoggedIn()) return unauthorized();
-      return ok({body: users});
-    }
+    function getSalt(url: string) {
+      const splitUrl = url.split("/")
+      const login = splitUrl[splitUrl.length - 1]
+      const user = users.find(user => user.login == login);
 
-    // helper functions
+      return ok({
+        body: {
+          salt: user?.salt
+        }
+      });
+    }
 
     function ok({body}: { body?: any }) {
-      return of(new HttpResponse({ status: 200, body }))
-    }
-
-    function error({message}: { message: any }) {
-      return throwError({ error: { message } });
+      return of(new HttpResponse({status: 200, body}))
     }
 
     function unauthorized() {
-      return throwError({ status: 401, error: { message: 'Unauthorized' } });
+      return throwError({status: 401, error: {message: 'Unauthorized'}});
     }
 
     function isLoggedIn() {
@@ -141,22 +151,19 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     }
 
     function generateJwtToken() {
-      // create token that expires in 15 minutes
-      const tokenPayload = { exp: Math.round(new Date(Date.now() + 2*60*1000).getTime() / 1000) }
+      const tokenPayload = {exp: Math.round(new Date(Date.now() + 2 * 60 * 1000).getTime())}
       return `fake-jwt-token.${btoa(JSON.stringify(tokenPayload))}`;
     }
 
     function generateRefreshToken() {
       const token = new Date().getTime().toString();
 
-      const expires = new Date(Date.now() + 7*24*60*60*1000).toUTCString();
+      const expires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toUTCString();
       document.cookie = `refreshToken=${token}; expires=${expires}; path=/`;
-
       return token;
     }
 
     function getRefreshToken() {
-      // get refresh token from cookie
       return (document.cookie.split(';').find(x => x.includes('refreshToken')) || '=').split('=')[1];
     }
   }

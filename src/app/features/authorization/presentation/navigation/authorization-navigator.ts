@@ -13,4 +13,8 @@ export class AuthorizationNavigator {
     this.router.navigate(['sections']).then(r => "")
   }
 
+  openLogin() {
+    this.router.navigate(['/login']);
+  }
+
 }

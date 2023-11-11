@@ -8,5 +8,11 @@ export class AuthorizationState {
   readonly emailError: String = ""
   readonly password: string = ""
   readonly passwordError: String = ""
-  readonly isLoading = false
+  readonly isLoading: boolean = false
+  readonly loginError: LoginErrorState | null = null
+}
+
+export enum LoginErrorState {
+  INCORRECT_CREDENTIALS,
+  CONNECTION_ERROR
 }
