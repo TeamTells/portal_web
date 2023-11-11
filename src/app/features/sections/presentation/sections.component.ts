@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {SectionsNavigator} from '../navigation/sections.navigator';
 import {SectionService} from "../domain/section-service";
 import {SectionEntity} from "../domain/section-entity";
+import {AuthorizationActionTypes} from "../../authorization/presentation/state/authorization-action";
 
 @Component({
     selector: 'app-presentation',
@@ -25,4 +26,5 @@ export class SectionsComponent implements OnInit {
         this.navigator.navigateToSection(id);
     }
 
+    protected readonly AuthorizationActionTypes = AuthorizationActionTypes;
 }

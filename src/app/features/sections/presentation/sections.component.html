@@ -61,4 +61,37 @@
             </div>
         </div>
     </div>
+
 </div>
+
+<div id="static-modal"
+     class="fixed bg-gray-950 bg-opacity-20 top-0 right-0 left-0 z-50 w-full md:inset-0 max-h-full flex justify-center items-center">
+    <div class="w-full max-w-2xl max-h-full">
+        <div class="relative bg-white rounded-xl">
+            <div class="flex items-center justify-between px-4 pt-4 rounded-t">
+                <span class="text-3xl font-semibold relative">Создание нового раздела</span>
+                <button type="button"
+                        class="text-gray-400 bg-transparent hover:text-gray-900 w-8 h-8 ms-auto inline-flex justify-center items-center"
+                        data-modal-hide="static-modal">
+                    <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                         viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                </button>
+            </div>
+            <app-core-input-field
+                    class="px-4"
+                    placeholder="Название"
+                    type="text"
+                    [error]=""
+                    (onChange)="{}"
+            />
+            <div class="px-4 pb-4 flex justify-end">
+                <app-core-button-light-gray text="Отмена"/>
+                <app-core-button-red text="Создать" class="ms-3"/>
+            </div>
+        </div>
+    </div>
+</div>
+
