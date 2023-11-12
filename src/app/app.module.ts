@@ -11,25 +11,28 @@ import { fakeBackendProvider } from "./features/authorization/data/interceptors/
 import { appInitializer } from "./features/authorization/data/app-initializer";
 import { MainModule } from "./features/main/main.module";
 import { EmployeesModule } from './features/employees/employees.module';
+import { SectionModule } from './features/section/section.module';
+import {SectionsModule} from "./features/sections/sections.module";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AuthorizationModule,
     EmployeesModule,
-    MainModule
+    MainModule,
+    SectionsModule
   ],
   providers: [
     {
       provide: AuthService,
       useClass: AuthServiceImpl
     },
-    { provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [AuthService] },
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    {provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [AuthService]},
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     fakeBackendProvider
   ],
   bootstrap: [AppComponent]

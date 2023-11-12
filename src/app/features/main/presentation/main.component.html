@@ -15,14 +15,14 @@
             <div class="hidden md:flex items-center space-x-1">
               <button
                 [ngClass]="{
-                  'nav_selected_item' : state.selectedItem == NavItem.NEWS,
-                  'nav_item' : state.selectedItem != NavItem.NEWS
+                  'nav_selected_item' : state.selectedItem == NavItem.SECTIONS,
+                  'nav_item' : state.selectedItem != NavItem.SECTIONS
                  }"
                 (click)="performAction({
                     type: MainActionTypes.SELECT_ITEM,
-                    item: NavItem.NEWS
+                    item: NavItem.SECTIONS
     })"
-              >Новости
+              >Разделы
               </button>
               <button
                 [ngClass]="{
@@ -33,7 +33,7 @@
                     type: MainActionTypes.SELECT_ITEM,
                     item: NavItem.EMPLOYEES
     })"
-              >Сотрудники
+              >Команда
               </button>
               <button
                 [ngClass]="{
