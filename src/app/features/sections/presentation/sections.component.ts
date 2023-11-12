@@ -51,9 +51,28 @@ export class SectionsComponent implements OnInit {
     }
 
     createSection() {
-        const section = new SectionEntity(SectionEntity.NO_ID, this.state.createSectionState.title, "https://cdn1.iconfinder.com/data/icons/logotypes/32/circle-linkedin-512.png")
+        const section = new SectionEntity(
+            SectionEntity.NO_ID,
+            this.state.createSectionState.title,
+            "https://cdn1.iconfinder.com/data/icons/logotypes/32/circle-linkedin-512.png",
+            false
+        )
         this.changeCreateSectionModalVisibility(false)
         this.sectionService.createSection(section)
+    }
+
+    onStarClicked(id: number) {
+        const newSections = this.state.sections.map(section => {
+            if (section.id == id) {
+                return clone(section, {isFavorite: !section.isFavorite})
+            } else {
+                return section
+            }
+        })
+
+        this.state = clone(this.state, {
+            sections: newSections, filteredSections: SectionsState.calculateSections(newSections, this.state.filter)
+        })
     }
 
     protected readonly AuthorizationActionTypes = AuthorizationActionTypes;

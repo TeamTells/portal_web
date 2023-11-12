@@ -12,7 +12,8 @@ export class SectionJson {
     constructor(
         readonly id: number,
         readonly title: string,
-        readonly thumbnailUrl: string
+        readonly thumbnailUrl: string,
+        readonly isFavorite: boolean
     ) {
     }
 

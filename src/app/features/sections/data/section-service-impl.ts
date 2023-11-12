@@ -36,7 +36,8 @@ export class SectionServiceImpl implements SectionService {
                     return new SectionEntity(
                         section.id,
                         section.title,
-                        section.thumbnailUrl
+                        section.thumbnailUrl,
+                        section.isFavorite
                     )
                 })
                 return listSection;
