@@ -7,7 +7,7 @@ import {RouterOutlet} from "@angular/router";
 
 @NgModule({
   declarations: [
-    MainComponent
+    MainComponent,
   ],
   imports: [
     CommonModule,

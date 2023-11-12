@@ -1,0 +1,20 @@
+<div class="flex justify-between px-2 py-1 rounded-2xl hover:bg-tt-light-light-gray"
+  (mouseover)="onMouseOver()"
+  (mouseleave)="onMouseOut()"
+  >
+
+  <div class="flex">
+    <img *ngIf='employee.img == ""' class="w-10 h-10 my-auto rounded-full" src="../../../../assets/empty_employee_icon.svg">
+    <img *ngIf='employee.img != ""' class="w-10 h-10 my-auto rounded-full" src="{{employee.img}}">
+  
+    <div class="ml-4 my-auto">
+      <p class="font-medium text-[16px] text-tt-dark-gray">{{employee.name}}</p>
+      <p class="font-normal text-[16px] text-tt-gray">{{employee.mail}}</p>
+    </div>
+  </div>
+  
+  <button class="w-5 h-5 my-auto" *ngIf="showDots">
+    <img src="../../../../assets/triple-dot.svg">
+  </button>
+
+</div>

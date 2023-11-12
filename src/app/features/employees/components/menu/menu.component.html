@@ -1,0 +1,6 @@
+<div class="flex flex-column gap-2 w-[240px] rounded-tt-card px-0 py-3 bg-white">
+  <employees-menu-item class="h-12"
+    *ngFor="let item of menuItems" 
+      (navigate) = "onNavItemClick($event)"
+      [params]="item"/>
+</div>
