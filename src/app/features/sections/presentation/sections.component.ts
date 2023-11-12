@@ -20,7 +20,9 @@ export class SectionsComponent implements OnInit {
 
     ngOnInit(): void {
         this.sectionService.sections.subscribe(sections => {
-            this.state = clone(this.state, {sections: sections})
+            this.state = clone(this.state, {
+                sections: sections, filteredSections: SectionsState.calculateSections(sections, this.state.filter)
+            })
         })
         this.sectionService.fetchSections()
     }
@@ -28,6 +30,13 @@ export class SectionsComponent implements OnInit {
     onSectionChange(title: string) {
         this.state = clone(this.state, {
             createSectionState: clone(this.state.createSectionState, {title: title})
+        })
+    }
+
+    onFilterChange(event: any) {
+        const filter = event.target.value
+        this.state = clone(this.state, {
+            filter: filter, filteredSections: SectionsState.calculateSections(this.state.sections, filter)
         })
     }
 
