@@ -2,13 +2,21 @@ import {SectionEntity} from "../../domain/section-entity";
 
 export class SectionsState {
     readonly sections: Array<SectionEntity> = []
-    readonly createSectionState: CreateSectionState = new CreateSectionState()
-    readonly filter: string = ""
     readonly filteredSections: Array<SectionEntity> = []
+    readonly createSectionState: CreateSectionState = new CreateSectionState()
+    readonly filtersState: FiltersState = new FiltersState()
 
-    static calculateSections(sections: Array<SectionEntity>, filter: string) {
+    static calculateFilteredSections(
+        sections: Array<SectionEntity>,
+        filter: string,
+        onlyFavorite: boolean
+    ) {
         return sections.filter((section) => {
-            return section.title.toLowerCase().includes(filter.toLowerCase())
+            let showWithFavorite = true
+            if (onlyFavorite) {
+                showWithFavorite = section.isFavorite
+            }
+            return section.title.toLowerCase().includes(filter.toLowerCase()) && showWithFavorite
         })
     }
 
@@ -17,4 +25,9 @@ export class SectionsState {
 export class CreateSectionState {
     readonly isVisible: boolean = false
     readonly title: string = ""
+}
+
+export class FiltersState {
+    readonly filter: string = ""
+    readonly onlyFavorite: boolean = false
 }

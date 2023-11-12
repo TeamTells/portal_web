@@ -33,7 +33,12 @@
             </form>
 
             <div class="place-self-center ms-8 space-x-3 hover:scale-y-105">
-                <i class="bi bi-star"></i>
+                <i class="bi bi-star hover:scale-110 cursor-pointer"
+                   *ngIf="!state.filtersState.onlyFavorite"
+                   (click)="changeFavoriteFilterState()"></i>
+                <i class="bi-star-fill text-yellow-500 hover:scale-110 cursor-pointer"
+                   *ngIf="state.filtersState.onlyFavorite"
+                   (click)="changeFavoriteFilterState()"></i>
                 <span>Только избранные</span>
             </div>
 

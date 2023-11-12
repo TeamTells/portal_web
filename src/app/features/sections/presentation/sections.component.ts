@@ -21,7 +21,8 @@ export class SectionsComponent implements OnInit {
     ngOnInit(): void {
         this.sectionService.sections.subscribe(sections => {
             this.state = clone(this.state, {
-                sections: sections, filteredSections: SectionsState.calculateSections(sections, this.state.filter)
+                sections: sections, filteredSections: SectionsState.calculateFilteredSections(sections,
+                    this.state.filtersState.filter, this.state.filtersState.onlyFavorite)
             })
         })
         this.sectionService.fetchSections()
@@ -36,7 +37,9 @@ export class SectionsComponent implements OnInit {
     onFilterChange(event: any) {
         const filter = event.target.value
         this.state = clone(this.state, {
-            filter: filter, filteredSections: SectionsState.calculateSections(this.state.sections, filter)
+            filtersState: clone(this.state.filtersState, {filter: filter}),
+            filteredSections: SectionsState.calculateFilteredSections(this.state.sections,
+                filter, this.state.filtersState.onlyFavorite)
         })
     }
 
@@ -71,7 +74,20 @@ export class SectionsComponent implements OnInit {
         })
 
         this.state = clone(this.state, {
-            sections: newSections, filteredSections: SectionsState.calculateSections(newSections, this.state.filter)
+            sections: newSections, filteredSections: SectionsState.calculateFilteredSections(
+                newSections, this.state.filtersState.filter, this.state.filtersState.onlyFavorite)
+        })
+    }
+
+    changeFavoriteFilterState() {
+        const newOnlyFavoriteFilter = !this.state.filtersState.onlyFavorite
+        this.state = clone(this.state, {
+            filtersState: clone(this.state.filtersState, {
+                    onlyFavorite: newOnlyFavoriteFilter
+                },
+            ),
+            filteredSections: SectionsState.calculateFilteredSections(
+                this.state.sections, this.state.filtersState.filter, newOnlyFavoriteFilter)
         })
     }
 
