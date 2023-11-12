@@ -43,39 +43,41 @@
 
           <div class="hidden md:flex items-center space-x-3 ">
             <div class="sidebar_menu">
-              <div class="bg-[#BCC1C6] rounded-full w-[40px] h-[40px]">
-                <img class="pt-1 m-auto" src="assets/person.fill.png" (click)="performAction({
+              <div class="bg-tt-lighter-gray rounded-full w-[40px] h-[40px]">
+                <img class="pt-1 m-auto" src="assets/person.fill.svg" (click)="performAction({
                   type: MainActionTypes.SHOW_SIDEBAR})" alt="account_ico">
               </div>
-              
-              <div class="fixed top-0 right-0 h-full text-black bg-[#FFF] transition-width duration-300 ease-in-out"
+
+              <div class="fixed top-0 right-0 h-full text-black bg-tt-bg transition-width duration-300 ease-in-out"
                 [style.width]="state.showSideBar ? '360px' : '0'">
                 <div class="flex flex-row justify-between px-[20px] py-0">
                   <p class="text-[24px] mt-[18px]">Профиль</p>
-                  <img class="w-[21px] h-[20px] mt-[28px]" src="assets/xmark.png" (click)="performAction({
+                  <img class="w-[21px] h-[20px] mt-[28px]" src="assets/xmark.svg" (click)="performAction({
                     type: MainActionTypes.SHOW_SIDEBAR})" alt="hide_ico">
                 </div>
-                
-                <div class="flex flex-row mx-[20px] my-[34px] gap-[11px]">
-                  <div class="bg-[#BCC1C6] rounded-full w-[44px] h-[44px]">
-                    <img class="pt-1 m-auto" src="assets/person.fill.png" alt="profile ico">
+
+                <div class="flex flex-row h-[76px] px-[20px] mt-[34px] gap-[11px]">
+                  <div class="bg-tt-lighter-gray rounded-full w-[44px] h-[44px]">
+                    <img class="pt-1 m-auto" src="assets/person.fill.svg" alt="profile ico">
                   </div>
                   <div class="flex flex-col">
                     <p>User_Name</p>
-                    <p class="text-[#969FA8]">user@Email.com</p>
+                    <p class="text-tt-light-gray">useremail.com</p>
                   </div>
                 </div>
 
-                <div class="flex flex-row mx-[20px] my-[45px] gap-[17px]">
-                  <img class="w-[24px] h-[24px]" src="assets/person.crop.square.png" alt="profile ico">
+                <div
+                  class="flex flex-row h-[64px] items-center pl-[20px] gap-[17px] hover:border-solid
+                   hover:border-tt-red hover:border-2 hover:pl-[18px]">
+                  <img class="w-[24px] h-[24px]" src="assets/person.crop.square.svg" alt="profile ico">
                   <p>Управление профилем</p>
                 </div>
 
-                <div class="flex flex-row ml-[20px] gap-[17px]">
-                  <img class="w-[24px] h-[24px]" src="assets/rectangle.portrait.and.arrow.forward.png" alt="logout_ico">
-                  <button
-                    class="font-medium text-[#E30611] rounded hover:bg-red-400 hover:text-white transition duration-300"
-                    (click)="performAction({
+                <div
+                  class="flex flex-row h-[64px] items-center pl-[20px] gap-[17px] hover:border-solid
+                   hover:border-tt-red hover:border-2 hover:pl-[18px]">
+                  <img class="w-[24px] h-[24px]" src="assets/rectangle.portrait.and.arrow.forward.svg" alt="logout_ico">
+                  <button class="font-medium text-tt-red rounded" (click)="performAction({
                           type: MainActionTypes.LOGOUT,
           })">Выход
                   </button>
