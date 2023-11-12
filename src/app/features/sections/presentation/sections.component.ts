@@ -65,9 +65,11 @@ export class SectionsComponent implements OnInit {
     }
 
     onStarClicked(id: number) {
+        let isFavoriteSection: boolean | null = null
         const newSections = this.state.sections.map(section => {
             if (section.id == id) {
-                return clone(section, {isFavorite: !section.isFavorite})
+                isFavoriteSection = !section.isFavorite
+                return clone(section, {isFavorite: isFavoriteSection})
             } else {
                 return section
             }
@@ -77,6 +79,10 @@ export class SectionsComponent implements OnInit {
             sections: newSections, filteredSections: SectionsState.calculateFilteredSections(
                 newSections, this.state.filtersState.filter, this.state.filtersState.onlyFavorite)
         })
+
+        if (isFavoriteSection != null) {
+            this.sectionService.updateIsFavoriteSection(id, isFavoriteSection)
+        }
     }
 
     changeFavoriteFilterState() {

@@ -39,9 +39,20 @@ export class SectionServiceImpl implements SectionService {
                         section.thumbnailUrl,
                         section.isFavorite
                     )
+                }).sort((sectionA, sectionB) => {
+                    if (sectionA.title > sectionB.title) {
+                        return 1;
+                    }
+
+                    if (sectionA.title < sectionB.title) {
+                        return -1;
+                    }
+
+                    return 0;
                 })
                 return listSection;
-            })).subscribe(sections => {
+            }))
+            .subscribe(sections => {
             this.mutableSections.next(sections)
         })
     }
@@ -53,6 +64,18 @@ export class SectionServiceImpl implements SectionService {
         }
 
         this.http.post<any>(`${environment.apiUrl}/documentation/section/create`, body)
+            .subscribe(_ => {
+                this.fetchSections()
+            })
+    }
+
+    updateIsFavoriteSection(sectionId: number, isFavorite: boolean) {
+        const body = {
+            isFavorite: isFavorite,
+            sectionId: sectionId
+        }
+
+        this.http.post<any>(`${environment.apiUrl}/documentation/section/favorite`, body)
             .subscribe(_ => {
                 this.fetchSections()
             })

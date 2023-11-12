@@ -11,4 +11,6 @@ export abstract class SectionService {
 
     abstract getSection(sectionId: number): SectionEntity | undefined
 
+    abstract updateIsFavoriteSection(sectionId: number, isFavorite: boolean): void
+
 }
