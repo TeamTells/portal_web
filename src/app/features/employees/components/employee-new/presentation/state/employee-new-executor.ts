@@ -86,16 +86,16 @@ export class EmployeeNewExecutor extends Executor<
         });
         break;
 
-      case EmployeeNewActionTypes.SELECT_RIGHT:
+      case EmployeeNewActionTypes.ADD_ROLE:
         this.reduce({
-          type: EmployeeNewResultActionTypes.SELECT_RIGHT,
-          right: this.getState().rights.find((r) => r.id === action.rightId),
+          type: EmployeeNewResultActionTypes.ADD_ROLE,
+          role: this.getState().roles.find((r) => r.id === action.roleId),
         });
         break;
 
-      case EmployeeNewActionTypes.SELECT_ROLE:
+      case EmployeeNewActionTypes.REMOVE_ROLE:
         this.reduce({
-          type: EmployeeNewResultActionTypes.SELECT_ROLE,
+          type: EmployeeNewResultActionTypes.REMOVE_ROLE,
           role: this.getState().roles.find((r) => r.id === action.roleId),
         });
         break;

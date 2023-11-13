@@ -8,8 +8,8 @@ export type EmployeeNewResultAction =
   | ChangeEmailResultAction
   | ChangePasswordResultAction
   | ChangeDepartmentResultAction
-  | ChangeRoleResultAction
-  | ChangeRightResultAction
+  | AddRoleResultAction
+  | RemoveRoleResultAction
   | ValidationResultAction;
 
 export enum EmployeeNewResultActionTypes {
@@ -20,7 +20,8 @@ export enum EmployeeNewResultActionTypes {
   CHANGE_EMAIL,
   CHANGE_PASSWORD,
   SELECT_DEPARTMENT,
-  SELECT_ROLE,
+  ADD_ROLE,
+  REMOVE_ROLE,
   SELECT_RIGHT,
   VALIDATION_ERROR,
 }
@@ -61,14 +62,14 @@ export interface ChangeDepartmentResultAction {
   readonly department?: DropdownItem;
 }
 
-export interface ChangeRoleResultAction {
-  readonly type: EmployeeNewResultActionTypes.SELECT_ROLE;
+export interface AddRoleResultAction {
+  readonly type: EmployeeNewResultActionTypes.ADD_ROLE;
   readonly role?: DropdownItem;
 }
 
-export interface ChangeRightResultAction {
-  readonly type: EmployeeNewResultActionTypes.SELECT_RIGHT;
-  readonly right?: DropdownItem;
+export interface RemoveRoleResultAction {
+  readonly type: EmployeeNewResultActionTypes.REMOVE_ROLE;
+  readonly role?: DropdownItem;
 }
 
 export interface ValidationResultAction {

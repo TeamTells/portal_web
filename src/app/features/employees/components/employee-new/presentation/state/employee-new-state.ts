@@ -31,19 +31,12 @@ export class EmployeeNewState {
   readonly department?: DropdownItem;
 
   readonly roles: DropdownItem[] = [
-    { name: 'Зритель', id: '1' },
-    { name: 'Тамада', id: '2' },
-    { name: 'Дрессировчик', id: '3' },
-    { name: 'Клоун', id: '4' },
-    { name: 'Акрабат', id: '4' },
+    { name: 'Читатель', id: '1' },
+    { name: 'Редактор', id: '2' },
+    { name: 'Администратор', id: '3' },
+    { name: 'Владелец', id: '4' },
   ];
-  readonly role?: DropdownItem;
-
-  readonly rights: DropdownItem[] = [
-    { name: 'Смотреть', id: '1' },
-    { name: 'Выступать', id: '2' },
-  ];
-  readonly right?: DropdownItem;
+  readonly selectedRoles: DropdownItem[] = [{ name: 'Читатель', id: '1' }];
 
   readonly isLoading = false;
 }

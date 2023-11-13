@@ -50,11 +50,21 @@ export class EmployeeNewReducer
       case EmployeeNewResultActionTypes.SELECT_DEPARTMENT:
         return { ...state, department: action.department };
 
-      case EmployeeNewResultActionTypes.SELECT_ROLE:
-        return { ...state, role: action.role };
+      case EmployeeNewResultActionTypes.ADD_ROLE:
+        return {
+          ...state,
+          selectedRoles: action.role
+            ? [...state.selectedRoles, action.role]
+            : state.selectedRoles,
+        };
 
-      case EmployeeNewResultActionTypes.SELECT_RIGHT:
-        return { ...state, right: action.right };
+      case EmployeeNewResultActionTypes.REMOVE_ROLE:
+        return {
+          ...state,
+          selectedRoles: state.selectedRoles.filter(
+            (role) => role.id !== action.role?.id
+          ),
+        };
 
       case EmployeeNewResultActionTypes.VALIDATION_ERROR:
         return clone(state, {

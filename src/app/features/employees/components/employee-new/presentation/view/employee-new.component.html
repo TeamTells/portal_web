@@ -16,7 +16,7 @@
   <h3 class="text-xl text-tt-black font-bold mb-3">Основная информация</h3>
   <app-core-input-field
     type="text"
-    placeholder="Фамилия"
+    placeholder="Фамилия*"
     [error]="state.lastNameError"
     (onChange)="
       performAction({
@@ -28,7 +28,7 @@
   <app-core-input-field
     class="my-3"
     type="text"
-    placeholder="Имя"
+    placeholder="Имя*"
     [error]="state.firstNameError"
     (onChange)="
       performAction({
@@ -73,7 +73,7 @@
   <app-core-input-field
     class="my-3"
     type="password"
-    placeholder="Пароль"
+    placeholder="Пароль*"
     [error]="state.passwordError"
     (onChange)="
       performAction({
@@ -84,7 +84,7 @@
   />
   <app-core-dropdown-field
     placeholder="Выберите департамент"
-    [items]="state.departments"
+    [items]="[]"
     [selectedItem]="state.department"
     (onSelect)="
       performAction({
@@ -94,26 +94,19 @@
     "
   />
   <h3 class="text-xl text-tt-black font-bold my-3">Права доступа</h3>
-  <app-core-dropdown-field
-    class="mb-3"
-    placeholder="Права доступа"
-    [items]="state.rights"
-    [selectedItem]="state.right"
-    (onSelect)="
-      performAction({
-        type: EmployeeNewActionTypes.SELECT_RIGHT,
-        rightId: $event
-      })
-    "
-  />
-  <app-core-dropdown-field
-    type="text"
+  <app-core-multiselect-field
     placeholder="Выберите роль"
     [items]="state.roles"
-    [selectedItem]="state.role"
+    [selectedItems]="state.selectedRoles"
     (onSelect)="
       performAction({
-        type: EmployeeNewActionTypes.SELECT_ROLE,
+        type: EmployeeNewActionTypes.ADD_ROLE,
+        roleId: $event
+      })
+    "
+    (onUnselect)="
+      performAction({
+        type: EmployeeNewActionTypes.REMOVE_ROLE,
         roleId: $event
       })
     "

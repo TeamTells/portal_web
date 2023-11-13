@@ -2,57 +2,44 @@ import {
   Component,
   ElementRef,
   EventEmitter,
-  HostListener,
   Input,
   Output,
 } from '@angular/core';
-
-export type DropdownItem = {
-  id: string;
-  name: string;
-};
+import { DropdownItem } from '../dropdown-field/dropdown-field.component';
 
 @Component({
-  selector: 'app-core-dropdown-field',
-  templateUrl: './dropdown-field.component.html',
+  selector: 'app-core-multiselect-field',
+  templateUrl: './multiselect-field.component.html',
 })
-export class DropdownFieldComponent {
+export class MultiselectFieldComponent {
   constructor(private el: ElementRef) {}
 
   @Input() class: string | string[] = [];
   @Input() items: DropdownItem[] = [];
   @Input() error?: string;
   @Input() placeholder: string = 'Выберите элемент';
-  @Input() selectedItem?: DropdownItem;
-  @Input() canSelect: boolean = true;
+  @Input() selectedItems: DropdownItem[] = [];
   @Output() onSelect: EventEmitter<string> = new EventEmitter<string>();
   @Output() onUnselect: EventEmitter<string> = new EventEmitter<string>();
 
-  opened = false;
-
-  switch() {
-    if (!this.onSelect.observed) return;
-    this.opened = !this.opened;
+  getNonSelectedItems(): DropdownItem[] {
+    return this.items.filter(
+      (item) =>
+        !this.selectedItems.some((selectedItem) => selectedItem.id === item.id)
+    );
   }
 
   onSelectItem(id: string) {
+    if (!this.getNonSelectedItems().find((item) => item.id == id)) return;
+
     if (this.onSelect) {
       this.onSelect.emit(id);
     }
-    this.switch();
   }
 
   onUnselectItem(id: string) {
     if (this.onUnselect) {
       this.onUnselect.emit(id);
-    }
-    this.switch();
-  }
-
-  @HostListener('document:click', ['$event'])
-  onClickOutside(event: Event) {
-    if (this.opened && !this.el.nativeElement.contains(event.target)) {
-      this.opened = false;
     }
   }
 }
