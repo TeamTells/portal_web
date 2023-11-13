@@ -11,24 +11,13 @@ import { fakeBackendProvider } from "./features/authorization/data/interceptors/
 import { appInitializer } from "./features/authorization/data/app-initializer";
 import { MainModule } from "./features/main/main.module";
 import { EmployeesModule } from './features/employees/employees.module';
-<<<<<<< Updated upstream
 import { SectionModule } from './features/section/section.module';
 import {SectionsModule} from "./features/sections/sections.module";
-=======
-import { ErrorToastComponent } from './core/components/toast-alert/error-toast/error-toast.component';
-import { SuccessToastComponent } from './core/components/toast-alert/success-toast/success-toast.component';
-import { ToastComponent } from './core/components/toast-alert/toast-alert.component';
->>>>>>> Stashed changes
+import { ComponentsModule } from './core/components/components.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-<<<<<<< Updated upstream
-=======
-    ToastComponent,
-    SuccessToastComponent,
-    ErrorToastComponent,
->>>>>>> Stashed changes
   ],
   imports: [
     BrowserModule,
@@ -36,10 +25,8 @@ import { ToastComponent } from './core/components/toast-alert/toast-alert.compon
     AuthorizationModule,
     EmployeesModule,
     MainModule,
-<<<<<<< Updated upstream
-    SectionsModule
-=======
->>>>>>> Stashed changes
+    SectionsModule,
+    ComponentsModule
   ],
   providers: [
     {

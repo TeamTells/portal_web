@@ -12,13 +12,8 @@ import { EmployeeItemComponent } from './components/employee-item/employee-item.
 import { RolesComponent } from './components/roles/roles.component';
 import { RoleItemComponent } from './components/roles/role-item/role-item.component';
 import { AddEmployeesComponent } from './components/add-employees/add-employees.component';
-<<<<<<< Updated upstream
 import { EmployeeNewModule } from './components/employee-new/employee-new.module';
-=======
 import { ModalWindowComponent } from './components/modal-window/modal-window.component';
-
-
->>>>>>> Stashed changes
 
 @NgModule({
   declarations: [
@@ -32,10 +27,7 @@ import { ModalWindowComponent } from './components/modal-window/modal-window.com
     RolesComponent,
     RoleItemComponent,
     AddEmployeesComponent,
-<<<<<<< Updated upstream
-=======
     ModalWindowComponent
->>>>>>> Stashed changes
   ],
   exports: [EmployeesComponent, EmployeeNewModule],
   imports: [CommonModule, ComponentsModule, RouterOutlet],

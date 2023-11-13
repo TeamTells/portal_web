@@ -16,6 +16,8 @@ import { PopupMenuContentComponent } from './popup-menu/popup-menu-content/popup
 import { PopupMenuOptionComponent } from './popup-menu/popup-menu-option/popup-menu-option.component';
 import { PageShadingComponent } from './page-shading/page-shading.component';
 import { ToastComponent } from './toast-alert/toast-alert.component';
+import { ErrorToastComponent } from './toast-alert/error-toast/error-toast.component';
+import { SuccessToastComponent } from './toast-alert/success-toast/success-toast.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { ToastComponent } from './toast-alert/toast-alert.component';
     PopupMenuContentComponent,
     PopupMenuOptionComponent,
     PageShadingComponent,
-    ToastComponent
+    ToastComponent,
+    ErrorToastComponent,
+    SuccessToastComponent
   ],
   exports: [
     CardComponent,
@@ -49,7 +53,9 @@ import { ToastComponent } from './toast-alert/toast-alert.component';
     PopupMenuContentComponent,
     PopupMenuOptionComponent,
     PageShadingComponent,
-    ToastComponent
+    ToastComponent,
+    ErrorToastComponent,
+    SuccessToastComponent
   ],
   imports: [
     CommonModule,
