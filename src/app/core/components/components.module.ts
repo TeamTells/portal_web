@@ -14,6 +14,8 @@ import { PopupMenuComponent } from './popup-menu/popup-menu.component';
 import { PopupMenuButtonComponent } from './popup-menu/popup-menu-button/popup-menu-button.component';
 import { PopupMenuContentComponent } from './popup-menu/popup-menu-content/popup-menu-content.component';
 import { PopupMenuOptionComponent } from './popup-menu/popup-menu-option/popup-menu-option.component';
+import { PageShadingComponent } from './page-shading/page-shading.component';
+import { ToastComponent } from './toast-alert/toast-alert.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { PopupMenuOptionComponent } from './popup-menu/popup-menu-option/popup-m
     PopupMenuComponent,
     PopupMenuButtonComponent,
     PopupMenuContentComponent,
-    PopupMenuOptionComponent
+    PopupMenuOptionComponent,
+    PageShadingComponent,
+    ToastComponent
   ],
   exports: [
     CardComponent,
@@ -43,7 +47,9 @@ import { PopupMenuOptionComponent } from './popup-menu/popup-menu-option/popup-m
     PopupMenuComponent,
     PopupMenuButtonComponent,
     PopupMenuContentComponent,
-    PopupMenuOptionComponent
+    PopupMenuOptionComponent,
+    PageShadingComponent,
+    ToastComponent
   ],
   imports: [
     CommonModule,
