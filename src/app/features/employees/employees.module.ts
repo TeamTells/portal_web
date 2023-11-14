@@ -13,6 +13,7 @@ import { RolesComponent } from './components/roles/roles.component';
 import { RoleItemComponent } from './components/roles/role-item/role-item.component';
 import { AddEmployeesComponent } from './components/add-employees/add-employees.component';
 import { EmployeeNewModule } from './components/employee-new/employee-new.module';
+import { EmployeeSelectComponent } from './components/employee-select/employee-select.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { EmployeeNewModule } from './components/employee-new/employee-new.module
     RolesComponent,
     RoleItemComponent,
     AddEmployeesComponent,
+    EmployeeSelectComponent
   ],
   exports: [EmployeesComponent, EmployeeNewModule],
   imports: [CommonModule, ComponentsModule, RouterOutlet],

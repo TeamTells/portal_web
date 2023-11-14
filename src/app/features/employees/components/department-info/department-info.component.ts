@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { DepartmentEntity } from '../department/department.component';
+import { EmployeesDataService } from '../../data/employees-data-service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'department-info',
@@ -8,65 +10,24 @@ import { DepartmentEntity } from '../department/department.component';
 })
 export class DepartmentInfoComponent {
   public countOfEmployees: number = 0;
+  public department!: DepartmentEntity
 
-  @Input() public department: DepartmentEntity = 
-  {
-    id: -1,
-    name: "Безопасность",
-    supervisor: {
-      id: -1,
-      name: "Елкин Николай Петрович",
-      mail: "de.voronin@mail.ru",
-      img: ""
-    },
-    departments: [
-      {
-        id: -1,
-        name: "Безопасность",
-        supervisor: {
-          id: -1,
-          name: "Елкин Николай Петрович",
-          mail: "de.voronin@mail.ru",
-          img: ""
-        },
-        departments: [
-          
-        ],
-        employees: [
-          {
-            id: -1,
-            name: "Воронин Дмитрий",
-            mail: "de.voronin@mail.ru",
-            img: ""
-          },
-          {
-            id: -1,
-            name: "Сергей Исхаков",
-            mail: "se.isxakov@mail.ru",
-            img: ""
-          }
-        ]
-      }
-    ],
-    employees: [
-      {
-        id: -1,
-        name: "Воронин Дмитрий",
-        mail: "de.voronin@mail.ru",
-        img: ""
-      },
-      {
-        id: -1,
-        name: "Сергей Исхаков",
-        mail: "se.isxakov@mail.ru",
-        img: ""
-      }
-    ]
-  }
+  constructor(private dataService: EmployeesDataService,
+    private route: ActivatedRoute) 
+    {
+      let findDepartment = dataService.departments.find((element)=>{
+        if (element.id.toString() == this.route.snapshot.paramMap.get('id'))
+        {
+          return true
+        }
+        return false
+      })
 
-  ngOnInit(): void {
-    this.getCountEmployees(this.department);
-  }
+      if(findDepartment)
+      {
+        this.department = findDepartment
+      }
+    }
 
   getCountEmployees(department: DepartmentEntity):void
   {

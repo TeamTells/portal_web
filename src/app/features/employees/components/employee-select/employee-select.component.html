@@ -1,0 +1,36 @@
+<div class="flex p-3 gap-3 rounded-2xl bg-tt-light-blue"
+  *ngIf="isAnySelect() && settings.blueBoxVisible">
+  <button (click)="unselectAll()">
+    <img class="p-1" width="24px" height="24px" src="../../../../../assets/black-xmark.svg">
+  </button>
+  <p class="font-normal text-base">{{strings.selected}}: {{getSelectedCount()}}</p>
+  <div class="flex gap-3"
+    *ngIf="settings.toolsVisibile">
+    <button>
+      <img width="26px" src="../../../../../assets/person.and.arrow.left.and.arrow.right.svg">
+    </button>
+    <button>
+      <img width="27px" src="../../../../../assets/folder.badge.plus.svg">
+    </button>
+    <button>
+      <img width="19px" src="../../../../../assets/trash.svg">
+    </button>
+  </div>
+</div>
+
+<div class="mt-6">
+  <app-core-department *ngFor="let item of departments" 
+    [employeeVisible]="settings.selectType == SelectType.Employee" 
+    [department]="item"
+    (ctrlClicked)="selectDepartment($event)"
+    (employeeCtrlClicked)="selectEmployee($event)"
+  />
+
+  <div *ngIf="settings.selectType == SelectType.Employee">
+    <app-core-employee-item *ngFor="let item of employees" 
+    [employee]="item"  
+    (ctrlClicked)="selectEmployee($event)"
+    />
+  </div>
+  
+</div>
