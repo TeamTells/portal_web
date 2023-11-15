@@ -10,7 +10,7 @@ import { clone } from 'cloneable-ts';
 @Injectable({
   providedIn: 'root',
 })
-export class DepartamentNewReducer
+export class DepartmentNewReducer
   implements Reducer<DepartmentNewState, DepartmentNewResultAction>
 {
   reduce(

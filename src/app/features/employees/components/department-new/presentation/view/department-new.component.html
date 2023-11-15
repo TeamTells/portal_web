@@ -1,1 +1,124 @@
-<p>department-new works!</p>
+<app-core-main-content-card class="mb-8">
+  <div class="flex justify-between gap-1 flex-wrap font-bold mb-9">
+    <div class="flex gap-4">
+      <app-core-button-back />
+      <h2 class="text-[28px] font-medium text-tt-black">
+        Создание департамента
+      </h2>
+    </div>
+    <app-core-button-red
+      text="Сохранить"
+      (buttonClick)="
+        performAction({
+          type: DepartmentNewActionTypes.CREATE
+        })
+      "
+    />
+  </div>
+  <app-core-input-field
+    type="text"
+    placeholder="Название*"
+    [error]="state.nameError"
+    (onChange)="
+      performAction({
+        type: DepartmentNewActionTypes.CHANGE_NAME,
+        name: $event
+      })
+    "
+  />
+  <app-core-dropdown-field
+    class="my-3"
+    placeholder="Выберите департамент"
+    [items]="[]"
+    [selectedItem]="getSelectedParentDepartmentDropdownItem()"
+    [error]="state.parentDepartmentError"
+    (onSelect)="
+      performAction({
+        type: DepartmentNewActionTypes.CHANGE_PARENT_DEPARTAMENT,
+        parentDepartamentId: $event
+      })
+    "
+    (onUnselect)="
+      performAction({
+        type: DepartmentNewActionTypes.REMOVE_PARENT_DEPARTAMENT
+      })
+    "
+  />
+  <app-core-dropdown-field
+    placeholder="Выберите руководителя"
+    [items]="[]"
+    [error]="state.supervisorError"
+    [selectedItem]="getSelectedSipervisorDropdownItem()"
+    (onSelect)="
+      performAction({
+        type: DepartmentNewActionTypes.CHANGE_SUPERVISOR,
+        supervisorId: $event
+      })
+    "
+    (onUnselect)="
+      performAction({
+        type: DepartmentNewActionTypes.REMOVE_SUPERVISOR
+      })
+    "
+  />
+</app-core-main-content-card>
+
+<app-core-main-content-card>
+  <h3 class="text-2xl text-tt-black font-medium">
+    Участники
+    <span *ngIf="state.employees.length !== 0" class="text-tt-gray"
+      >({{ state.employees.length }})</span
+    >
+  </h3>
+  <app-core-search-field class="my-6" (onChange)="onChangeSearchStr($event)" />
+  <button
+    type="button"
+    class="text-[#007BFF] font-medium flex items-center py-[6px] px-2 mb-3"
+  >
+    <div
+      class="me-4 flex justify-center items-center h-[40px] w-[40px] rounded-full bg-tt-light-light-gray"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="currentColor"
+          d="M11 13H6q-.425 0-.713-.288T5 12q0-.425.288-.713T6 11h5V6q0-.425.288-.713T12 5q.425 0 .713.288T13 6v5h5q.425 0 .713.288T19 12q0 .425-.288.713T18 13h-5v5q0 .425-.288.713T12 19q-.425 0-.713-.288T11 18v-5Z"
+        />
+      </svg>
+    </div>
+    <span>Добавить сотрудников</span>
+  </button>
+
+  <div
+    class="flex justify-between px-2 py-1 rounded-2xl hover:bg-tt-light-light-gray"
+    *ngFor="let employee of state.employees"
+  >
+    <div *ngIf="employee.name.includes(searchStr)" class="flex">
+      <img
+        *ngIf="employee.img == ''"
+        class="w-10 h-10 my-auto rounded-full"
+        src="../../../../assets/empty_employee_icon.svg"
+      />
+      <img
+        *ngIf="employee.img != ''"
+        class="w-10 h-10 my-auto rounded-full"
+        src="{{ employee.img }}"
+      />
+
+      <div class="ml-4 my-auto">
+        <p class="font-medium text-[16px] text-tt-dark-gray">
+          {{ employee.name }}
+        </p>
+        <p class="font-normal text-[16px] text-tt-gray">{{ employee.mail }}</p>
+      </div>
+    </div>
+
+    <button *ngIf="employee.name.includes(searchStr)" class="w-5 h-5 my-auto">
+      <img src="../../../../assets/triple-dot.svg" />
+    </button>
+  </div>
+</app-core-main-content-card>

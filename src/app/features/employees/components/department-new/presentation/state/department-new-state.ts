@@ -15,5 +15,24 @@ export class DepartmentNewState {
   readonly parentDepartment: DepartmentEntity | null = null;
   readonly parentDepartmentError: string = '';
 
-  readonly employees: EmployeeEntity[] = [];
+  readonly employees: EmployeeEntity[] = [
+    {
+      id: 1,
+      img: 'https://cdn.betterttv.net/emote/6436b06d48b8cab3008407d4/3x.png',
+      mail: 'firdavsinurov@site.com',
+      name: 'Фирдавси Нуров',
+    },
+    {
+      id: 2,
+      img: 'https://cdn.betterttv.net/emote/6436b06d48b8cab3008407d4/3x.png',
+      mail: '',
+      name: 'Firdavsi Nurov',
+    },
+    {
+      id: 3,
+      img: '',
+      mail: '',
+      name: '',
+    },
+  ];
 }

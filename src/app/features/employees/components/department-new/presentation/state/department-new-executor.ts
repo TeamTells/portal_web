@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Executor } from 'src/app/core/mvi/store';
 import {
   DepartmentNewAction,
@@ -9,6 +9,7 @@ import {
   DepartmentNewResultAction,
   DepartmentNewResultActionTypes,
 } from './department-new-result-action';
+import { Validator } from 'src/app/core/validators/validator';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +19,12 @@ export class DepartmentNewExecutor extends Executor<
   DepartmentNewAction,
   DepartmentNewResultAction
 > {
+  constructor(
+    @Inject('NewDepartmentNameValidator') private nameValidator: Validator,
+  ) {
+    super();
+  }
+
   execute(action: DepartmentNewAction) {
     switch (action.type) {
       case DepartmentNewActionTypes.CHANGE_NAME:
@@ -30,7 +37,13 @@ export class DepartmentNewExecutor extends Executor<
       case DepartmentNewActionTypes.CHANGE_SUPERVISOR:
         this.reduce({
           type: DepartmentNewResultActionTypes.CHANGE_SUPERVISOR,
-          supervisor: action.supervisor,
+          // TODO: idk но надо что-то с этим сделать
+          supervisor: {
+            id: +action.supervisorId,
+            mail: '',
+            name: action.supervisorId,
+            img: '',
+          },
         });
         break;
 
@@ -43,7 +56,19 @@ export class DepartmentNewExecutor extends Executor<
       case DepartmentNewActionTypes.CHANGE_PARENT_DEPARTAMENT:
         this.reduce({
           type: DepartmentNewResultActionTypes.CHANGE_PARENT_DEPARTAMENT,
-          parentDepartament: action.parentDepartament,
+          // TODO: idk но надо что-то с этим сделать
+          parentDepartament: {
+            departments: [],
+            employees: [],
+            id: +action.parentDepartamentId,
+            name: '',
+            supervisor: {
+              id: 1,
+              img: '',
+              mail: '',
+              name: '',
+            },
+          },
         });
         break;
 
@@ -60,7 +85,7 @@ export class DepartmentNewExecutor extends Executor<
         });
         break;
 
-      case DepartmentNewActionTypes.REMOVE_EMPOYESS:
+      case DepartmentNewActionTypes.REMOVE_EMPOYEES:
         this.reduce({
           type: DepartmentNewResultActionTypes.REMOVE_EMPOYESS,
           empoyees: action.empoyees,
@@ -74,9 +99,15 @@ export class DepartmentNewExecutor extends Executor<
   }
 
   private handleCreate() {
-    const nameError = '';
-    const parentDepartmentError = '';
-    const supervisorError = '';
+    const nameError = this.nameValidator.validate(this.getState().name);
+    const parentDepartmentError = this.getState().parentDepartment
+      ? null
+      : 'Назначьте родительский департамент';
+    const supervisorError = this.getState().supervisor
+      ? null
+      : 'Назначьте руководителя';
+
+    console.log(this.getState());
 
     if (
       nameError != null ||
@@ -85,9 +116,10 @@ export class DepartmentNewExecutor extends Executor<
     ) {
       this.reduce({
         type: DepartmentNewResultActionTypes.VALIDATION_ERROR,
-        nameError: nameError,
-        parentDepartmentError: parentDepartmentError,
-        supervisorError: supervisorError,
+        nameError: nameError != null ? nameError : '',
+        parentDepartmentError:
+          parentDepartmentError != null ? parentDepartmentError : '',
+        supervisorError: supervisorError != null ? supervisorError : '',
       });
       return;
     }
