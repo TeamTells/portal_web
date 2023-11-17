@@ -1,0 +1,8 @@
+<div class="w-[240px] flex flex-col py-4 bg-tt-white rounded-tt-card gap-2">
+    <app-profile-menu-item *ngFor="let item of menuItems" [params]="item.itemEntity" (navigate)="onNavItemClick($event)">
+        <div class="flex gap-2 items-center">
+            <img [src]="item.icon" alt="">
+            <p class="text-[16px] font-[400] text-center not-italic leading-normal">{{item.text}}</p>
+        </div>
+    </app-profile-menu-item>
+</div>
