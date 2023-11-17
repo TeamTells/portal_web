@@ -13,6 +13,9 @@ import {
 } from './features/employees/components/employee-new/presentation/view/employee-new.component';
 import {SectionComponent} from "./features/section/presentation/section.component";
 import {SectionsComponent} from "./features/sections/presentation/sections.component";
+import { ProfileInfoComponent } from './features/profile/profile-info/profile-info.component';
+import { ProfileSecurityComponent } from './features/profile/profile-security/profile-security.component';
+import { ProfileComponent } from './features/profile/profile/profile.component';
 
 const employeesItems: Routes = [
   {path: 'new-employee', component: EmployeesNewComponent},
@@ -23,19 +26,26 @@ const employeesItems: Routes = [
   {path: 'sections/:id', component: SectionComponent}
 ]
 
+const profileItems: Routes = [
+  {path: '', component: ProfileInfoComponent,},
+  {path: 'security', component:ProfileSecurityComponent}
+]
+
+
 const mainItems: Routes = [
   {path: 'employees', component: EmployeesComponent, children: employeesItems},
   {path: 'sections', component: SectionsComponent},
   {path: 'settings', component: SettingsComponent},
+  {path: 'profile', component: ProfileComponent, children: profileItems},
 ]
 
 const appRoutes: Routes = [
-  {path: 'login', component: AuthorizationComponent, canActivate: [alreadyLoginGuardFunction]},
+  //{path: 'login', component: AuthorizationComponent, canActivate: [alreadyLoginGuardFunction]},
 
   {
     path: '',
     component: MainComponent,
-    canActivate: [loginGuardFunction],
+    //canActivate: [loginGuardFunction],
     children: mainItems
   }
 ]

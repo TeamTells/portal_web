@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {AuthService} from "./features/authorization/domain/auth.service";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,8 +9,11 @@ import {AuthService} from "./features/authorization/domain/auth.service";
 })
 export class AppComponent {
 
-  constructor(authService: AuthService) {
+  constructor(authService: AuthService, private router: Router) {
 
   }
 
+  public onClick(){
+    this.router.navigate(['profile'])
+  }
 }

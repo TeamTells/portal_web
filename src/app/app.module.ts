@@ -13,6 +13,7 @@ import { MainModule } from "./features/main/main.module";
 import { EmployeesModule } from './features/employees/employees.module';
 import { SectionModule } from './features/section/section.module';
 import {SectionsModule} from "./features/sections/sections.module";
+import { ProfileModule } from './features/profile/profile.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import {SectionsModule} from "./features/sections/sections.module";
     AuthorizationModule,
     EmployeesModule,
     MainModule,
-    SectionsModule
+    SectionsModule,
+    //ProfileModule,
   ],
   providers: [
     {
