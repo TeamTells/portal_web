@@ -16,8 +16,6 @@ import {MarkTypes} from "../../../../domain/model-types";
   host: {
     'data-slate-node': 'text'
   },
-  standalone: true,
-  imports: [SlateModule]
 })
 export class DemoTextMarkComponent extends BaseTextComponent {
   attributes: string[] = [];

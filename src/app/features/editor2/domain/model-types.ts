@@ -85,7 +85,7 @@ export type MentionElement = {
 
 export type ParagraphElement = {
   type: 'paragraph'
-  align?: string
+  align?: 'left' | 'center' | 'right'
   children: Descendant[]
 }
 

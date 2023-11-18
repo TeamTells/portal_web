@@ -1,4 +1,12 @@
-<div class="demo-rich-editor-wrapper">
+<div class="rich-editor-wrapper">
+  <app-breadcrumbs [breadcrumbs]="[
+  { label: 'Home', url: '/home' },
+  { label: 'About', url: '/about' },
+  { label: 'Contact', url: '/contact' }
+]"></app-breadcrumbs>
+
+  <plus-button [top]="plusButtonOffsetTop" [left]="plusButtonOffsetLeft" [isVisible]="plusButtonVisible"></plus-button>
+  <app-selection-context-menu [top]="selMenuOffsetTop" [left]="selMenuOffsetLeft" [isVisible]="selMenuVisible"></app-selection-context-menu>
   <slate-editable
     class="slate-editable-container"
     [editor]="editor"

@@ -1,20 +1,12 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {createEditor, Element, Editor, Transforms} from 'slate';
+import {createEditor, Editor, Element, Transforms} from 'slate';
 import {withHistory} from 'slate-history';
-import {SlateEditableComponent, withAngular} from 'slate-angular';
+import {AngularEditor, withAngular} from 'slate-angular';
 import isHotkey from 'is-hotkey';
 import {DemoTextMarkComponent} from './components/text/text.component';
-import {
-  CustomEditor,
-  CustomElement,
-  CustomText,
-  DocumentDataModel,
-  ElementTypes, HeadingElement,
-  MarkTypes, ParagraphElement
-} from "../../domain/model-types";
+import {CustomEditor, CustomText, DocumentDataModel, ElementTypes, MarkTypes} from "../../domain/model-types";
 import {Editor2Service} from "../../domain/editor-service";
-import {SlateModule} from 'slate-angular';
-import {FormsModule} from "@angular/forms";
+import {ContextMenuOptions} from "../../domain/view-state-types";
 // import {isTTElement, isTTText, MarkTypes, TTElement, TTText,} from '../../domain/element-types';
 
 const SLATE_DEV_MODE_KEY = 'slate-dev';
@@ -29,17 +21,19 @@ const HOTKEYS: Record<string, MarkTypes> = {
 const LIST_TYPES = ['numbered-list', 'bulleted-list'];
 
 @Component({
-  standalone: true,
+  // standalone: true,
   selector: 'app-editor',
-  imports: [
-    SlateModule,
-    FormsModule,
-  ],
   templateUrl: './editor2.component.html',
   styleUrls: ['./editor2.component.scss'],
 })
 export class EditorComponent2 implements OnInit {
   value: DocumentDataModel;
+  plusButtonOffsetLeft = 0;
+  plusButtonOffsetTop = 0;
+  plusButtonVisible = false;
+  selMenuOffsetLeft = 0;
+  selMenuOffsetTop = 0;
+  selMenuVisible = false;
 
   constructor(private editorService: Editor2Service) {
     this.value = this.editorService.getDocumentBy("---");
@@ -59,8 +53,8 @@ export class EditorComponent2 implements OnInit {
 
     Transforms.setNodes(
       this.editor,
-      { type: isActive ? 'paragraph' : format },
-      { match: n => Element.isElement(n) && Editor.isBlock(this.editor, n) }
+      {type: isActive ? 'paragraph' : format},
+      {match: n => Element.isElement(n) && Editor.isBlock(this.editor, n)}
     );
   };
 
@@ -170,17 +164,45 @@ export class EditorComponent2 implements OnInit {
 
   valueChange(event: any) {
     // if (localStorage.getItem(SLATE_DEV_MODE_KEY)) {
-      console.log(
-        `event: ${JSON.stringify(
-          event
-        )}`
-      );
-      console.log(
-        `anchor: ${JSON.stringify(
-          this.editor.selection?.anchor
-        )}\nfocus:  ${JSON.stringify(this.editor.selection?.focus)}`
-      );
-      console.log('operations: ', this.editor.operations);
+    console.log(
+      `event: ${JSON.stringify(
+        event
+      )}`
+    );
+    console.log(
+      `anchor: ${JSON.stringify(
+        this.editor.selection?.anchor
+      )}\nfocus:  ${JSON.stringify(this.editor.selection?.focus)}`
+    );
+    console.log('operations: ', this.editor.operations);
+    if (this.editor.selection != null) {
+      let selection = Editor.unhangRange(this.editor, this.editor.selection)
+      console.log("Unhanged sel is ", selection)
+      if(selection.focus.path === selection.anchor.path && selection.focus.offset === selection.anchor.offset)
+      {
+
+        this.selMenuVisible = false;
+        console.log("Selection is zero-char")
+        let [node, path] = Editor.parent(this.editor, selection.focus);
+        console.log("Selection is ", node)
+        let domNode = AngularEditor.toDOMNode(this.editor, node)
+
+        this.plusButtonOffsetLeft = domNode.offsetLeft-50;
+        this.plusButtonOffsetTop = domNode.offsetTop;
+        this.plusButtonVisible = true
+      } else {
+        console.log("Selection is multi-char")
+        let [node, path] = Editor.parent(this.editor, selection.focus);
+        console.log("Selection is ", node)
+        let domNode = AngularEditor.toDOMNode(this.editor, node)
+        this.plusButtonVisible = false
+        this.selMenuOffsetTop = domNode.offsetTop;
+        this.selMenuOffsetLeft = domNode.offsetLeft;
+        this.selMenuVisible = true;
+      }
+    } else this.plusButtonVisible = false
+
+    console.log(this.collectMenuOptions())
     // }
   }
 
@@ -238,4 +260,53 @@ export class EditorComponent2 implements OnInit {
       }
     }
   };
+
+  collectMenuOptions = (): ContextMenuOptions => {
+    const [match] = Editor.nodes(this.editor, {
+      match: n => Element.isElement(n) && n.type === 'paragraph',
+    });
+
+    let textStyle = '';
+    let textSize = 12;
+    let isBold = false;
+    let isItalic = false;
+    let isUnderlined = false;
+    let textColor = '#000000';
+    let paragraphAlignment: 'left' | 'center' | 'right' = 'left';
+
+    if (match) {
+      const [paragraphNode] = match;
+      if (Element.isElement(paragraphNode)) {
+        if (paragraphNode.align) {
+          paragraphAlignment = paragraphNode.align;
+        }
+      }
+    }
+
+    const [textNode] = Editor.nodes(this.editor, {
+      match: n => Text.isText(n),
+    });
+
+    if (textNode) {
+      const [text] = textNode;
+      if (Text.isText(text)) {
+        textStyle = 'custom'; // Replace with your logic to determine the text style
+        textSize = 12; // Replace with your logic to determine the text size
+        isBold = !!text.bold;
+        isItalic = !!text.italic;
+        isUnderlined = !!text.underline;
+        textColor = '#000000'; // Replace with your logic to determine the text color
+      }
+    }
+
+    return {
+      textStyle,
+      textSize,
+      isBold,
+      isItalic,
+      isUnderlined,
+      textColor,
+      paragraphAlignment,
+    };
+  }
 }

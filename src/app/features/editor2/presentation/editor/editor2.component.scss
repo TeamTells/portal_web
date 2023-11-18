@@ -118,38 +118,15 @@ $editor-width: 800px;
   margin-top: 32px;
 }
 
-.demo-rich-editor-wrapper {
+.rich-editor-wrapper {
   max-width: 42em;
   margin: 20px auto;
   padding: 20px;
   background-color: #fff;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.05);
   .slate-editable-container {
-    padding: 0px;
+    padding: 0px 0px 0px 30px;
   }
-  .demo-global-toolbar {
-    padding: 1px 18px 17px;
-    display: flex;
-    justify-content: left;
-    position: sticky;
-    top: 0;
-    z-index: 999;
-
-    & > * {
-      display: inline-block;
-      height: 24px;
-      line-height: 24px;
-    }
-
-    & > * + * {
-      margin-left: 15px;
-    }
-
-    border-bottom: 2px solid #f5f5f5;
-    margin: 0 -20px;
-    margin-bottom: 20px;
-  }
-
   .demo-element-image {
     display: block;
     img {
@@ -180,8 +157,7 @@ $editor-width: 800px;
     border-top: none;
     table-layout: fixed;
     overflow: visible;
-    margin-left: 0px;
-    margin-right: 0px;
+    margin-right: 0;
     width: 100%;
   }
   td {
@@ -246,7 +222,7 @@ $editor-width: 800px;
     overflow: hidden;
     height: calc(100vh - 100px);
   }
-  .demo-rich-editor-wrapper {
+  .rich-editor-wrapper {
     margin-top: 0;
   }
 }
