@@ -13,7 +13,7 @@ export class MainReducer implements Reducer<MainState, MainResultAction> {
     switch (action.type) {
       case MainResultActionTypes.SELECT_ITEM:
         return clone(state, {selectedItem: action.item})
-
+        
     }
   }
 

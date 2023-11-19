@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { EmployeeEntity } from '../employee-item/employee-item.component';
+import { EmployeeItemEntity } from '../employee-item/employee-item.component';
 import { EmployeesNavItem, EmployeesNavigator } from '../../navigation/employees-navigator';
-import { EmployeesDataService } from '../../data/employees-data-service';
+import { EmployeeDto, EmployeesDataService } from '../../data/employees-data-service';
 
 @Component({
   selector: 'app-core-department',
@@ -13,6 +13,8 @@ export class DepartmentComponent implements OnInit {
   @Input() public department: DepartmentEntity = {
     id: -1,
     name: "Not found department",
+    isSelect: false,
+    visibleContent: false,
     supervisor: {
       id: -1,
       name: "test supervisor",
@@ -25,22 +27,20 @@ export class DepartmentComponent implements OnInit {
 
   @Input() public offset: number = 0
   oneOffsetStepSize = 36
-
-  @Input() public employeeVisible: boolean = true
-
-  @Output() ctrlClicked = new EventEmitter<DepartmentEntity>()
-  @Output() employeeCtrlClicked = new EventEmitter<EmployeeEntity>()
-
-  isSelected: boolean = false
-  visibility: boolean = false;
   countOfEmploees: number = 0;
 
-  constructor(private navigator: EmployeesNavigator,
-    private data: EmployeesDataService) {
-  }
+  @Output() arrowClicked = new EventEmitter<DepartmentEntity>()
+  @Output() clicked = new EventEmitter<DepartmentEntity>()
+  @Output() ctrlClicked = new EventEmitter<DepartmentEntity>()
+  @Output() employeeCtrlClicked = new EventEmitter<EmployeeItemEntity>()
 
   ngOnInit(): void {
     this.countOfEmploees = this.getCountEmployees(this.department)
+  }
+
+  changeVisibilityContent(): void
+  {
+    this.department.visibleContent = !this.department.visibleContent
   }
 
   departmentClicked(event: any): void
@@ -51,33 +51,24 @@ export class DepartmentComponent implements OnInit {
     }
     else
     {
-      this.navigator.showContent({navItem: EmployeesNavItem.DEPARTMENT, params: this.department.id.toString()})
+      this.clicked.emit(this.department)
+      //this.navigator.showContent({navItem: EmployeesNavItem.DEPARTMENT, params: this.department.id.toString()})
     }
   }
 
   chieldDepartmentClicked(department: DepartmentEntity): void
   {
-    if(this.data.selectedDepartments.indexOf(this.department) != -1)
-    {
-      this.data.selectedDepartments.splice(this.data.selectedDepartments.indexOf(this.department), 1)
-    }
     this.ctrlClicked.emit(department)
   }
 
-  employeeClicked(employee: EmployeeEntity): void
-  {
-    if(this.data.selectedDepartments.indexOf(this.department) != -1)
-    {
-      this.data.selectedDepartments.splice(this.data.selectedDepartments.indexOf(this.department), 1)
-    }
-    
+  employeeClicked(employee: EmployeeItemEntity): void
+  {    
     this.employeeCtrlClicked.emit(employee)
   }
 
   getMarginOffset(): string
   {
-    this.isSelected = this.data.selectedDepartments.indexOf(this.department) >= 0
-    if(this.isSelected)
+    if(this.department.isSelect)
     {
       return 0 + 'px'
     }
@@ -89,7 +80,7 @@ export class DepartmentComponent implements OnInit {
 
   getPaddingOffset(): string
   {
-    if(this.isSelected)
+    if(this.department.isSelect)
     {
       return (this.offset + 8) + 'px'
     }
@@ -115,7 +106,9 @@ export class DepartmentComponent implements OnInit {
 export interface DepartmentEntity {
   id: number,
   name: string,
-  supervisor: EmployeeEntity,
+  isSelect: boolean,
+  visibleContent: boolean,
+  supervisor: EmployeeDto,
   departments: DepartmentEntity[],
-  employees: EmployeeEntity[]
+  employees: EmployeeItemEntity[]
 } 

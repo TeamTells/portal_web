@@ -16,17 +16,8 @@ export class DepartmentInfoComponent {
     private route: ActivatedRoute) 
     {
       let findDepartment = dataService.departments.find((element)=>{
-        if (element.id.toString() == this.route.snapshot.paramMap.get('id'))
-        {
-          return true
-        }
-        return false
+        element.id.toString() == this.route.snapshot.paramMap.get('id')
       })
-
-      if(findDepartment)
-      {
-        this.department = findDepartment
-      }
     }
 
   getCountEmployees(department: DepartmentEntity):void

@@ -10,18 +10,17 @@ export class EmployeeItemComponent {
 
   showDots: boolean = false;
 
-  @Input() public employee: EmployeeEntity = {
+  @Input() public employee: EmployeeItemEntity = {
     id: -1,
     img: "",
     name: "Not Found",
     mail: "not-found@mail.ru",
+    isSelect: false
   };
 
   @Input() public offset: number = 0
 
-  @Output() ctrlClicked = new EventEmitter<EmployeeEntity>();
-
-  isSelected: boolean = false;
+  @Output() ctrlClicked = new EventEmitter<EmployeeItemEntity>();
 
   onClick(event: any): void
   {
@@ -33,9 +32,7 @@ export class EmployeeItemComponent {
 
   getMarginOffset(): string
   {
-    this.isSelected = this.data.selectedEmployees.indexOf(this.employee) >= 0
-    
-    if(this.isSelected)
+    if(this.employee.isSelect)
     {
       return 0 + 'px'
     }
@@ -47,7 +44,7 @@ export class EmployeeItemComponent {
 
   getPaddingOffset(): string
   {
-    if(this.isSelected)
+    if(this.employee.isSelect)
     {
       return (this.offset + 8) + 'px'
     }
@@ -68,9 +65,10 @@ export class EmployeeItemComponent {
   }
 }
 
-export interface EmployeeEntity{
+export interface EmployeeItemEntity{
   id: number,
   img: string,
   name: string,
   mail: string
+  isSelect: boolean
 }

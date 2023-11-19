@@ -4,17 +4,17 @@
     [style.marginLeft]="getMarginOffset()"
     [style.paddingLeft]="getPaddingOffset()"
     [ngClass]="{ 
-      'bg-tt-light-blue': isSelected
+      'bg-tt-light-blue': department.isSelect
     }"
     >
 
     <img class="w-6 h-6 my-auto" src="../../../../assets/folder-dot.svg"
-      *ngIf="department.departments.length == 0 && (department.employees.length == 0 || !employeeVisible)">
+      *ngIf="department.departments.length == 0 && department.employees.length == 0">
     <img class="w-6 h-6 my-auto cursor-pointer" src="../../../../assets/folder-arrow.svg"
-      (click)="visibility = !visibility" 
-      [ngClass]="{'show': visibility}"
-      [ngClass]="{'hide': visibility}"
-      *ngIf="!(department.departments.length == 0 && (department.employees.length == 0 || !employeeVisible))">
+      (click)="changeVisibilityContent()" 
+      [ngClass]="{'show': department.visibleContent}"
+      [ngClass]="{'hide': department.visibleContent}"
+      *ngIf="!(department.departments.length == 0 && department.employees.length == 0 )">
     <img class="w-9 h-7 my-auto ml-3 " src="../../../../assets/folder.svg">
 
     <button class="flex" (click)="departmentClicked($event)">
@@ -24,23 +24,20 @@
 
   </div>
 
-  <div *ngIf="visibility">
+  <div *ngIf="department.visibleContent">
     <app-core-department 
-      *ngFor="let item of department.departments" 
-      [employeeVisible]="employeeVisible"
+      *ngFor="let item of department.departments"
       [department]="item" 
       [offset]="offset + oneOffsetStepSize"
       (ctrlClicked)="chieldDepartmentClicked($event)"
       (employeeCtrlClicked)="employeeClicked($event)"
       />
-    <div *ngIf="employeeVisible">
-      <app-core-employee-item 
-        *ngFor="let item of department.employees" 
-        [employee]="item" 
-        [offset]="offset + oneOffsetStepSize"
-        (ctrlClicked)="employeeClicked($event)"
-        />
-    </div>
+    <app-core-employee-item 
+      *ngFor="let item of department.employees" 
+      [employee]="item" 
+      [offset]="offset + oneOffsetStepSize"
+      (ctrlClicked)="employeeClicked($event)"
+      />
   </div>
   
 </div>

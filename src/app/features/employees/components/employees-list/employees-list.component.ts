@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { EmployeesNavigator, EmployeesNavItem } from '../../navigation/employees-navigator';
-import { EmployeesSelectSettings, SelectCount, SelectType } from '../employee-select/employee-select.component';
+import { EmployeeSelectSettings, SelectCount } from '../employee-select/interfaces/employee-select-settings';
 
 @Component({
   selector: 'employees-list',
@@ -15,12 +15,11 @@ export class EmployeesListComponent{
     this.navigator.showContent({navItem: EmployeesNavItem.NEW_EMPLOYEE, params: ""});
   }
 
-  protected readonly employeesSelectSettings: EmployeesSelectSettings =
+  protected readonly employeesSelectSettings: EmployeeSelectSettings =
   {
-    toolsVisibile: true,
+    toolsVisible: true,
     blueBoxVisible: true,
-    countType: SelectCount.Multiple,
-    selectType: SelectType.Employee
+    countType: SelectCount.Multiple
   }
 
   strings = {

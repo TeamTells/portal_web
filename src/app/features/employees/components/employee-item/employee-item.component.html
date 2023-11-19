@@ -2,8 +2,8 @@
   [style.marginLeft] = "getMarginOffset()"
   [style.paddingLeft] = "getPaddingOffset()"
   [ngClass]="{ 
-    'rounded-2xl hover:bg-tt-light-light-gray': !isSelected, 
-    'bg-tt-light-blue': isSelected
+    'rounded-2xl hover:bg-tt-light-light-gray': !employee.isSelect, 
+    'bg-tt-light-blue': employee.isSelect
   }"
   (click)="onClick($event)"
   (mouseover)="onMouseOver()"
@@ -20,7 +20,7 @@
     </div>
   </div>
   
-  <button class="w-5 h-5 my-auto" *ngIf="showDots && !isSelected">
+  <button class="w-5 h-5 my-auto" *ngIf="showDots && !employee.isSelect">
     <img src="../../../../assets/triple-dot.svg">
   </button>
 
