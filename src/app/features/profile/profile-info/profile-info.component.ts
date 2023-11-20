@@ -9,27 +9,27 @@ export class ProfileInfoComponent {
   @Input()
   public workProp: UnderlinedListProp[] = [
     {
-      image: "../../../../../../../assets/buildings_columns_fill.svg",
+      image: "../../../../assets/buildings_columns_fill.svg",
       first: "Компания",
-      second: "ООО Адванс"
+      second: "ООО Адванс",
     },
     {
-      image: "../../../../../../../assets/paperline_circle.svg",
+      image: "../../../../assets/paperline_circle.svg",
       first: "Отдел",
-      second: "ООО Адванс"
+      second: "Продвижение и развитие, Администрация",
     },
     {
-      image: "../../../../../../../assets/lump_desc_fill.svg",
+      image: "../../../../assets/lump_desc_fill.svg",
       first: "Должность",
-      second: "ООО Адванс"
+      second: "Системный аналитик, Руководитель направления разработки",
     },
   ];
   @Input()
   public  personalProp: UnderlinedListProp[] = [
     {
-      image: "../../../../../../../assets/birthday_cake.svg",
+      image: "../../../../assets/birthday_cake.svg",
       first: "День рождения",
-      second: "ООО Адванс"
+      second: "22 июня 2001г.",
     },
   ];
 }
