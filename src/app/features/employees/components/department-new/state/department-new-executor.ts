@@ -37,7 +37,6 @@ export class DepartmentNewExecutor extends Executor<
       case DepartmentNewActionTypes.CHANGE_SUPERVISOR:
         this.reduce({
           type: DepartmentNewResultActionTypes.CHANGE_SUPERVISOR,
-          // TODO: idk но надо что-то с этим сделать
           supervisor: {
             id: +action.supervisorId,
             mail: '',
@@ -56,7 +55,6 @@ export class DepartmentNewExecutor extends Executor<
       case DepartmentNewActionTypes.CHANGE_PARENT_DEPARTAMENT:
         this.reduce({
           type: DepartmentNewResultActionTypes.CHANGE_PARENT_DEPARTAMENT,
-          // TODO: idk но надо что-то с этим сделать
           parentDepartament: {
             departments: [],
             employees: [],
@@ -123,8 +121,7 @@ export class DepartmentNewExecutor extends Executor<
       });
       return;
     }
-
-    // Успех. Все валлидно 👻
+    
     console.log(this.getState());
   }
 }
