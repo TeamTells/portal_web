@@ -12,8 +12,16 @@ import { EmployeeItemComponent } from './components/employee-item/employee-item.
 import { RolesComponent } from './components/roles/roles.component';
 import { RoleItemComponent } from './components/roles/role-item/role-item.component';
 import { AddEmployeesComponent } from './components/add-employees/add-employees.component';
-import { EmployeeNewModule } from './components/employee-new/employee-new.module';
-import { DepartmentNewNewModule } from './components/department-new/department-new.module';
+import { Validator } from 'src/app/core/validators/validator';
+import {
+  DateRule,
+  EmailRule,
+  EmptyRule,
+  MaxLengthRule,
+  MinLengthRule,
+} from 'src/app/core/validators/rule';
+import { DepartmentNewComponent } from './components/department-new/department-new.component';
+import { EmployeesNewComponent } from './components/employee-new/employee-new.component';
 
 @NgModule({
   declarations: [
@@ -27,8 +35,75 @@ import { DepartmentNewNewModule } from './components/department-new/department-n
     RolesComponent,
     RoleItemComponent,
     AddEmployeesComponent,
+    DepartmentNewComponent,
+    EmployeesNewComponent,
   ],
-  exports: [EmployeesComponent, EmployeeNewModule, DepartmentNewNewModule],
+  exports: [EmployeesComponent],
   imports: [CommonModule, ComponentsModule, RouterOutlet],
+  providers: [
+    {
+      provide: 'NewEmployeeEmailValidator',
+      useExisting: Validator,
+      useFactory: EmployeesModule.emailValidatorFactory,
+    },
+    {
+      provide: 'NewEmployeePasswordValidator',
+      useExisting: Validator,
+      useFactory: EmployeesModule.passwordValidatorFactory,
+    },
+    {
+      provide: 'NewEmployeeFirstNameValidator',
+      useExisting: Validator,
+      useFactory: EmployeesModule.firstNameValidatorFactory,
+    },
+    {
+      provide: 'NewEmployeeLastNameValidator',
+      useExisting: Validator,
+      useFactory: EmployeesModule.lastNameValidatorFactory,
+    },
+    {
+      provide: 'NewEmployeeDateOfBirthValidator',
+      useExisting: Validator,
+      useFactory: EmployeesModule.dateOfBirthValidatorFactory,
+    },
+    {
+      provide: 'NewDepartmentNameValidator',
+      useExisting: Validator,
+      useFactory: EmployeesModule.nameValidatorFactory,
+    },
+  ],
 })
-export class EmployeesModule {}
+export class EmployeesModule {
+  public static emailValidatorFactory = () =>
+    new Validator([new EmailRule('Введи E-mail')]);
+
+  public static passwordValidatorFactory = () =>
+    new Validator([
+      new EmptyRule('Введите пароль'),
+      new MinLengthRule('Пароль должен иметь больше 8 символов', 8),
+      new MaxLengthRule('Пароль не может быть длиннее 25 символов', 25),
+    ]);
+
+  public static firstNameValidatorFactory = () =>
+    new Validator([
+      new EmptyRule('Введите имя'),
+      new MaxLengthRule('Имя не может быть длиннее 50 символов', 50),
+    ]);
+
+  public static lastNameValidatorFactory = () =>
+    new Validator([
+      new EmptyRule('Введите фамилию'),
+      new MaxLengthRule('Фамилия не может быть длиннее 50 символов', 50),
+    ]);
+
+  public static dateOfBirthValidatorFactory = () =>
+    new Validator([
+      new EmptyRule('Введите дату рождения'),
+      new DateRule(
+        'Введите корректную строку даты в формате день.месяц.год (Пример: 05.10.2002)',
+      ),
+    ]);
+
+  public static nameValidatorFactory = () =>
+    new Validator([new EmptyRule('Введите название департамента')]);
+}

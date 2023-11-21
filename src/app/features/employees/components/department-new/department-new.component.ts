@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { DepartmentNewState } from '../state/department-new-state';
-import { DepartmentNewExecutor } from '../state/department-new-executor';
+import { DepartmentNewState } from './state/department-new-state';
+import { DepartmentNewExecutor } from './state/department-new-executor';
 import {
   DepartmentNewAction,
   DepartmentNewActionTypes,
-} from '../state/department-new-action';
-import { DepartmentNewResultAction } from '../state/department-new-result-action';
+} from './state/department-new-action';
+import { DepartmentNewResultAction } from './state/department-new-result-action';
 import { Store } from 'src/app/core/mvi/store';
-import { DepartmentNewReducer } from '../state/department-new-reducer';
+import { DepartmentNewReducer } from './state/department-new-reducer';
 
 @Component({
   selector: 'department-new',
@@ -35,7 +35,6 @@ export class DepartmentNewComponent extends Store<
   }
 
   getSelectedSipervisorDropdownItem() {
-    console.log(this.state);
     if (this.state.supervisor) {
       return {
         id: this.state.supervisor.id.toString(),
@@ -47,7 +46,6 @@ export class DepartmentNewComponent extends Store<
   }
 
   getSelectedParentDepartmentDropdownItem() {
-    console.log(this.state);
     if (this.state.parentDepartment) {
       return {
         id: this.state.parentDepartment.id.toString(),

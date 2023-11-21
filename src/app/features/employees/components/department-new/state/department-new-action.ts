@@ -1,4 +1,4 @@
-import { EmployeeEntity } from '../../../employee-item/employee-item.component';
+import { EmployeeEntity } from '../../employee-item/employee-item.component';
 
 export type DepartmentNewAction =
   | ChangeNameAction

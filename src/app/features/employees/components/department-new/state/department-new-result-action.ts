@@ -1,5 +1,5 @@
-import { DepartmentEntity } from '../../../department/department.component';
-import { EmployeeEntity } from '../../../employee-item/employee-item.component';
+import { DepartmentEntity } from '../../department/department.component';
+import { EmployeeEntity } from '../../employee-item/employee-item.component';
 
 export type DepartmentNewResultAction =
   | ChangeNameResultAction
