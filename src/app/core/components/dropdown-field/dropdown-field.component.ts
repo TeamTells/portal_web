@@ -25,6 +25,7 @@ export class DropdownFieldComponent {
   @Input() placeholder: string = 'Выберите элемент';
   @Input() selectedItem?: DropdownItem;
   @Input() canSelect: boolean = true;
+  @Output() onClick: EventEmitter<void> = new EventEmitter<void>();
   @Output() onSelect: EventEmitter<string> = new EventEmitter<string>();
   @Output() onUnselect: EventEmitter<string> = new EventEmitter<string>();
 
@@ -33,6 +34,13 @@ export class DropdownFieldComponent {
   switch() {
     if (!this.onSelect.observed) return;
     this.opened = !this.opened;
+  }
+
+  onClickDropwdown() {
+    if (this.onClick) {
+      this.onClick.emit()
+    }
+    this.switch()
   }
 
   onSelectItem(id: string) {

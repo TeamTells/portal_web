@@ -34,6 +34,18 @@ export class DepartmentNewComponent extends Store<
     this.searchStr = value;
   }
 
+  addEmployees() {
+    console.log('Add employees');
+  }
+
+  openSelectParentDepartment() {
+    console.log('Open select parent department');
+  }
+
+  openSelectSipervisor() {
+    console.log('Open select sipervisor');
+  }
+
   getSelectedSipervisorDropdownItem() {
     if (this.state.supervisor) {
       return {
