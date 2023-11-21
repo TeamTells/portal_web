@@ -1,8 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./src/**/*.{html,ts}",
-  ],
+  content: ["./src/**/*.{html,ts}"],
   theme: {
     extend: {
       colors: {
@@ -16,7 +14,7 @@ module.exports = {
         "tt-light-gray": "#9B9EA1",
         "tt-bg-error": "#FFF5F5",
         "tt-stroke-error": "#FFD8D8",
-        "tt-blue": "#007BFF"
+        "tt-blue": "#007BFF",
       },
       maxWidth: {
         "tt-field": "334px",
@@ -37,8 +35,10 @@ module.exports = {
         DEFAULT: "#FFF",
         "tt-bg": "#FFF",
       },
+      boxShadow: {
+        "tt-popup-menu": "0px 0px 30px 0px rgba(0, 0, 0, 0.25)",
+      },
     },
   },
   plugins: [],
-}
-
+};

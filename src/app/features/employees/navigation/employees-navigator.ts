@@ -1,16 +1,13 @@
-import {Injectable} from "@angular/core";
-import {Router} from "@angular/router";
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EmployeesNavigator {
+  constructor(private router: Router) {}
 
-  constructor( private router: Router) {
-  }
-
-  public showContent(item: EmployeesNavEntity)
-  {
+  public showContent(item: EmployeesNavEntity) {
     switch (item.navItem) {
       case EmployeesNavItem.ROLES:
         this.router.navigate(['employees/roles']);
@@ -19,23 +16,27 @@ export class EmployeesNavigator {
         this.router.navigate(['employees']);
         break;
       case EmployeesNavItem.NEW_EMPLOYEE:
-        this.router.navigate(['employees/new-employee']);
+        this.router.navigate(['employees/new-employee/']);
         break;
       case EmployeesNavItem.DEPARTMENT:
-        this.router.navigate(['employees/department/' + item.params])
+        this.router.navigate(['employees/department/' + item.params]);
+        break;
+      case EmployeesNavItem.NEW_DEPARMENT:
+        this.router.navigate(['employees/new-department/']);
         break;
     }
   }
 }
 
-export enum EmployeesNavItem{
+export enum EmployeesNavItem {
   USERS,
   ROLES,
-  NEW_EMPLOYEE, 
+  NEW_EMPLOYEE,
   DEPARTMENT,
+  NEW_DEPARMENT,
 }
 
-export interface EmployeesNavEntity{
-  navItem: EmployeesNavItem,
-  params: string
+export interface EmployeesNavEntity {
+  navItem: EmployeesNavItem;
+  params: string;
 }
