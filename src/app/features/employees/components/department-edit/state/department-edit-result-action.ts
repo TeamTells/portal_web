@@ -1,5 +1,6 @@
 import { DepartmentEntity } from '../../department/department.component';
 import { EmployeeEntity } from '../../employee-item/employee-item.component';
+import { IDepartmentEditState } from './department-edit-state';
 
 export type DepartmentEditResultAction =
   | ChangeNameResultAction
@@ -9,6 +10,7 @@ export type DepartmentEditResultAction =
   | RemoveParentDepartamentResultAction
   | AddEmpoyeesResultAction
   | RemoveEmpoyeesResultAction
+  | InitializeResultAction
   | ValidationResultResultAction;
 
 export enum DepartmentEditResultActionTypes {
@@ -19,6 +21,7 @@ export enum DepartmentEditResultActionTypes {
   REMOVE_PARENT_DEPARTAMENT,
   ADD_EMLOYEES,
   REMOVE_EMPOYESS,
+  INITIALIZE,
   VALIDATION_ERROR,
 }
 
@@ -53,6 +56,11 @@ export interface AddEmpoyeesResultAction {
 export interface RemoveEmpoyeesResultAction {
   readonly type: DepartmentEditResultActionTypes.REMOVE_EMPOYESS;
   readonly empoyees: EmployeeEntity[];
+}
+
+export interface InitializeResultAction {
+  readonly type: DepartmentEditResultActionTypes.INITIALIZE;
+  readonly state: IDepartmentEditState;
 }
 
 export interface ValidationResultResultAction {

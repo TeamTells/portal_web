@@ -104,6 +104,13 @@ export class EmployeeEditExecutor extends Executor<
         });
         break;
 
+      case EmployeeEditActionTypes.INITIALIZE:
+        this.reduce({
+          type: EmployeeEditResultActionTypes.INITIALIZE,
+          state: action.state,
+        });
+        break;
+
       case EmployeeEditActionTypes.EDIT:
         this.handleEdit();
         break;
@@ -142,8 +149,7 @@ export class EmployeeEditExecutor extends Executor<
       });
       return;
     }
-
-    // Успех. Все валлидно 👻
+    
     console.log(this.getState());
   }
 }

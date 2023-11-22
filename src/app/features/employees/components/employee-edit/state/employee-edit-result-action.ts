@@ -1,5 +1,6 @@
-import { DropdownItem } from 'src/app/core/components/dropdown-field/dropdown-field.component';
 import { DepartmentEntity } from '../../department/department.component';
+import { RoleEntity } from '../../roles/role-item/role-item.component';
+import { IEmployeeEditState } from './employee-edit-state';
 
 export type EmployeeEditResultAction =
   | ChangeFirstNameResultAction
@@ -12,6 +13,7 @@ export type EmployeeEditResultAction =
   | RemoveDepartmentResultAction
   | AddRoleResultAction
   | RemoveRoleResultAction
+  | InitializeResultAction
   | ValidationResultAction;
 
 export enum EmployeeEditResultActionTypes {
@@ -26,6 +28,7 @@ export enum EmployeeEditResultActionTypes {
   ADD_ROLE,
   REMOVE_ROLE,
   SELECT_RIGHT,
+  INITIALIZE,
   VALIDATION_ERROR,
 }
 
@@ -61,7 +64,7 @@ export interface ChangePasswordResultAction {
 
 export interface ChangeDepartmentResultAction {
   readonly type: EmployeeEditResultActionTypes.SELECT_DEPARTMENT;
-  readonly department?: DepartmentEntity;
+  readonly department: DepartmentEntity;
 }
 
 export interface RemoveDepartmentResultAction {
@@ -70,12 +73,17 @@ export interface RemoveDepartmentResultAction {
 
 export interface AddRoleResultAction {
   readonly type: EmployeeEditResultActionTypes.ADD_ROLE;
-  readonly role?: DropdownItem;
+  readonly role?: RoleEntity;
 }
 
 export interface RemoveRoleResultAction {
   readonly type: EmployeeEditResultActionTypes.REMOVE_ROLE;
-  readonly role?: DropdownItem;
+  readonly role?: RoleEntity;
+}
+
+export interface InitializeResultAction {
+  readonly type: EmployeeEditResultActionTypes.INITIALIZE;
+  readonly state: IEmployeeEditState;
 }
 
 export interface ValidationResultAction {

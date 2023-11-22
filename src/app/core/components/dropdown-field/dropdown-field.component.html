@@ -21,7 +21,7 @@
         <span class="flex items-center gap-[6px]">
           <button
             *ngIf="this.onUnselect.observed && selectedItem"
-            (click)="onUnselectItem(selectedItem!.id)"
+            (click)="onUnselectItem($event, selectedItem!.id)"
             type="button"
             class="flex justify-center items-center h-[28px] w-[28px] hover:bg-tt-light-light-gray rounded-full transition-colors"
           >

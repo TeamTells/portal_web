@@ -43,4 +43,26 @@ export class EmployeeEditComponent extends Store<
 
     return undefined;
   }
+
+  getRolesDropdownItems() {
+    if (this.state.selectedRoles) {
+      return this.state.roles.map((role) => ({
+        id: role.id.toString(),
+        name: role.role.toString(),
+      }));
+    }
+
+    return [];
+  }
+
+  getSelectedRolesDropdownItems() {
+    if (this.state.selectedRoles) {
+      return this.state.selectedRoles.map((role) => ({
+        id: role.id.toString(),
+        name: role.role.toString(),
+      }));
+    }
+
+    return [];
+  }
 }

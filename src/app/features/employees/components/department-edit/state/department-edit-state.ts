@@ -2,10 +2,17 @@ import { Injectable } from '@angular/core';
 import { EmployeeEntity } from '../../employee-item/employee-item.component';
 import { DepartmentEntity } from '../../department/department.component';
 
+export interface IDepartmentEditState {
+  readonly name: string;
+  readonly supervisor: EmployeeEntity | null;
+  readonly parentDepartment: DepartmentEntity | null;
+  readonly employees: EmployeeEntity[];
+}
+
 @Injectable({
   providedIn: 'root',
 })
-export class DepartmentEditState {
+export class DepartmentEditState implements IDepartmentEditState {
   readonly name: string = '';
   readonly nameError: string = '';
 

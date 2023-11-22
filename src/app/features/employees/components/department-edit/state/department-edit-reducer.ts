@@ -15,7 +15,7 @@ export class DepartmentEditReducer
 {
   reduce(
     state: DepartmentEditState,
-    action: DepartmentEditResultAction
+    action: DepartmentEditResultAction,
   ): DepartmentEditState {
     switch (action.type) {
       case DepartmentEditResultActionTypes.CHANGE_NAME:
@@ -52,8 +52,17 @@ export class DepartmentEditReducer
       case DepartmentEditResultActionTypes.REMOVE_EMPOYESS:
         return clone(state, {
           employees: state.employees.filter(
-            (a) => !action.empoyees.some((b) => a === b)
+            (a) => !action.empoyees.some((b) => a === b),
           ),
+        });
+
+      case DepartmentEditResultActionTypes.INITIALIZE:
+        console.log(action.state);
+        return clone(state, {
+          ...action.state,
+          nameError: '',
+          parentDepartmentError: '',
+          supervisorError: '',
         });
 
       case DepartmentEditResultActionTypes.VALIDATION_ERROR:

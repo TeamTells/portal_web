@@ -38,9 +38,9 @@ export class DropdownFieldComponent {
 
   onClickDropwdown() {
     if (this.onClick) {
-      this.onClick.emit()
+      this.onClick.emit();
     }
-    this.switch()
+    this.switch();
   }
 
   onSelectItem(id: string) {
@@ -50,7 +50,8 @@ export class DropdownFieldComponent {
     this.switch();
   }
 
-  onUnselectItem(id: string) {
+  onUnselectItem(event: MouseEvent, id: string) {
+    event.stopPropagation();
     if (this.onUnselect) {
       this.onUnselect.emit(id);
     }

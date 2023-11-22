@@ -74,6 +74,13 @@ export class DepartmentEditExecutor extends Executor<
         });
         break;
 
+      case DepartmentEditActionTypes.INITIALIZE:
+        this.reduce({
+          type: DepartmentEditResultActionTypes.INITIALIZE,
+          state: action.state,
+        });
+        break;
+
       case DepartmentEditActionTypes.EDIT:
         this.handleEdit();
         break;

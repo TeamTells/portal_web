@@ -14,74 +14,77 @@
     />
   </div>
   <h3 class="text-xl text-tt-black font-bold mb-3">Основная информация</h3>
-  <app-core-input-field
-    type="text"
-    placeholder="Фамилия*"
-    [error]="state.lastNameError"
-    (onChange)="
-      performAction({
-        type: EmployeeNewActionTypes.CHANGE_LAST_NAME,
-        lastName: $event
-      })
-    "
-  />
-  <app-core-input-field
-    class="my-3"
-    type="text"
-    placeholder="Имя*"
-    [error]="state.firstNameError"
-    (onChange)="
-      performAction({
-        type: EmployeeNewActionTypes.CHANGE_FIRST_NAME,
-        firstName: $event
-      })
-    "
-  />
-  <app-core-input-field
-    type="text"
-    placeholder="Отчество"
-    (onChange)="
-      performAction({
-        type: EmployeeNewActionTypes.CHANGE_PATRONYMIC,
-        patronymic: $event
-      })
-    "
-  />
-  <app-core-input-field
-    class="my-3"
-    type="text"
-    placeholder="Дата рождения*"
-    [error]="state.dateOfBirthErorr"
-    (onChange)="
-      performAction({
-        type: EmployeeNewActionTypes.CHANGE_DATE_OF_BIRTH,
-        dateOfBirth: $event
-      })
-    "
-  />
-  <app-core-input-field
-    type="text"
-    placeholder="E-mail*"
-    [error]="state.emailError"
-    (onChange)="
-      performAction({
-        type: EmployeeNewActionTypes.CHANGE_EMAIL,
-        email: $event
-      })
-    "
-  />
-  <app-core-input-field
-    class="my-3"
-    type="password"
-    placeholder="Пароль*"
-    [error]="state.passwordError"
-    (onChange)="
-      performAction({
-        type: EmployeeNewActionTypes.CHANGE_PASSWORD,
-        password: $event
-      })
-    "
-  />
+  <form>
+    <app-core-input-field
+      type="text"
+      placeholder="Фамилия*"
+      [error]="state.lastNameError"
+      (onChange)="
+        performAction({
+          type: EmployeeNewActionTypes.CHANGE_LAST_NAME,
+          lastName: $event
+        })
+      "
+    />
+    <app-core-input-field
+      class="my-3"
+      type="text"
+      placeholder="Имя*"
+      [error]="state.firstNameError"
+      (onChange)="
+        performAction({
+          type: EmployeeNewActionTypes.CHANGE_FIRST_NAME,
+          firstName: $event
+        })
+      "
+    />
+    <app-core-input-field
+      type="text"
+      placeholder="Отчество"
+      (onChange)="
+        performAction({
+          type: EmployeeNewActionTypes.CHANGE_PATRONYMIC,
+          patronymic: $event
+        })
+      "
+    />
+    <app-core-input-field
+      class="my-3"
+      type="text"
+      placeholder="Дата рождения*"
+      [error]="state.dateOfBirthErorr"
+      (onChange)="
+        performAction({
+          type: EmployeeNewActionTypes.CHANGE_DATE_OF_BIRTH,
+          dateOfBirth: $event
+        })
+      "
+    />
+    <app-core-input-field
+      type="text"
+      placeholder="E-mail*"
+      [error]="state.emailError"
+      (onChange)="
+        performAction({
+          type: EmployeeNewActionTypes.CHANGE_EMAIL,
+          email: $event
+        })
+      "
+    />
+    <app-core-input-field
+      class="my-3"
+      type="password"
+      autocomplete="current-password"
+      placeholder="Пароль*"
+      [error]="state.passwordError"
+      (onChange)="
+        performAction({
+          type: EmployeeNewActionTypes.CHANGE_PASSWORD,
+          password: $event
+        })
+      "
+    />
+  </form>
   <app-core-dropdown-field
     placeholder="Выберите департамент"
     [selectedItem]="getSelectedDepartmentDropdownItem()"

@@ -1,4 +1,5 @@
 import { DepartmentEntity } from '../../department/department.component';
+import { IEmployeeEditState } from './employee-edit-state';
 
 export type EmployeeEditAction =
   | ChangeFirstNameAction
@@ -11,6 +12,7 @@ export type EmployeeEditAction =
   | RemoveDepartmentAction
   | AddRoleAction
   | RemoveRoleAction
+  | InitializeAction
   | EditAction;
 
 export enum EmployeeEditActionTypes {
@@ -25,6 +27,7 @@ export enum EmployeeEditActionTypes {
   ADD_ROLE,
   REMOVE_ROLE,
   SELECT_RIGHT,
+  INITIALIZE,
   EDIT,
 }
 
@@ -69,12 +72,17 @@ export interface RemoveDepartmentAction {
 
 export interface AddRoleAction {
   readonly type: EmployeeEditActionTypes.ADD_ROLE;
-  readonly roleId: string;
+  readonly roleId: number;
 }
 
 export interface RemoveRoleAction {
   readonly type: EmployeeEditActionTypes.REMOVE_ROLE;
-  readonly roleId: string;
+  readonly roleId: number;
+}
+
+export interface InitializeAction {
+  readonly type: EmployeeEditActionTypes.INITIALIZE;
+  readonly state: IEmployeeEditState;
 }
 
 export interface EditAction {

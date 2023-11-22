@@ -3,7 +3,7 @@
     <div class="flex gap-4">
       <app-core-button-back />
       <h2 class="text-[28px] font-medium text-tt-black">
-        Редактировать департамента
+        Редактирование департамента
       </h2>
     </div>
     <app-core-button-red
@@ -19,6 +19,7 @@
     type="text"
     placeholder="Название*"
     [error]="state.nameError"
+    [defaultValue]="state.name"
     (onChange)="
       performAction({
         type: DepartmentEditActionTypes.CHANGE_NAME,

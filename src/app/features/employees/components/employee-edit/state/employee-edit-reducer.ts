@@ -51,7 +51,7 @@ export class EmployeeEditReducer
         return { ...state, department: action.department };
 
       case EmployeeEditResultActionTypes.REMOVE_DEPARTMENT:
-        return { ...state, department: undefined };
+        return { ...state, department: null };
 
       case EmployeeEditResultActionTypes.ADD_ROLE:
         return {
@@ -67,6 +67,17 @@ export class EmployeeEditReducer
           selectedRoles: state.selectedRoles.filter(
             (role) => role.id !== action.role?.id,
           ),
+        };
+
+      case EmployeeEditResultActionTypes.INITIALIZE:
+        return {
+          ...action.state,
+          dateOfBirthErorr: '',
+          emailError: '',
+          firstNameError: '',
+          lastNameError: '',
+          passwordError: '',
+          isLoading: false,
         };
 
       case EmployeeEditResultActionTypes.VALIDATION_ERROR:
