@@ -22,6 +22,8 @@ import {
 } from 'src/app/core/validators/rule';
 import { DepartmentNewComponent } from './components/department-new/department-new.component';
 import { EmployeesNewComponent } from './components/employee-new/employee-new.component';
+import { DepartmentEditComponent } from './components/department-edit/department-edit.component';
+import { EmployeeEditComponent } from './components/employee-edit/employee-edit.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ import { EmployeesNewComponent } from './components/employee-new/employee-new.co
     AddEmployeesComponent,
     DepartmentNewComponent,
     EmployeesNewComponent,
+    DepartmentEditComponent,
+    EmployeeEditComponent,
   ],
   exports: [EmployeesComponent],
   imports: [CommonModule, ComponentsModule, RouterOutlet],

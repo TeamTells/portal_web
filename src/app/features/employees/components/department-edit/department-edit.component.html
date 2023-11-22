@@ -1,0 +1,58 @@
+<app-core-main-content-card class="mb-8">
+  <div class="flex justify-between gap-1 flex-wrap font-bold mb-9">
+    <div class="flex gap-4">
+      <app-core-button-back />
+      <h2 class="text-[28px] font-medium text-tt-black">
+        Редактировать департамента
+      </h2>
+    </div>
+    <app-core-button-red
+      text="Сохранить"
+      (buttonClick)="
+        performAction({
+          type: DepartmentEditActionTypes.EDIT
+        })
+      "
+    />
+  </div>
+  <app-core-input-field
+    type="text"
+    placeholder="Название*"
+    [error]="state.nameError"
+    (onChange)="
+      performAction({
+        type: DepartmentEditActionTypes.CHANGE_NAME,
+        name: $event
+      })
+    "
+  />
+  <app-core-dropdown-field
+    class="my-3"
+    placeholder="Выберите департамент"
+    [selectedItem]="getSelectedParentDepartmentDropdownItem()"
+    (onClick)="openSelectParentDepartment()"
+    [error]="state.parentDepartmentError"
+  />
+  <app-core-dropdown-field
+    placeholder="Выберите руководителя"
+    [selectedItem]="getSelectedSipervisorDropdownItem()"
+    (onClick)="openSelectSipervisor()"
+    [error]="state.supervisorError"
+  />
+</app-core-main-content-card>
+
+<app-core-main-content-card>
+  <h3 class="text-2xl text-tt-black font-medium">
+    Участники
+    <span *ngIf="state.employees.length !== 0" class="text-tt-gray"
+      >({{ state.employees.length }})</span
+    >
+  </h3>
+  <app-core-search-field class="my-6" (onChange)="onChangeSearchStr($event)" />
+  <app-core-add-employees (buttonClick)="addEmployees()" />
+  <div *ngFor="let employee of state.employees">
+    <div *ngIf="employee.name.toLowerCase().includes(searchStr.toLowerCase())">
+      <app-core-employee-item [employee]="employee" />
+    </div>
+  </div>
+</app-core-main-content-card>
