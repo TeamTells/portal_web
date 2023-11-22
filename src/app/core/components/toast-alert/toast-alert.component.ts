@@ -18,17 +18,17 @@ export class ToastComponent {
   }
 
   isSuccess(toastState: ToastState): boolean {
-    return toastState == ToastState.succ
+    return toastState == ToastState.SUCCESS
   }
 
   isError(toastState: ToastState): boolean {
-    return toastState == ToastState.err
+    return toastState == ToastState.ERROR
   }
 }
 
 export enum ToastState {
-  succ,
-  err
+  SUCCESS,
+  ERROR
 }
 
 export interface ToastEntity {
