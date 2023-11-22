@@ -18,11 +18,17 @@ export class EmployeesNavigator {
       case EmployeesNavItem.NEW_EMPLOYEE:
         this.router.navigate(['employees/new-employee/']);
         break;
+      case EmployeesNavItem.EDIT_EMPLOYEE:
+        this.router.navigate(['employees/edit-employee/']);
+        break;
       case EmployeesNavItem.DEPARTMENT:
         this.router.navigate(['employees/department/' + item.params]);
         break;
-      case EmployeesNavItem.NEW_DEPARMENT:
+      case EmployeesNavItem.NEW_DEPARTMENT:
         this.router.navigate(['employees/new-department/']);
+        break;
+      case EmployeesNavItem.EDIT_DEPARTMENT:
+        this.router.navigate(['employees/edit-department/']);
         break;
     }
   }
@@ -32,8 +38,10 @@ export enum EmployeesNavItem {
   USERS,
   ROLES,
   NEW_EMPLOYEE,
+  EDIT_EMPLOYEE,
   DEPARTMENT,
-  NEW_DEPARMENT,
+  NEW_DEPARTMENT,
+  EDIT_DEPARTMENT,
 }
 
 export interface EmployeesNavEntity {

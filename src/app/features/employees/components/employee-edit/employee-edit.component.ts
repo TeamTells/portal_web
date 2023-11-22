@@ -10,7 +10,7 @@ import { EmployeeEditResultAction } from './state/employee-edit-result-action';
 import { EmployeeEditReducer } from './state/employee-edit-reducer';
 
 @Component({
-  selector: 'app-employee-edit',
+  selector: 'employee-edit',
   templateUrl: './employee-edit.component.html',
 })
 export class EmployeeEditComponent extends Store<

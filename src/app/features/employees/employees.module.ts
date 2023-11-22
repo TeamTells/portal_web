@@ -21,7 +21,7 @@ import {
   MinLengthRule,
 } from 'src/app/core/validators/rule';
 import { DepartmentNewComponent } from './components/department-new/department-new.component';
-import { EmployeesNewComponent } from './components/employee-new/employee-new.component';
+import { EmployeeNewComponent } from './components/employee-new/employee-new.component';
 import { DepartmentEditComponent } from './components/department-edit/department-edit.component';
 import { EmployeeEditComponent } from './components/employee-edit/employee-edit.component';
 
@@ -38,7 +38,7 @@ import { EmployeeEditComponent } from './components/employee-edit/employee-edit.
     RoleItemComponent,
     AddEmployeesComponent,
     DepartmentNewComponent,
-    EmployeesNewComponent,
+    EmployeeNewComponent,
     DepartmentEditComponent,
     EmployeeEditComponent,
   ],

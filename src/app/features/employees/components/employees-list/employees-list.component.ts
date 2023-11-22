@@ -14,16 +14,16 @@ import {
 export class EmployeesListComponent {
   constructor(private navigator: EmployeesNavigator) {}
 
-  onCreateEmployee() {
+  createEmployee() {
     this.navigator.showContent({
       navItem: EmployeesNavItem.NEW_EMPLOYEE,
       params: '',
     });
   }
 
-  onCreateDepartment() {
+  createDepartment() {
     this.navigator.showContent({
-      navItem: EmployeesNavItem.NEW_DEPARMENT,
+      navItem: EmployeesNavItem.NEW_DEPARTMENT,
       params: '',
     });
   }

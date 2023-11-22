@@ -13,7 +13,7 @@ import { EmployeeNewReducer } from './state/employee-new-reducer';
   selector: 'employee-new',
   templateUrl: './employee-new.component.html',
 })
-export class EmployeesNewComponent extends Store<
+export class EmployeeNewComponent extends Store<
   EmployeeNewState,
   EmployeeNewExecutor,
   EmployeeNewAction,

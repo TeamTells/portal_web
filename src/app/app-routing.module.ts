@@ -11,11 +11,15 @@ import { EmployeesListComponent } from './features/employees/components/employee
 import { SectionComponent } from './features/section/presentation/section.component';
 import { SectionsComponent } from './features/sections/presentation/sections.component';
 import { DepartmentNewComponent } from './features/employees/components/department-new/department-new.component';
-import { EmployeesNewComponent } from './features/employees/components/employee-new/employee-new.component';
+import { EmployeeNewComponent } from './features/employees/components/employee-new/employee-new.component';
+import { EmployeeEditComponent } from './features/employees/components/employee-edit/employee-edit.component';
+import { DepartmentEditComponent } from './features/employees/components/department-edit/department-edit.component';
 
 const employeesItems: Routes = [
-  { path: 'new-employee', component: EmployeesNewComponent },
+  { path: 'new-employee', component: EmployeeNewComponent },
   { path: 'new-department', component: DepartmentNewComponent },
+  { path: 'edit-employee', component: EmployeeEditComponent },
+  { path: 'edit-department', component: DepartmentEditComponent },
   { path: 'department/:id', component: DepartmentInfoComponent },
   { path: 'roles', component: RolesComponent },
   { path: '', component: EmployeesListComponent },

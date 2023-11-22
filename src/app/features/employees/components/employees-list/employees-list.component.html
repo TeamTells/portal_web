@@ -7,20 +7,11 @@
       </app-popup-menu-button>
 
       <app-popup-menu-content class="w-[240px]">
-        <app-popup-menu-option
-          class="cursor-pointer duration-75 hover:bg-tt-light-light-gray"
-        >
-          <button type="button" (click)="onCreateEmployee()">
-            {{ strings.employee }}
-          </button>
+        <app-popup-menu-option [divider]="true" (onClick)="createEmployee()">
+          {{ strings.employee }}
         </app-popup-menu-option>
-        <div class="w-full h-[2px] bg-tt-light-light-gray"></div>
-        <app-popup-menu-option
-          class="cursor-pointer duration-75 hover:bg-tt-light-light-gray"
-        >
-          <button type="button" (click)="onCreateDepartment()">
-            {{ strings.department }}
-          </button>
+        <app-popup-menu-option (onClick)="createDepartment()">
+          {{ strings.department }}
         </app-popup-menu-option>
       </app-popup-menu-content>
     </app-popup-menu>

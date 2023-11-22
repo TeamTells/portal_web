@@ -10,7 +10,7 @@ import { Store } from 'src/app/core/mvi/store';
 import { DepartmentEditReducer } from './state/department-edit-reducer';
 
 @Component({
-  selector: 'app-department-edit',
+  selector: 'department-edit',
   templateUrl: './department-edit.component.html',
 })
 export class DepartmentEditComponent extends Store<
