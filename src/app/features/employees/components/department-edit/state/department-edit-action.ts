@@ -1,3 +1,4 @@
+import { DepartmentEntity } from '../../department/department.component';
 import { EmployeeEntity } from '../../employee-item/employee-item.component';
 
 export type DepartmentEditAction =
@@ -28,7 +29,7 @@ export interface ChangeNameAction {
 
 export interface ChangeSupervisorAction {
   readonly type: DepartmentEditActionTypes.CHANGE_SUPERVISOR;
-  readonly supervisorId: string;
+  readonly supervisor: EmployeeEntity;
 }
 
 export interface RemoveSupervisorAction {
@@ -37,7 +38,7 @@ export interface RemoveSupervisorAction {
 
 export interface ChangeParentDepartamentAction {
   readonly type: DepartmentEditActionTypes.CHANGE_PARENT_DEPARTAMENT;
-  readonly parentDepartamentId: string;
+  readonly parentDepartament: DepartmentEntity;
 }
 
 export interface RemoveParentDepartamentAction {

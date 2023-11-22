@@ -22,10 +22,25 @@ export class EmployeeNewComponent extends Store<
   constructor(
     state: EmployeeNewState,
     executor: EmployeeNewExecutor,
-    reducer: EmployeeNewReducer
+    reducer: EmployeeNewReducer,
   ) {
     super(state, executor, reducer);
   }
 
   protected readonly EmployeeNewActionTypes = EmployeeNewActionTypes;
+
+  openSelectDepartment() {
+    console.log('Open select department');
+  }
+
+  getSelectedDepartmentDropdownItem() {
+    if (this.state.department) {
+      return {
+        id: this.state.department.id.toString(),
+        name: this.state.department.name,
+      };
+    }
+
+    return undefined;
+  }
 }

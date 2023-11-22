@@ -15,7 +15,7 @@ export class EmployeeEditReducer
 {
   reduce(
     state: EmployeeEditState,
-    action: EmployeeEditResultAction
+    action: EmployeeEditResultAction,
   ): EmployeeEditState {
     switch (action.type) {
       case EmployeeEditResultActionTypes.CHANGE_FIRST_NAME:
@@ -50,6 +50,9 @@ export class EmployeeEditReducer
       case EmployeeEditResultActionTypes.SELECT_DEPARTMENT:
         return { ...state, department: action.department };
 
+      case EmployeeEditResultActionTypes.REMOVE_DEPARTMENT:
+        return { ...state, department: undefined };
+
       case EmployeeEditResultActionTypes.ADD_ROLE:
         return {
           ...state,
@@ -62,7 +65,7 @@ export class EmployeeEditReducer
         return {
           ...state,
           selectedRoles: state.selectedRoles.filter(
-            (role) => role.id !== action.role?.id
+            (role) => role.id !== action.role?.id,
           ),
         };
 

@@ -28,7 +28,7 @@ export class EmployeeNewExecutor extends Executor<
     @Inject('NewEmployeeLastNameValidator')
     private lastNameValidator: Validator,
     @Inject('NewEmployeeDateOfBirthValidator')
-    private dateOfBirthValidator: Validator
+    private dateOfBirthValidator: Validator,
   ) {
     super();
   }
@@ -80,9 +80,13 @@ export class EmployeeNewExecutor extends Executor<
       case EmployeeNewActionTypes.SELECT_DEPARTMENT:
         this.reduce({
           type: EmployeeNewResultActionTypes.SELECT_DEPARTMENT,
-          department: this.getState().departments.find(
-            (d) => d.id === action.departmentId
-          ),
+          department: action.department,
+        });
+        break;
+
+      case EmployeeNewActionTypes.REMOVE_DEPARTMENT:
+        this.reduce({
+          type: EmployeeNewResultActionTypes.REMOVE_DEPARTMENT,
         });
         break;
 
@@ -109,16 +113,16 @@ export class EmployeeNewExecutor extends Executor<
   private handleCreate() {
     let emailError = this.emailValidator.validate(this.getState().email);
     let passwordError = this.passwordValidator.validate(
-      this.getState().password
+      this.getState().password,
     );
     let firstNameError = this.firstNameValidator.validate(
-      this.getState().firstName
+      this.getState().firstName,
     );
     let lastNameError = this.lastNameValidator.validate(
-      this.getState().lastName
+      this.getState().lastName,
     );
     let dateOfBirthError = this.dateOfBirthValidator.validate(
-      this.getState().dateOfBirth
+      this.getState().dateOfBirth,
     );
 
     if (

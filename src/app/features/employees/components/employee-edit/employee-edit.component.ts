@@ -28,4 +28,19 @@ export class EmployeeEditComponent extends Store<
   }
 
   protected readonly EmployeeEditActionTypes = EmployeeEditActionTypes;
+
+  openSelectDepartment() {
+    console.log('Open select department');
+  }
+
+  getSelectedDepartmentDropdownItem() {
+    if (this.state.department) {
+      return {
+        id: this.state.department.id.toString(),
+        name: this.state.department.name,
+      };
+    }
+
+    return undefined;
+  }
 }

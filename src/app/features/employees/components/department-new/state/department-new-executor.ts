@@ -37,12 +37,7 @@ export class DepartmentNewExecutor extends Executor<
       case DepartmentNewActionTypes.CHANGE_SUPERVISOR:
         this.reduce({
           type: DepartmentNewResultActionTypes.CHANGE_SUPERVISOR,
-          supervisor: {
-            id: +action.supervisorId,
-            mail: '',
-            name: action.supervisorId,
-            img: '',
-          },
+          supervisor: action.supervisor,
         });
         break;
 
@@ -55,18 +50,7 @@ export class DepartmentNewExecutor extends Executor<
       case DepartmentNewActionTypes.CHANGE_PARENT_DEPARTAMENT:
         this.reduce({
           type: DepartmentNewResultActionTypes.CHANGE_PARENT_DEPARTAMENT,
-          parentDepartament: {
-            departments: [],
-            employees: [],
-            id: +action.parentDepartamentId,
-            name: '',
-            supervisor: {
-              id: 1,
-              img: '',
-              mail: '',
-              name: '',
-            },
-          },
+          parentDepartament: action.parentDepartament,
         });
         break;
 
@@ -121,7 +105,7 @@ export class DepartmentNewExecutor extends Executor<
       });
       return;
     }
-    
+
     console.log(this.getState());
   }
 }

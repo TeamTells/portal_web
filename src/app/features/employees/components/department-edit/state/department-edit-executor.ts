@@ -37,12 +37,7 @@ export class DepartmentEditExecutor extends Executor<
       case DepartmentEditActionTypes.CHANGE_SUPERVISOR:
         this.reduce({
           type: DepartmentEditResultActionTypes.CHANGE_SUPERVISOR,
-          supervisor: {
-            id: +action.supervisorId,
-            mail: '',
-            name: action.supervisorId,
-            img: '',
-          },
+          supervisor: action.supervisor,
         });
         break;
 
@@ -55,18 +50,7 @@ export class DepartmentEditExecutor extends Executor<
       case DepartmentEditActionTypes.CHANGE_PARENT_DEPARTAMENT:
         this.reduce({
           type: DepartmentEditResultActionTypes.CHANGE_PARENT_DEPARTAMENT,
-          parentDepartament: {
-            departments: [],
-            employees: [],
-            id: +action.parentDepartamentId,
-            name: '',
-            supervisor: {
-              id: 1,
-              img: '',
-              mail: '',
-              name: '',
-            },
-          },
+          parentDepartament: action.parentDepartament,
         });
         break;
 

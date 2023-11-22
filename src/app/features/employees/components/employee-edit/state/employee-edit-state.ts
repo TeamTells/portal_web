@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DropdownItem } from 'src/app/core/components/dropdown-field/dropdown-field.component';
+import { DepartmentEntity } from '../../department/department.component';
 
 @Injectable({
   providedIn: 'root',
@@ -22,13 +23,7 @@ export class EmployeeEditState {
   readonly password: string = '';
   readonly passwordError: string = '';
 
-  // TODO: заменить DropdownItem на DTO-шки
-  readonly departments: DropdownItem[] = [
-    { name: 'Департамент прыжков по канату', id: '1' },
-    { name: 'Департамент дрессировки', id: '2' },
-    { name: 'Департамент клоунов', id: '3' },
-  ];
-  readonly department?: DropdownItem;
+  readonly department?: DepartmentEntity;
 
   readonly roles: DropdownItem[] = [
     { name: 'Читатель', id: '1' },

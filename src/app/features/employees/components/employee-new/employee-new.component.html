@@ -84,12 +84,11 @@
   />
   <app-core-dropdown-field
     placeholder="Выберите департамент"
-    [items]="[]"
-    [selectedItem]="state.department"
-    (onSelect)="
+    [selectedItem]="getSelectedDepartmentDropdownItem()"
+    (onClick)="openSelectDepartment()"
+    (onUnselect)="
       performAction({
-        type: EmployeeNewActionTypes.SELECT_DEPARTMENT,
-        departmentId: $event
+        type: EmployeeNewActionTypes.REMOVE_DEPARTMENT
       })
     "
   />
