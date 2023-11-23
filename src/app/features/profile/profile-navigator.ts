@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 export enum ProfileNavItem{
     INFO,
     SECURITY,
+    CHANGE_PASSWORD,
 }
 // TODO: возможно не имеет смысла
 export interface ProfileNavEntity{
@@ -27,6 +28,9 @@ public showContent(item: ProfileNavEntity)
         break;
     case ProfileNavItem.SECURITY:
         this.router.navigate(['profile/security']);
+        break;
+    case ProfileNavItem.CHANGE_PASSWORD:
+        this.router.navigate(['profile/change-password']);
         break;
     }
 }

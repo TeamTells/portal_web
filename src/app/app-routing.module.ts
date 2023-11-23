@@ -16,6 +16,7 @@ import {SectionsComponent} from "./features/sections/presentation/sections.compo
 import { ProfileInfoComponent } from './features/profile/profile-info/profile-info.component';
 import { ProfileSecurityComponent } from './features/profile/profile-security/profile-security.component';
 import { ProfileComponent } from './features/profile/profile/profile.component';
+import { ProfileChangePasswordComponent } from './features/profile/profile-change-password/profile-change-password.component';
 
 const employeesItems: Routes = [
   {path: 'new-employee', component: EmployeesNewComponent},
@@ -28,7 +29,8 @@ const employeesItems: Routes = [
 
 const profileItems: Routes = [
   {path: '', component: ProfileInfoComponent,},
-  {path: 'security', component:ProfileSecurityComponent}
+  {path: 'security', component:ProfileSecurityComponent},
+  {path: 'change-password', component: ProfileChangePasswordComponent},
 ]
 
 
@@ -40,12 +42,12 @@ const mainItems: Routes = [
 ]
 
 const appRoutes: Routes = [
-  {path: 'login', component: AuthorizationComponent, canActivate: [alreadyLoginGuardFunction]},
+  //{path: 'login', component: AuthorizationComponent, canActivate: [alreadyLoginGuardFunction]},
 
   {
     path: '',
     component: MainComponent,
-    canActivate: [loginGuardFunction],
+   // canActivate: [loginGuardFunction],
     children: mainItems
   }
 ]

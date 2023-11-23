@@ -20,7 +20,6 @@ export class ProfileMenuItemComponent {
 
   @HostListener('click', ['$event'])
   public onNavItemClick(event: MouseEvent): void {
-    console.log("on click");
     this.navigate.emit(this.params.type);
   }
 }

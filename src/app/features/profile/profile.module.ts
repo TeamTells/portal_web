@@ -10,6 +10,7 @@ import { RouterOutlet } from '@angular/router';
 import { MainModule } from '../main/main.module';
 import { ComponentsModule } from 'src/app/core/components/components.module';
 import { ProfileMenuItemComponent } from './profile-menu-item/profile-menu-item.component';
+import { ProfileChangePasswordComponent } from './profile-change-password/profile-change-password.component';
 
 
 
@@ -21,7 +22,8 @@ import { ProfileMenuItemComponent } from './profile-menu-item/profile-menu-item.
     ProfileSecurityComponent,
     ProfileMenuItemComponent,
     UnderlinedListComponent,
-    ArrowIconComponent
+    ArrowIconComponent,
+    ProfileChangePasswordComponent
   ],
   imports: [
     RouterOutlet,

@@ -9,7 +9,11 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
 
-  constructor(authService: AuthService) {
+  constructor(authService: AuthService,private router: Router) {
 
+  }
+
+  onClick(){
+    this.router.navigate(['profile'])
   }
 }
