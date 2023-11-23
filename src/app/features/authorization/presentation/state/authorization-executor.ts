@@ -1,5 +1,5 @@
 import {Executor} from "../../../../core/mvi/store";
-import {AuthorizationState} from "./authorization-state";
+import {AuthorizationState, LoginErrorState} from "./authorization-state";
 import {AuthorizationAction, AuthorizationActionTypes} from "./authorization-action";
 import {AuthorizationResultAction, AuthorizationResultActionTypes} from "./authorization-result-action";
 import {Inject, Injectable} from "@angular/core";
@@ -7,6 +7,7 @@ import {Validator} from "../../../../core/validators/validator";
 import {AuthService} from "../../domain/auth.service";
 import {AuthorizationNavigator} from "../navigation/authorization-navigator";
 import {LoginByPasswordData} from "../../domain/login-by-password-data";
+import {LoginStatus} from "../../domain/login-status";
 
 @Injectable({
   providedIn: 'root'
@@ -46,6 +47,8 @@ export class AuthorizationExecutor extends Executor<AuthorizationState, Authoriz
   }
 
   private handleLogin() {
+    this.reduce({type: AuthorizationResultActionTypes.CHANGE_LOADING_STATE})
+
     let emailError = this.emailValidator.validate(this.getState().email)
     let passwordError = this.passwordValidator.validate(this.getState().password)
 
@@ -59,16 +62,29 @@ export class AuthorizationExecutor extends Executor<AuthorizationState, Authoriz
     }
 
     this.authService.login(new LoginByPasswordData(this.getState().email, this.getState().password))
-      .subscribe((result) => {
-        this.handleSubscribeResult(result)
+      .subscribe(status => {
+        this.handleStatus(status)
+        this.reduce({type: AuthorizationResultActionTypes.CHANGE_LOADING_STATE})
       })
   }
 
-  private handleSubscribeResult(result: boolean) {
-    if (result) {
-      this.navigator.openMainPage()
-    } else {
-      // show error
+  private handleStatus(status: LoginStatus) {
+    switch (status) {
+      case LoginStatus.SUCCESS:
+        this.navigator.openMainPage()
+        break
+      case LoginStatus.INCORRECT_CREDENTIALS:
+        this.reduce({
+          type: AuthorizationResultActionTypes.UPDATE_LOGIN_ERROR_STATE,
+          errorState: LoginErrorState.INCORRECT_CREDENTIALS
+        })
+        break
+      case LoginStatus.UNKNOWN:
+        this.reduce({
+          type: AuthorizationResultActionTypes.UPDATE_LOGIN_ERROR_STATE,
+          errorState: LoginErrorState.CONNECTION_ERROR
+        })
+        break
     }
   }
 

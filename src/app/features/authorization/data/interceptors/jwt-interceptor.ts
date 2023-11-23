@@ -2,7 +2,7 @@ import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/com
 import {Observable} from "rxjs";
 import {Injectable} from "@angular/core";
 import {AuthService} from "../../domain/auth.service";
-import {environment} from "../../../../enviroment";
+import {environment} from "../../../../../environments/environment";
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
@@ -17,7 +17,11 @@ export class JwtInterceptor implements HttpInterceptor {
 
     if (accessJwtToken != undefined && isApiUrl) {
       request = request.clone({
-        setHeaders: {Authorization: `Bearer ${accessJwtToken}`}
+        setHeaders: {
+          Authorization: `Bearer ${accessJwtToken}`,
+          'X-user-id': '1',
+          'X-organization-id': '1'
+        }
       });
     }
 

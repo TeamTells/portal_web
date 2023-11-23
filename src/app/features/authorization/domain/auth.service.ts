@@ -1,6 +1,7 @@
 import {Observable} from "rxjs";
 import {LoginByPasswordData} from "./login-by-password-data";
 import {User} from "./user";
+import {LoginStatus} from "./login-status";
 
 export abstract class AuthService {
 
@@ -10,7 +11,7 @@ export abstract class AuthService {
 
   abstract isAuthenticated(): boolean
 
-  abstract login(data: LoginByPasswordData): Observable<boolean>
+  abstract login(data: LoginByPasswordData): Observable<LoginStatus>
 
   abstract logout(): void
 
