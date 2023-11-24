@@ -16,7 +16,7 @@ import {SectionsComponent} from "./features/sections/presentation/sections.compo
 import { ProfileInfoComponent } from './features/profile/profile-info/profile-info.component';
 import { ProfileSecurityComponent } from './features/profile/profile-security/profile-security.component';
 import { ProfileComponent } from './features/profile/profile/profile.component';
-import { ProfileChangePasswordComponent } from './features/profile/profile-change-password/profile-change-password.component';
+import { ProfileChangePasswordComponent } from './features/profile/profile-change-password/presentation/view/profile-change-password.component';
 
 const employeesItems: Routes = [
   {path: 'new-employee', component: EmployeesNewComponent},

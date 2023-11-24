@@ -10,7 +10,8 @@ import { RouterOutlet } from '@angular/router';
 import { MainModule } from '../main/main.module';
 import { ComponentsModule } from 'src/app/core/components/components.module';
 import { ProfileMenuItemComponent } from './profile-menu-item/profile-menu-item.component';
-import { ProfileChangePasswordComponent } from './profile-change-password/profile-change-password.component';
+import { ProfileChangePasswordComponent } from './profile-change-password/presentation/view/profile-change-password.component';
+import { ChangePasswordModule } from './profile-change-password/change-password.module';
 
 
 
@@ -23,12 +24,12 @@ import { ProfileChangePasswordComponent } from './profile-change-password/profil
     ProfileMenuItemComponent,
     UnderlinedListComponent,
     ArrowIconComponent,
-    ProfileChangePasswordComponent
   ],
   imports: [
     RouterOutlet,
     ComponentsModule,
-    CommonModule
+    CommonModule,
+    ChangePasswordModule,
   ]
 })
 export class ProfileModule { }
