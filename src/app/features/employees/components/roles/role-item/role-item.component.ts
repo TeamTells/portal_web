@@ -17,5 +17,4 @@ export class RoleItemComponent {
 export interface RoleEntity{
   role: String;
   description: String;
-  //
 }
