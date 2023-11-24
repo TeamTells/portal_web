@@ -1,22 +1,22 @@
 import { Injectable } from "@angular/core";
-import { ToastEntity } from "../toast-alert.component";
+import { ToastAtributes } from "../toast-alert.component";
 
 @Injectable() export class ToastsService {
 
     constructor() {}
 
-    toasts: ToastEntity[] = []
+    toasts: ToastAtributes[] = []
 
-    public getToasts(): ToastEntity[] {
+    public getToasts(): ToastAtributes[] {
         return this.toasts
     }
 
-    public createToast(toast: ToastEntity): ToastEntity[] {
+    public createToast(toast: ToastAtributes): ToastAtributes[] {
         this.toasts.push(toast);
         return this.getToasts()
     }
 
-    public closeToast(index: number): ToastEntity[] {
+    public closeToast(index: number): ToastAtributes[] {
         this.toasts.splice(index, 1);
         return this.getToasts()
     }

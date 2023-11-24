@@ -11,7 +11,7 @@ export class ToastComponent {
     this.toasts = toastsService.getToasts();
   }
 
-  toasts: ToastEntity[] = []
+  toasts: ToastAtributes[] = []
 
   onCrossClick(index: number) {
     this.toastsService.closeToast(index)
@@ -31,7 +31,7 @@ export enum ToastState {
   ERROR
 }
 
-export interface ToastEntity {
+export interface ToastAtributes {
   title: string,
   description: string,
   state: ToastState
