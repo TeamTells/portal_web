@@ -5,6 +5,7 @@ import {Injectable} from "@angular/core";
 })
 export class MainState {
   readonly selectedItem: NavItem = NavItem.SECTIONS
+  showSideBar: boolean = false;
 }
 
 export enum NavItem {
@@ -12,3 +13,5 @@ export enum NavItem {
   EMPLOYEES,
   SETTINGS
 }
+
+

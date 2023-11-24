@@ -14,6 +14,7 @@ import { RoleItemComponent } from './components/roles/role-item/role-item.compon
 import { AddEmployeesComponent } from './components/add-employees/add-employees.component';
 import { EmployeeNewModule } from './components/employee-new/employee-new.module';
 import { ModalWindowComponent } from './components/modal-window/modal-window.component';
+import { EmployeeSelectComponent } from './components/employee-select/employee-select.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { ModalWindowComponent } from './components/modal-window/modal-window.com
     RoleItemComponent,
     AddEmployeesComponent,
     ModalWindowComponent
+    EmployeeSelectComponent
   ],
   exports: [EmployeesComponent, EmployeeNewModule],
   imports: [CommonModule, ComponentsModule, RouterOutlet],

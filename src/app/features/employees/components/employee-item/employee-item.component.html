@@ -1,10 +1,17 @@
-<div class="flex justify-between px-2 py-1 rounded-2xl hover:bg-tt-light-light-gray"
+<div class="flex justify-between pr-2 py-1"
+  [style.marginLeft] = "getMarginOffset()"
+  [style.paddingLeft] = "getPaddingOffset()"
+  [ngClass]="{ 
+    'rounded-2xl hover:bg-tt-light-light-gray': !employee.isSelect, 
+    'bg-tt-light-blue': employee.isSelect
+  }"
+  (click)="onClick($event)"
   (mouseover)="onMouseOver()"
   (mouseleave)="onMouseOut()"
   >
 
   <div class="flex">
-    <img *ngIf='employee.img == ""' class="w-10 h-10 my-auto rounded-full" src="../../../../assets/empty_employee_icon.svg">
+    <img *ngIf='employee.img == ""' class="w-10 h-10 my-auto rounded-full" src="../../../../../assets/empty_employee_icon.svg">
     <img *ngIf='employee.img != ""' class="w-10 h-10 my-auto rounded-full" src="{{employee.img}}">
   
     <div class="ml-4 my-auto">
@@ -13,7 +20,7 @@
     </div>
   </div>
   
-  <button class="w-5 h-5 my-auto" *ngIf="showDots">
+  <button class="w-5 h-5 my-auto" *ngIf="showDots && !employee.isSelect">
     <img src="../../../../assets/triple-dot.svg">
   </button>
 

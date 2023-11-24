@@ -16,7 +16,9 @@ module.exports = {
         "tt-light-gray": "#9B9EA1",
         "tt-bg-error": "#FFF5F5",
         "tt-stroke-error": "#FFD8D8",
-        "tt-blue": "#007BFF"
+        "tt-blue": "#007BFF",
+        "tt-light-blue" : "#C2E7FE"
+        "tt-lighter-gray": "#BCC1C6"
       },
       maxWidth: {
         "tt-field": "334px",
