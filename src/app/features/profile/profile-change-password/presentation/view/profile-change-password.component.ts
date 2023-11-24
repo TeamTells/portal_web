@@ -33,8 +33,6 @@ ChangePasswordResultAction>  {
   } 
 
   onActualPasswordChange(s: string){
-    console.log("act pass",s);
-    console.log(this.state);
     this.performAction({
           type: ChangePasswordActionType.SET_ACTUAL_PASSWORD,
           password: s,
