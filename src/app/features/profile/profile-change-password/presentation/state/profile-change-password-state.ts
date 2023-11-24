@@ -15,6 +15,5 @@ export class ChangePasswordState{
     readonly verificationPasswordError: string = '';
 
     readonly isLoading: boolean = false;
-    // TODO:   подумать над этим
     readonly error: string = '';
 }

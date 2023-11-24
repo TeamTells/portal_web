@@ -20,44 +20,32 @@ ChangePasswordResultAction>  {
   }
   
   public buttonClick(event: any): void{
-    this.performAction(
-      {
+    this.performAction({
         type: ChangePasswordActionType.SEND_ON_VERIFICATION,
-      }
-    )
-    console.log(this.state)
+      });
   }
 
-  testOnChange(s: string){
-    console.log("ver pass",s);
-    this.performAction(
-      {
+  onVerificationPasswordChange(s: string){
+    this.performAction({
           type: ChangePasswordActionType.SET_VERIFICATION_PASSWORD,
           password: s,
-      }
-    );
+        });
   } 
 
-  actualPassT(s: string){
+  onActualPasswordChange(s: string){
     console.log("act pass",s);
     console.log(this.state);
-    this.performAction(
-      {
+    this.performAction({
           type: ChangePasswordActionType.SET_ACTUAL_PASSWORD,
           password: s,
-      }
-  );
+        });
   }
 
-  newPassT(s:string){
-    console.log("new pass",s);
-    this.performAction(
-      {
+  onNewPasswordChange(s:string){
+    this.performAction({
           type: ChangePasswordActionType.SET_NEW_PASSWORD,
           password: s,
-      }
-    );
-    console.log(this.state);
+        });
   }
 
  protected readonly ChangePasswordActionType = ChangePasswordActionType;
