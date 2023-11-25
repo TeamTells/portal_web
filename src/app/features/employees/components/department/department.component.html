@@ -1,28 +1,43 @@
 <div>
 
-  <div class="h-14 px-2 py-1 flex" >
+  <div class="h-14 pr-2 py-1 flex" 
+    [style.marginLeft]="getMarginOffset()"
+    [style.paddingLeft]="getPaddingOffset()"
+    [ngClass]="{ 
+      'bg-tt-light-blue': department.isSelect
+    }"
+    >
+
     <img class="w-6 h-6 my-auto" src="../../../../assets/folder-dot.svg"
       *ngIf="department.departments.length == 0 && department.employees.length == 0">
     <img class="w-6 h-6 my-auto cursor-pointer" src="../../../../assets/folder-arrow.svg"
-      (click)="performAction({
-        type: DepartmentActionTypes.CHANGE_VISIBILITY,
-      })" 
-      [ngClass]="{'show': state.visibilityContent}"
-      [ngClass]="{'hide': !state.visibilityContent}"
-      *ngIf="!(department.departments.length == 0 && department.employees.length == 0)">
+      (click)="changeVisibilityContent()" 
+      [ngClass]="{'show': department.visibleContent}"
+      [ngClass]="{'hide': department.visibleContent}"
+      *ngIf="!(department.departments.length == 0 && department.employees.length == 0 )">
     <img class="w-9 h-7 my-auto ml-3 " src="../../../../assets/folder.svg">
-    <button class="flex" (click)="performAction({
-      type: DepartmentActionTypes.GO_TO_INFO,
-      id: department.id
-    })">
+
+    <button class="flex" (click)="departmentClicked($event)">
       <p class="ml-3 my-auto font-medium text-[16px] text-tt-dark-gray">{{department.name}}</p>
-      <p class="ml-1 my-auto font-medium text-[16px] text-tt-light-gray">({{state.countOfEmployees}})</p>
+      <p class="ml-1 my-auto font-medium text-[16px] text-tt-light-gray">({{countOfEmploees}})</p>
     </button>
+
   </div>
 
-  <div class="pl-9" *ngIf="state.visibilityContent">
-    <app-core-department *ngFor="let item of department.departments" [department]="item"/>
-    <app-core-employee-item *ngFor="let item of department.employees" [employee]="item"/>
+  <div *ngIf="department.visibleContent">
+    <app-core-department 
+      *ngFor="let item of department.departments"
+      [department]="item" 
+      [offset]="offset + oneOffsetStepSize"
+      (ctrlClicked)="chieldDepartmentClicked($event)"
+      (employeeCtrlClicked)="employeeClicked($event)"
+      />
+    <app-core-employee-item 
+      *ngFor="let item of department.employees" 
+      [employee]="item" 
+      [offset]="offset + oneOffsetStepSize"
+      (ctrlClicked)="employeeClicked($event)"
+      />
   </div>
   
 </div>

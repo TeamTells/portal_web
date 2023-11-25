@@ -5,6 +5,7 @@ import {MainResultAction, MainResultActionTypes} from "./main-result-action";
 import {Injectable} from "@angular/core";
 import {AuthService} from "../../../authorization/domain/auth.service";
 import {Router} from "@angular/router";
+import { SidebarService } from "../sidebar/sidebar.service";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,9 @@ export class MainExecutor extends Executor<MainState, MainAction, MainResultActi
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private sidebarService: SidebarService
+
   ) {
     super();
     router.navigate(['sections'])
@@ -28,9 +31,14 @@ export class MainExecutor extends Executor<MainState, MainAction, MainResultActi
         })
         this.showPage(action.item)
         break
-
       case MainActionTypes.LOGOUT:
         this.authService.logout()
+        break
+      case MainActionTypes.SHOW_SIDEBAR:
+        this.reduce({
+          type: MainResultActionTypes.SHOW_SIDEBAR,
+        })
+        this.sidebarService.toggleSidebar()
         break
     }
   }
@@ -48,5 +56,4 @@ export class MainExecutor extends Executor<MainState, MainAction, MainResultActi
         break
     }
   }
-
 }

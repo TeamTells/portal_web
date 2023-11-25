@@ -8,8 +8,7 @@
   <app-core-search-field class="mt-6"/>
 
   <div class="mt-6">
-    <app-core-department *ngFor="let item of mock_folders" [department]="item"/>
-    <app-core-employee-item *ngFor="let item of mock_employees" [employee]="item"/>
+    <employees-select [settings]="employeesSelectSettings" />
   </div>
   
 </app-core-main-content-card>

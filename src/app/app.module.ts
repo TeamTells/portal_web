@@ -14,6 +14,8 @@ import { EmployeesModule } from './features/employees/employees.module';
 import { SectionModule } from './features/section/section.module';
 import {SectionsModule} from "./features/sections/sections.module";
 import { ProfileModule } from './features/profile/profile.module';
+import { ComponentsModule } from './core/components/components.module';
+
 
 @NgModule({
   declarations: [
@@ -26,7 +28,7 @@ import { ProfileModule } from './features/profile/profile.module';
     EmployeesModule,
     MainModule,
     SectionsModule,
-    //ProfileModule,
+    ComponentsModule
   ],
   providers: [
     {
