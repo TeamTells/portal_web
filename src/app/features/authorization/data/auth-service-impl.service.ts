@@ -3,7 +3,7 @@ import {BehaviorSubject, catchError, map, mergeMap, Observable, of} from "rxjs";
 import {AuthService} from "../domain/auth.service";
 import {LoginByPasswordData} from "../domain/login-by-password-data";
 import {HttpClient, HttpErrorResponse, HttpHeaders, HttpStatusCode} from "@angular/common/http";
-import {User} from "../domain/user";
+import {Account, Company, User} from "../domain/account";
 import {environment} from "../../../../environments/environment";
 import {LoginResponseJson} from "./json/login-response-json";
 import {LoginStatus} from "../domain/login-status";
@@ -18,19 +18,19 @@ import {SaltResponseJson} from "./json/salt-response-json";
 })
 export class AuthServiceImpl implements AuthService {
 
-  private userSubject: BehaviorSubject<User | null>
-  public userObservable: Observable<User | null>
+  private userSubject: BehaviorSubject<Account | null>
+  public userObservable: Observable<Account | null>
   private refreshTokenTimeout = 0;
 
   constructor(
     private http: HttpClient,
     private navigator: AuthorizationNavigator
   ) {
-    this.userSubject = new BehaviorSubject<User | null>(null)
+    this.userSubject = new BehaviorSubject<Account | null>(null)
     this.userObservable = this.userSubject.asObservable()
   }
 
-  getUser(): User | null {
+  getUser(): Account | null {
     return this.userSubject.getValue();
   }
 
@@ -45,7 +45,12 @@ export class AuthServiceImpl implements AuthService {
           const body = {login: data.login, password: hashPassword}
           return this.http.post<LoginResponseJson>(`${environment.apiUrl}/authorization/login`, body, {withCredentials: true})
             .pipe(map(response => {
-              this.userSubject.next(new User(response.accessJwtToken));
+              const account = new Account(
+                response.accessJwtToken,
+                new User(response.user.id),
+                new Company(response.company.id)
+              )
+              this.userSubject.next(account);
               this.startRefreshTokenTimer();
               return LoginStatus.SUCCESS;
             }));
@@ -77,7 +82,7 @@ export class AuthServiceImpl implements AuthService {
 
     return this.http.get<LoginResponseJson>(`${environment.apiUrl}/authorization/refresh-token`, httpOptions)
       .pipe(map(response => {
-        this.userSubject.next(new User(response.body?.accessJwtToken!));
+        this.userSubject.next(new Account(response.body?.accessJwtToken!));
         this.startRefreshTokenTimer();
         return response;
       }));
