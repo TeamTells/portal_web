@@ -1,5 +1,12 @@
 <div
   class="flex justify-between px-2 py-1 rounded-2xl hover:bg-tt-light-light-gray"
+  [style.marginLeft] = "getMarginOffset()"
+  [style.paddingLeft] = "getPaddingOffset()"
+  [ngClass]="{ 
+    'rounded-2xl hover:bg-tt-light-light-gray': !employee.isSelect, 
+    'bg-tt-light-blue': employee.isSelect
+  }"
+  (click)="onClick($event)"
   (mouseover)="onMouseOver()"
   (mouseleave)="onMouseOut()"
 >

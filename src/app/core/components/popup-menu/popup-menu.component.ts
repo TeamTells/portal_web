@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ContentChild, Input } from '@angular/core';
+import { AfterViewInit, Component, ContentChild, Input, OnDestroy } from '@angular/core';
 import { PopupMenuButtonComponent } from './popup-menu-button/popup-menu-button.component';
 import { Subscription } from 'rxjs';
 import { PopupMenuContentComponent } from './popup-menu-content/popup-menu-content.component';
@@ -7,7 +7,7 @@ import { PopupMenuContentComponent } from './popup-menu-content/popup-menu-conte
   selector: 'app-popup-menu',
   templateUrl: './popup-menu.component.html'
 })
-export class PopupMenuComponent implements AfterViewInit{
+export class PopupMenuComponent implements AfterViewInit, OnDestroy{
   @ContentChild(PopupMenuButtonComponent) buttonComponent?: PopupMenuButtonComponent;
   @ContentChild(PopupMenuContentComponent) contentComponent?: PopupMenuContentComponent;
   @Input() leftOffset: number = 0;

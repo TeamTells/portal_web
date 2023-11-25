@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { EmployeesDataService } from '../../data/employees-data-service';
 import {
   EmployeesNavItem,
   EmployeesNavigator,
@@ -9,17 +10,19 @@ import {
   styleUrls: ['./employee-item.component.scss'],
 })
 export class EmployeeItemComponent {
-  constructor(private navigator: EmployeesNavigator) {}
-
-  showDots: boolean = false;
-
-  @Input() public employee: EmployeeEntity = {
+  constructor(private data: EmployeesDataService){}
+  
+  @Output() ctrlClicked = new EventEmitter<EmployeeItemEntity>();
+  @Input() public employee: EmployeeItemEntity = {
     id: -1,
-    img: '',
-    name: 'Name',
-    mail: 'mail@mail.ru',
+    img: "",
+    name: "Not Found",
+    mail: "not-found@mail.ru",
+    isSelect: false
   };
-
+  
+  showDots: boolean = false;
+  
   editEmployee() {
     this.navigator.showContent({
       navItem: EmployeesNavItem.EDIT_EMPLOYEE,
@@ -35,6 +38,31 @@ export class EmployeeItemComponent {
     this.showDots = false;
   }
 
+  onClick(event: any): void {
+    if (event.ctrlKey)
+    {
+      this.ctrlClicked.emit(this.employee)
+    }
+  }
+  
+  getMarginOffset(): string {
+    if(this.employee.isSelect) {
+      return 0 + 'px'
+    }
+    else {
+      return this.offset + 'px'
+    }
+  }
+
+  getPaddingOffset(): string {
+    if(this.employee.isSelect) {
+      return (this.offset + 8) + 'px'
+    }
+    else {
+      return 8 + 'px'
+    }
+  }
+  
   strings = {
     actions: {
       edit: 'Редактировать',
@@ -49,4 +77,12 @@ export interface EmployeeEntity {
   img: string;
   name: string;
   mail: string;
+}
+
+export interface EmployeeItemEntity{
+  id: number,
+  img: string,
+  name: string,
+  mail: string
+  isSelect: boolean
 }

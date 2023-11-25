@@ -27,6 +27,9 @@ import {
   passwordValidatorFactory,
   phoneNumberValidatorFactory,
 } from 'src/app/core/validators/validators';
+import { EmployeeNewModule } from './components/employee-new/employee-new.module';
+import { ModalWindowComponent } from './components/modal-window/modal-window.component';
+import { EmployeeSelectComponent } from './components/employee-select/employee-select.component';
 
 @NgModule({
   declarations: [
@@ -44,8 +47,10 @@ import {
     EmployeeNewComponent,
     DepartmentEditComponent,
     EmployeeEditComponent,
+    ModalWindowComponent,
+    EmployeeSelectComponent,
   ],
-  exports: [EmployeesComponent],
+  exports: [EmployeesComponent, EmployeeNewModule],
   imports: [CommonModule, ComponentsModule, RouterOutlet],
   providers: [
     {
