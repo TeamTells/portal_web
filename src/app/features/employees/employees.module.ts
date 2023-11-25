@@ -28,7 +28,7 @@ import { EmployeeSelectComponent } from './components/employee-select/employee-s
     RolesComponent,
     RoleItemComponent,
     AddEmployeesComponent,
-    ModalWindowComponent
+    ModalWindowComponent,
     EmployeeSelectComponent
   ],
   exports: [EmployeesComponent, EmployeeNewModule],
