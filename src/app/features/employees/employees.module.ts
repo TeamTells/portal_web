@@ -13,6 +13,7 @@ import { RolesComponent } from './components/roles/roles.component';
 import { RoleItemComponent } from './components/roles/role-item/role-item.component';
 import { AddEmployeesComponent } from './components/add-employees/add-employees.component';
 import { EmployeeNewModule } from './components/employee-new/employee-new.module';
+import { ModalWindowComponent } from './components/modal-window/modal-window.component';
 import { EmployeeSelectComponent } from './components/employee-select/employee-select.component';
 
 @NgModule({
@@ -27,6 +28,7 @@ import { EmployeeSelectComponent } from './components/employee-select/employee-s
     RolesComponent,
     RoleItemComponent,
     AddEmployeesComponent,
+    ModalWindowComponent
     EmployeeSelectComponent
   ],
   exports: [EmployeesComponent, EmployeeNewModule],
