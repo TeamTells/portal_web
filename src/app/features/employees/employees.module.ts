@@ -25,6 +25,7 @@ import { EmployeeEditComponent } from './components/employee-edit/employee-edit.
 import {
   emailValidatorFactory,
   passwordValidatorFactory,
+  phoneNumberValidatorFactory,
 } from 'src/app/core/validators/validators';
 
 @NgModule({
@@ -77,9 +78,25 @@ import {
       useExisting: Validator,
       useFactory: EmployeesModule.nameValidatorFactory,
     },
+    {
+      provide: 'NewEmployeePhoneNumberValidator',
+      useExisting: Validator,
+      useFactory: phoneNumberValidatorFactory,
+    },
+    {
+      provide: 'NewEmployeeJobTitleValidator',
+      useExisting: Validator,
+      useFactory: EmployeesModule.jobTitleValidatorFactory,
+    },
   ],
 })
 export class EmployeesModule {
+  public static jobTitleValidatorFactory = () =>
+    new Validator([
+      new EmptyRule('Введите должность'),
+      new MaxLengthRule('Должность не может быть длиннее 50 символов', 50),
+    ]);
+
   public static firstNameValidatorFactory = () =>
     new Validator([
       new EmptyRule('Введите имя'),

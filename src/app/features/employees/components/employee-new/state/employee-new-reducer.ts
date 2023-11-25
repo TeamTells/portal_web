@@ -18,6 +18,24 @@ export class EmployeeNewReducer
     action: EmployeeNewResultAction,
   ): EmployeeNewState {
     switch (action.type) {
+      case EmployeeNewResultActionTypes.CHANGE_JOB_TITLE:
+        return clone(state, {
+          jobTitle: action.jobTitle,
+          jobTitleError: '',
+        });
+
+      case EmployeeNewResultActionTypes.CHANGE_PHONE_NUMBER:
+        return clone(state, {
+          phoneNumber: action.phoneNumber,
+          phoneNumberError: '',
+        });
+
+      case EmployeeNewResultActionTypes.CHANGE_FIRST_NAME:
+        return clone(state, {
+          firstName: action.firstName,
+          firstNameError: '',
+        });
+
       case EmployeeNewResultActionTypes.CHANGE_FIRST_NAME:
         return clone(state, {
           firstName: action.firstName,
@@ -70,13 +88,7 @@ export class EmployeeNewReducer
         };
 
       case EmployeeNewResultActionTypes.VALIDATION_ERROR:
-        return clone(state, {
-          firstNameError: action.firstNameError,
-          lastNameError: action.lastNameError,
-          dateOfBirthErorr: action.dateOfBirthError,
-          emailError: action.emailError,
-          passwordError: action.passwordError,
-        });
+        return clone(state, { ...action });
     }
   }
 }

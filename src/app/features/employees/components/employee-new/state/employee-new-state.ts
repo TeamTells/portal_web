@@ -6,6 +6,12 @@ import { DepartmentEntity } from '../../department/department.component';
   providedIn: 'root',
 })
 export class EmployeeNewState {
+  readonly jobTitle: string = '';
+  readonly jobTitleError: string = '';
+
+  readonly phoneNumber: string = '';
+  readonly phoneNumberError: string = '';
+
   readonly firstName: string = '';
   readonly firstNameError: string = '';
 

@@ -12,12 +12,20 @@ export interface IEmployeeEditState {
   readonly department: DepartmentEntity | null;
   readonly roles: RoleEntity[];
   readonly selectedRoles: RoleEntity[];
+  readonly jobTitle: string;
+  readonly phoneNumber: string;
 }
 
 @Injectable({
   providedIn: 'root',
 })
 export class EmployeeEditState implements IEmployeeEditState {
+  readonly jobTitle: string = '';
+  readonly jobTitleError: string = '';
+
+  readonly phoneNumber: string = '';
+  readonly phoneNumberError: string = '';
+
   readonly firstName: string = '';
   readonly firstNameError: string = '';
 

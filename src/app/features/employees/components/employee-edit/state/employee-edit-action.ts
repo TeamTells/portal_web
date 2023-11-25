@@ -12,10 +12,14 @@ export type EmployeeEditAction =
   | RemoveDepartmentAction
   | AddRoleAction
   | RemoveRoleAction
+  | ChangePhoneNumberAction
+  | ChangeJobTitleAction
   | InitializeAction
   | EditAction;
 
 export enum EmployeeEditActionTypes {
+  CHANGE_JOB_TITLE,
+  CHANGE_PHONE_NUMBER,
   CHANGE_FIRST_NAME,
   CHANGE_LAST_NAME,
   CHANGE_PATRONYMIC,
@@ -29,6 +33,16 @@ export enum EmployeeEditActionTypes {
   SELECT_RIGHT,
   INITIALIZE,
   EDIT,
+}
+
+export interface ChangeJobTitleAction {
+  readonly type: EmployeeEditActionTypes.CHANGE_JOB_TITLE;
+  readonly jobTitle: string;
+}
+
+export interface ChangePhoneNumberAction {
+  readonly type: EmployeeEditActionTypes.CHANGE_PHONE_NUMBER;
+  readonly phoneNumber: string;
 }
 
 export interface ChangeFirstNameAction {

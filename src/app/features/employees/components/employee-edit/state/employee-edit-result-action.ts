@@ -13,10 +13,14 @@ export type EmployeeEditResultAction =
   | RemoveDepartmentResultAction
   | AddRoleResultAction
   | RemoveRoleResultAction
+  | ChangePhoneNumberResultAction
+  | ChangeJobTitleResultAction
   | InitializeResultAction
   | ValidationResultAction;
 
 export enum EmployeeEditResultActionTypes {
+  CHANGE_JOB_TITLE,
+  CHANGE_PHONE_NUMBER,
   CHANGE_FIRST_NAME,
   CHANGE_LAST_NAME,
   CHANGE_PATRONYMIC,
@@ -30,6 +34,16 @@ export enum EmployeeEditResultActionTypes {
   SELECT_RIGHT,
   INITIALIZE,
   VALIDATION_ERROR,
+}
+
+export interface ChangePhoneNumberResultAction {
+  readonly type: EmployeeEditResultActionTypes.CHANGE_PHONE_NUMBER;
+  readonly phoneNumber: string;
+}
+
+export interface ChangeJobTitleResultAction {
+  readonly type: EmployeeEditResultActionTypes.CHANGE_JOB_TITLE;
+  readonly jobTitle: string;
 }
 
 export interface ChangeFirstNameResultAction {
@@ -88,6 +102,8 @@ export interface InitializeResultAction {
 
 export interface ValidationResultAction {
   readonly type: EmployeeEditResultActionTypes.VALIDATION_ERROR;
+  readonly phoneNumberError: string;
+  readonly jobTitleError: string;
   readonly firstNameError: string;
   readonly lastNameError: string;
   readonly dateOfBirthError: string;

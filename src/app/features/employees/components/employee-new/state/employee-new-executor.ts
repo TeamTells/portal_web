@@ -29,12 +29,30 @@ export class EmployeeNewExecutor extends Executor<
     private lastNameValidator: Validator,
     @Inject('NewEmployeeDateOfBirthValidator')
     private dateOfBirthValidator: Validator,
+    @Inject('NewEmployeePhoneNumberValidator')
+    private phoneNumberValidator: Validator,
+    @Inject('NewEmployeeJobTitleValidator')
+    private jobTitleValidator: Validator,
   ) {
     super();
   }
 
   execute(action: EmployeeNewAction) {
     switch (action.type) {
+      case EmployeeNewActionTypes.CHANGE_JOB_TITLE:
+        this.reduce({
+          type: EmployeeNewResultActionTypes.CHANGE_JOB_TITLE,
+          jobTitle: action.jobTitle,
+        });
+        break;
+
+      case EmployeeNewActionTypes.CHANGE_PHONE_NUMBER:
+        this.reduce({
+          type: EmployeeNewResultActionTypes.CHANGE_PHONE_NUMBER,
+          phoneNumber: action.phoneNumber,
+        });
+        break;
+
       case EmployeeNewActionTypes.CHANGE_FIRST_NAME:
         this.reduce({
           type: EmployeeNewResultActionTypes.CHANGE_FIRST_NAME,
@@ -111,6 +129,12 @@ export class EmployeeNewExecutor extends Executor<
   }
 
   private handleCreate() {
+    let phoneNumberError = this.phoneNumberValidator.validate(
+      this.getState().phoneNumber,
+    );
+    let jobTitleError = this.jobTitleValidator.validate(
+      this.getState().jobTitle,
+    );
     let emailError = this.emailValidator.validate(this.getState().email);
     let passwordError = this.passwordValidator.validate(
       this.getState().password,
@@ -126,6 +150,8 @@ export class EmployeeNewExecutor extends Executor<
     );
 
     if (
+      phoneNumberError != null ||
+      jobTitleError != null ||
       emailError != null ||
       passwordError != null ||
       firstNameError != null ||
@@ -134,6 +160,8 @@ export class EmployeeNewExecutor extends Executor<
     ) {
       this.reduce({
         type: EmployeeNewResultActionTypes.VALIDATION_ERROR,
+        phoneNumberError: phoneNumberError != null ? phoneNumberError : '',
+        jobTitleError: jobTitleError != null ? jobTitleError : '',
         emailError: emailError != null ? emailError : '',
         passwordError: passwordError != null ? passwordError : '',
         firstNameError: firstNameError != null ? firstNameError : '',

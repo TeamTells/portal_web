@@ -29,12 +29,30 @@ export class EmployeeEditExecutor extends Executor<
     private lastNameValidator: Validator,
     @Inject('NewEmployeeDateOfBirthValidator')
     private dateOfBirthValidator: Validator,
+    @Inject('NewEmployeePhoneNumberValidator')
+    private phoneNumberValidator: Validator,
+    @Inject('NewEmployeeJobTitleValidator')
+    private jobTitleValidator: Validator,
   ) {
     super();
   }
 
   execute(action: EmployeeEditAction) {
     switch (action.type) {
+      case EmployeeEditActionTypes.CHANGE_JOB_TITLE:
+        this.reduce({
+          type: EmployeeEditResultActionTypes.CHANGE_JOB_TITLE,
+          jobTitle: action.jobTitle,
+        });
+        break;
+
+      case EmployeeEditActionTypes.CHANGE_PHONE_NUMBER:
+        this.reduce({
+          type: EmployeeEditResultActionTypes.CHANGE_PHONE_NUMBER,
+          phoneNumber: action.phoneNumber,
+        });
+        break;
+
       case EmployeeEditActionTypes.CHANGE_FIRST_NAME:
         this.reduce({
           type: EmployeeEditResultActionTypes.CHANGE_FIRST_NAME,
@@ -118,6 +136,12 @@ export class EmployeeEditExecutor extends Executor<
   }
 
   private handleEdit() {
+    let phoneNumberError = this.phoneNumberValidator.validate(
+      this.getState().phoneNumber,
+    );
+    let jobTitleError = this.jobTitleValidator.validate(
+      this.getState().jobTitle,
+    );
     let emailError = this.emailValidator.validate(this.getState().email);
     let passwordError = this.passwordValidator.validate(
       this.getState().password,
@@ -133,6 +157,8 @@ export class EmployeeEditExecutor extends Executor<
     );
 
     if (
+      phoneNumberError != null ||
+      jobTitleError != null ||
       emailError != null ||
       passwordError != null ||
       firstNameError != null ||
@@ -141,6 +167,8 @@ export class EmployeeEditExecutor extends Executor<
     ) {
       this.reduce({
         type: EmployeeEditResultActionTypes.VALIDATION_ERROR,
+        phoneNumberError: phoneNumberError != null ? phoneNumberError : '',
+        jobTitleError: jobTitleError != null ? jobTitleError : '',
         emailError: emailError != null ? emailError : '',
         passwordError: passwordError != null ? passwordError : '',
         firstNameError: firstNameError != null ? firstNameError : '',
@@ -149,7 +177,7 @@ export class EmployeeEditExecutor extends Executor<
       });
       return;
     }
-    
+
     console.log(this.getState());
   }
 }

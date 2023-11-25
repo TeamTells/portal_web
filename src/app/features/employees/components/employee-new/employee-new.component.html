@@ -39,12 +39,24 @@
       "
     />
     <app-core-input-field
+      class="mb-3"
       type="text"
       placeholder="Отчество"
       (onChange)="
         performAction({
           type: EmployeeNewActionTypes.CHANGE_PATRONYMIC,
           patronymic: $event
+        })
+      "
+    />
+    <app-core-input-field
+      type="text"
+      placeholder="Должность*"
+      [error]="state.jobTitleError"
+      (onChange)="
+        performAction({
+          type: EmployeeNewActionTypes.CHANGE_JOB_TITLE,
+          jobTitle: $event
         })
       "
     />
@@ -61,6 +73,7 @@
       "
     />
     <app-core-input-field
+      class="mb-3"
       type="text"
       placeholder="E-mail*"
       [error]="state.emailError"
@@ -68,6 +81,17 @@
         performAction({
           type: EmployeeNewActionTypes.CHANGE_EMAIL,
           email: $event
+        })
+      "
+    />
+    <app-core-input-field
+      type="text"
+      placeholder="Номер телефона*"
+      [error]="state.phoneNumberError"
+      (onChange)="
+        performAction({
+          type: EmployeeNewActionTypes.CHANGE_PHONE_NUMBER,
+          phoneNumber: $event
         })
       "
     />

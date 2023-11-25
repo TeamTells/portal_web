@@ -40,7 +40,7 @@
             </svg>
           </button>
           <button
-            *ngIf="this.onSelect.observed"
+            *ngIf="this.onSelect.observed || (!this.onSelect.observed && this.items.length === 0)"
             type="button"
             class="flex justify-center items-center h-[28px] w-[28px] hover:bg-tt-light-light-gray rounded-full transition-colors"
           >
