@@ -2,7 +2,7 @@ export class Account {
 
   constructor(
     readonly jwtToken: string,
-    readonly id: User,
+    readonly user: User,
     readonly company: Company
   ) {
   }

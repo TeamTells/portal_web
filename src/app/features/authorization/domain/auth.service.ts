@@ -7,7 +7,7 @@ export abstract class AuthService {
 
   public abstract userObservable: Observable<Account | null>
 
-  abstract getUser(): Account | null
+  abstract getAccount(): Account | null
 
   abstract isAuthenticated(): boolean
 

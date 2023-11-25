@@ -11,8 +11,8 @@ export class JwtInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    let user = this.authService.getUser()
-    let accessJwtToken = user?.jwtToken
+    let account = this.authService.getAccount()
+    let accessJwtToken = account?.jwtToken
     const isApiUrl = request.url.startsWith(environment.apiUrl)
 
     if (accessJwtToken != undefined && isApiUrl) {

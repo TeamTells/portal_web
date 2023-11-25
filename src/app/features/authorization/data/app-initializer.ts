@@ -5,7 +5,6 @@ export function appInitializer(authService: AuthService) {
     authService.refreshToken()
       .subscribe({
           complete: () => {
-            console.info('complete')
             resolve(undefined)
           },
           error:() => {
