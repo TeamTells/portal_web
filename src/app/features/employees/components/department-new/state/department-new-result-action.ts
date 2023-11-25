@@ -9,7 +9,7 @@ export type DepartmentNewResultAction =
   | RemoveParentDepartamentResultAction
   | AddEmpoyeesResultAction
   | RemoveEmpoyeesResultAction
-  | ValidationResultResultAction;
+  | ValidationResultAction;
 
 export enum DepartmentNewResultActionTypes {
   CHANGE_NAME,
@@ -55,7 +55,7 @@ export interface RemoveEmpoyeesResultAction {
   readonly empoyees: EmployeeEntity[];
 }
 
-export interface ValidationResultResultAction {
+export interface ValidationResultAction {
   readonly type: DepartmentNewResultActionTypes.VALIDATION_ERROR;
   readonly nameError: string;
   readonly supervisorError: string;

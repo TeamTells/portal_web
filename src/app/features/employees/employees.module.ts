@@ -15,15 +15,17 @@ import { AddEmployeesComponent } from './components/add-employees/add-employees.
 import { Validator } from 'src/app/core/validators/validator';
 import {
   DateRule,
-  EmailRule,
   EmptyRule,
   MaxLengthRule,
-  MinLengthRule,
 } from 'src/app/core/validators/rule';
 import { DepartmentNewComponent } from './components/department-new/department-new.component';
 import { EmployeeNewComponent } from './components/employee-new/employee-new.component';
 import { DepartmentEditComponent } from './components/department-edit/department-edit.component';
 import { EmployeeEditComponent } from './components/employee-edit/employee-edit.component';
+import {
+  emailValidatorFactory,
+  passwordValidatorFactory,
+} from 'src/app/core/validators/validators';
 
 @NgModule({
   declarations: [
@@ -48,12 +50,12 @@ import { EmployeeEditComponent } from './components/employee-edit/employee-edit.
     {
       provide: 'NewEmployeeEmailValidator',
       useExisting: Validator,
-      useFactory: EmployeesModule.emailValidatorFactory,
+      useFactory: emailValidatorFactory,
     },
     {
       provide: 'NewEmployeePasswordValidator',
       useExisting: Validator,
-      useFactory: EmployeesModule.passwordValidatorFactory,
+      useFactory: passwordValidatorFactory,
     },
     {
       provide: 'NewEmployeeFirstNameValidator',
@@ -78,16 +80,6 @@ import { EmployeeEditComponent } from './components/employee-edit/employee-edit.
   ],
 })
 export class EmployeesModule {
-  public static emailValidatorFactory = () =>
-    new Validator([new EmailRule('Введи E-mail')]);
-
-  public static passwordValidatorFactory = () =>
-    new Validator([
-      new EmptyRule('Введите пароль'),
-      new MinLengthRule('Пароль должен иметь больше 8 символов', 8),
-      new MaxLengthRule('Пароль не может быть длиннее 25 символов', 25),
-    ]);
-
   public static firstNameValidatorFactory = () =>
     new Validator([
       new EmptyRule('Введите имя'),
@@ -109,5 +101,11 @@ export class EmployeesModule {
     ]);
 
   public static nameValidatorFactory = () =>
-    new Validator([new EmptyRule('Введите название департамента')]);
+    new Validator([
+      new EmptyRule('Введите название департамента'),
+      new MaxLengthRule(
+        'Название департамента не должно быть больше 50 символов',
+        50,
+      ),
+    ]);
 }
