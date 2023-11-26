@@ -7,6 +7,8 @@ import {environment} from "../../../../../environments/environment";
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
 
+  private static NO_ID: number = -1
+
   constructor(private authService: AuthService) {
   }
 
@@ -16,11 +18,12 @@ export class JwtInterceptor implements HttpInterceptor {
     const isApiUrl = request.url.startsWith(environment.apiUrl)
 
     if (accessJwtToken != undefined && isApiUrl) {
+      const account = this.authService.getAccount()
       request = request.clone({
         setHeaders: {
           Authorization: `Bearer ${accessJwtToken}`,
-          'X-user-id': '3',
-          'X-organization-id': '1'
+          'X-user-id': (account?.user?.id ?? JwtInterceptor.NO_ID).toString(),
+          'X-organization-id': (account?.company?.id ?? JwtInterceptor.NO_ID).toString()
         }
       });
     }
