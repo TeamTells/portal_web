@@ -10,4 +10,6 @@ export class EmployeeSelectState {
   readonly departments: DepartmentEntity[] = []
   readonly selectedCount: number = 0
   readonly visibleTools: boolean = false
+  readonly visibleChangeDepartmentModal: boolean = false
+  readonly visibleDeleteModal: boolean = false
 }

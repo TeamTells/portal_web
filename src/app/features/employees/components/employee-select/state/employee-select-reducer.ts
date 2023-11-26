@@ -15,6 +15,8 @@ export class EmployeeSelectReducer implements Reducer<EmployeeSelectState, Emplo
         return clone(state, {departments: action.departments, employees: action.employees})
       case EmployeeSelectResultActionTypes.SELECT:
         return clone(state, {selectedCount: action.selectCount, visibleTools: action.visible})
+      case EmployeeSelectResultActionTypes.MOVE_TO_DEPARTMENT:
+        return clone(state, {visibleChangeDepartmentModal: action.visible})
       default:
         return clone(state)
   }

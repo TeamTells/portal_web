@@ -11,6 +11,7 @@ export enum EmployeeSelectResultActionTypes {
   INIT_DATA,
   SELECT,
   MOVE_TO_DEPARTMENT,
+  MOVE_TO_DEPARTMENT_CLOSE,
   NEW_DEPARTMENT,
   DELETE,
 }
@@ -26,8 +27,10 @@ export interface SelectResultAction {
   readonly selectCount: number
   readonly visible: boolean
 }
+
 export interface MoveToDepartmentResultAction {
   readonly type: EmployeeSelectResultActionTypes.MOVE_TO_DEPARTMENT
+  readonly visible: boolean
 }
 
 export interface NewDepartmentResultAction {

@@ -28,12 +28,12 @@ export class DepartmentComponent implements OnInit {
   @Input() public offset: number = 0
   oneOffsetStepSize = 36
   countOfEmploees: number = 0;
+  @Input() employeesVisible: boolean = true
 
   @Output() arrowClicked = new EventEmitter<DepartmentEntity>()
   @Output() ctrlClicked = new EventEmitter<DepartmentEntity>()
+  @Output() clicked = new EventEmitter<DepartmentEntity>()
   @Output() employeeCtrlClicked = new EventEmitter<EmployeeItemEntity>()
-
-  constructor(private navigator: EmployeesNavigator){}
 
   ngOnInit(): void {
     this.countOfEmploees = this.getCountEmployees(this.department)
@@ -52,7 +52,7 @@ export class DepartmentComponent implements OnInit {
     }
     else
     {
-      this.navigator.showContent({navItem: EmployeesNavItem.DEPARTMENT, params: this.department.id.toString()})
+      this.clicked.emit(this.department)
     }
   }
 

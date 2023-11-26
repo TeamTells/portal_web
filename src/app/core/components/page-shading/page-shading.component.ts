@@ -5,5 +5,4 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   templateUrl: './page-shading.component.html',
 })
 export class PageShadingComponent {
-  @Input() showDialog = false;
 }

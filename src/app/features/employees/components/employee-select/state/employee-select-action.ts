@@ -5,7 +5,9 @@ export type EmployeeSelectAction = InitDataAction
     | SelectEmployeeAction
     | SelectDepartmentAction
     | UnselectAllAction
+    | RouteToDepartmentAction
     | MoveToDepartmentAction
+    | MoveToDepartmentCloseAction
     | NewDepartmentAction
     | DeleteAction
 
@@ -14,7 +16,9 @@ export enum EmployeeSelectActionTypes {
     SELECT_EMPLOYEE,
     SELECT_DEPARTMENT,
     UNSELECT_ALL,
+    ROUTE_TO_DEPARTMENT,
     MOVE_TO_DEPARTMENT,
+    MOVE_TO_DEPARTMENT_CLOSE,
     NEW_DEPARTMENT,
     DELETE,
 }
@@ -41,6 +45,15 @@ export interface UnselectAllAction {
 
 export interface MoveToDepartmentAction {
     readonly type: EmployeeSelectActionTypes.MOVE_TO_DEPARTMENT
+}
+
+export interface RouteToDepartmentAction {
+    readonly type: EmployeeSelectActionTypes.ROUTE_TO_DEPARTMENT,
+    readonly id: number
+}
+
+export interface MoveToDepartmentCloseAction {
+    readonly type: EmployeeSelectActionTypes.MOVE_TO_DEPARTMENT_CLOSE
 }
 
 export interface NewDepartmentAction {

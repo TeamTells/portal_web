@@ -9,12 +9,12 @@
     >
 
     <img class="w-6 h-6 my-auto" src="../../../../assets/folder-dot.svg"
-      *ngIf="department.departments.length == 0 && department.employees.length == 0">
+      *ngIf="department.departments.length == 0 && !(department.employees.length == 0 || employeesVisible)">
     <img class="w-6 h-6 my-auto cursor-pointer" src="../../../../assets/folder-arrow.svg"
       (click)="changeVisibilityContent()" 
       [ngClass]="{'show': department.visibleContent}"
       [ngClass]="{'hide': department.visibleContent}"
-      *ngIf="!(department.departments.length == 0 && department.employees.length == 0 )">
+      *ngIf="!(department.departments.length == 0 && !(department.employees.length == 0 || employeesVisible))">
     <img class="w-9 h-7 my-auto ml-3 " src="../../../../assets/folder.svg">
 
     <button class="flex" (click)="departmentClicked($event)">
@@ -29,15 +29,20 @@
       *ngFor="let item of department.departments"
       [department]="item" 
       [offset]="offset + oneOffsetStepSize"
+      (clicked)="clicked.emit($event)"
       (ctrlClicked)="chieldDepartmentClicked($event)"
       (employeeCtrlClicked)="employeeClicked($event)"
+      [employeesVisible]="employeesVisible"
       />
-    <app-core-employee-item 
+    <div *ngIf="employeesVisible">
+      <app-core-employee-item 
       *ngFor="let item of department.employees" 
       [employee]="item" 
       [offset]="offset + oneOffsetStepSize"
       (ctrlClicked)="employeeClicked($event)"
       />
+    </div>
+    
   </div>
   
 </div>

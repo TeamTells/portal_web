@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DepartmentInfoComponent {
   public countOfEmployees: number = 0;
-  public department!: DepartmentEntity
+  public department: DepartmentEntity = this.dataService.ConvertToDepartmentEntity(this.dataService.departments[0])
 
   constructor(private dataService: EmployeesDataService,
     private route: ActivatedRoute) 
