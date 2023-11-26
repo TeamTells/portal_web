@@ -18,6 +18,7 @@ import { PageShadingComponent } from './page-shading/page-shading.component';
 import { ToastComponent } from './toast-alert/toast-alert.component';
 import { ErrorToastComponent } from './toast-alert/error-toast/error-toast.component';
 import { SuccessToastComponent } from './toast-alert/success-toast/success-toast.component';
+import { MultiselectFieldComponent } from './multiselect-field/multiselect-field.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { SuccessToastComponent } from './toast-alert/success-toast/success-toast
     PageShadingComponent,
     ToastComponent,
     ErrorToastComponent,
-    SuccessToastComponent
+    SuccessToastComponent,
+    MultiselectFieldComponent,
   ],
   exports: [
     CardComponent,
@@ -55,12 +57,13 @@ import { SuccessToastComponent } from './toast-alert/success-toast/success-toast
     PageShadingComponent,
     ToastComponent,
     ErrorToastComponent,
-    SuccessToastComponent
+    SuccessToastComponent,
+    MultiselectFieldComponent,
   ],
   imports: [
     CommonModule,
-    AppRoutingModule
+    AppRoutingModule,
   ]
 })
 
-export class ComponentsModule { }
+export class ComponentsModule {}

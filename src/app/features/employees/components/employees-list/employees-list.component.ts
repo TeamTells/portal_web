@@ -5,13 +5,11 @@ import { EmployeeSelectSettings, SelectCount } from '../employee-select/interfac
 @Component({
   selector: 'employees-list',
   templateUrl: './employees-list.component.html',
-  styleUrls: ['./employees-list.component.scss']
 })
 export class EmployeesListComponent{
   constructor(private navigator: EmployeesNavigator){}
 
-  onCreateClick(): void
-  {
+  onCreateClick(): void {
     this.navigator.showContent({navItem: EmployeesNavItem.NEW_EMPLOYEE, params: ""});
   }
 
@@ -24,6 +22,8 @@ export class EmployeesListComponent{
 
   strings = {
     users: "Пользователи",
-    create: "Создать"
+    create: "Создать",
+    employee: 'Сотрудник',
+    department: 'Департамент',
   }
 }

@@ -15,9 +15,27 @@ export class EmployeeNewReducer
 {
   reduce(
     state: EmployeeNewState,
-    action: EmployeeNewResultAction
+    action: EmployeeNewResultAction,
   ): EmployeeNewState {
     switch (action.type) {
+      case EmployeeNewResultActionTypes.CHANGE_JOB_TITLE:
+        return clone(state, {
+          jobTitle: action.jobTitle,
+          jobTitleError: '',
+        });
+
+      case EmployeeNewResultActionTypes.CHANGE_PHONE_NUMBER:
+        return clone(state, {
+          phoneNumber: action.phoneNumber,
+          phoneNumberError: '',
+        });
+
+      case EmployeeNewResultActionTypes.CHANGE_FIRST_NAME:
+        return clone(state, {
+          firstName: action.firstName,
+          firstNameError: '',
+        });
+
       case EmployeeNewResultActionTypes.CHANGE_FIRST_NAME:
         return clone(state, {
           firstName: action.firstName,
@@ -50,20 +68,27 @@ export class EmployeeNewReducer
       case EmployeeNewResultActionTypes.SELECT_DEPARTMENT:
         return { ...state, department: action.department };
 
-      case EmployeeNewResultActionTypes.SELECT_ROLE:
-        return { ...state, role: action.role };
+      case EmployeeNewResultActionTypes.REMOVE_DEPARTMENT:
+        return { ...state, department: undefined };
 
-      case EmployeeNewResultActionTypes.SELECT_RIGHT:
-        return { ...state, right: action.right };
+      case EmployeeNewResultActionTypes.ADD_ROLE:
+        return {
+          ...state,
+          selectedRoles: action.role
+            ? [...state.selectedRoles, action.role]
+            : state.selectedRoles,
+        };
+
+      case EmployeeNewResultActionTypes.REMOVE_ROLE:
+        return {
+          ...state,
+          selectedRoles: state.selectedRoles.filter(
+            (role) => role.id !== action.role?.id,
+          ),
+        };
 
       case EmployeeNewResultActionTypes.VALIDATION_ERROR:
-        return clone(state, {
-          firstNameError: action.firstNameError,
-          lastNameError: action.lastNameError,
-          dateOfBirthErorr: action.dateOfBirthError,
-          emailError: action.emailError,
-          passwordError: action.passwordError,
-        });
+        return clone(state, { ...action });
     }
   }
 }

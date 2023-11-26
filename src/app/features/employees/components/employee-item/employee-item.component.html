@@ -1,4 +1,5 @@
-<div class="flex justify-between pr-2 py-1"
+<div
+  class="flex justify-between px-2 py-1 rounded-2xl hover:bg-tt-light-light-gray"
   [style.marginLeft] = "getMarginOffset()"
   [style.paddingLeft] = "getPaddingOffset()"
   [ngClass]="{ 
@@ -8,20 +9,42 @@
   (click)="onClick($event)"
   (mouseover)="onMouseOver()"
   (mouseleave)="onMouseOut()"
-  >
-
+>
   <div class="flex">
-    <img *ngIf='employee.img == ""' class="w-10 h-10 my-auto rounded-full" src="../../../../../assets/empty_employee_icon.svg">
-    <img *ngIf='employee.img != ""' class="w-10 h-10 my-auto rounded-full" src="{{employee.img}}">
-  
+    <img
+      *ngIf="employee.img == ''"
+      class="w-10 h-10 my-auto rounded-full"
+      src="../../../../assets/empty_employee_icon.svg"
+    />
+    <img
+      *ngIf="employee.img != ''"
+      class="w-10 h-10 my-auto rounded-full"
+      src="{{ employee.img }}"
+    />
+
     <div class="ml-4 my-auto">
-      <p class="font-medium text-[16px] text-tt-dark-gray">{{employee.name}}</p>
-      <p class="font-normal text-[16px] text-tt-gray">{{employee.mail}}</p>
+      <p class="font-medium text-[16px] text-tt-dark-gray">
+        {{ employee.name }}
+      </p>
+      <p class="font-normal text-[16px] text-tt-gray">{{ employee.mail }}</p>
     </div>
   </div>
-  
-  <button class="w-5 h-5 my-auto" *ngIf="showDots && !employee.isSelect">
-    <img src="../../../../assets/triple-dot.svg">
-  </button>
-
+  <app-popup-menu [leftOffset]="-212" [topOffset]="16">
+    <app-popup-menu-button class="mt-[14px]">
+      <button class="w-5 h-5 my-auto">
+        <img draggable="false" src="../../../../assets/triple-dot.svg" />
+      </button>
+    </app-popup-menu-button>
+    <app-popup-menu-content>
+      <app-popup-menu-option [divider]="true" (onClick)="editEmployee()">
+        {{ strings.actions.edit }}
+      </app-popup-menu-option>
+      <app-popup-menu-option [divider]="true">
+        {{ strings.actions.move }}
+      </app-popup-menu-option>
+      <app-popup-menu-option class="text-tt-red">
+        {{ strings.actions.delete }}
+      </app-popup-menu-option>
+    </app-popup-menu-content>
+  </app-popup-menu>
 </div>
