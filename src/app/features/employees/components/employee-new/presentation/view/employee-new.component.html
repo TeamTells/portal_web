@@ -1,0 +1,122 @@
+<app-core-main-content-card>
+  <div class="flex justify-between gap-1 flex-wrap font-bold mb-9">
+    <div class="flex gap-4">
+      <app-core-button-back />
+      <h2 class="text-[28px] text-tt-black">Новый пользователь</h2>
+    </div>
+    <app-core-button-red
+      text="Сохранить"
+      (buttonClick)="
+        performAction({
+          type: EmployeeNewActionTypes.CREATE
+        })
+      "
+    />
+  </div>
+  <h3 class="text-xl text-tt-black font-bold mb-3">Основная информация</h3>
+  <app-core-input-field
+    type="text"
+    placeholder="Фамилия"
+    [error]="state.lastNameError"
+    (onChange)="
+      performAction({
+        type: EmployeeNewActionTypes.CHANGE_LAST_NAME,
+        lastName: $event
+      })
+    "
+  />
+  <app-core-input-field
+    class="my-3"
+    type="text"
+    placeholder="Имя"
+    [error]="state.firstNameError"
+    (onChange)="
+      performAction({
+        type: EmployeeNewActionTypes.CHANGE_FIRST_NAME,
+        firstName: $event
+      })
+    "
+  />
+  <app-core-input-field
+    type="text"
+    placeholder="Отчество"
+    (onChange)="
+      performAction({
+        type: EmployeeNewActionTypes.CHANGE_PATRONYMIC,
+        patronymic: $event
+      })
+    "
+  />
+  <app-core-input-field
+    class="my-3"
+    type="text"
+    placeholder="Дата рождения*"
+    [error]="state.dateOfBirthErorr"
+    (onChange)="
+      performAction({
+        type: EmployeeNewActionTypes.CHANGE_DATE_OF_BIRTH,
+        dateOfBirth: $event
+      })
+    "
+  />
+  <app-core-input-field
+    type="text"
+    placeholder="E-mail*"
+    [error]="state.emailError"
+    (onChange)="
+      performAction({
+        type: EmployeeNewActionTypes.CHANGE_EMAIL,
+        email: $event
+      })
+    "
+  />
+  <app-core-input-field
+    class="my-3"
+    type="password"
+    placeholder="Пароль"
+    [error]="state.passwordError"
+    (onChange)="
+      performAction({
+        type: EmployeeNewActionTypes.CHANGE_PASSWORD,
+        password: $event
+      })
+    "
+  />
+  <app-core-dropdown-field
+    placeholder="Выберите департамент"
+    [items]="state.departments"
+    [selectedItem]="state.department"
+    (onSelect)="
+      performAction({
+        type: EmployeeNewActionTypes.SELECT_DEPARTMENT,
+        departmentId: $event
+      })
+    "
+  />
+  <h3 class="text-xl text-tt-black font-bold my-3">Права доступа</h3>
+  <app-core-dropdown-field
+    class="mb-3"
+    placeholder="Права доступа"
+    [items]="state.rights"
+    [selectedItem]="state.right"
+    (onSelect)="
+      performAction({
+        type: EmployeeNewActionTypes.SELECT_RIGHT,
+        rightId: $event
+      })
+    "
+  />
+  <app-core-dropdown-field
+    type="text"
+    placeholder="Выберите роль"
+    [items]="state.roles"
+    [selectedItem]="state.role"
+    (onSelect)="
+      performAction({
+        type: EmployeeNewActionTypes.SELECT_ROLE,
+        roleId: $event
+      })
+    "
+  />
+</app-core-main-content-card>
+<div class="h-[500px]"></div>

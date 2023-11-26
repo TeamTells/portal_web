@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-core-main-content-card',
@@ -6,5 +6,5 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./main-content-card.component.scss']
 })
 export class MainContentCardComponent {
-  @Input() class: string | string[] = [];
+
 }

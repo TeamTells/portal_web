@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'department-info',
   templateUrl: './department-info.component.html',
+  styleUrls: ['./department-info.component.scss']
 })
 export class DepartmentInfoComponent {
   public countOfEmployees: number = 0;

@@ -5,6 +5,7 @@ import {
   HostListener,
   Input,
   Output,
+  Renderer2,
 } from '@angular/core';
 
 export type DropdownItem = {
@@ -17,30 +18,19 @@ export type DropdownItem = {
   templateUrl: './dropdown-field.component.html',
 })
 export class DropdownFieldComponent {
-  constructor(private el: ElementRef) {}
+  constructor(private el: ElementRef, private renderer: Renderer2) {}
 
   @Input() class: string | string[] = [];
   @Input() items: DropdownItem[] = [];
   @Input() error?: string;
   @Input() placeholder: string = 'Выберите элемент';
-  @Input() selectedItem?: DropdownItem | null;
-  @Input() canSelect: boolean = true;
-  @Output() onClick: EventEmitter<void> = new EventEmitter<void>();
+  @Input() selectedItem?: DropdownItem;
   @Output() onSelect: EventEmitter<string> = new EventEmitter<string>();
-  @Output() onUnselect: EventEmitter<string> = new EventEmitter<string>();
 
   opened = false;
 
   switch() {
-    if (!this.onSelect.observed) return;
     this.opened = !this.opened;
-  }
-
-  onClickDropwdown() {
-    if (this.onClick) {
-      this.onClick.emit();
-    }
-    this.switch();
   }
 
   onSelectItem(id: string) {
@@ -48,13 +38,6 @@ export class DropdownFieldComponent {
       this.onSelect.emit(id);
     }
     this.switch();
-  }
-
-  onUnselectItem(event: MouseEvent, id: string) {
-    event.stopPropagation();
-    if (this.onUnselect) {
-      this.onUnselect.emit(id);
-    }
   }
 
   @HostListener('document:click', ['$event'])
