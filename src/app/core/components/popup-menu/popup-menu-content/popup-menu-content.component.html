@@ -1,9 +1,5 @@
 <div class="w-0 h-0">
-  <div
-    [ngClass]="hidenStyle"
-    [ngStyle]="{ left: leftOffset, top: topOffset }"
-    class="overflow-hidden relative z-50 w-[240px] bg-tt-white rounded-tt-card shadow-tt-popup-menu"
-  >
-    <ng-content></ng-content>
-  </div>
+    <div [ngClass]="hidenStyle" [ngStyle]="{'left': leftOffset, 'top': topOffset}" class="relative w-[240px] bg-tt-white rounded-tt-card shadow-md">
+        <ng-content></ng-content>
+    </div>
 </div>

@@ -3,20 +3,18 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'app-role-item',
   templateUrl: './role-item.component.html',
-  styleUrls: ['./role-item.component.scss'],
+  styleUrls: ['./role-item.component.scss']
 })
 export class RoleItemComponent {
-  @Input() class: string | string[] = [];
-
+  @Input() class: string | string[] = []; 
+  
   @Input() public role: RoleEntity = {
-    id: 1,
-    role: 'Role',
-    description: 'Description',
+    role: "Role",
+    description: "Description"
   };
 }
 
-export interface RoleEntity {
-  id: number;
+export interface RoleEntity{
   role: String;
   description: String;
 }

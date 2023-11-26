@@ -9,7 +9,6 @@ export class InputFieldComponent {
   @Input() class: string | string[] = [];
   @Input() defaultValue: string = '';
   @Input() type?: string;
-  @Input() autocomplete?: string;
   @Input() error?: string;
   @Output() onChange: EventEmitter<string> = new EventEmitter<string>();
 

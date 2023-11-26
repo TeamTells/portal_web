@@ -1,18 +1,15 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { EmployeesDataService } from '../../data/employees-data-service';
-import {
-  EmployeesNavItem,
-  EmployeesNavigator,
-} from '../../navigation/employees-navigator';
 @Component({
   selector: 'app-core-employee-item',
   templateUrl: './employee-item.component.html',
-  styleUrls: ['./employee-item.component.scss'],
+  styleUrls: ['./employee-item.component.scss']
 })
 export class EmployeeItemComponent {
   constructor(private data: EmployeesDataService){}
-  
-  @Output() ctrlClicked = new EventEmitter<EmployeeItemEntity>();
+
+  showDots: boolean = false;
+
   @Input() public employee: EmployeeItemEntity = {
     id: -1,
     img: "",
@@ -20,63 +17,52 @@ export class EmployeeItemComponent {
     mail: "not-found@mail.ru",
     isSelect: false
   };
-  
-  showDots: boolean = false;
-  
-  editEmployee() {
-    this.navigator.showContent({
-      navItem: EmployeesNavItem.EDIT_EMPLOYEE,
-      params: '',
-    });
-  }
 
-  onMouseOver(): void {
-    this.showDots = true;
-  }
+  @Input() public offset: number = 0
 
-  onMouseOut(): void {
-    this.showDots = false;
-  }
+  @Output() ctrlClicked = new EventEmitter<EmployeeItemEntity>();
 
-  onClick(event: any): void {
+  onClick(event: any): void
+  {
     if (event.ctrlKey)
     {
       this.ctrlClicked.emit(this.employee)
     }
   }
-  
-  getMarginOffset(): string {
-    if(this.employee.isSelect) {
+
+  getMarginOffset(): string
+  {
+    if(this.employee.isSelect)
+    {
       return 0 + 'px'
     }
-    else {
+    else
+    {
       return this.offset + 'px'
     }
   }
 
-  getPaddingOffset(): string {
-    if(this.employee.isSelect) {
+  getPaddingOffset(): string
+  {
+    if(this.employee.isSelect)
+    {
       return (this.offset + 8) + 'px'
     }
-    else {
+    else
+    {
       return 8 + 'px'
     }
   }
-  
-  strings = {
-    actions: {
-      edit: 'Редактировать',
-      move: 'Переместить в другой отдел',
-      delete: 'Удалить',
-    },
-  };
-}
 
-export interface EmployeeEntity {
-  id: number;
-  img: string;
-  name: string;
-  mail: string;
+  onMouseOver(): void
+  {
+    this.showDots = true;
+  }
+
+  onMouseOut(): void
+  {
+    this.showDots = false;
+  }
 }
 
 export interface EmployeeItemEntity{
