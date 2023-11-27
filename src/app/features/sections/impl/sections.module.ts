@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SectionsComponent } from './presentation/sections.component';
 import {SectionServiceImpl} from "./data/section-service-impl";
-import {SectionService} from "./domain/section-service";
+import {SectionService} from "../api/section-service";
 import {ComponentsModule} from "../../core/components/components.module";
 
 @NgModule({

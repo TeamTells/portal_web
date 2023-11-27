@@ -1,13 +1,13 @@
-import {SectionEntity} from "../../domain/section-entity";
+import {SectionSummaryEntity} from "../../../api/section-summary-entity";
 
 export class SectionsState {
-    readonly sections: Array<SectionEntity> = []
-    readonly filteredSections: Array<SectionEntity> = []
+    readonly sections: Array<SectionSummaryEntity> = []
+    readonly filteredSections: Array<SectionSummaryEntity> = []
     readonly createSectionState: CreateSectionState = new CreateSectionState()
     readonly filtersState: FiltersState = new FiltersState()
 
     static calculateFilteredSections(
-        sections: Array<SectionEntity>,
+        sections: Array<SectionSummaryEntity>,
         filter: string,
         onlyFavorite: boolean
     ) {

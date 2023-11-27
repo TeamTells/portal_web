@@ -12,21 +12,20 @@ import {
   EmployeesNewComponent
 } from './features/employees/components/employee-new/presentation/view/employee-new.component';
 import {SectionComponent} from "./features/section/presentation/section.component";
-import {SectionsComponent} from "./features/sections/presentation/sections.component";
+import {SectionsComponent} from "./features/sections/impl/presentation/sections.component";
 
 const employeesItems: Routes = [
   {path: 'new-employee', component: EmployeesNewComponent},
   {path: 'department/:id', component: DepartmentInfoComponent},
   {path: 'roles', component: RolesComponent},
   {path: '', component: EmployeesListComponent},
-  {path: 'sections', component: SectionsComponent},
-  {path: 'sections/:id', component: SectionComponent}
 ]
 
 const mainItems: Routes = [
   {path: 'employees', component: EmployeesComponent, children: employeesItems},
   {path: 'sections', component: SectionsComponent},
   {path: 'settings', component: SettingsComponent},
+  {path: 'sections/:id', component: SectionComponent}
 ]
 
 const appRoutes: Routes = [

@@ -1,4 +1,4 @@
-export class SectionEntity {
+export class SectionSummaryEntity {
 
     static NO_ID: number = -1
 

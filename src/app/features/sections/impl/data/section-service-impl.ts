@@ -1,19 +1,19 @@
 import {Injectable} from "@angular/core";
-import {SectionEntity} from "../domain/section-entity";
-import {SectionService} from "../domain/section-service";
+import {SectionSummaryEntity} from "../../api/section-summary-entity";
+import {SectionService} from "../../api/section-service";
 import {BehaviorSubject, map, Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {SectionsResponseJson} from "./json/sections-response-json";
-import {environment} from "../../../../environments/environment";
+import {environment} from "../../../../../environments/environment";
 
 @Injectable({
     providedIn: 'root'
 })
 export class SectionServiceImpl implements SectionService {
 
-    private mutableSections: BehaviorSubject<Array<SectionEntity>> = new BehaviorSubject<Array<SectionEntity>>([])
+    private mutableSections: BehaviorSubject<Array<SectionSummaryEntity>> = new BehaviorSubject<Array<SectionSummaryEntity>>([])
 
-    sections: Observable<Array<SectionEntity>> = this.mutableSections.asObservable()
+    sections: Observable<Array<SectionSummaryEntity>> = this.mutableSections.asObservable()
 
     pages = {
         pages: [
@@ -32,8 +32,8 @@ export class SectionServiceImpl implements SectionService {
     fetchSections() {
         this.http.get<SectionsResponseJson>(`${environment.apiUrl}/documentation/section/list`)
             .pipe(map(sectionResponse => {
-                const listSection: Array<SectionEntity> = sectionResponse.sections.map(section => {
-                    return new SectionEntity(
+                const listSection: Array<SectionSummaryEntity> = sectionResponse.sections.map(section => {
+                    return new SectionSummaryEntity(
                         section.id,
                         section.title,
                         section.thumbnailUrl,
@@ -57,7 +57,7 @@ export class SectionServiceImpl implements SectionService {
         })
     }
 
-    createSection(section: SectionEntity) {
+    createSection(section: SectionSummaryEntity) {
         const body = {
             title: section.title,
             thumbnailUrl: section.url
@@ -81,7 +81,7 @@ export class SectionServiceImpl implements SectionService {
             })
     }
 
-    getSection(sectionId: number): SectionEntity | undefined {
+    getSection(sectionId: number): SectionSummaryEntity | undefined {
         return undefined
     }
 
