@@ -18,7 +18,8 @@ module.exports = {
         "tt-stroke-error": "#FFD8D8",
         "tt-blue": "#007BFF",
         "tt-light-blue" : "#C2E7FE",
-        "tt-lighter-gray": "#BCC1C6"
+        "tt-lighter-gray": "#BCC1C6",
+        "tt-background": "#F6F7F8"
       },
       maxWidth: {
         "tt-field": "334px",

@@ -9,8 +9,6 @@ export abstract class SectionService {
 
     abstract createSection(section: SectionSummaryEntity): void
 
-    abstract getSection(sectionId: number): SectionSummaryEntity | undefined
-
     abstract updateIsFavoriteSection(sectionId: number, isFavorite: boolean): void
 
 }

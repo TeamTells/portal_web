@@ -1,6 +1,6 @@
 import {SectionEntity} from "./section-entity";
 
-abstract class SectionService {
+export abstract class SectionService {
 
   abstract getSection(sectionId: number): SectionEntity
 

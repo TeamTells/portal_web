@@ -15,16 +15,6 @@ export class SectionServiceImpl implements SectionService {
 
     sections: Observable<Array<SectionSummaryEntity>> = this.mutableSections.asObservable()
 
-    pages = {
-        pages: [
-            {id: 1, title: 'Паттерны проектирование', isFavorite: true},
-            {id: 2, title: 'Строитель', isFavorite: false},
-            {id: 3, title: 'Наблюдатель', isFavorite: false},
-            {id: 4, title: 'Основы проиграммирование', isFavorite: false},
-            {id: 5, title: 'Основы веб разработки', isFavorite: false}
-        ]
-    }
-
     constructor(private http: HttpClient) {
 
     }

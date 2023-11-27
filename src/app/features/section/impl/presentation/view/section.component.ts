@@ -1,0 +1,25 @@
+import {Component} from '@angular/core';
+import {Store} from "../../../../../core/mvi/store";
+import {SectionState} from "../state/section-state";
+import {SectionExecutor} from "../state/section-executor";
+import {SectionAction} from "../state/section-action";
+import {SectionResultAction} from "../state/section-result-action";
+import {SectionReducer} from "../state/section-reducer";
+
+
+@Component({
+  selector: 'app-section',
+  templateUrl: './section.component.html',
+  styleUrls: ['./section.component.scss']
+})
+export class SectionComponent extends Store<SectionState, SectionExecutor, SectionAction, SectionResultAction> {
+
+  constructor(
+    state: SectionState,
+    executor: SectionExecutor,
+    reducer: SectionReducer
+  ) {
+    super(state, executor, reducer);
+  }
+
+}

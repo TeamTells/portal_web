@@ -11,7 +11,7 @@ import {EmployeesListComponent} from './features/employees/components/employees-
 import {
   EmployeesNewComponent
 } from './features/employees/components/employee-new/presentation/view/employee-new.component';
-import {SectionComponent} from "./features/section/presentation/section.component";
+import {SectionComponent} from "./features/section/impl/presentation/view/section.component";
 import {SectionsComponent} from "./features/sections/impl/presentation/sections.component";
 
 const employeesItems: Routes = [
@@ -23,9 +23,9 @@ const employeesItems: Routes = [
 
 const mainItems: Routes = [
   {path: 'employees', component: EmployeesComponent, children: employeesItems},
-  {path: 'sections', component: SectionsComponent},
   {path: 'settings', component: SettingsComponent},
-  {path: 'sections/:id', component: SectionComponent}
+  {path: 'sections', component: SectionsComponent},
+  {path: 'section/:id', component: SectionComponent}
 ]
 
 const appRoutes: Routes = [
