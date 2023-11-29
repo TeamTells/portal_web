@@ -63,3 +63,16 @@ export class DateRule extends Rule {
     );
   }
 }
+
+export class PhoneNumberRule extends Rule {
+  constructor(errorPattern: string, private countryCode: string) {
+    super(errorPattern);
+    this.pattern = `^\\${this.countryCode} \\(\\d{3}\\) \\d{3}-\\d{2}-\\d{2}$`;
+  }
+
+  private pattern: string;
+
+  check(value: string): boolean {
+    return value.match(this.pattern) !== null;
+  }
+}
