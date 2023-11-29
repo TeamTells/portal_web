@@ -1,28 +1,24 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-core-search-field',
-  templateUrl: './search-field.component.html'
+  templateUrl: './search-field.component.html',
 })
 export class SearchFieldComponent {
   @Input() class?: string | string[];
   @Input() placeholder: string = 'Поиск';
-  @Input() onSubmit?: (value: string) => void;
-  @Input() onChange?: (value: string) => void;
+  @Input() onSubmit: EventEmitter<string> = new EventEmitter<string>();
+  @Output() onChange: EventEmitter<string> = new EventEmitter<string>();
 
   onSubmitValue(event: any) {
-    if (!this.onSubmit) return
+    if (!this.onSubmit) return;
     const value = event.target.value;
-    if (value) {
-      this.onSubmit(value)
-    }
+    this.onSubmit.emit(value);
   }
 
   onChangeValue(event: any) {
-    if (!this.onChange) return
+    if (!this.onChange) return;
     const value = event.target.value;
-    if (value) {
-      this.onChange(value)
-    }
+    this.onChange.emit(value);
   }
 }

@@ -28,13 +28,31 @@ export class EmployeeNewExecutor extends Executor<
     @Inject('NewEmployeeLastNameValidator')
     private lastNameValidator: Validator,
     @Inject('NewEmployeeDateOfBirthValidator')
-    private dateOfBirthValidator: Validator
+    private dateOfBirthValidator: Validator,
+    @Inject('NewEmployeePhoneNumberValidator')
+    private phoneNumberValidator: Validator,
+    @Inject('NewEmployeeJobTitleValidator')
+    private jobTitleValidator: Validator,
   ) {
     super();
   }
 
   execute(action: EmployeeNewAction) {
     switch (action.type) {
+      case EmployeeNewActionTypes.CHANGE_JOB_TITLE:
+        this.reduce({
+          type: EmployeeNewResultActionTypes.CHANGE_JOB_TITLE,
+          jobTitle: action.jobTitle,
+        });
+        break;
+
+      case EmployeeNewActionTypes.CHANGE_PHONE_NUMBER:
+        this.reduce({
+          type: EmployeeNewResultActionTypes.CHANGE_PHONE_NUMBER,
+          phoneNumber: action.phoneNumber,
+        });
+        break;
+
       case EmployeeNewActionTypes.CHANGE_FIRST_NAME:
         this.reduce({
           type: EmployeeNewResultActionTypes.CHANGE_FIRST_NAME,
@@ -80,22 +98,26 @@ export class EmployeeNewExecutor extends Executor<
       case EmployeeNewActionTypes.SELECT_DEPARTMENT:
         this.reduce({
           type: EmployeeNewResultActionTypes.SELECT_DEPARTMENT,
-          department: this.getState().departments.find(
-            (d) => d.id === action.departmentId
-          ),
+          department: action.department,
         });
         break;
 
-      case EmployeeNewActionTypes.SELECT_RIGHT:
+      case EmployeeNewActionTypes.REMOVE_DEPARTMENT:
         this.reduce({
-          type: EmployeeNewResultActionTypes.SELECT_RIGHT,
-          right: this.getState().rights.find((r) => r.id === action.rightId),
+          type: EmployeeNewResultActionTypes.REMOVE_DEPARTMENT,
         });
         break;
 
-      case EmployeeNewActionTypes.SELECT_ROLE:
+      case EmployeeNewActionTypes.ADD_ROLE:
         this.reduce({
-          type: EmployeeNewResultActionTypes.SELECT_ROLE,
+          type: EmployeeNewResultActionTypes.ADD_ROLE,
+          role: this.getState().roles.find((r) => r.id === action.roleId),
+        });
+        break;
+
+      case EmployeeNewActionTypes.REMOVE_ROLE:
+        this.reduce({
+          type: EmployeeNewResultActionTypes.REMOVE_ROLE,
           role: this.getState().roles.find((r) => r.id === action.roleId),
         });
         break;
@@ -107,21 +129,29 @@ export class EmployeeNewExecutor extends Executor<
   }
 
   private handleCreate() {
+    let phoneNumberError = this.phoneNumberValidator.validate(
+      this.getState().phoneNumber,
+    );
+    let jobTitleError = this.jobTitleValidator.validate(
+      this.getState().jobTitle,
+    );
     let emailError = this.emailValidator.validate(this.getState().email);
     let passwordError = this.passwordValidator.validate(
-      this.getState().password
+      this.getState().password,
     );
     let firstNameError = this.firstNameValidator.validate(
-      this.getState().firstName
+      this.getState().firstName,
     );
     let lastNameError = this.lastNameValidator.validate(
-      this.getState().lastName
+      this.getState().lastName,
     );
     let dateOfBirthError = this.dateOfBirthValidator.validate(
-      this.getState().dateOfBirth
+      this.getState().dateOfBirth,
     );
 
     if (
+      phoneNumberError != null ||
+      jobTitleError != null ||
       emailError != null ||
       passwordError != null ||
       firstNameError != null ||
@@ -130,6 +160,8 @@ export class EmployeeNewExecutor extends Executor<
     ) {
       this.reduce({
         type: EmployeeNewResultActionTypes.VALIDATION_ERROR,
+        phoneNumberError: phoneNumberError != null ? phoneNumberError : '',
+        jobTitleError: jobTitleError != null ? jobTitleError : '',
         emailError: emailError != null ? emailError : '',
         passwordError: passwordError != null ? passwordError : '',
         firstNameError: firstNameError != null ? firstNameError : '',
