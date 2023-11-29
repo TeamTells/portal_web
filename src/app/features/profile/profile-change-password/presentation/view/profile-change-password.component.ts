@@ -32,7 +32,7 @@ ChangePasswordResultAction>  {
         });
   } 
 
-  onActualPasswordChange(s: string){
+  onActualPasswordChange(s: string){ 
     this.performAction({
           type: ChangePasswordActionType.SET_ACTUAL_PASSWORD,
           password: s,

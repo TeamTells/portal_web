@@ -6,7 +6,7 @@ export enum ProfileNavItem{
     SECURITY,
     CHANGE_PASSWORD,
 }
-// TODO: возможно не имеет смысла
+
 export interface ProfileNavEntity{
     navItem: ProfileNavItem,
     params: string,

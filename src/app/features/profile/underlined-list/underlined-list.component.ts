@@ -6,7 +6,6 @@ export interface UnderlinedListProp{
   second: string,
 }
 
-
 @Component({
   selector: 'app-underlined-list',
   templateUrl: './underlined-list.component.html',
