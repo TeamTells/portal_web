@@ -1,7 +1,9 @@
 import {Injectable} from "@angular/core";
 import {Reducer} from "../../../../../core/mvi/store";
 import {SectionState} from "./section-state";
-import {SectionResultAction} from "./section-result-action";
+import {SectionResultAction, SectionResultActionTypes} from "./section-result-action";
+import {clone} from "cloneable-ts";
+import {SectionEntity} from "../../domain/section-entity";
 
 @Injectable({
   providedIn: 'root'
@@ -9,9 +11,14 @@ import {SectionResultAction} from "./section-result-action";
 export class SectionReducer implements Reducer<SectionState, SectionResultAction> {
 
   reduce(state: SectionState, action: SectionResultAction): SectionState {
-    // switch (action.type) {
-    //
-    // }
+    switch (action.type) {
+      case SectionResultActionTypes.UPDATE_SECTION:
+        return this.updateSection(state, action.section)
+        break
+    }
+  }
+
+  private updateSection(state: SectionState, newSection: SectionEntity): SectionState {
     return state
   }
 
