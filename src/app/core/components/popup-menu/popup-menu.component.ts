@@ -1,31 +1,28 @@
 import {
-  AfterViewInit,
   Component,
   ContentChild,
+  HostListener,
   Input,
-  OnDestroy,
 } from '@angular/core';
 import { PopupMenuButtonComponent } from './popup-menu-button/popup-menu-button.component';
-import { Subscription } from 'rxjs';
 import { PopupMenuContentComponent } from './popup-menu-content/popup-menu-content.component';
 
 @Component({
   selector: 'app-popup-menu',
   templateUrl: './popup-menu.component.html',
 })
-export class PopupMenuComponent implements AfterViewInit, OnDestroy {
+export class PopupMenuComponent {
   @ContentChild(PopupMenuButtonComponent)
   buttonComponent?: PopupMenuButtonComponent;
   @ContentChild(PopupMenuContentComponent)
   contentComponent?: PopupMenuContentComponent;
   @Input() leftOffset: number = 0;
   @Input() topOffset: number = 0;
+  private isActive: boolean = false;
 
-  private buttonSubscription?: Subscription;
-
-  private onActivation(val: boolean): void {
+  private changeVisability(){
     if (this.contentComponent) {
-      this.contentComponent.hidenStyle = val ? 'hidden' : 'block';
+      this.contentComponent.hidenStyle =  this.isActive ? 'block' : 'hidden';
     }
     if (this.contentComponent) {
       this.contentComponent.leftOffset = `${this.leftOffset}px`;
@@ -33,18 +30,26 @@ export class PopupMenuComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  ngAfterViewInit(): void {
-    if (!this.buttonComponent) {
-      return;
-    }
-    this.buttonSubscription = this.buttonComponent.isActiveEmitter.subscribe(
-      this.onActivation.bind(this)
-    );
+  private onActivation(val: boolean): void {
+    this.isActive = !this.isActive;
+    this.changeVisability();
   }
 
-  ngOnDestroy() {
-    if (this.buttonSubscription) {
-      this.buttonSubscription.unsubscribe();
+  @HostListener('document:click', ['$event.target'])
+  private _onClickedOutside(target: any): void{
+    if (this.contentComponent && this.buttonComponent) {
+      const clickedOnButton = this.buttonComponent.buttonContent.nativeElement.contains(target);
+      if (clickedOnButton){
+        this.isActive = !this.isActive;
+        this.changeVisability();
+        return;
+      }
+      const clickedOnMenu = this.contentComponent.menuContent.nativeElement.contains(target);
+      if (!clickedOnMenu && !clickedOnButton && this.isActive){
+        this.isActive = !this.isActive;
+        this.changeVisability();
+        return;
+      }
     }
   }
 }
