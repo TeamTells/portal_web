@@ -19,11 +19,6 @@ import { EmployeeEditComponent } from './features/employees/components/employee-
 import { DepartmentEditComponent } from './features/employees/components/department-edit/department-edit.component';
 import { RegistrationComponent } from './features/registration/presentation/registration.component';
 
-import { ProfileInfoComponent } from './features/profile/profile-info/profile-info.component';
-import { ProfileSecurityComponent } from './features/profile/profile-security/profile-security.component';
-import { ProfileComponent } from './features/profile/profile/profile.component';
-import { ProfileChangePasswordComponent } from './features/profile/profile-change-password/presentation/view/profile-change-password.component';
-
 const employeesItems: Routes = [
   { path: 'new-employee', component: EmployeeNewComponent },
   { path: 'new-department', component: DepartmentNewComponent },
@@ -36,13 +31,6 @@ const employeesItems: Routes = [
   { path: 'sections/:id', component: SectionComponent },
 ];
 
-const profileItems: Routes = [
-  {path: '', component: ProfileInfoComponent,},
-  {path: 'security', component:ProfileSecurityComponent},
-  {path: 'change-password', component: ProfileChangePasswordComponent},
-]
-
-
 const mainItems: Routes = [
   {
     path: 'employees',
@@ -51,7 +39,6 @@ const mainItems: Routes = [
   },
   { path: 'sections', component: SectionsComponent },
   { path: 'settings', component: SettingsComponent },
-  { path: 'profile', component: ProfileComponent, children: profileItems},
 ];
 
 const appRoutes: Routes = [

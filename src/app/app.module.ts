@@ -15,7 +15,6 @@ import { SectionsModule } from './features/sections/sections.module';
 import { ComponentsModule } from './core/components/components.module';
 import { RegistrationModule } from './features/registration/registration.module';
 
-
 @NgModule({
   declarations: [AppComponent],
   imports: [
