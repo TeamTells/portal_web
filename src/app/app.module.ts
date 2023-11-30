@@ -14,6 +14,7 @@ import { EmployeesModule } from './features/employees/employees.module';
 import { SectionsModule } from './features/sections/sections.module';
 import { ComponentsModule } from './core/components/components.module';
 import { RegistrationModule } from './features/registration/registration.module';
+import {ProfileModule} from "./features/profile/profile.module";
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { RegistrationModule } from './features/registration/registration.module'
     SectionsModule,
     ComponentsModule,
     RegistrationModule,
+    ProfileModule
   ],
   providers: [
     {

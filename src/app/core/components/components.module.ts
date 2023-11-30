@@ -49,6 +49,7 @@ import { MultiselectFieldComponent } from './multiselect-field/multiselect-field
     InputFieldComponent,
     SearchFieldComponent,
     DropdownFieldComponent,
+    FieldErrorMessageComponent,
     ButtonLightGrayComponent,
     PopupMenuComponent,
     PopupMenuButtonComponent,
