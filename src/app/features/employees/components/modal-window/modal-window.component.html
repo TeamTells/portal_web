@@ -1,14 +1,21 @@
-<div class="absolute top-0 right-0 left-0 bottom-0 m-[auto] w-[963px] min-h-[20%] max-h-[60%] bg-white rounded-[16px] p-[24px] z-[10]">
+<app-core-page-shading>
+    <div class="absolute top-0 right-0 left-0 bottom-0 m-[auto] w-[963px] h-[521px] min-h-[20%] max-h-[60%] bg-white rounded-[16px] p-[24px] z-[10]">
 
-    <div class="flex flex-row h-[42px] mb-[16px]">
-        <div class="text-[28px] font-[500] w-[100%]">{{title}}</div>
-        <img src="../../../../../assets/xmark.svg" class="w-[29px] cursor-pointer" (click)="closeClick.emit()">
+        <div class="flex flex-row h-[42px] mb-[16px]">
+            <div class="text-[28px] font-[500] w-[100%]">{{data.title}}</div>
+            <img src="../../../../../assets/xmark.svg" class="w-6 h-6 cursor-pointer" (click)="closeClick.emit()">
+        </div>
+
+        <app-core-search-field class="mt-4"/>
+
+        <div class="mt-4 h-[283px] overflow-scroll overflow-x-hidden no-scrollbar">
+            <ng-content ></ng-content>
+        </div>
+    
+        <div class="flex justify-end mt-4">
+            <app-core-button-light-gray class="mr-[16px]" (buttonClick)="closeClick.emit()" text={{data.cancel}}/>
+            <app-core-button-red text={{data.submit}}/>
+        </div>
+    
     </div>
-
-    <ng-content></ng-content>
-
-    <div class="flex justify-end">
-        <app-core-button-light-gray class="mr-[16px]" text="Отмена"/>
-        <app-core-button-red text="Отмена"/>
-    </div>
-</div>
+</app-core-page-shading>

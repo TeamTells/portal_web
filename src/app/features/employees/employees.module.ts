@@ -29,6 +29,7 @@ import {
   passwordValidatorFactory,
   phoneNumberValidatorFactory,
 } from 'src/app/core/validators/validators';
+import { SelectDepartmentModalComponent } from './components/select-department-modal/select-department-modal.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import {
     EmployeeNewComponent,
     DepartmentEditComponent,
     EmployeeEditComponent,
+    SelectDepartmentModalComponent
   ],
   exports: [EmployeesComponent],
   imports: [CommonModule, ComponentsModule, RouterOutlet],

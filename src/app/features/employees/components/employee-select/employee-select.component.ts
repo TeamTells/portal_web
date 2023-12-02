@@ -1,6 +1,5 @@
 import { Component, Input, OnDestroy } from '@angular/core';
 import { EmployeesDataService } from '../../data/employees-data-service';
-import { DepartmentEntity } from '../department/department.component';
 import { EmployeeItemEntity } from '../employee-item/employee-item.component';
 import { Store } from 'src/app/core/mvi/store';
 import { EmployeeSelectState } from './state/employee-select-state';
@@ -17,12 +16,21 @@ import { EmployeeSelectSettings, SelectCount } from './interfaces/employee-selec
 
 export class EmployeeSelectComponent extends Store<EmployeeSelectState, EmployeeSelectExecutor, EmployeeSelectAction, EmployeeSelectResultAction>{
 
+  @Input() public settings: EmployeeSelectSettings = {
+    toolsVisible: true,
+    blueBoxVisible: true,
+    countType: SelectCount.Multiple
+  }
+
+  strings = {
+    selected: "выбрано"
+  }
+
   constructor(
     state: EmployeeSelectState,
     executor: EmployeeSelectExecutor,
     reducer: EmployeeSelectReducer,
     private data: EmployeesDataService
-
   ) {
     super(state, executor, reducer);
     this.performAction({
@@ -33,16 +41,6 @@ export class EmployeeSelectComponent extends Store<EmployeeSelectState, Employee
   }
 
   protected readonly EmployeeSelectActionTypes = EmployeeSelectActionTypes;
-
-  @Input() public settings: EmployeeSelectSettings = {
-    toolsVisible: true,
-    blueBoxVisible: true,
-    countType: SelectCount.Multiple
-  }
-
-  strings = {
-    selected: "выбрано"
-  }
 
   selectEmployee(employee: EmployeeItemEntity): void {
     this.performAction({

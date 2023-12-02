@@ -1,0 +1,12 @@
+<employees-modal-window [data]="modalWindowData" (closeClick)="closeClicked.emit()">
+
+    <div>
+        <app-core-department *ngFor="let item of departments"
+        [department]="item"
+        (clicked)="selectDepartment($event)"
+        [employeesVisible]="false"
+        />
+    </div>
+    
+        
+</employees-modal-window>

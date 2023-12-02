@@ -6,6 +6,8 @@ import { Injectable } from "@angular/core";
 import { EmployeeItemEntity } from "../../employee-item/employee-item.component";
 import { DepartmentEntity } from "../../department/department.component";
 import { elementAt } from "rxjs";
+import { EmployeesNavItem, EmployeesNavigator } from "../../../navigation/employees-navigator";
+import { NavItem } from "src/app/features/main/presentation/state/main-state";
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +15,7 @@ import { elementAt } from "rxjs";
 export class EmployeeSelectExecutor extends Executor<EmployeeSelectState, EmployeeSelectAction, EmployeeSelectResultAction> {
 
   constructor(
+    private navigator: EmployeesNavigator
   ) {
     super();
   }
@@ -35,8 +38,20 @@ export class EmployeeSelectExecutor extends Executor<EmployeeSelectState, Employ
       case EmployeeSelectActionTypes.UNSELECT_ALL:
         this.handleUnselectAll()
         break
+      case EmployeeSelectActionTypes.ROUTE_TO_DEPARTMENT:
+        this.navigator.showContent({navItem: EmployeesNavItem.DEPARTMENT, params: action.id.toString()})
+        break
       case EmployeeSelectActionTypes.MOVE_TO_DEPARTMENT:
-
+        this.reduce({
+          type: EmployeeSelectResultActionTypes.MOVE_TO_DEPARTMENT,
+          visible: true
+        })
+        break
+      case EmployeeSelectActionTypes.MOVE_TO_DEPARTMENT_CLOSE:
+        this.reduce({
+          type: EmployeeSelectResultActionTypes.MOVE_TO_DEPARTMENT,
+          visible: false
+        })
         break
       case EmployeeSelectActionTypes.NEW_DEPARTMENT:
 
