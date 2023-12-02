@@ -1,12 +1,15 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { DepartmentEntity } from '../department/department.component';
 import { EmployeesDataService } from '../../data/employees-data-service';
 import { ActivatedRoute } from '@angular/router';
+import {
+  EmployeesNavItem,
+  EmployeesNavigator,
+} from '../../navigation/employees-navigator';
 
 @Component({
   selector: 'department-info',
   templateUrl: './department-info.component.html',
-  styleUrls: ['./department-info.component.scss']
 })
 export class DepartmentInfoComponent {
   public countOfEmployees: number = 0;
@@ -28,27 +31,36 @@ export class DepartmentInfoComponent {
     });
   }
 
-  strings = 
-  {
-    change: "Изменить",
-    supervisor: "Руководитель", 
-    participants: "Участники",
-    emptyText: "В отделе нет подразделений и сотрудников",
-    add: "Добавить"
+  editDepartment() {
+    this.navigator.showContent({
+      navItem: EmployeesNavItem.EDIT_DEPARTMENT,
+      params: '',
+    });
   }
 
-  isEmptyDepartment(): boolean
-  {
-    return this.department.employees.length == 0 && this.department.departments.length == 0
+  getCountEmployees(department: DepartmentEntity): void {
+    this.countOfEmployees += department.employees.length;
+    department.departments.forEach((element) => {
+      this.getCountEmployees(element);
+    });
   }
 
-  onChangeClicked(): void
-  {
+  strings = {
+    change: 'Изменить',
+    supervisor: 'Руководитель',
+    participants: 'Участники',
+    emptyText: 'В отделе нет подразделений и сотрудников',
+    add: 'Добавить',
+  };
 
+  isEmptyDepartment(): boolean {
+    return (
+      this.department.employees.length == 0 &&
+      this.department.departments.length == 0
+    );
   }
 
-  onAddClicked(): void
-  {
+  onChangeClicked(): void {}
 
-  }
+  onAddClicked(): void {}
 }
