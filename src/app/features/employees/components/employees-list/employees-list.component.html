@@ -1,14 +1,25 @@
 <app-core-main-content-card>
-  
   <div class="flex justify-between">
-    <p class="my-auto font-medium text-[28px]">{{strings.users}}</p>
-    <app-core-button-red (buttonClick)="onCreateClick()" class="my-auto" [text]="strings.create"/>
+    <p class="my-auto font-medium text-[28px]">{{ strings.users }}</p>
+    <app-popup-menu [leftOffset]="-140" [topOffset]="20">
+      <app-popup-menu-button>
+        <app-core-button-red class="my-auto" [text]="strings.create" />
+      </app-popup-menu-button>
+
+      <app-popup-menu-content class="w-[240px]">
+        <app-popup-menu-option [divider]="true" (onClick)="createEmployee()">
+          {{ strings.employee }}
+        </app-popup-menu-option>
+        <app-popup-menu-option (onClick)="createDepartment()">
+          {{ strings.department }}
+        </app-popup-menu-option>
+      </app-popup-menu-content>
+    </app-popup-menu>
   </div>
 
-  <app-core-search-field class="mt-6"/>
+  <app-core-search-field class="mt-6" />
 
   <div class="mt-6">
     <employees-select [settings]="employeesSelectSettings" />
   </div>
-  
 </app-core-main-content-card>

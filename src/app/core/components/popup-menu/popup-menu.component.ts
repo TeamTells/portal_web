@@ -1,35 +1,45 @@
-import { AfterViewInit, Component, ContentChild, Input, OnDestroy } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ContentChild,
+  Input,
+  OnDestroy,
+} from '@angular/core';
 import { PopupMenuButtonComponent } from './popup-menu-button/popup-menu-button.component';
 import { Subscription } from 'rxjs';
 import { PopupMenuContentComponent } from './popup-menu-content/popup-menu-content.component';
 
 @Component({
   selector: 'app-popup-menu',
-  templateUrl: './popup-menu.component.html'
+  templateUrl: './popup-menu.component.html',
 })
-export class PopupMenuComponent implements AfterViewInit, OnDestroy{
-  @ContentChild(PopupMenuButtonComponent) buttonComponent?: PopupMenuButtonComponent;
-  @ContentChild(PopupMenuContentComponent) contentComponent?: PopupMenuContentComponent;
+export class PopupMenuComponent implements AfterViewInit, OnDestroy {
+  @ContentChild(PopupMenuButtonComponent)
+  buttonComponent?: PopupMenuButtonComponent;
+  @ContentChild(PopupMenuContentComponent)
+  contentComponent?: PopupMenuContentComponent;
   @Input() leftOffset: number = 0;
   @Input() topOffset: number = 0;
-  
+
   private buttonSubscription?: Subscription;
 
-  private onActivation(val: boolean): void{
-    if(this.contentComponent){
-     this.contentComponent.hidenStyle = (val) ? "hidden" : "block";
+  private onActivation(val: boolean): void {
+    if (this.contentComponent) {
+      this.contentComponent.hidenStyle = val ? 'hidden' : 'block';
     }
-    if(this.contentComponent){
+    if (this.contentComponent) {
       this.contentComponent.leftOffset = `${this.leftOffset}px`;
-      this.contentComponent.topOffset =  `${this.topOffset}px`;
+      this.contentComponent.topOffset = `${this.topOffset}px`;
     }
   }
 
   ngAfterViewInit(): void {
-    if(!this.buttonComponent) {
+    if (!this.buttonComponent) {
       return;
     }
-    this.buttonSubscription = this.buttonComponent.isActiveEmitter.subscribe(this.onActivation.bind(this));
+    this.buttonSubscription = this.buttonComponent.isActiveEmitter.subscribe(
+      this.onActivation.bind(this)
+    );
   }
 
   ngOnDestroy() {

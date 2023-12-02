@@ -1,0 +1,25 @@
+<div [ngClass]="class">
+    <app-core-dropdown-field
+      *ngIf="selectedItems.length === 0"
+      [placeholder]="placeholder"
+      [items]="items"
+      (onSelect)="onSelectItem($event)"
+      (onUnselect)="onUnselectItem($event)"
+    />
+    <app-core-dropdown-field
+      class="mb-2"
+      *ngFor="let item of selectedItems"
+      [items]="getNonSelectedItems()"
+      [selectedItem]="item"
+      (onUnselect)="onUnselectItem($event)"
+    />
+    <app-core-dropdown-field
+      *ngIf="getNonSelectedItems().length !== 0 && selectedItems.length !== 0"
+      [placeholder]="placeholder"
+      [items]="getNonSelectedItems()"
+      (onSelect)="onSelectItem($event)"
+      (onUnselect)="onUnselectItem($event)"
+    />
+    <app-field-error-message [error]="error" />
+  </div>
+  
