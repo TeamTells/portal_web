@@ -1,12 +1,27 @@
 <div class="rich-editor-wrapper">
-  <app-breadcrumbs [breadcrumbs]="[
-  { label: 'Home', url: '/home' },
-  { label: 'About', url: '/about' },
-  { label: 'Contact', url: '/contact' }
-]"></app-breadcrumbs>
+  <!--  <app-breadcrumbs [breadcrumbs]="[-->
+  <!--  { label: 'Home', url: '/home' },-->
+  <!--  { label: 'About', url: '/about' },-->
+  <!--  { label: 'Contact', url: '/contact' }-->
+  <!--]"></app-breadcrumbs>-->
 
-  <plus-button [top]="plusButtonOffsetTop" [left]="plusButtonOffsetLeft" [isVisible]="plusButtonVisible"></plus-button>
-  <app-selection-context-menu [top]="selMenuOffsetTop" [left]="selMenuOffsetLeft" [isVisible]="selMenuVisible"></app-selection-context-menu>
+  <app-gutter-button [top]="plusButton.offsetTop" [left]="plusButton.offsetLeft" [isVisible]="plusButton.visible"
+                     [items]="[
+  {id: 'paragraph', name:'Text'},
+  {id: 'heading-one', name:'Heading 1'},
+  {id: 'heading-two', name:'Heading 2'},
+  {id: 'bulleted-list', name:'Bulleted list'},
+  {id: 'numbered-list', name:'Numbered List'},
+  {id: 'image', name:'Image'},
+  {id: 'video', name:'Video'},
+  ]" (onSelect)="onContextCommand({type:'create_typed_element', kind: $event})"></app-gutter-button>
+
+  <app-gutter-button [top]="removeButton.offsetTop" [left]="removeButton.offsetLeft" [isVisible]="removeButton.visible"
+                     [imageSrc]="'assets/trashbin.svg'" (onClick)="onContextCommand({type:'delete_current_element'})"></app-gutter-button>
+  <app-selection-context-menu [top]="selMenu.offsetTop" [left]="selMenu.offsetLeft" [isVisible]="selMenu.visible"
+                              [state]="contextMenuOptions"
+                              (onCommand)="onContextCommand($event)"></app-selection-context-menu>
+  <!--  <app-plus-context-menu [top]="selMenuOffsetTop" [left]="selMenuOffsetLeft" [isVisible]="selMenuVisible"></app-plus-context-menu>-->
   <slate-editable
     class="slate-editable-container"
     [editor]="editor"
@@ -15,6 +30,7 @@
     [renderElement]="renderElement"
     [renderText]="renderText"
     [keydown]="keydown"
+    (blur)="onBlur($event)"
   >
     <ng-template #heading_1 let-context="context" let-viewContext="viewContext">
       <h1 slateElement [context]="context" [viewContext]="viewContext"></h1>

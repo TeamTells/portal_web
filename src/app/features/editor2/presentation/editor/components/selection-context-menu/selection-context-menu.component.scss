@@ -1,4 +1,37 @@
 .card {
-  width: 18rem;
   position: absolute;
+}
+
+[tooltip] {
+  position: relative;
+  cursor: pointer;
+}
+
+[tooltip]:before {
+  content: attr(tooltip);
+  position: absolute;
+  font-size: 12px;
+  padding: 8px 12px;
+  color: white;
+  border-radius: 16px;
+  background: #1E2023;
+  opacity: 0;
+  white-space: nowrap;
+  max-width: 200px;
+  overflow-wrap: break-word;
+  transition: opacity 0.5s;
+}
+
+[tooltip]:hover:before {
+  opacity: 1;
+}
+
+[tooltip][tooltip-position="top"]:before {
+  bottom: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.hover-gray-100:hover {
+  background-color: #F5F5F5; /* This is a light gray color, you can adjust it according to your needs */
 }

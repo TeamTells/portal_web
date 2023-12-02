@@ -1,112 +1,6 @@
 @use 'slate-angular/styles/index.scss';
-.drop_down_menu_item {
-  @apply text-gray-700 block px-4 py-2 text-sm hover:bg-gray-200 transition duration-300
-}
 
 $editor-width: 800px;
-
-.header {
-  align-items: center;
-  background: #fff;
-  color: #333;
-  display: flex;
-  height: 54px;
-  z-index: 1000;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  border-bottom: 1px solid #eee;
-  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.05);
-  .header-logo {
-    display: flex;
-    margin-left: 20px;
-    .logo {
-      display: flex;
-      img {
-        height: 23px;
-        width: auto;
-        vertical-align: middle;
-      }
-      .title {
-        height: 25px;
-        margin-left: 10px;
-        position: relative;
-        top: -1px;
-      }
-    }
-    /* To appear above the underlay */
-    .title {
-      margin-left: 10px;
-    }
-  }
-  .header-bars {
-    display: none;
-  }
-
-  .link {
-    margin-left: auto;
-    margin-right: 1em;
-    font-size: 14px;
-    .github,
-    .docs {
-      margin-left: 1em;
-      color: #666;
-      -webkit-text-decoration: none;
-      text-decoration: none;
-      &:hover {
-        color: #348fe4;
-      }
-    }
-  }
-}
-
-.sidenav {
-  .nav-menu {
-    padding-top: 16px;
-    position: fixed;
-    top: 52px;
-    bottom: 0;
-    left: 0;
-    min-width: 260px;
-    border-right: 1px solid #eee;
-    background-color: white;
-    z-index: 1;
-
-    .menu-item {
-      .vertical-menu-item {
-        box-sizing: border-box;
-        color: #333;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        text-align: left;
-        width: 100%;
-        text-decoration: none;
-
-        &.selected {
-          color: #348fe4;
-        }
-
-        &:hover {
-          background-color: rgba(52, 143, 228, 0.1);
-          color: #348fe4;
-          text-shadow: 0 0 5px #fff;
-        }
-      }
-
-      .level-1 {
-        font-size: 14px;
-        line-height: 42px;
-        font-weight: 400;
-        padding-left: 20px;
-        margin: 0;
-        color: #666;
-        transition: background-color 0.2s;
-      }
-    }
-  }
-}
 
 .content {
   position: relative;
@@ -170,62 +64,62 @@ $editor-width: 800px;
   }
 }
 
-@media screen and (max-width: 768px) {
-  .header-bars {
-    display: flex;
-    position: relative;
-    margin-top: 53px;
-    padding-left: 1em;
-    height: 42px;
-    color: #666;
-    align-items: center;
-    .header-bars-name {
-      font-size: 14px;
-      margin-left: 1em;
-    }
-    .material-icons {
-      cursor: pointer;
-    }
-  }
-  .sidenav {
-    position: relative;
-    top: 0;
-    z-index: 10;
-    left: -100%;
-    transition: all 0.3s;
-    .nav-menu {
-      left: -100%;
-      background-color: #fff;
-      transition: all 0.3s;
-      top: 95px;
-    }
-    &:after {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: calc(100vh - 95px);
-      background: rgba(0, 0, 0, 0.3);
-    }
-  }
-  .animate-sidenav {
-    left: 0;
-    .nav-menu {
-      left: 0;
-      overflow: scroll;
-    }
-  }
-  .content {
-    margin-left: 0px;
-    margin-top: 0px;
-  }
-  .sidenav-content {
-    overflow: hidden;
-    height: calc(100vh - 100px);
-  }
-  .rich-editor-wrapper {
-    margin-top: 0;
-  }
-}
+//@media screen and (max-width: 768px) {
+//  .header-bars {
+//    display: flex;
+//    position: relative;
+//    margin-top: 53px;
+//    padding-left: 1em;
+//    height: 42px;
+//    color: #666;
+//    align-items: center;
+//    .header-bars-name {
+//      font-size: 14px;
+//      margin-left: 1em;
+//    }
+//    .material-icons {
+//      cursor: pointer;
+//    }
+//  }
+//  .sidenav {
+//    position: relative;
+//    top: 0;
+//    z-index: 10;
+//    left: -100%;
+//    transition: all 0.3s;
+//    .nav-menu {
+//      left: -100%;
+//      background-color: #fff;
+//      transition: all 0.3s;
+//      top: 95px;
+//    }
+//    &:after {
+//      content: '';
+//      position: absolute;
+//      width: 100%;
+//      height: calc(100vh - 95px);
+//      background: rgba(0, 0, 0, 0.3);
+//    }
+//  }
+//  .animate-sidenav {
+//    left: 0;
+//    .nav-menu {
+//      left: 0;
+//      overflow: scroll;
+//    }
+//  }
+//  .content {
+//    margin-left: 0px;
+//    margin-top: 0px;
+//  }
+//  .sidenav-content {
+//    overflow: hidden;
+//    height: calc(100vh - 100px);
+//  }
+//  .rich-editor-wrapper {
+//    margin-top: 0;
+//  }
+//}
 
 //
 //div:empty:before {
@@ -237,3 +131,97 @@ $editor-width: 800px;
 //  content: attr(span-data-placeholder);
 //  color: grey;
 //}
+
+.slate-editable-container {
+  [slate-underlined][slate-strike] {
+    text-decoration: underline line-through;
+  }
+  [slate-strike] {
+    text-decoration: line-through;
+  }
+  [slate-underline] {
+    text-decoration: underline;
+  }
+  [slate-italic] {
+    font-style: italic;
+  }
+  [slate-bold] {
+    font-weight: bold;
+  }
+  [slate-code-line] {
+    margin: 0 4px;
+    padding: 2px 3px;
+    border: 1px solid rgba($color: #000000, $alpha: 0.08);
+    border-radius: 2px;
+    background-color: rgba($color: #000000, $alpha: 0.06);
+  }
+  blockquote {
+    margin: 0;
+    color: #888;
+    padding-left: 10px !important;
+    border-left: 4px solid #eee;
+  }
+  & > [data-slate-node='element'],
+  & > slate-block-card {
+    margin-bottom: 24px;
+  }
+
+  h1 {
+    font-size: 44px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+
+  h2 {
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+
+  //.paragraph {
+  //  color: #2E343B;
+  //  font-size: 16px;
+  //  font-style: normal;
+  //  line-height: normal;
+  //}
+
+  .demo-element-button {
+    margin: 0 0.1em;
+    background-color: #efefef;
+    padding: 2px 6px;
+    border: 1px solid #767676;
+    border-radius: 2px;
+    font-size: 0.9em;
+  }
+
+  .demo-element-link-active {
+    box-shadow: 0 0 0 3px #ddd;
+  }
+
+  ul {
+    //line-height: 1.8;
+    list-style: square inside;
+  }
+
+  //ul li:not(:last-child) {
+  //  display: block;
+  //}
+
+  ol {
+    counter-reset: item;
+    list-style-type: none;
+  }
+
+  ol li {
+    display: block;
+  }
+
+  ol li:before {
+    content: counter(item);
+    margin-right: 16px;
+    counter-increment: item;
+  }
+}
+

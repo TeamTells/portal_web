@@ -17,7 +17,7 @@ import {MarkTypes} from "../../../../domain/model-types";
     'data-slate-node': 'text'
   },
 })
-export class DemoTextMarkComponent extends BaseTextComponent {
+export class TextMarkComponent extends BaseTextComponent {
   attributes: string[] = [];
 
   constructor(public override elementRef: ElementRef, public renderer2: Renderer2, cdr: ChangeDetectorRef) {
