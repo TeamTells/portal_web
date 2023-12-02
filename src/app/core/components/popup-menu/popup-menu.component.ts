@@ -20,7 +20,7 @@ export class PopupMenuComponent {
   @Input() topOffset: number = 0;
   private isActive: boolean = false;
 
-  private changeVisability(){
+  private changeVisibility(){
     if (this.contentComponent) {
       this.contentComponent.hidenStyle =  this.isActive ? 'block' : 'hidden';
     }
@@ -32,22 +32,22 @@ export class PopupMenuComponent {
 
   private onActivation(val: boolean): void {
     this.isActive = !this.isActive;
-    this.changeVisability();
+    this.changeVisibility();
   }
 
   @HostListener('document:click', ['$event.target'])
-  private _onClickedOutside(target: any): void{
+  private onClickedOutside(target: any): void{
     if (this.contentComponent && this.buttonComponent) {
       const clickedOnButton = this.buttonComponent.buttonContent.nativeElement.contains(target);
       if (clickedOnButton){
         this.isActive = !this.isActive;
-        this.changeVisability();
+        this.changeVisibility();
         return;
       }
       const clickedOnMenu = this.contentComponent.menuContent.nativeElement.contains(target);
       if (!clickedOnMenu && !clickedOnButton && this.isActive){
         this.isActive = !this.isActive;
-        this.changeVisability();
+        this.changeVisibility();
         return;
       }
     }
