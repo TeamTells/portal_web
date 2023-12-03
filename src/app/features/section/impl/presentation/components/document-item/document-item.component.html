@@ -1,5 +1,5 @@
-<div>
-  <div class="flex pl-[16px] pr-[16px] pt-[8px] pb-[8px] rounded-xl hover:bg-tt-background-hover" [style.marginLeft]="getMarginOffset()">
+<div class="mx-[8px]">
+  <div class="flex px-[8px] py-[8px] rounded-xl hover:bg-tt-background-hover" [style.marginLeft]="getMarginOffset()">
     <img
       *ngIf="document.documents.length != 0 && isOpen(document.id)"
       (click)="onArrowClicked(document.id)"
