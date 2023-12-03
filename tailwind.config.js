@@ -30,7 +30,7 @@ module.exports = {
         "tt-blue": "#007BFF",
         "tt-light-blue": "#C2E7FE",
         "tt-lighter-gray": "#BCC1C6",
-        "tt-background": "#F6F7F8",
+
         "tt-background-hover": "#e8e8e8",
         "tt-background-hover-2": "#f3f3f3"
       },
