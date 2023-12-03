@@ -30,13 +30,17 @@
     class="my-3"
     placeholder="Выберите департамент"
     [selectedItem]="getSelectedParentDepartmentDropdownItem()"
-    (onClick)="openSelectParentDepartment()"
+    (onClick)="performAction({
+      type: DepartmentNewActionTypes.OPEN_DEPARTAMENT_MODAL
+    })"
     [error]="state.parentDepartmentError"
   />
   <app-core-dropdown-field
     placeholder="Выберите руководителя"
     [selectedItem]="getSelectedSipervisorDropdownItem()"
-    (onClick)="openSelectSipervisor()"
+    (onClick)="performAction({
+      type: DepartmentNewActionTypes.OPEN_SUPERVISOR_MODAL
+    })"
     [error]="state.supervisorError"
   />
 </app-core-main-content-card>
@@ -49,7 +53,9 @@
     >
   </h3>
   <app-core-search-field class="my-6" (onChange)="onChangeSearchStr($event)" />
-  <app-core-add-employees (buttonClick)="addEmployees()" />
+  <app-core-add-employees (buttonClick)="performAction({
+    type: DepartmentNewActionTypes.OPEN_EMPLOYEES_MODAL
+  })" />
   <div *ngFor="let employee of state.employees">
     <div *ngIf="employee.name.toLowerCase().includes(searchStr.toLowerCase())">
       <app-core-employee-item
@@ -64,3 +70,22 @@
     </div>
   </div>
 </app-core-main-content-card>
+
+<select-department-modal-window *ngIf="state.visibleSelectDepartmentModal"
+  (closeClicked)="performAction({
+    type: DepartmentNewActionTypes.CLOSE_DEPARTAMENT_MODAL
+  })"
+  (submitClicked)="performAction({
+    type: DepartmentNewActionTypes.CHANGE_PARENT_DEPARTMENT,
+    parentDepartment: $event
+  })" />
+
+<select-supervisor-modal-window *ngIf="state.visibleSelectSupervisorModal"
+  (closeClicked)="performAction({
+    type: DepartmentNewActionTypes.OPEN_SUPERVISOR_MODAL
+  })"
+  (submitClicked)="performAction({
+    type: DepartmentNewActionTypes.CHANGE_SUPERVISOR,
+    supervisor: $event
+  })"
+>

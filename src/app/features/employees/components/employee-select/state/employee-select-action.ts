@@ -1,5 +1,6 @@
 import { DepartmentEntity } from "../../department/department.component"
 import { EmployeeItemEntity } from "../../employee-item/employee-item.component"
+import { EmployeeSelectSettings } from "../interfaces/employee-select-settings"
 
 export type EmployeeSelectAction = InitDataAction
     | SelectEmployeeAction
@@ -25,6 +26,7 @@ export enum EmployeeSelectActionTypes {
 
 export interface InitDataAction {
     readonly type: EmployeeSelectActionTypes.INIT_DATA
+    readonly settings: EmployeeSelectSettings
     readonly employees: EmployeeItemEntity[]
     readonly departments: DepartmentEntity[]
 }

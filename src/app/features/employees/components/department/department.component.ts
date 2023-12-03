@@ -33,6 +33,7 @@ export class DepartmentComponent implements OnInit {
   @Output() arrowClicked = new EventEmitter<DepartmentEntity>()
   @Output() ctrlClicked = new EventEmitter<DepartmentEntity>()
   @Output() clicked = new EventEmitter<DepartmentEntity>()
+  @Output() employeeClicked = new EventEmitter<EmployeeItemEntity>()
   @Output() employeeCtrlClicked = new EventEmitter<EmployeeItemEntity>()
 
   ngOnInit(): void {
@@ -54,16 +55,6 @@ export class DepartmentComponent implements OnInit {
     {
       this.clicked.emit(this.department)
     }
-  }
-
-  chieldDepartmentClicked(department: DepartmentEntity): void
-  {
-    this.ctrlClicked.emit(department)
-  }
-
-  employeeClicked(employee: EmployeeItemEntity): void
-  {    
-    this.employeeCtrlClicked.emit(employee)
   }
 
   getMarginOffset(): string

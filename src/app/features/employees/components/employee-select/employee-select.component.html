@@ -1,5 +1,5 @@
 <div class="flex p-3 gap-3 rounded-2xl bg-tt-light-blue"
-  *ngIf="state.visibleTools && settings.blueBoxVisible">
+  *ngIf="state.visibleTools && state.settings.blueBoxVisible">
   <button (click)="performAction({
     type: EmployeeSelectActionTypes.UNSELECT_ALL
     })"
@@ -8,7 +8,7 @@
   </button>
   <p class="font-normal text-base">{{strings.selected}}: {{state.selectedCount}}</p>
   <div class="flex gap-3"
-    *ngIf="settings.toolsVisible">
+    *ngIf="state.settings.toolsVisible">
     <button (click)="performAction({
       type: EmployeeSelectActionTypes.MOVE_TO_DEPARTMENT
     })">
@@ -26,20 +26,16 @@
 <div class="mt-6">
   <app-core-department *ngFor="let item of state.departments" 
     [department]="item"
-    (ctrlClicked)="this.performAction({
-      type: EmployeeSelectActionTypes.SELECT_DEPARTMENT,
-      department: $event
-    })"
-    (employeeCtrlClicked)="selectEmployee($event)"
-    (clicked)="performAction({
-      type: EmployeeSelectActionTypes.ROUTE_TO_DEPARTMENT,
-      id: $event.id
-    })"
+    (employeeCtrlClicked)="employeeCtrlClicked($event)"
+    (employeeClicked)="employeeClicked($event)"
+    (clicked)="departmentClicked($event)"
+    (ctrlClicked)="departmentCtrlClicked($event)"
   />
 
   <app-core-employee-item *ngFor="let item of state.employees" 
     [employee]="item"  
-    (ctrlClicked)="selectEmployee($event)"
+    (clicked)="employeeClicked($event)"
+    (ctrlClicked)="employeeCtrlClicked($event)"
   />
 </div>
 

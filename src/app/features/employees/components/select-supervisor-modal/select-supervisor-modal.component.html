@@ -3,11 +3,7 @@
     <app-core-search-field class="mt-4"/>
 
     <div class="mt-4 h-[283px] overflow-scroll overflow-x-hidden no-scrollbar">
-        <app-core-department *ngFor="let item of departments"
-        [department]="item"
-        (clicked)="selectDepartment($event)"
-        [employeesVisible]="false"
-        />
+        <employees-select (selectClicked)="selectClick($event)" [settings]="settings"/>
     </div>
     
 </employees-modal-window>

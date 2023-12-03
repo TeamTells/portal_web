@@ -26,6 +26,7 @@ export class EmployeeItemComponent {
 
   @Input() public offset: number = 0;
 
+  @Output() clicked = new EventEmitter<EmployeeItemEntity>();
   @Output() ctrlClicked = new EventEmitter<EmployeeItemEntity>();
 
   editEmployee() {
@@ -36,8 +37,13 @@ export class EmployeeItemComponent {
   }
 
   onClick(event: any): void {
-    if (event.ctrlKey) {
+    if (event.ctrlKey) 
+    {
       this.ctrlClicked.emit(this.employee);
+    }
+    else
+    {
+      this.clicked.emit(this.employee);
     }
   }
 

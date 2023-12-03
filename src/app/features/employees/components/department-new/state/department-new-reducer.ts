@@ -28,6 +28,7 @@ export class DepartmentNewReducer
         return clone(state, {
           supervisor: action.supervisor,
           supervisorError: '',
+          visibleSelectSupervisorModal: false
         });
 
       case DepartmentNewResultActionTypes.REMOVE_SUPERVISOR:
@@ -39,6 +40,7 @@ export class DepartmentNewReducer
         return clone(state, {
           parentDepartment: action.parentDepartament,
           parentDepartmentError: '',
+          visibleSelectDepartmentModal: false
         });
 
       case DepartmentNewResultActionTypes.REMOVE_PARENT_DEPARTAMENT:
@@ -62,6 +64,12 @@ export class DepartmentNewReducer
           supervisorError: action.supervisorError,
           parentDepartmentError: action.parentDepartmentError,
         });
+      case DepartmentNewResultActionTypes.CHANGE_VISIBLE_DEPARTAMENT_MODAL:
+        return clone(state, {visibleSelectDepartmentModal: action.visible})
+      case DepartmentNewResultActionTypes.CHANGE_VISIBLE_EMPLOYEES_MODAL:
+        return clone(state, {visibleSelectEmployeesModal: action.visible})
+      case DepartmentNewResultActionTypes.CHANGE_VISIBLE_SUPERVISOR_MODAL:
+        return clone(state, {visibleSelectSupervisorModal: action.visible})
     }
   }
 }

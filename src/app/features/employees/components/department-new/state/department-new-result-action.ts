@@ -9,12 +9,18 @@ export type DepartmentNewResultAction =
   | RemoveParentDepartamentResultAction
   | AddEmpoyeesResultAction
   | RemoveEmpoyeesResultAction
-  | ValidationResultAction;
+  | ValidationResultAction
+  | ChangeVisibleDepartmentModalResultAction
+  | ChangeVisibleEmployeesModalResultAction
+  | ChangeVisibleSupervisorModalResultAction
 
 export enum DepartmentNewResultActionTypes {
   CHANGE_NAME,
   CHANGE_SUPERVISOR,
   REMOVE_SUPERVISOR,
+  CHANGE_VISIBLE_DEPARTAMENT_MODAL,
+  CHANGE_VISIBLE_EMPLOYEES_MODAL,
+  CHANGE_VISIBLE_SUPERVISOR_MODAL,
   CHANGE_PARENT_DEPARTAMENT,
   REMOVE_PARENT_DEPARTAMENT,
   ADD_EMLOYEES,
@@ -60,4 +66,17 @@ export interface ValidationResultAction {
   readonly nameError: string;
   readonly supervisorError: string;
   readonly parentDepartmentError: string;
+}
+
+export interface ChangeVisibleDepartmentModalResultAction {
+  readonly type: DepartmentNewResultActionTypes.CHANGE_VISIBLE_DEPARTAMENT_MODAL;
+  readonly visible: boolean
+}
+export interface ChangeVisibleEmployeesModalResultAction {
+  readonly type: DepartmentNewResultActionTypes.CHANGE_VISIBLE_EMPLOYEES_MODAL;
+  readonly visible: boolean
+}
+export interface ChangeVisibleSupervisorModalResultAction {
+  readonly type: DepartmentNewResultActionTypes.CHANGE_VISIBLE_SUPERVISOR_MODAL;
+  readonly visible: boolean
 }

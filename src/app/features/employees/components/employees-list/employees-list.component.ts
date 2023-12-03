@@ -5,7 +5,8 @@ import {
 } from '../../navigation/employees-navigator';
 import {
   EmployeeSelectSettings,
-  SelectCount,
+  CountType,
+  ClickType,
 } from '../employee-select/interfaces/employee-select-settings';
 
 @Component({
@@ -32,7 +33,8 @@ export class EmployeesListComponent {
   protected readonly employeesSelectSettings: EmployeeSelectSettings = {
     toolsVisible: true,
     blueBoxVisible: true,
-    countType: SelectCount.Multiple,
+    countType: CountType.Multiple,
+    clickType: ClickType.CtrlClicked
   };
 
   strings = {

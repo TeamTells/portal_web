@@ -13,6 +13,7 @@ export class ModalWindowComponent {
   }
 
   @Output() closeClick = new EventEmitter()
+  @Output() submitClick = new EventEmitter()
   
 }
 

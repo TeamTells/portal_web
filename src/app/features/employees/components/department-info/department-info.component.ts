@@ -16,6 +16,7 @@ export class DepartmentInfoComponent {
   public department: DepartmentEntity = this.dataService.ConvertToDepartmentEntity(this.dataService.departments[0])
 
   constructor(private dataService: EmployeesDataService,
+    private navigator: EmployeesNavigator,
     private route: ActivatedRoute) 
     {
       let findDepartment = dataService.departments.find((element)=>{
@@ -35,13 +36,6 @@ export class DepartmentInfoComponent {
     this.navigator.showContent({
       navItem: EmployeesNavItem.EDIT_DEPARTMENT,
       params: '',
-    });
-  }
-
-  getCountEmployees(department: DepartmentEntity): void {
-    this.countOfEmployees += department.employees.length;
-    department.departments.forEach((element) => {
-      this.getCountEmployees(element);
     });
   }
 

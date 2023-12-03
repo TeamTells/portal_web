@@ -9,14 +9,26 @@ export type DepartmentNewAction =
   | RemoveParentDepartamentAction
   | AddEmpoyeesAction
   | RemoveEmpoyeesAction
-  | CreateAction;
+  | CreateAction
+  | OpenDepartmentModalAction
+  | CloseDepartmentModalAction
+  | OpenEmployeesModalAction
+  | CloseEmployeesModalAction
+  | OpenSupervisorModalAction
+  | CloseSupervisorModalAction
 
 export enum DepartmentNewActionTypes {
   CHANGE_NAME,
   CHANGE_SUPERVISOR,
   REMOVE_SUPERVISOR,
-  CHANGE_PARENT_DEPARTAMENT,
-  REMOVE_PARENT_DEPARTAMENT,
+  OPEN_DEPARTAMENT_MODAL,
+  CLOSE_DEPARTAMENT_MODAL,
+  OPEN_EMPLOYEES_MODAL,
+  CLOSE_EMPLOYEES_MODAL,
+  OPEN_SUPERVISOR_MODAL,
+  CLOSE_SUPERVISOR_MODAL,
+  CHANGE_PARENT_DEPARTMENT,
+  REMOVE_PARENT_DEPARTMENT,
   ADD_EMLOYEES,
   REMOVE_EMPOYEES,
   CREATE,
@@ -37,12 +49,12 @@ export interface RemoveSupervisorAction {
 }
 
 export interface ChangeParentDepartamentAction {
-  readonly type: DepartmentNewActionTypes.CHANGE_PARENT_DEPARTAMENT;
-  readonly parentDepartament: DepartmentEntity;
+  readonly type: DepartmentNewActionTypes.CHANGE_PARENT_DEPARTMENT;
+  readonly parentDepartment: DepartmentEntity;
 }
 
 export interface RemoveParentDepartamentAction {
-  readonly type: DepartmentNewActionTypes.REMOVE_PARENT_DEPARTAMENT;
+  readonly type: DepartmentNewActionTypes.REMOVE_PARENT_DEPARTMENT;
 }
 
 export interface AddEmpoyeesAction {
@@ -57,4 +69,23 @@ export interface RemoveEmpoyeesAction {
 
 export interface CreateAction {
   readonly type: DepartmentNewActionTypes.CREATE;
+}
+
+export interface OpenDepartmentModalAction {
+  readonly type: DepartmentNewActionTypes.OPEN_DEPARTAMENT_MODAL;
+}
+export interface CloseDepartmentModalAction {
+  readonly type: DepartmentNewActionTypes.CLOSE_DEPARTAMENT_MODAL;
+}
+export interface OpenEmployeesModalAction {
+  readonly type: DepartmentNewActionTypes.OPEN_EMPLOYEES_MODAL;
+}
+export interface CloseEmployeesModalAction {
+  readonly type: DepartmentNewActionTypes.CLOSE_EMPLOYEES_MODAL;
+}
+export interface OpenSupervisorModalAction {
+  readonly type: DepartmentNewActionTypes.OPEN_SUPERVISOR_MODAL;
+}
+export interface CloseSupervisorModalAction {
+  readonly type: DepartmentNewActionTypes.CLOSE_SUPERVISOR_MODAL;
 }

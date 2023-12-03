@@ -125,6 +125,18 @@ export class EmployeeNewExecutor extends Executor<
       case EmployeeNewActionTypes.CREATE:
         this.handleCreate();
         break;
+      case EmployeeNewActionTypes.OPEN_DEPARTMENT_MODAL:
+        this.reduce({
+          type: EmployeeNewResultActionTypes.CHANGE_DEPARTMENT_MODAL_VISIBLE,
+          visible: true
+        })
+        break;
+      case EmployeeNewActionTypes.CLOSE_DEPARTMENT_MODAL:
+        this.reduce({
+          type: EmployeeNewResultActionTypes.CHANGE_DEPARTMENT_MODAL_VISIBLE,
+          visible: false
+        })
+        break;
     }
   }
 
