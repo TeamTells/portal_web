@@ -46,20 +46,20 @@ export class SectionServiceImpl extends SectionService {
                 ),
               ]
             ),
-            new DocumentEntity(
-              6,
-              "Правила работы 2023",
-              new Date(),
-              []
-            ),
-            new DocumentEntity(
-              7,
-              "Правила работы 2022",
-              new Date(),
-              []
-            ),
           ]
-        )
+        ),
+        new DocumentEntity(
+          6,
+          "Правила работы 2023",
+          new Date(),
+          []
+        ),
+        new DocumentEntity(
+          7,
+          "Правила работы 2022",
+          new Date(),
+          []
+        ),
       ]
     )
   }

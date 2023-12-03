@@ -14,12 +14,15 @@ export class SectionReducer implements Reducer<SectionState, SectionResultAction
     switch (action.type) {
       case SectionResultActionTypes.UPDATE_SECTION:
         return this.updateSection(state, action.section)
-        break
     }
   }
 
   private updateSection(state: SectionState, newSection: SectionEntity): SectionState {
-    return state
+    return clone(state, {
+      documents: newSection.documents,
+      title: newSection.title,
+      id: newSection.id
+    })
   }
 
 }

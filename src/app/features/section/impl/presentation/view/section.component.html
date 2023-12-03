@@ -1,7 +1,11 @@
 <div class="flex h-screen flex-col bg-white">
-    <div class="w-[406px] h-full bg-tt-background overflow-auto">
-      <div *ngFor="let document of state.documents">
-        <div>{{document.title}}</div>
-      </div>
+
+  <div class="w-[406px] h-full bg-tt-background overflow-auto">
+    <div>{{state.title}}</div>
+    <div *ngFor="let document of state.documents">
+      <app-document-item
+        [document]="document"
+      ></app-document-item>
     </div>
+  </div>
 </div>

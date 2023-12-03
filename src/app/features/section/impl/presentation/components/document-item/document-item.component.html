@@ -1,0 +1,26 @@
+<div>
+  <div class="flex pl-[16px] pr-[16px] pt-[8px] pb-[8px]" [style.marginLeft]="getMarginOffset()">
+    <img
+      *ngIf="document.documents.length != 0"
+      class="w-[24px] h-[24px] my-auto rounded-full rotate-90"
+      src="../../../../../assets/right-arrow.svg"
+    />
+
+    <img
+      *ngIf="document.documents.length == 0"
+      class="w-[24px] h-[24px] my-auto rounded-full -rotate-180"
+      src="../../../../../assets/dot.svg"
+    />
+
+    <div class="ml-[8px]">{{document.title}}</div>
+  </div>
+
+  <div>
+    <app-document-item
+      [level]="level + 1"
+      *ngFor="let item of document.documents"
+      [document]="item"
+      />
+  </div>
+
+</div>

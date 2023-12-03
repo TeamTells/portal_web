@@ -1,25 +1,17 @@
 import {Injectable} from "@angular/core";
+import {DocumentEntity} from "../../domain/document-entity";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SectionState {
-    readonly id: number = -1
-    readonly title: string = ""
-    readonly url: string = ""
-    readonly isAllPagesSelected: boolean = false
-    readonly documents: Array<DocumentState> = []
-    readonly isOpen: boolean = false
-}
+  readonly id: number = SectionState.NO_ID
+  readonly title: string = ""
+  readonly url: string = ""
+  readonly isAllPagesSelected: boolean = false
+  readonly documents: Array<DocumentEntity> = []
+  readonly openDocuments: Set<number> = new Set<number>
+  readonly isOpen: boolean = false
 
-export class DocumentState {
-
-  constructor(
-    readonly id: number,
-    readonly title: string,
-    readonly isOpen: boolean,
-    readonly documents: Array<DocumentState>
-  ) {
-  }
-
+  static NO_ID = -1
 }

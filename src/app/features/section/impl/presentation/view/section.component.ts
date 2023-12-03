@@ -22,4 +22,5 @@ export class SectionComponent extends Store<SectionState, SectionExecutor, Secti
     super(state, executor, reducer);
   }
 
+  protected readonly document = document;
 }

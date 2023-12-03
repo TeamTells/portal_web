@@ -4,7 +4,7 @@ import {SectionState} from "./section-state";
 import {SectionAction} from "./section-action";
 import {SectionResultAction, SectionResultActionTypes} from "./section-result-action";
 import {SectionService} from "../../domain/section-service";
-import {Executor} from "../../../../../core/mvi/store";
+import {Executor, Reducer} from "../../../../../core/mvi/store";
 import {ActivatedRoute} from "@angular/router";
 
 @Injectable({
@@ -17,9 +17,13 @@ export class SectionExecutor extends Executor<SectionState, SectionAction, Secti
     private sectionService: SectionService
   ) {
     super();
+  }
+
+  override init(reducer: Reducer<SectionState, SectionResultAction>, getState: () => SectionState, onReduced: (state: SectionState) => void) {
+    super.init(reducer, getState, onReduced);
     this.route.paramMap.subscribe((params: any) => {
       const sectionId = +params.get('id');
-      const section = sectionService.getSection(sectionId)
+      const section = this.sectionService.getSection(sectionId)
       this.reduce({
         type: SectionResultActionTypes.UPDATE_SECTION,
         section: section

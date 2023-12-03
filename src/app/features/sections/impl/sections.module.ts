@@ -4,16 +4,21 @@ import { SectionsComponent } from './presentation/sections.component';
 import {SectionServiceImpl} from "./data/section-service-impl";
 import {SectionService} from "../api/section-service";
 import {ComponentsModule} from "../../../core/components/components.module";
+import {DocumentItemComponent} from "../../section/impl/presentation/components/document-item/document-item.component";
 
 @NgModule({
   declarations: [
-    SectionsComponent
+    SectionsComponent,
+    DocumentItemComponent
   ],
   imports: [
     CommonModule,
     ComponentsModule
   ],
-  providers:[
+  exports: [
+    DocumentItemComponent
+  ],
+  providers: [
     {
       provide: SectionService,
       useClass: SectionServiceImpl
