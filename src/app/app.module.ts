@@ -11,11 +11,11 @@ import { fakeBackendProvider } from './features/authorization/data/interceptors/
 import { appInitializer } from './features/authorization/data/app-initializer';
 import { MainModule } from './features/main/main.module';
 import { EmployeesModule } from './features/employees/employees.module';
-import { SectionsModule } from './features/sections/sections.module';
 import { ComponentsModule } from './core/components/components.module';
 import { RegistrationModule } from './features/registration/registration.module';
 import {ProfileModule} from "./features/profile/profile.module";
-
+import {SectionModule} from "./features/section/impl/section.module";
+import {SectionsModule} from "./features/sections/impl/sections.module";
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,7 +28,8 @@ import {ProfileModule} from "./features/profile/profile.module";
     SectionsModule,
     ComponentsModule,
     RegistrationModule,
-    ProfileModule
+    ProfileModule,
+    SectionModule
   ],
   providers: [
     {

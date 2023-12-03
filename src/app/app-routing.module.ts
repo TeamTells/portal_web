@@ -11,8 +11,6 @@ import { SettingsComponent } from './features/settings/presentation/settings.com
 import { DepartmentInfoComponent } from './features/employees/components/department-info/department-info.component';
 import { RolesComponent } from './features/employees/components/roles/roles.component';
 import { EmployeesListComponent } from './features/employees/components/employees-list/employees-list.component';
-import { SectionComponent } from './features/section/presentation/section.component';
-import { SectionsComponent } from './features/sections/presentation/sections.component';
 import { EmployeeNewComponent } from './features/employees/components/employee-new/employee-new.component';
 import { DepartmentNewComponent } from './features/employees/components/department-new/department-new.component';
 import { EmployeeEditComponent } from './features/employees/components/employee-edit/employee-edit.component';
@@ -23,6 +21,8 @@ import { ProfileInfoComponent } from './features/profile/profile-info/profile-in
 import { ProfileSecurityComponent } from './features/profile/profile-security/profile-security.component';
 import { ProfileComponent } from './features/profile/profile/profile.component';
 import { ProfileChangePasswordComponent } from './features/profile/profile-change-password/presentation/view/profile-change-password.component';
+import {SectionsComponent} from "./features/sections/impl/presentation/sections.component";
+import {SectionComponent} from "./features/section/impl/presentation/view/section.component";
 
 const employeesItems: Routes = [
   { path: 'new-employee', component: EmployeeNewComponent },
@@ -49,8 +49,9 @@ const mainItems: Routes = [
     component: EmployeesComponent,
     children: employeesItems,
   },
-  { path: 'sections', component: SectionsComponent },
-  { path: 'settings', component: SettingsComponent },
+  { path: 'settings', component: SettingsComponent},
+  {path: 'sections', component: SectionsComponent },
+  { path: 'section/:id', component: SectionComponent },
   { path: 'profile', component: ProfileComponent, children: profileItems},
 ];
 
