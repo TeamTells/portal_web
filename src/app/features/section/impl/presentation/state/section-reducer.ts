@@ -28,16 +28,16 @@ export class SectionReducer implements Reducer<SectionState, SectionResultAction
   }
 
   private changeDocumentOpenState(state: SectionState, documentId: number): SectionState {
-    console.log(documentId)
     if (state.openDocuments.find((id) => {
       return id == documentId
     }) == undefined) {
       const newOpenDocumentsSet = state.openDocuments
       newOpenDocumentsSet.push(documentId)
-      console.log(newOpenDocumentsSet)
       return clone(state, {openDocuments: newOpenDocumentsSet})
     } else {
-      const newOpenDocumentsSet = state.openDocuments
+      const newOpenDocumentsSet = state.openDocuments.filter(itemDocumentId => {
+        return itemDocumentId !== documentId
+      })
       return clone(state, {openDocuments: newOpenDocumentsSet})
     }
   }
