@@ -5,7 +5,6 @@ import {SectionExecutor} from "../state/section-executor";
 import {SectionAction, SectionActionTypes} from "../state/section-action";
 import {SectionResultAction} from "../state/section-result-action";
 import {SectionReducer} from "../state/section-reducer";
-import {DepartmentEntity} from "../../../../employees/components/department/department.component";
 
 
 @Component({

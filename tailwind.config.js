@@ -31,7 +31,8 @@ module.exports = {
         "tt-light-blue": "#C2E7FE",
         "tt-lighter-gray": "#BCC1C6",
 
-        "tt-background-hover": "#e8e8e8",
+        "tt-selected-section-text-color": "#1268E4",
+        "selected-section-icon-background-color": "#C1D5F4",
         "tt-background-hover-2": "#f3f3f3"
       },
       maxWidth: {

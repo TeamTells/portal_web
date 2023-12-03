@@ -1,23 +1,30 @@
 <div class="flex h-screen flex-col bg-white rounded-2xl hover:bg-tt-light-light-gray">
 
-  <div class="w-[406px] h-full bg-tt-unaccented-background overflow-auto cursor-pointer">
+  <div class="w-[360px] h-full bg-tt-unaccented-background overflow-auto cursor-pointer">
 
     <div class="flex px-[8px] mx-[8px] py-[8px] mt-[22px] items-center">
       <img class="h-[32px] w-[32px] p-[2px]" [src]="state.url"/>
       <div class="font-semibold text-base ms-[8px]">{{state.title}}</div>
     </div>
 
-    <div class="flex px-[8px] mx-[8px] py-[8px] items-center rounded-xl hover:bg-tt-background-hover">
-      <img class="h-[24px] w-[24px]" src="../../../../../assets/square.svg"/>
-      <div class="text-base font-normal ms-[8px] text-tt-main-text ">Все страницы</div>
+    <div
+      class="group flex px-[8px] mx-[8px] py-[8px] items-center rounded-xl hover:bg-selected-section-icon-background-color">
+      <svg-square class="h-[24px] w-[24px] fill-tt-icon group-hover:fill-tt-selected-section-text-color"></svg-square>
+      <div class="text-base font-normal ms-[8px] text-tt-main-text group-hover:text-tt-selected-section-text-color">Все
+        страницы
+      </div>
     </div>
 
-    <div class="flex px-[8px] mx-[8px]  py-[8px] items-center rounded-xl hover:bg-tt-background-hover">
-      <img class="h-[24px] w-[24px] p-[2px] tt-main-text" src="../../../../../assets/gearshape.svg"/>
-      <div class="text-base ms-[8px] text-tt-main-text font-normal">Настройки раздела</div>
+    <div
+      class="group flex px-[8px] mx-[8px]  py-[8px] items-center rounded-xl hover:bg-selected-section-icon-background-color">
+      <svg-gear-shape class="p-[2px] h-[24px] w-[24px] fill-tt-icon group-hover:fill-tt-selected-section-text-color"></svg-gear-shape>
+      <div class="text-base ms-[8px] text-tt-main-text font-normal group-hover:text-tt-selected-section-text-color">
+        Настройки раздела
+      </div>
     </div>
 
-    <div class="flex mt-[16px] px-[8px] mx-[8px] py-[8px] items-center rounded-xl hover:bg-tt-background-hover">
+    <div
+      class="flex mt-[16px] px-[8px] mx-[8px] py-[8px] items-center rounded-xl hover:bg-selected-section-icon-background-color">
       <img class="h-[24px] w-[24px]" src="../../../../../assets/arrow-borded.svg"/>
       <div class="text-base ms-[8px] text-tt-main-text font-medium">Содержание</div>
     </div>
