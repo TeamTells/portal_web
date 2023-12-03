@@ -48,12 +48,10 @@ export class DepartmentNewExecutor extends Executor<
         break;
 
       case DepartmentNewActionTypes.CHANGE_PARENT_DEPARTMENT:
-        console.log(action.parentDepartment)
         this.reduce({
           type: DepartmentNewResultActionTypes.CHANGE_PARENT_DEPARTAMENT,
           parentDepartament: action.parentDepartment
         });
-        console.log(this.getState().parentDepartment)
         break;
 
       case DepartmentNewActionTypes.REMOVE_PARENT_DEPARTMENT:
@@ -62,17 +60,17 @@ export class DepartmentNewExecutor extends Executor<
         });
         break;
 
-      case DepartmentNewActionTypes.ADD_EMLOYEES:
+      case DepartmentNewActionTypes.ADD_EMPLOYEES:
         this.reduce({
-          type: DepartmentNewResultActionTypes.ADD_EMLOYEES,
-          empoyees: action.empoyees,
+          type: DepartmentNewResultActionTypes.ADD_EMPLOYEES,
+          empoyees: action.employees,
         });
         break;
 
       case DepartmentNewActionTypes.REMOVE_EMPOYEES:
         this.reduce({
           type: DepartmentNewResultActionTypes.REMOVE_EMPOYESS,
-          empoyees: action.empoyees,
+          empoyees: action.employees,
         });
         break;
 

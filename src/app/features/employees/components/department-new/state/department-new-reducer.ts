@@ -46,9 +46,10 @@ export class DepartmentNewReducer
       case DepartmentNewResultActionTypes.REMOVE_PARENT_DEPARTAMENT:
         return clone(state, { parentDepartment: null });
 
-      case DepartmentNewResultActionTypes.ADD_EMLOYEES:
+      case DepartmentNewResultActionTypes.ADD_EMPLOYEES:
         return clone(state, {
           employees: [...state.employees, ...action.empoyees],
+          visibleSelectEmployeesModal: false
         });
 
       case DepartmentNewResultActionTypes.REMOVE_EMPOYESS:

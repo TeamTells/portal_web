@@ -88,4 +88,14 @@
     type: DepartmentNewActionTypes.CHANGE_SUPERVISOR,
     supervisor: $event
   })"
->
+/>
+
+<select-employees-modal-window *ngIf="state.visibleSelectEmployeesModal"
+  (closeClicked)="performAction({
+    type: DepartmentNewActionTypes.CLOSE_EMPLOYEES_MODAL
+  })"
+  (submitClicked)="performAction({
+    type: DepartmentNewActionTypes.ADD_EMPLOYEES,
+    employees: $event
+  })"
+/>

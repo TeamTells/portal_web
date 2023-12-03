@@ -30,7 +30,8 @@ import {
   phoneNumberValidatorFactory,
 } from 'src/app/core/validators/validators';
 import { SelectDepartmentModalComponent } from './components/select-department-modal/select-department-modal.component';
-import { SelectSupervisorModalComponent } from './components/select-supervisor-modal/select-department-modal.component';
+import { SelectSupervisorModalComponent } from './components/select-supervisor-modal/select-supervisor-modal.component';
+import { SelectEmployeesModalComponent } from './components/select-employees-modal/select-employees-modall.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { SelectSupervisorModalComponent } from './components/select-supervisor-m
     DepartmentEditComponent,
     EmployeeEditComponent,
     SelectDepartmentModalComponent,
-    SelectSupervisorModalComponent
+    SelectSupervisorModalComponent,
+    SelectEmployeesModalComponent
   ],
   exports: [EmployeesComponent],
   imports: [CommonModule, ComponentsModule, RouterOutlet],

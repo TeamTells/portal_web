@@ -23,7 +23,7 @@ export enum DepartmentNewResultActionTypes {
   CHANGE_VISIBLE_SUPERVISOR_MODAL,
   CHANGE_PARENT_DEPARTAMENT,
   REMOVE_PARENT_DEPARTAMENT,
-  ADD_EMLOYEES,
+  ADD_EMPLOYEES,
   REMOVE_EMPOYESS,
   VALIDATION_ERROR,
 }
@@ -52,7 +52,7 @@ export interface RemoveParentDepartamentResultAction {
 }
 
 export interface AddEmpoyeesResultAction {
-  readonly type: DepartmentNewResultActionTypes.ADD_EMLOYEES;
+  readonly type: DepartmentNewResultActionTypes.ADD_EMPLOYEES;
   readonly empoyees: EmployeeDto[];
 }
 

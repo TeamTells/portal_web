@@ -29,7 +29,7 @@ export enum DepartmentNewActionTypes {
   CLOSE_SUPERVISOR_MODAL,
   CHANGE_PARENT_DEPARTMENT,
   REMOVE_PARENT_DEPARTMENT,
-  ADD_EMLOYEES,
+  ADD_EMPLOYEES,
   REMOVE_EMPOYEES,
   CREATE,
 }
@@ -58,13 +58,13 @@ export interface RemoveParentDepartamentAction {
 }
 
 export interface AddEmpoyeesAction {
-  readonly type: DepartmentNewActionTypes.ADD_EMLOYEES;
-  readonly empoyees: EmployeeDto[];
+  readonly type: DepartmentNewActionTypes.ADD_EMPLOYEES;
+  readonly employees: EmployeeDto[];
 }
 
 export interface RemoveEmpoyeesAction {
   readonly type: DepartmentNewActionTypes.REMOVE_EMPOYEES;
-  readonly empoyees: EmployeeDto[];
+  readonly employees: EmployeeDto[];
 }
 
 export interface CreateAction {

@@ -11,7 +11,8 @@ export class MainState {
 export enum NavItem {
   SECTIONS,
   EMPLOYEES,
-  SETTINGS
+  SETTINGS,
+  PROFILE
 }
 
 

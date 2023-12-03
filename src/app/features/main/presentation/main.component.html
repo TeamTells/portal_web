@@ -74,6 +74,10 @@
                     </div>
 
                     <button
+                      (click)="performAction({
+                        type: MainActionTypes.SELECT_ITEM,
+                        item: NavItem.PROFILE
+                      })"
                       class="flex flex-row h-[64px] w-[360px] items-center pl-[20px] gap-[17px] hover:bg-[#F2F3F7]">
                       <img class="w-[24px] h-[24px]" src="assets/person.crop.square.svg" alt="profile ico">
                       <p>Управление профилем</p>
