@@ -23,7 +23,8 @@ export class SectionReducer implements Reducer<SectionState, SectionResultAction
     return clone(state, {
       documents: newSection.documents,
       title: newSection.title,
-      id: newSection.id
+      id: newSection.id,
+      url: newSection.thumbnailUrl
     })
   }
 

@@ -1,6 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {DocumentEntity} from "../../../domain/document-entity";
-import {DepartmentEntity} from "../../../../../employees/components/department/department.component";
 
 @Component({
   selector: 'app-document-item',
@@ -36,9 +35,7 @@ export class DocumentItemComponent {
     }) != undefined
   }
 
-  onArrowClicked(departmentId: number): void
-  {
-    console.log(departmentId)
+  onArrowClicked(departmentId: number): void {
     this.arrowClicked.emit(departmentId)
   }
 

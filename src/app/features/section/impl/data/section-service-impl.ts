@@ -8,7 +8,7 @@ export class SectionServiceImpl extends SectionService {
     return new SectionEntity(
       1,
       "Стандарты проектирования",
-      "https://cdn1.iconfinder.com/data/icons/logotypes/32/circle-linkedin-512.png",
+      "https://pngicon.ru/file/uploads/gory.png",
       [
         new DocumentEntity(
           1,
