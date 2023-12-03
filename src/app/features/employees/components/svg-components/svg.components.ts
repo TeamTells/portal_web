@@ -16,3 +16,27 @@ export class SvgSquare {
 })
 export class SvgGearShape {
 }
+
+@Component({
+  standalone: true,
+  selector: 'svg-bordered-arrow',
+  templateUrl: '../../../../../assets/arrow-borded.svg',
+})
+export class SvgBorderedArrow {
+}
+
+@Component({
+  standalone: true,
+  selector: 'svg-arrow',
+  templateUrl: '../../../../../assets/arrow.svg',
+})
+export class SvgArrow {
+}
+
+@Component({
+  standalone: true,
+  selector: 'svg-dot',
+  templateUrl: '../../../../../assets/dot.svg',
+})
+export class SvgDot {
+}

@@ -5,6 +5,7 @@ import {SectionServiceImpl} from "./data/section-service-impl";
 import {SectionService} from "../api/section-service";
 import {ComponentsModule} from "../../../core/components/components.module";
 import {DocumentItemComponent} from "../../section/impl/presentation/components/document-item/document-item.component";
+import {SvgArrow, SvgDot} from "../../employees/components/svg-components/svg.components";
 
 @NgModule({
   declarations: [
@@ -13,7 +14,9 @@ import {DocumentItemComponent} from "../../section/impl/presentation/components/
   ],
   imports: [
     CommonModule,
-    ComponentsModule
+    ComponentsModule,
+    SvgArrow,
+    SvgDot
   ],
   exports: [
     DocumentItemComponent

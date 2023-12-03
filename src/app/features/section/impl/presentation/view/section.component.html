@@ -9,7 +9,7 @@
 
     <div
       class="group flex px-[8px] mx-[8px] py-[8px] items-center rounded-xl hover:bg-selected-section-icon-background-color">
-      <svg-square class="h-[24px] w-[24px] fill-tt-icon group-hover:fill-tt-selected-section-text-color"></svg-square>
+      <svg-square class="document-icon"></svg-square>
       <div class="text-base font-normal ms-[8px] text-tt-main-text group-hover:text-tt-selected-section-text-color">Все
         страницы
       </div>
@@ -17,16 +17,16 @@
 
     <div
       class="group flex px-[8px] mx-[8px]  py-[8px] items-center rounded-xl hover:bg-selected-section-icon-background-color">
-      <svg-gear-shape class="p-[2px] h-[24px] w-[24px] fill-tt-icon group-hover:fill-tt-selected-section-text-color"></svg-gear-shape>
+      <svg-gear-shape class="p-[2px] document-icon"></svg-gear-shape>
       <div class="text-base ms-[8px] text-tt-main-text font-normal group-hover:text-tt-selected-section-text-color">
         Настройки раздела
       </div>
     </div>
 
     <div
-      class="flex mt-[16px] px-[8px] mx-[8px] py-[8px] items-center rounded-xl hover:bg-selected-section-icon-background-color">
-      <img class="h-[24px] w-[24px]" src="../../../../../assets/arrow-borded.svg"/>
-      <div class="text-base ms-[8px] text-tt-main-text font-medium">Содержание</div>
+      class="group flex mt-[16px] px-[8px] mx-[8px] py-[8px] items-center rounded-xl hover:bg-selected-section-icon-background-color">
+      <svg-bordered-arrow class="document-icon"></svg-bordered-arrow>
+      <div class="text-base ms-[8px] text-tt-main-text font-medium group-hover:text-tt-selected-section-text-color">Содержание</div>
     </div>
 
     <div *ngFor="let document of state.documents">

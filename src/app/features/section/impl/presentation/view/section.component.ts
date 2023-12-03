@@ -10,7 +10,7 @@ import {SectionReducer} from "../state/section-reducer";
 @Component({
   selector: 'app-section',
   templateUrl: './section.component.html',
-  styleUrls: ['./section.component.scss']
+  styleUrls: ['../common/section.component.scss']
 })
 export class SectionComponent extends Store<SectionState, SectionExecutor, SectionAction, SectionResultAction> {
 

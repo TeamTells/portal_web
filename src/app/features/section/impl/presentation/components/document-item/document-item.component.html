@@ -1,26 +1,23 @@
 <div class="mx-[8px]">
-  <div class="flex px-[8px] py-[8px] rounded-xl hover:bg-selected-section-icon-background-color" [style.marginLeft]="getMarginOffset()">
-    <img
+  <div class="group flex px-[8px] py-[8px] rounded-xl hover:bg-selected-section-icon-background-color"
+       [style.marginLeft]="getMarginOffset()">
+
+    <svg-arrow
+      class="document-icon rotate-90"
       *ngIf="document.documents.length != 0 && isOpen(document.id)"
-      (click)="onArrowClicked(document.id)"
-      class="w-[24px] h-[24px] my-auto rounded-full rotate-90"
-      src="../../../../../assets/right-arrow.svg"
-    />
+      (click)="onArrowClicked(document.id)"></svg-arrow>
 
-    <img
+    <svg-arrow
+      class="document-icon"
       *ngIf="document.documents.length != 0 && !isOpen(document.id)"
-      (click)="onArrowClicked(document.id)"
-      class="w-[24px] h-[24px] my-auto rounded-full"
-      src="../../../../../assets/right-arrow.svg"
-    />
+      (click)="onArrowClicked(document.id)"></svg-arrow>
 
-    <img
+    <svg-dot
       *ngIf="document.documents.length == 0"
-      class="w-[24px] h-[24px] my-auto rounded-full -rotate-180"
-      src="../../../../../assets/dot.svg"
-    />
+      class="document-icon -rotate-180"></svg-dot>
 
-    <div class="ml-[8px] text-tt-main-text font-normal">{{document.title}}</div>
+    <div
+      class="ml-[8px] text-tt-main-text font-normal group-hover:text-tt-selected-section-text-color">{{document.title}}</div>
   </div>
 
   <div *ngIf="isOpen(document.id)">

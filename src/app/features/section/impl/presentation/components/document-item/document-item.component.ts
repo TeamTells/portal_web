@@ -4,7 +4,7 @@ import {DocumentEntity} from "../../../domain/document-entity";
 @Component({
   selector: 'app-document-item',
   templateUrl: './document-item.component.html',
-  styleUrls: ['./document-item.component.scss']
+  styleUrls: ['../../common/section.component.scss']
 })
 
 export class DocumentItemComponent {
