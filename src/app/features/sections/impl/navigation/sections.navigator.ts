@@ -9,7 +9,6 @@ export class SectionsNavigator {
   }
 
   navigateToSection(id: number) {
-    console.log(id)
     this.router.navigate(['/section', id])
   }
 }

@@ -1,7 +1,6 @@
-
 import {Injectable} from "@angular/core";
 import {SectionState} from "./section-state";
-import {SectionAction} from "./section-action";
+import {SectionAction, SectionActionTypes} from "./section-action";
 import {SectionResultAction, SectionResultActionTypes} from "./section-result-action";
 import {SectionService} from "../../domain/section-service";
 import {Executor, Reducer} from "../../../../../core/mvi/store";
@@ -32,10 +31,13 @@ export class SectionExecutor extends Executor<SectionState, SectionAction, Secti
   }
 
   execute(action: SectionAction) {
-    // switch (action.type) {
-    //
-    //
-    // }
+    switch (action.type) {
+      case SectionActionTypes.CHANGE_DOCUMENT_OPEN_STATE:
+        this.reduce({
+          type: SectionResultActionTypes.CHANGE_DOCUMENT_OPEN_STATE,
+          documentId: action.documentId
+        })
+    }
   }
 
 }

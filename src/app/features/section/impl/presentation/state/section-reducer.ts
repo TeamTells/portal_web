@@ -14,6 +14,8 @@ export class SectionReducer implements Reducer<SectionState, SectionResultAction
     switch (action.type) {
       case SectionResultActionTypes.UPDATE_SECTION:
         return this.updateSection(state, action.section)
+      case SectionResultActionTypes.CHANGE_DOCUMENT_OPEN_STATE:
+        return this.changeDocumentOpenState(state, action.documentId)
     }
   }
 
@@ -23,6 +25,21 @@ export class SectionReducer implements Reducer<SectionState, SectionResultAction
       title: newSection.title,
       id: newSection.id
     })
+  }
+
+  private changeDocumentOpenState(state: SectionState, documentId: number): SectionState {
+    console.log(documentId)
+    if (state.openDocuments.find((id) => {
+      return id == documentId
+    }) == undefined) {
+      const newOpenDocumentsSet = state.openDocuments
+      newOpenDocumentsSet.push(documentId)
+      console.log(newOpenDocumentsSet)
+      return clone(state, {openDocuments: newOpenDocumentsSet})
+    } else {
+      const newOpenDocumentsSet = state.openDocuments
+      return clone(state, {openDocuments: newOpenDocumentsSet})
+    }
   }
 
 }

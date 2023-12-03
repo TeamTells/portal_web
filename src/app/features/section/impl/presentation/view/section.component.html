@@ -4,7 +4,12 @@
     <div>{{state.title}}</div>
     <div *ngFor="let document of state.documents">
       <app-document-item
+        (arrowClicked)="this.performAction({
+          type: SectionActionTypes.CHANGE_DOCUMENT_OPEN_STATE,
+          documentId: $event
+        })"
         [document]="document"
+        [openDocuments]="state.openDocuments"
       ></app-document-item>
     </div>
   </div>

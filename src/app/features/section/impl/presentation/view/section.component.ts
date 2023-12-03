@@ -2,9 +2,10 @@ import {Component} from '@angular/core';
 import {Store} from "../../../../../core/mvi/store";
 import {SectionState} from "../state/section-state";
 import {SectionExecutor} from "../state/section-executor";
-import {SectionAction} from "../state/section-action";
+import {SectionAction, SectionActionTypes} from "../state/section-action";
 import {SectionResultAction} from "../state/section-result-action";
 import {SectionReducer} from "../state/section-reducer";
+import {DepartmentEntity} from "../../../../employees/components/department/department.component";
 
 
 @Component({
@@ -23,4 +24,5 @@ export class SectionComponent extends Store<SectionState, SectionExecutor, Secti
   }
 
   protected readonly document = document;
+  protected readonly SectionActionTypes = SectionActionTypes;
 }

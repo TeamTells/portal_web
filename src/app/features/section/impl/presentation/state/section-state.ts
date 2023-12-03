@@ -10,8 +10,8 @@ export class SectionState {
   readonly url: string = ""
   readonly isAllPagesSelected: boolean = false
   readonly documents: Array<DocumentEntity> = []
-  readonly openDocuments: Set<number> = new Set<number>
+  readonly openDocuments: Array<number> = new Array<number>()
   readonly isOpen: boolean = false
 
-  static NO_ID = -1
+  static readonly NO_ID = -1
 }
