@@ -5,8 +5,20 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   templateUrl: './modal-window.component.html',
 })
 export class ModalWindowComponent {
-  @Input() title = "Select"
+  @Input() data: ModalWindowData = 
+  {
+    title: "Test",
+    submit: "Submit",
+    cancel: "Cancel"
+  }
 
   @Output() closeClick = new EventEmitter()
+  @Output() submitClick = new EventEmitter()
   
+}
+
+export interface ModalWindowData{
+  title: string,
+  submit: string,
+  cancel: string
 }

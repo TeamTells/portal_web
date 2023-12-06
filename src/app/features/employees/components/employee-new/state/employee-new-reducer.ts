@@ -66,7 +66,7 @@ export class EmployeeNewReducer
         return clone(state, { password: action.password, passwordError: '' });
 
       case EmployeeNewResultActionTypes.SELECT_DEPARTMENT:
-        return { ...state, department: action.department };
+        return { ...state, department: action.department, visibleSelectDepartmentModal: false };
 
       case EmployeeNewResultActionTypes.REMOVE_DEPARTMENT:
         return { ...state, department: undefined };
@@ -89,6 +89,9 @@ export class EmployeeNewReducer
 
       case EmployeeNewResultActionTypes.VALIDATION_ERROR:
         return clone(state, { ...action });
+
+      case EmployeeNewResultActionTypes.CHANGE_DEPARTMENT_MODAL_VISIBLE:
+        return clone(state, { visibleSelectDepartmentModal: action.visible })
     }
   }
 }

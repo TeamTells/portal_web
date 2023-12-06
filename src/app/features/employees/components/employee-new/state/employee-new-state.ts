@@ -40,4 +40,6 @@ export class EmployeeNewState {
   readonly selectedRoles: DropdownItem[] = [{ name: 'Читатель', id: '1' }];
 
   readonly isLoading = false;
+
+  readonly visibleSelectDepartmentModal: boolean = false;
 }

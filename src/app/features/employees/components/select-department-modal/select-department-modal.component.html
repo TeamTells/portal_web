@@ -1,0 +1,11 @@
+<employees-modal-window [data]="modalWindowData" (submitClick)="submitClick()" (closeClick)="closeClicked.emit()">
+
+    <div class="mt-4 h-[283px] overflow-scroll overflow-x-hidden no-scrollbar">
+        <app-core-department *ngFor="let item of departments"
+        [department]="item"
+        (clicked)="selectDepartment($event)"
+        [employeesVisible]="false"
+        />
+    </div>
+    
+</employees-modal-window>

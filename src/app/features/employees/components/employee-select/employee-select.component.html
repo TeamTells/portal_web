@@ -1,5 +1,5 @@
 <div class="flex p-3 gap-3 rounded-2xl bg-tt-light-blue"
-  *ngIf="state.visibleTools && settings.blueBoxVisible">
+  *ngIf="state.visibleTools && state.settings.blueBoxVisible">
   <button (click)="performAction({
     type: EmployeeSelectActionTypes.UNSELECT_ALL
     })"
@@ -8,8 +8,10 @@
   </button>
   <p class="font-normal text-base">{{strings.selected}}: {{state.selectedCount}}</p>
   <div class="flex gap-3"
-    *ngIf="settings.toolsVisible">
-    <button>
+    *ngIf="state.settings.toolsVisible">
+    <button (click)="performAction({
+      type: EmployeeSelectActionTypes.MOVE_TO_DEPARTMENT
+    })">
       <img width="26px" src="../../../../../assets/person.and.arrow.left.and.arrow.right.svg">
     </button>
     <button>
@@ -24,16 +26,21 @@
 <div class="mt-6">
   <app-core-department *ngFor="let item of state.departments" 
     [department]="item"
-    (ctrlClicked)="this.performAction({
-      type: EmployeeSelectActionTypes.SELECT_DEPARTMENT,
-      department: $event
-    })"
-    (employeeCtrlClicked)="selectEmployee($event)"
+    (employeeCtrlClicked)="employeeCtrlClicked($event)"
+    (employeeClicked)="employeeClicked($event)"
+    (clicked)="departmentClicked($event)"
+    (ctrlClicked)="departmentCtrlClicked($event)"
   />
 
   <app-core-employee-item *ngFor="let item of state.employees" 
     [employee]="item"  
-    (ctrlClicked)="selectEmployee($event)"
+    (clicked)="employeeClicked($event)"
+    (ctrlClicked)="employeeCtrlClicked($event)"
   />
-  
 </div>
+
+<select-department-modal-window *ngIf="state.visibleChangeDepartmentModal"
+  (closeClicked)="performAction({
+    type: EmployeeSelectActionTypes.MOVE_TO_DEPARTMENT_CLOSE
+  })"
+/>

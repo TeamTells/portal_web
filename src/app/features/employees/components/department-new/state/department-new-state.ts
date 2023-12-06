@@ -15,6 +15,10 @@ export class DepartmentNewState {
   readonly parentDepartment: DepartmentEntity | null = null;
   readonly parentDepartmentError: string = '';
 
+  readonly visibleSelectDepartmentModal: boolean = false;
+  readonly visibleSelectEmployeesModal: boolean = false;
+  readonly visibleSelectSupervisorModal: boolean = false;
+
   readonly employees: EmployeeDto[] = [
     {
       id: 1,

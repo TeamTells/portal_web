@@ -14,7 +14,8 @@ export type EmployeeNewResultAction =
   | RemoveRoleResultAction
   | ChangePhoneNumberResultAction
   | ChangeJobTitleResultAction
-  | ValidationResultAction;
+  | ValidationResultAction
+  | ChangeDepartmentModalVisibleResultAction
 
 export enum EmployeeNewResultActionTypes {
   CHANGE_JOB_TITLE,
@@ -30,6 +31,7 @@ export enum EmployeeNewResultActionTypes {
   ADD_ROLE,
   REMOVE_ROLE,
   VALIDATION_ERROR,
+  CHANGE_DEPARTMENT_MODAL_VISIBLE
 }
 
 export interface ChangePhoneNumberResultAction {
@@ -89,6 +91,11 @@ export interface AddRoleResultAction {
 export interface RemoveRoleResultAction {
   readonly type: EmployeeNewResultActionTypes.REMOVE_ROLE;
   readonly role?: DropdownItem;
+}
+
+export interface ChangeDepartmentModalVisibleResultAction {
+  readonly type: EmployeeNewResultActionTypes.CHANGE_DEPARTMENT_MODAL_VISIBLE;
+  readonly visible: boolean;
 }
 
 export interface ValidationResultAction {

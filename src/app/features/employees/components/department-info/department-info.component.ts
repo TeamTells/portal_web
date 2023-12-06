@@ -13,15 +13,22 @@ import {
 })
 export class DepartmentInfoComponent {
   public countOfEmployees: number = 0;
-  public department!: DepartmentEntity;
+  public department: DepartmentEntity = this.dataService.ConvertToDepartmentEntity(this.dataService.departments[0])
 
-  constructor(
-    private dataService: EmployeesDataService,
-    private route: ActivatedRoute,
-    private navigator: EmployeesNavigator
-  ) {
-    let findDepartment = dataService.departments.find((element) => {
-      element.id.toString() == this.route.snapshot.paramMap.get('id');
+  constructor(private dataService: EmployeesDataService,
+    private navigator: EmployeesNavigator,
+    private route: ActivatedRoute) 
+    {
+      let findDepartment = dataService.departments.find((element)=>{
+        element.id.toString() == this.route.snapshot.paramMap.get('id')
+      })
+    }
+
+  getCountEmployees(department: DepartmentEntity):void
+  {
+    this.countOfEmployees += department.employees.length;
+    department.departments.forEach(element => {
+      this.getCountEmployees(element);
     });
   }
 
@@ -29,13 +36,6 @@ export class DepartmentInfoComponent {
     this.navigator.showContent({
       navItem: EmployeesNavItem.EDIT_DEPARTMENT,
       params: '',
-    });
-  }
-
-  getCountEmployees(department: DepartmentEntity): void {
-    this.countOfEmployees += department.employees.length;
-    department.departments.forEach((element) => {
-      this.getCountEmployees(element);
     });
   }
 

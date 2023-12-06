@@ -1,7 +1,9 @@
 export interface EmployeeSelectSettings {
     toolsVisible: boolean,
     blueBoxVisible: boolean,
-    countType: SelectCount,
+    countType: CountType,
+    clickType: ClickType
   }
   
-  export enum SelectCount { Single, Multiple }
+  export enum CountType { Single, Multiple }
+  export enum ClickType { Clicked, CtrlClicked }

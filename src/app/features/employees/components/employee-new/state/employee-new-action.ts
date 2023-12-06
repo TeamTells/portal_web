@@ -13,7 +13,9 @@ export type EmployeeNewAction =
   | RemoveRoleAction
   | CreateAction
   | ChangePhoneNumberAction
-  | ChangeJobTitleAction;
+  | ChangeJobTitleAction
+  | OpenDepartmentModalAction
+  | CloseDepartmentModalAction
 
 export enum EmployeeNewActionTypes {
   CHANGE_JOB_TITLE,
@@ -29,6 +31,8 @@ export enum EmployeeNewActionTypes {
   ADD_ROLE,
   REMOVE_ROLE,
   CREATE,
+  OPEN_DEPARTMENT_MODAL,
+  CLOSE_DEPARTMENT_MODAL,
 }
 
 export interface ChangeJobTitleAction {
@@ -92,4 +96,12 @@ export interface RemoveRoleAction {
 
 export interface CreateAction {
   readonly type: EmployeeNewActionTypes.CREATE;
+}
+
+export interface OpenDepartmentModalAction {
+  readonly type: EmployeeNewActionTypes.OPEN_DEPARTMENT_MODAL;
+}
+
+export interface CloseDepartmentModalAction {
+  readonly type: EmployeeNewActionTypes.CLOSE_DEPARTMENT_MODAL;
 }

@@ -6,6 +6,9 @@ import { Injectable } from "@angular/core";
 import { EmployeeItemEntity } from "../../employee-item/employee-item.component";
 import { DepartmentEntity } from "../../department/department.component";
 import { elementAt } from "rxjs";
+import { EmployeesNavItem, EmployeesNavigator } from "../../../navigation/employees-navigator";
+import { NavItem } from "src/app/features/main/presentation/state/main-state";
+import { CountType } from "../interfaces/employee-select-settings";
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +16,7 @@ import { elementAt } from "rxjs";
 export class EmployeeSelectExecutor extends Executor<EmployeeSelectState, EmployeeSelectAction, EmployeeSelectResultAction> {
 
   constructor(
+    private navigator: EmployeesNavigator
   ) {
     super();
   }
@@ -22,6 +26,7 @@ export class EmployeeSelectExecutor extends Executor<EmployeeSelectState, Employ
       case EmployeeSelectActionTypes.INIT_DATA:
         this.reduce({
           type: EmployeeSelectResultActionTypes.INIT_DATA,
+          settings: action.settings,
           departments: action.departments,
           employees: action.employees
         })
@@ -35,11 +40,23 @@ export class EmployeeSelectExecutor extends Executor<EmployeeSelectState, Employ
       case EmployeeSelectActionTypes.UNSELECT_ALL:
         this.handleUnselectAll()
         break
+      case EmployeeSelectActionTypes.ROUTE_TO_DEPARTMENT:
+        this.navigator.showContent({navItem: EmployeesNavItem.DEPARTMENT, params: action.id.toString()})
+        break
       case EmployeeSelectActionTypes.MOVE_TO_DEPARTMENT:
-
+        this.reduce({
+          type: EmployeeSelectResultActionTypes.MOVE_TO_DEPARTMENT,
+          visible: true
+        })
+        break
+      case EmployeeSelectActionTypes.MOVE_TO_DEPARTMENT_CLOSE:
+        this.reduce({
+          type: EmployeeSelectResultActionTypes.MOVE_TO_DEPARTMENT,
+          visible: false
+        })
         break
       case EmployeeSelectActionTypes.NEW_DEPARTMENT:
-
+        
         break
       case EmployeeSelectActionTypes.DELETE:
 
@@ -51,16 +68,11 @@ export class EmployeeSelectExecutor extends Executor<EmployeeSelectState, Employ
   private handleSelectEmployee(employee: EmployeeItemEntity): void {
     let employees = this.getState().employees
     let departments = this.getState().departments
-    let selectedCount = employee.isSelect ? this.getState().selectedCount - 1 : this.getState().selectedCount + 1
+    let selectedCount = this.getSelectedCount(employee)
     let findEmployee = employees.indexOf(employee)
 
     if (findEmployee != -1) {
-      if (employees[findEmployee].isSelect) {
-        employees[findEmployee].isSelect = false
-      }
-      else {
-        employees[findEmployee].isSelect = true
-      }
+      this.selectEmployee(employees[findEmployee])
     }
     else {
       departments.forEach((element) => { this.findEmployeeInDepartment(element, employee) })
@@ -73,12 +85,29 @@ export class EmployeeSelectExecutor extends Executor<EmployeeSelectState, Employ
     })
   }
 
+  private getSelectedCount(employee: EmployeeItemEntity): number
+  {
+    let settings = this.getState().settings
+    let result = 0
+
+    if(settings.countType == CountType.Single)
+    {
+      result = employee.isSelect ? 0 : 1
+    }
+    else
+    {
+      result = employee.isSelect ? this.getState().selectedCount - 1 : this.getState().selectedCount + 1
+    }
+
+    return result
+  }
+
   private findEmployeeInDepartment(department: DepartmentEntity, employee: EmployeeItemEntity): boolean {
     let findFlag = false
     let findEmployee = department.employees.indexOf(employee)
 
     if (findEmployee != -1) {
-      department.employees[findEmployee].isSelect = department.employees[findEmployee].isSelect ? false : true
+      this.selectEmployee(department.employees[findEmployee])
       findFlag = true;
     }
     else {
@@ -89,34 +118,52 @@ export class EmployeeSelectExecutor extends Executor<EmployeeSelectState, Employ
       });
     }
 
-    department.isSelect = findFlag ? this.isAllSelectedDepartment(department) : department.isSelect
+    department.isSelect = findFlag && this.getState().settings.countType != CountType.Single ? this.isAllSelectedDepartment(department) : department.isSelect
     return findFlag;
+  }
+  
+  private selectEmployee(employee: EmployeeItemEntity): void{
+    if(employee.isSelect)
+    {
+      employee.isSelect = false
+    }
+    else
+    {
+      if(this.getState().settings.countType == CountType.Single)
+      {
+        this.unselectAll()
+      }
+      employee.isSelect = true
+    }
   }
 //#endregion
 
 //#region "handleSelectDepartment"
-  private handleSelectDepartment(department: DepartmentEntity): void {
-    let selectedCount = this.getState().selectedCount
-    if(department.isSelect)
+  private handleSelectDepartment(department: DepartmentEntity): void 
+  {
+    if(this.getState().settings.countType != CountType.Single)
     {
-      selectedCount += this.unselectDepartment(department)
+      let selectedCount = this.getState().selectedCount
+      if(department.isSelect)
+      {
+        selectedCount += this.unselectDepartment(department)
+      }
+      else
+      {
+        selectedCount += this.selectDepartment(department)
+      }
+  
+      if(this.getState().departments.indexOf(department) == -1)
+      {
+        this.checkMotherDepartmentsSelect(department, this.getState().departments)
+      }
+  
+      this.reduce({
+        type: EmployeeSelectResultActionTypes.SELECT,
+        selectCount: selectedCount,
+        visible: selectedCount != 0
+      })
     }
-    else
-    {
-      selectedCount += this.selectDepartment(department)
-    }
-
-    if(this.getState().departments.indexOf(department) == -1)
-    {
-      this.checkMotherDepartmentsSelect(department, this.getState().departments)
-    }
-
-    this.reduce({
-      type: EmployeeSelectResultActionTypes.SELECT,
-      selectCount: selectedCount,
-      visible: selectedCount != 0
-    })
-
   }
 
   private unselectDepartment(department: DepartmentEntity): number
@@ -197,16 +244,21 @@ export class EmployeeSelectExecutor extends Executor<EmployeeSelectState, Employ
 
   private handleUnselectAll():void
   {
-    let employees = this.getState().employees
-    let departments = this.getState().departments
-
-    departments.forEach((element)=> {this.unselectDepartment(element)})
-    employees.forEach((element) => {element.isSelect = false})
+    this.unselectAll();
 
     this.reduce({
       type: EmployeeSelectResultActionTypes.SELECT,
       selectCount: 0,
       visible: false
     })
+  }
+
+  private unselectAll(): void
+  {
+    let employees = this.getState().employees
+    let departments = this.getState().departments
+
+    departments.forEach((element)=> {this.unselectDepartment(element)})
+    employees.forEach((element) => {element.isSelect = false})
   }
 }

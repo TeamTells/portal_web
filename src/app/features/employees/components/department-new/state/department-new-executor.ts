@@ -47,35 +47,75 @@ export class DepartmentNewExecutor extends Executor<
         });
         break;
 
-      case DepartmentNewActionTypes.CHANGE_PARENT_DEPARTAMENT:
+      case DepartmentNewActionTypes.CHANGE_PARENT_DEPARTMENT:
         this.reduce({
           type: DepartmentNewResultActionTypes.CHANGE_PARENT_DEPARTAMENT,
-          parentDepartament: action.parentDepartament,
+          parentDepartament: action.parentDepartment
         });
         break;
 
-      case DepartmentNewActionTypes.REMOVE_PARENT_DEPARTAMENT:
+      case DepartmentNewActionTypes.REMOVE_PARENT_DEPARTMENT:
         this.reduce({
           type: DepartmentNewResultActionTypes.REMOVE_PARENT_DEPARTAMENT,
         });
         break;
 
-      case DepartmentNewActionTypes.ADD_EMLOYEES:
+      case DepartmentNewActionTypes.ADD_EMPLOYEES:
         this.reduce({
-          type: DepartmentNewResultActionTypes.ADD_EMLOYEES,
-          empoyees: action.empoyees,
+          type: DepartmentNewResultActionTypes.ADD_EMPLOYEES,
+          empoyees: action.employees,
         });
         break;
 
       case DepartmentNewActionTypes.REMOVE_EMPOYEES:
         this.reduce({
           type: DepartmentNewResultActionTypes.REMOVE_EMPOYESS,
-          empoyees: action.empoyees,
+          empoyees: action.employees,
         });
         break;
 
       case DepartmentNewActionTypes.CREATE:
         this.handleCreate();
+        break;
+
+      case DepartmentNewActionTypes.OPEN_DEPARTAMENT_MODAL:
+        this.reduce({
+          type: DepartmentNewResultActionTypes.CHANGE_VISIBLE_DEPARTAMENT_MODAL,
+          visible: true
+        })  
+        break;
+
+      case DepartmentNewActionTypes.CLOSE_DEPARTAMENT_MODAL:
+        this.reduce({
+          type: DepartmentNewResultActionTypes.CHANGE_VISIBLE_DEPARTAMENT_MODAL,
+          visible: false
+        })
+        break;
+
+      case DepartmentNewActionTypes.OPEN_EMPLOYEES_MODAL:
+        this.reduce({
+          type: DepartmentNewResultActionTypes.CHANGE_VISIBLE_EMPLOYEES_MODAL,
+          visible: true
+        })  
+        break;
+
+      case DepartmentNewActionTypes.CLOSE_EMPLOYEES_MODAL:
+        this.reduce({
+          type: DepartmentNewResultActionTypes.CHANGE_VISIBLE_EMPLOYEES_MODAL,
+          visible: false
+        })
+        break;
+      case DepartmentNewActionTypes.OPEN_SUPERVISOR_MODAL:
+        this.reduce({
+          type: DepartmentNewResultActionTypes.CHANGE_VISIBLE_SUPERVISOR_MODAL,
+          visible: true
+        })  
+        break;
+      case DepartmentNewActionTypes.CLOSE_SUPERVISOR_MODAL:
+        this.reduce({
+          type: DepartmentNewResultActionTypes.CHANGE_VISIBLE_SUPERVISOR_MODAL,
+          visible: false
+        })
         break;
     }
   }
