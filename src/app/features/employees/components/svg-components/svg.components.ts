@@ -48,3 +48,11 @@ export class SvgDot {
 })
 export class SvgPlus {
 }
+
+@Component({
+  standalone: true,
+  selector: 'svg-triple-dot',
+  templateUrl: '../../../../../assets/triple-dot.svg',
+})
+export class SvgTripleDot {
+}

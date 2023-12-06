@@ -1,6 +1,7 @@
 <div class="mx-[8px]">
 
-  <div class="group w-full flex justify-between px-[8px] py-[8px] rounded-xl hover:bg-selected-section-icon-background-color">
+  <div
+    class="group w-full flex justify-between px-[8px] py-[8px] rounded-xl hover:bg-selected-section-icon-background-color">
     <div class="flex min-w-0">
       <svg-arrow
         class="document-icon rotate-90"
@@ -20,7 +21,11 @@
         class="ml-[8px] text-tt-main-text font-normal group-hover:text-tt-selected-section-text-color truncate">{{document.title}}</div>
     </div>
 
-    <svg-plus class="document-icon align-self-end hidden group-hover:block"></svg-plus>
+    <div class="flex">
+      <svg-triple-dot
+        class="document-icon p-[4px] hidden group-hover:block"></svg-triple-dot>
+      <svg-plus class="document-icon hidden group-hover:block"></svg-plus>
+    </div>
 
   </div>
 

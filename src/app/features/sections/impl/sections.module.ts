@@ -5,7 +5,13 @@ import {SectionServiceImpl} from "./data/section-service-impl";
 import {SectionService} from "../api/section-service";
 import {ComponentsModule} from "../../../core/components/components.module";
 import {DocumentItemComponent} from "../../section/impl/presentation/components/document-item/document-item.component";
-import {SvgArrow, SvgBorderedArrow, SvgDot, SvgPlus} from "../../employees/components/svg-components/svg.components";
+import {
+    SvgArrow,
+    SvgBorderedArrow,
+    SvgDot,
+    SvgPlus,
+    SvgTripleDot
+} from "../../employees/components/svg-components/svg.components";
 
 @NgModule({
   declarations: [
@@ -18,7 +24,8 @@ import {SvgArrow, SvgBorderedArrow, SvgDot, SvgPlus} from "../../employees/compo
         SvgArrow,
         SvgDot,
         SvgBorderedArrow,
-        SvgPlus
+        SvgPlus,
+        SvgTripleDot
     ],
   exports: [
     DocumentItemComponent
