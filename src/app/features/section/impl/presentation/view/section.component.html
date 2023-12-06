@@ -23,10 +23,13 @@
       </div>
     </div>
 
-    <div
-      class="group flex mt-[16px] px-[8px] mx-[8px] py-[8px] items-center rounded-xl hover:bg-selected-section-icon-background-color">
-      <svg-bordered-arrow class="document-icon"></svg-bordered-arrow>
-      <div class="text-base ms-[8px] text-tt-main-text font-medium group-hover:text-tt-selected-section-text-color">Содержание</div>
+    <div class="group flex justify-between mt-[16px] px-[8px] mx-[8px] py-[8px] rounded-xl hover:bg-selected-section-icon-background-color">
+      <div
+        class="flex">
+        <svg-bordered-arrow class="document-icon"></svg-bordered-arrow>
+        <div class="text-base ms-[8px] text-tt-main-text font-medium group-hover:text-tt-selected-section-text-color">Содержание</div>
+      </div>
+      <svg-plus class="document-icon align-self-end hidden group-hover:block"></svg-plus>
     </div>
 
     <div *ngFor="let document of state.documents">

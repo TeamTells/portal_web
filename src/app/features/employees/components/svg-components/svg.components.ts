@@ -40,3 +40,11 @@ export class SvgArrow {
 })
 export class SvgDot {
 }
+
+@Component({
+  standalone: true,
+  selector: 'svg-plus',
+  templateUrl: '../../../../../assets/plus.svg',
+})
+export class SvgPlus {
+}
