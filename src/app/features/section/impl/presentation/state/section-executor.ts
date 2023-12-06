@@ -20,13 +20,17 @@ export class SectionExecutor extends Executor<SectionState, SectionAction, Secti
 
   override init(reducer: Reducer<SectionState, SectionResultAction>, getState: () => SectionState, onReduced: (state: SectionState) => void) {
     super.init(reducer, getState, onReduced);
-    this.route.paramMap.subscribe((params: any) => {
-      const sectionId = +params.get('id');
-      const section = this.sectionService.getSection(sectionId)
+
+    this.sectionService.getSectionObservable().subscribe((section) => {
       this.reduce({
         type: SectionResultActionTypes.UPDATE_SECTION,
         section: section
       })
+    })
+
+    this.route.paramMap.subscribe((params: any) => {
+      const sectionId = +params.get('id');
+      this.sectionService.fetchSection(sectionId)
     })
   }
 
@@ -37,6 +41,19 @@ export class SectionExecutor extends Executor<SectionState, SectionAction, Secti
           type: SectionResultActionTypes.CHANGE_DOCUMENT_OPEN_STATE,
           documentId: action.documentId
         })
+        break
+
+      case SectionActionTypes.CHANGE_CONTENT_OPEN_STATE:
+        this.reduce(
+          {
+            type: SectionResultActionTypes.CHANGE_CONTENT_OPEN_STATE
+          }
+        )
+        break
+
+      case SectionActionTypes.CREATE_DOCUMENT:
+        this.sectionService.createDocument(this.getState().id, action.rootDocumentId)
+        break
     }
   }
 

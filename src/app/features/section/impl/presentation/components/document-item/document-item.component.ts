@@ -22,6 +22,8 @@ export class DocumentItemComponent {
 
   @Output() arrowClicked: EventEmitter<number> = new EventEmitter<number>()
 
+  @Output() createDocumentClicked: EventEmitter<number> = new EventEmitter<number>()
+
   constructor() {
   }
 
@@ -37,6 +39,10 @@ export class DocumentItemComponent {
 
   onArrowClicked(departmentId: number): void {
     this.arrowClicked.emit(departmentId)
+  }
+
+  onCreateDocumentClicked(departmentId: number): void {
+    this.createDocumentClicked.emit(departmentId)
   }
 
 

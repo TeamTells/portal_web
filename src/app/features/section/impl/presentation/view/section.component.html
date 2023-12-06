@@ -1,6 +1,7 @@
 <div class="flex h-screen flex-col bg-white rounded-2xl hover:bg-tt-light-light-gray">
 
-  <div class="w-[360px] h-full bg-tt-unaccented-background overflow-auto cursor-pointer">
+  <div
+    class="w-[360px] max-w-[420px] min-w-[280px] hover:resize-x h-full bg-tt-unaccented-background overflow-auto cursor-pointer">
 
     <div class="flex px-[8px] mx-[8px] py-[8px] mt-[22px] items-center">
       <img class="h-[32px] w-[32px] p-[2px]" [src]="state.url"/>
@@ -24,20 +25,51 @@
     </div>
 
     <div
-      class="group flex mt-[16px] px-[8px] mx-[8px] py-[8px] items-center rounded-xl hover:bg-selected-section-icon-background-color">
-      <svg-bordered-arrow class="document-icon"></svg-bordered-arrow>
-      <div class="text-base ms-[8px] text-tt-main-text font-medium group-hover:text-tt-selected-section-text-color">Содержание</div>
+      class="group flex justify-between mt-[16px] px-[8px] mx-[8px] py-[8px] rounded-xl hover:bg-selected-section-icon-background-color">
+      <div class="flex">
+        <svg-bordered-arrow
+          *ngIf="state.isOpen"
+          class="document-icon"
+          (click)="this.performAction({
+          type: SectionActionTypes.CHANGE_CONTENT_OPEN_STATE
+          })"
+        ></svg-bordered-arrow>
+        <svg-bordered-arrow
+          *ngIf="!state.isOpen"
+          class="document-icon -rotate-90"
+          (click)="this.performAction({
+          type: SectionActionTypes.CHANGE_CONTENT_OPEN_STATE
+          })"
+        ></svg-bordered-arrow>
+
+        <div class="text-base ms-[8px] text-tt-main-text font-medium group-hover:text-tt-selected-section-text-color">
+          Содержание
+        </div>
+      </div>
+      <svg-plus
+        class="document-icon align-self-end"
+        (click)="this.performAction({
+          type: SectionActionTypes.CREATE_DOCUMENT,
+          rootDocumentId: Constants.NO_ID
+          })"
+      ></svg-plus>
     </div>
 
-    <div *ngFor="let document of state.documents">
-      <app-document-item
-        (arrowClicked)="this.performAction({
+    <div *ngIf="state.isOpen">
+      <div *ngFor="let document of state.documents">
+        <app-document-item
+          (arrowClicked)="this.performAction({
           type: SectionActionTypes.CHANGE_DOCUMENT_OPEN_STATE,
           documentId: $event
         })"
-        [document]="document"
-        [openDocuments]="state.openDocuments"
-      ></app-document-item>
+          (createDocumentClicked)="this.performAction({
+          type: SectionActionTypes.CREATE_DOCUMENT,
+          rootDocumentId: $event
+          })"
+          [document]="document"
+          [openDocuments]="state.openDocuments"
+        ></app-document-item>
+      </div>
     </div>
   </div>
 </div>

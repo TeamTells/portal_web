@@ -5,6 +5,7 @@ import {SectionExecutor} from "../state/section-executor";
 import {SectionAction, SectionActionTypes} from "../state/section-action";
 import {SectionResultAction} from "../state/section-result-action";
 import {SectionReducer} from "../state/section-reducer";
+import {Constants} from "../common/Constants";
 
 
 @Component({
@@ -24,4 +25,5 @@ export class SectionComponent extends Store<SectionState, SectionExecutor, Secti
 
   protected readonly document = document;
   protected readonly SectionActionTypes = SectionActionTypes;
+  protected readonly Constants = Constants;
 }

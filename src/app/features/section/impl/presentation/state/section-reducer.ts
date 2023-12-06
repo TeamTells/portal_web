@@ -16,6 +16,8 @@ export class SectionReducer implements Reducer<SectionState, SectionResultAction
         return this.updateSection(state, action.section)
       case SectionResultActionTypes.CHANGE_DOCUMENT_OPEN_STATE:
         return this.changeDocumentOpenState(state, action.documentId)
+      case SectionResultActionTypes.CHANGE_CONTENT_OPEN_STATE:
+        return this.changeContentOpenState(state)
     }
   }
 
@@ -41,6 +43,10 @@ export class SectionReducer implements Reducer<SectionState, SectionResultAction
       })
       return clone(state, {openDocuments: newOpenDocumentsSet})
     }
+  }
+
+  private changeContentOpenState(state: SectionState): SectionState {
+    return clone(state, {isOpen: !state.isOpen})
   }
 
 }

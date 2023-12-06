@@ -6,7 +6,6 @@ import {Component} from "@angular/core";
   templateUrl: '../../../../../assets/square.svg',
 })
 export class SvgSquare {
-
 }
 
 @Component({
@@ -39,4 +38,20 @@ export class SvgArrow {
   templateUrl: '../../../../../assets/dot.svg',
 })
 export class SvgDot {
+}
+
+@Component({
+  standalone: true,
+  selector: 'svg-plus',
+  templateUrl: '../../../../../assets/plus.svg',
+})
+export class SvgPlus {
+}
+
+@Component({
+  standalone: true,
+  selector: 'svg-triple-dot',
+  templateUrl: '../../../../../assets/triple-dot.svg',
+})
+export class SvgTripleDot {
 }
