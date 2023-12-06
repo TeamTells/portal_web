@@ -46,7 +46,13 @@
           Содержание
         </div>
       </div>
-      <svg-plus class="document-icon align-self-end hidden group-hover:block"></svg-plus>
+      <svg-plus
+        class="document-icon align-self-end hidden group-hover:block"
+        (click)="this.performAction({
+          type: SectionActionTypes.CREATE_DOCUMENT,
+          rootDocumentId: Constants.NO_ID
+          })"
+      ></svg-plus>
     </div>
 
     <div *ngIf="state.isOpen">
