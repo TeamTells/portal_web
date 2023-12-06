@@ -37,6 +37,14 @@ export class SectionExecutor extends Executor<SectionState, SectionAction, Secti
           type: SectionResultActionTypes.CHANGE_DOCUMENT_OPEN_STATE,
           documentId: action.documentId
         })
+        break
+      case SectionActionTypes.CHANGE_CONTENT_OPEN_STATE:
+        this.reduce(
+          {
+            type: SectionResultActionTypes.CHANGE_CONTENT_OPEN_STATE
+          }
+        )
+        break
     }
   }
 

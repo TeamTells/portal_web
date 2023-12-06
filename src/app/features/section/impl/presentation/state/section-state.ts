@@ -8,10 +8,9 @@ export class SectionState {
   readonly id: number = SectionState.NO_ID
   readonly title: string = ""
   readonly url: string = ""
-  readonly isAllPagesSelected: boolean = false
   readonly documents: Array<DocumentEntity> = []
   readonly openDocuments: Array<number> = new Array<number>()
-  readonly isOpen: boolean = false
+  readonly isOpen: boolean = true
 
   static readonly NO_ID = -1
 }
