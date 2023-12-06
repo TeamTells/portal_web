@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Reducer} from "../../../../../core/mvi/store";
+import {Reducer} from "../../../../../../core/mvi/store";
 import {SectionState} from "./section-state";
 import {SectionResultAction, SectionResultActionTypes} from "./section-result-action";
 import {clone} from "cloneable-ts";

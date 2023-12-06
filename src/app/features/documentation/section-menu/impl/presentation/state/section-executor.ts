@@ -3,7 +3,7 @@ import {SectionState} from "./section-state";
 import {SectionAction, SectionActionTypes} from "./section-action";
 import {SectionResultAction, SectionResultActionTypes} from "./section-result-action";
 import {SectionService} from "../../domain/section-service";
-import {Executor, Reducer} from "../../../../../core/mvi/store";
+import {Executor, Reducer} from "../../../../../../core/mvi/store";
 import {ActivatedRoute} from "@angular/router";
 
 @Injectable({
