@@ -1,0 +1,44 @@
+<div class="mx-[8px]">
+
+  <div
+    class="group w-full flex justify-between px-[8px] py-[8px] rounded-xl hover:bg-selected-section-icon-background-color">
+    <div class="flex min-w-0">
+      <svg-arrow
+        class="document-icon rotate-90"
+        *ngIf="document.documents.length != 0 && isOpen(document.id)"
+        (click)="onArrowClicked(document.id)"></svg-arrow>
+
+      <svg-arrow
+        class="document-icon"
+        *ngIf="document.documents.length != 0 && !isOpen(document.id)"
+        (click)="onArrowClicked(document.id)"></svg-arrow>
+
+      <svg-dot
+        *ngIf="document.documents.length == 0"
+        class="document-icon -rotate-180"></svg-dot>
+
+      <div
+        class="ml-[8px] text-tt-main-text font-normal group-hover:text-tt-selected-section-text-color truncate">{{document.title}}</div>
+    </div>
+
+    <div class="flex">
+      <svg-triple-dot
+        class="document-icon p-[4px] hidden group-hover:block"></svg-triple-dot>
+      <svg-plus class="document-icon hidden group-hover:block"
+                (click)="onCreateDocumentClicked(document.id)"></svg-plus>
+    </div>
+
+  </div>
+
+  <div *ngIf="isOpen(document.id)">
+    <app-document-item
+      [level]="level + 1"
+      *ngFor="let item of document.documents"
+      [document]="item"
+      [openDocuments]="openDocuments"
+      (arrowClicked)="onArrowClicked($event)"
+      (createDocumentClicked)="onCreateDocumentClicked($event)"
+    />
+  </div>
+
+</div>

@@ -1,9 +1,11 @@
 import {
   Component,
+  ElementRef,
   EventEmitter,
   HostListener,
   Input,
   Output,
+  ViewChild,
 } from '@angular/core';
 
 @Component({
@@ -12,12 +14,5 @@ import {
 })
 export class PopupMenuButtonComponent {
   @Input() class: string | string[] = [];
-  @Output() isActiveEmitter = new EventEmitter<boolean>();
-  private isActive: boolean = false;
-
-  @HostListener('click', ['$event'])
-  onClick(event: MouseEvent) {
-    this.isActiveEmitter.emit(this.isActive);
-    this.isActive = !this.isActive;
-  }
+  @ViewChild("popupMenuButton",{read:ElementRef}) buttonContent!: ElementRef;
 }
