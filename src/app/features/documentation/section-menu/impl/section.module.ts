@@ -9,7 +9,7 @@ import {
     SvgGearShape,
     SvgPlus,
     SvgSquare
-} from "../../employees/components/svg-components/svg.components";
+} from "../../../employees/components/svg-components/svg.components";
 
 @NgModule({
   declarations: [

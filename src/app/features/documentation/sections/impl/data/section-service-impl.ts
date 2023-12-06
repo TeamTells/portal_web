@@ -4,7 +4,7 @@ import {SectionService} from "../../api/section-service";
 import {BehaviorSubject, map, Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {SectionsResponseJson} from "./json/sections-response-json";
-import {environment} from "../../../../../environments/environment";
+import {environment} from "../../../../../../environments/environment";
 
 @Injectable({
     providedIn: 'root'

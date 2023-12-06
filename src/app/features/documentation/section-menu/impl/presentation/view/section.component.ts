@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {Store} from "../../../../../core/mvi/store";
+import {Store} from "../../../../../../core/mvi/store";
 import {SectionState} from "../state/section-state";
 import {SectionExecutor} from "../state/section-executor";
 import {SectionAction, SectionActionTypes} from "../state/section-action";

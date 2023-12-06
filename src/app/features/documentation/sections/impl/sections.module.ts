@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SectionsComponent } from './presentation/sections.component';
+import { SectionsComponent } from './presentation/view/sections.component';
 import {SectionServiceImpl} from "./data/section-service-impl";
 import {SectionService} from "../api/section-service";
-import {ComponentsModule} from "../../../core/components/components.module";
-import {DocumentItemComponent} from "../../section/impl/presentation/components/document-item/document-item.component";
+import {ComponentsModule} from "../../../../core/components/components.module";
+import {DocumentItemComponent} from "../../section-menu/impl/presentation/components/document-item/document-item.component";
 import {
     SvgArrow,
     SvgBorderedArrow,
     SvgDot,
     SvgPlus,
     SvgTripleDot
-} from "../../employees/components/svg-components/svg.components";
+} from "../../../employees/components/svg-components/svg.components";
 
 @NgModule({
   declarations: [
