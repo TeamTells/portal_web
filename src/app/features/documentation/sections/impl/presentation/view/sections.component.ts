@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {SectionsNavigator} from '../navigation/sections.navigator';
-import {SectionService} from "../../api/section-service";
-import {SectionSummaryEntity} from "../../api/section-summary-entity";
-import {AuthorizationActionTypes} from "../../../authorization/presentation/state/authorization-action";
-import {SectionsState} from "./state/sections-state";
+import {SectionsNavigator} from '../../navigation/sections.navigator';
+import {SectionService} from "../../../api/section-service";
+import {SectionSummaryEntity} from "../../../api/section-summary-entity";
+import {AuthorizationActionTypes} from "../../../../../authorization/presentation/state/authorization-action";
+import {SectionsState} from "../state/sections-state";
 import {clone} from "cloneable-ts";
 
 @Component({

@@ -21,7 +21,7 @@ import { ProfileInfoComponent } from './features/profile/profile-info/profile-in
 import { ProfileSecurityComponent } from './features/profile/profile-security/profile-security.component';
 import { ProfileComponent } from './features/profile/profile/profile.component';
 import { ProfileChangePasswordComponent } from './features/profile/profile-change-password/presentation/view/profile-change-password.component';
-import {SectionsComponent} from "./features/sections/impl/presentation/sections.component";
+import {SectionsComponent} from "./features/documentation/sections/impl/presentation/view/sections.component";
 import {SectionComponent} from "./features/documentation/section-menu/impl/presentation/view/section.component";
 
 const employeesItems: Routes = [

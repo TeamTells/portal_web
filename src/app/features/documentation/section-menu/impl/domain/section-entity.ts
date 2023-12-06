@@ -1,4 +1,4 @@
-import {SectionSummaryEntity} from "../../../../sections/api/section-summary-entity";
+import {SectionSummaryEntity} from "../../../sections/api/section-summary-entity";
 import {DocumentEntity} from "./document-entity";
 
 export class SectionEntity {
