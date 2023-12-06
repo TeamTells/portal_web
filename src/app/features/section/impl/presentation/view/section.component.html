@@ -62,6 +62,10 @@
           type: SectionActionTypes.CHANGE_DOCUMENT_OPEN_STATE,
           documentId: $event
         })"
+          (createDocumentClicked)="this.performAction({
+          type: SectionActionTypes.CREATE_DOCUMENT,
+          rootDocumentId: $event
+          })"
           [document]="document"
           [openDocuments]="state.openDocuments"
         ></app-document-item>

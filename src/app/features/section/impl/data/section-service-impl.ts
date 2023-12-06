@@ -85,6 +85,7 @@ export class SectionServiceImpl extends SectionService {
       ))
     }
 
+    console.log("Create document with parentDocumentId " + parentDocumentId)
     this.tempId = this.tempId++
     this.fetchSection(sectionId)
   }

@@ -6,7 +6,6 @@ import {Component} from "@angular/core";
   templateUrl: '../../../../../assets/square.svg',
 })
 export class SvgSquare {
-
 }
 
 @Component({

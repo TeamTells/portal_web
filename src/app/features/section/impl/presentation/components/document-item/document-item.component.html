@@ -24,7 +24,8 @@
     <div class="flex">
       <svg-triple-dot
         class="document-icon p-[4px] hidden group-hover:block"></svg-triple-dot>
-      <svg-plus class="document-icon hidden group-hover:block"></svg-plus>
+      <svg-plus class="document-icon hidden group-hover:block"
+                (click)="onCreateDocumentClicked(document.id)"></svg-plus>
     </div>
 
   </div>
@@ -36,6 +37,7 @@
       [document]="item"
       [openDocuments]="openDocuments"
       (arrowClicked)="onArrowClicked($event)"
+      (createDocumentClicked)="onCreateDocumentClicked($event)"
     />
   </div>
 
