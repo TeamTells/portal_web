@@ -8,11 +8,13 @@ import {
   emailValidatorFactory,
   phoneNumberValidatorFactory,
 } from 'src/app/core/validators/validators';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 
 @NgModule({
   declarations: [RegistrationComponent],
-  imports: [CommonModule, ComponentsModule],
+  imports: [CommonModule, ComponentsModule, NgxMaskDirective],
   providers: [
+    provideNgxMask(),
     {
       provide: 'RegistrationEmailValidator',
       useExisting: Validator,

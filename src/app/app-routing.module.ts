@@ -2,10 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainComponent } from './features/main/presentation/main.component';
 import { AuthorizationComponent } from './features/authorization/presentation/view/authorization.component';
-import {
-  alreadyLoginGuardFunction,
-  loginGuardFunction,
-} from './features/authorization/presentation/guard/auth-guard';
+import { alreadyLoginGuardFunction } from './features/authorization/presentation/guard/auth-guard';
 import { EmployeesComponent } from './features/employees/presentation/employees.component';
 import { SettingsComponent } from './features/settings/presentation/settings.component';
 import { DepartmentInfoComponent } from './features/employees/components/department-info/department-info.component';
@@ -21,8 +18,8 @@ import { ProfileInfoComponent } from './features/profile/profile-info/profile-in
 import { ProfileSecurityComponent } from './features/profile/profile-security/profile-security.component';
 import { ProfileComponent } from './features/profile/profile/profile.component';
 import { ProfileChangePasswordComponent } from './features/profile/profile-change-password/presentation/view/profile-change-password.component';
-import {SectionsComponent} from "./features/documentation/sections/impl/presentation/view/sections.component";
-import {SectionComponent} from "./features/documentation/section-menu/impl/presentation/view/section.component";
+import { SectionsComponent } from './features/documentation/sections/impl/presentation/view/sections.component';
+import { SectionComponent } from './features/documentation/section-menu/impl/presentation/view/section.component';
 
 const employeesItems: Routes = [
   { path: 'new-employee', component: EmployeeNewComponent },
@@ -37,11 +34,10 @@ const employeesItems: Routes = [
 ];
 
 const profileItems: Routes = [
-  {path: '', component: ProfileInfoComponent,},
-  {path: 'security', component:ProfileSecurityComponent},
-  {path: 'change-password', component: ProfileChangePasswordComponent},
-]
-
+  { path: '', component: ProfileInfoComponent },
+  { path: 'security', component: ProfileSecurityComponent },
+  { path: 'change-password', component: ProfileChangePasswordComponent },
+];
 
 const mainItems: Routes = [
   {
@@ -49,10 +45,10 @@ const mainItems: Routes = [
     component: EmployeesComponent,
     children: employeesItems,
   },
-  { path: 'settings', component: SettingsComponent},
-  {path: 'sections', component: SectionsComponent },
+  { path: 'settings', component: SettingsComponent },
+  { path: 'sections', component: SectionsComponent },
   { path: 'section/:id', component: SectionComponent },
-  { path: 'profile', component: ProfileComponent, children: profileItems},
+  { path: 'profile', component: ProfileComponent, children: profileItems },
 ];
 
 const appRoutes: Routes = [
@@ -69,7 +65,7 @@ const appRoutes: Routes = [
   {
     path: '',
     component: MainComponent,
-    canActivate: [loginGuardFunction],
+    // canActivate: [loginGuardFunction],
     children: mainItems,
   },
 ];

@@ -1,4 +1,5 @@
-<button
+<a
+  href="https://teamtells.ru"
   class="w-11 h-11 rounded-full bg-tt-background-icon flex items-center justify-center text-tt-icon fixed right-7 top-7"
 >
   <svg
@@ -14,7 +15,7 @@
       fill="currentColor"
     />
   </svg>
-</button>
+</a>
 
 <div
   class="bg-tt-unaccented-background min-h-[100dvh] min-w-[100dwh] flex items-center flex-col justify-center"
@@ -30,6 +31,7 @@
       <h1 class="text-[36px] font-bold mb-7 block text-center">
         Регистрация в <span class="text-tt-primary">TeamTells</span>
       </h1>
+      <input type="text" prefix="+7" mask="(000) 000 00 00" />
       <app-core-input-field
         placeholder="Ваше имя*"
         [error]="state.nameError"
@@ -91,6 +93,8 @@
         <app-core-input-field
           class="flex-1"
           placeholder="Мобильный телефон*"
+          prefix="+7"
+          mask="(000) 000-00-00"
           [error]="state.phoneNumberError"
           (onChange)="
             performAction({

@@ -5,8 +5,12 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   templateUrl: './input-field.component.html',
 })
 export class InputFieldComponent {
-  @Input() placeholder?: string;
   @Input() class: string | string[] = [];
+  @Input() placeholder?: string;
+  @Input() mask?: string;
+  @Input() prefix: string = '';
+  @Input() showMaskTyped: boolean = false;
+  @Input() shownMaskExpression?: string;
   @Input() defaultValue: string = '';
   @Input() type?: string;
   @Input() autocomplete?: string;

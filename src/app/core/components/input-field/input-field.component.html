@@ -5,6 +5,12 @@
       [type]="type"
       [autocomplete]="autocomplete"
       [defaultValue]="defaultValue"
+      [mask]="mask"
+      [prefix]="prefix"
+      [showMaskTyped]="showMaskTyped"
+      [attr.shownMaskExpression]="
+        shownMaskExpression ? shownMaskExpression : null
+      "
       [class.pt-0]="!placeholder"
       [class.bg-tt-bg-error]="error"
       [class.bg-tt-white]="!error"
