@@ -7,13 +7,14 @@
       </h2>
     </div>
     <app-core-button-red
-      text="Сохранить"
-      (buttonClick)="
+      (onClick)="
         performAction({
           type: DepartmentNewActionTypes.CREATE
         })
       "
-    />
+    >
+      Сохранить
+    </app-core-button-red>
   </div>
   <app-core-input-field
     type="text"

@@ -15,10 +15,9 @@
         (buttonClick)="closeClick.emit()"
         [text]="data.cancel"
       />
-      <app-core-button-red
-        (buttonClick)="submitClick.emit()"
-        [text]="data.submit"
-      />
+      <app-core-button-red (onClick)="submitClick.emit()">
+        {{ data.submit }}
+      </app-core-button-red>
     </div>
   </div>
 </app-core-page-shading>

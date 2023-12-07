@@ -1,10 +1,10 @@
 import { Validator } from './validator';
 import {
-    EmailRule,
-    EmptyRule,
-    MaxLengthRule,
-    MinLengthRule,
-    PhoneNumberRule,
+  EmailRule,
+  EmptyRule,
+  MaxLengthRule,
+  MinLengthRule,
+  PhoneNumberRule,
 } from './rule';
 
 export const emailValidatorFactory = () =>
@@ -23,7 +23,7 @@ export const passwordValidatorFactory = () =>
 export let phoneNumberValidatorFactory = () =>
   new Validator([
     new PhoneNumberRule(
-      `Введите номер телефона в формате +7 (XXX) YYY-YY-YY`,
+      `Введите номер телефона в формате +7(XXX) YYY-YY-YY`,
       '+7'
     ),
   ]);

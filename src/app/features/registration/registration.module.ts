@@ -8,13 +8,24 @@ import {
   emailValidatorFactory,
   phoneNumberValidatorFactory,
 } from 'src/app/core/validators/validators';
-import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
+import { NgxMaskDirective } from 'ngx-mask';
+import {
+  SvgArrowRight,
+  SvgLoading,
+  SvgXMark,
+} from 'src/app/core/components/svg-components/svg.components';
 
 @NgModule({
   declarations: [RegistrationComponent],
-  imports: [CommonModule, ComponentsModule, NgxMaskDirective],
+  imports: [
+    CommonModule,
+    ComponentsModule,
+    NgxMaskDirective,
+    SvgXMark,
+    SvgLoading,
+    SvgArrowRight,
+  ],
   providers: [
-    provideNgxMask(),
     {
       provide: 'RegistrationEmailValidator',
       useExisting: Validator,

@@ -1,51 +1,77 @@
-<div class="bg-gray-100 fixed top-0 right-0 left-0 bottom-0"></div>
+<a
+  href="https://teamtells.ru"
+  class="w-11 h-11 rounded-full bg-tt-background-icon flex items-center justify-center text-tt-icon fixed right-7 top-7"
+>
+  <svg-x-mark class="w-4 fill-tt-icon" />
+</a>
 
-<!--Ждем компонент-->
 <div
-  class="absolute w-min h-min bg-red-100 px-2 py-2 mt-2 mr-2"
-  *ngIf="state.loginError != null"
+  class="bg-tt-unaccented-background min-h-[100dvh] min-w-[100dwh] flex items-center flex-col justify-center"
 >
-  {{ state.loginError }}
-</div>
-
-<app-core-card
-  (keyup.enter)="performAction({ type: AuthorizationActionTypes.LOGIN })"
->
-  <img ngSrc="assets/team_tels.png" height="25" width="152" class="mb-2" />
-
-  <div class="mb-4">Введите email и пароль</div>
-
-  <app-core-input-field
-    placeholder="E-mail"
-    type="text"
-    [error]="state.emailError.toString()"
-    (onChange)="
-      performAction({
-        type: AuthorizationActionTypes.CHANGE_EMAIL,
-        email: $event
-      })
-    "
-  />
-  <app-core-input-field
-    class="my-3"
-    placeholder="Пароль"
-    type="password"
-    [error]="state.passwordError.toString()"
-    (onChange)="
-      performAction({
-        type: AuthorizationActionTypes.CHANGE_PASSWORD,
-        password: $event
-      })
-    "
-  />
-
-  <button
-    class="py-3 px-4 w-full bg-tt-primary text-tt-contrast-text rounded-lg mt-1"
-    (click)="performAction({ type: AuthorizationActionTypes.LOGIN })"
+  <section
+    class="relative bg-tt-main-background rounded-tt-card-big mt-4 mb-16 p-12"
+    (keyup.enter)="performAction({ type: AuthorizationActionTypes.LOGIN })"
   >
-    Войти
-  </button>
+    <h1 class="text-2xl sm:text-[36px] font-bold mb-7 block text-center">
+      Вход в <span class="text-tt-primary">TeamTells</span>
+    </h1>
 
-  <!--Ждем компонент-->
-  <div *ngIf="state.isLoading">Загрузка...</div>
-</app-core-card>
+    <form>
+      <app-core-input-field
+        placeholder="E-mail"
+        type="text"
+        [error]="state.emailError.toString()"
+        (onChange)="
+          performAction({
+            type: AuthorizationActionTypes.CHANGE_EMAIL,
+            email: $event
+          })
+        "
+      />
+      <app-core-input-field
+        class="my-[20px]"
+        placeholder="Пароль"
+        type="password"
+        [error]="state.passwordError.toString()"
+        (onChange)="
+          performAction({
+            type: AuthorizationActionTypes.CHANGE_PASSWORD,
+            password: $event
+          })
+        "
+      />
+      <div class="flex justify-between items-center h-6 mb-[20px]">
+        <app-core-checkbox-field
+          [value]="savePas"
+          (onToggle)="toggleSavePas()"
+          label="Запомнить меня"
+        />
+        <button type="button" class="text-sm">Забыли пароль?</button>
+      </div>
+      <app-core-button-red
+        class="w-full h-[56px] text-lg"
+        (click)="performAction({ type: AuthorizationActionTypes.LOGIN })"
+      >
+        <div
+          *ngIf="state.isLoading"
+          class="max-w-[26px] max-h-[26px] mx-auto animate-spin"
+        >
+          <svg-button-loading class="w-[26px] h-[26px] fill-tt-contrast-text" />
+        </div>
+        <span *ngIf="!state.isLoading">Войти</span>
+      </app-core-button-red>
+    </form>
+
+    <div
+      class="absolute left-0 bottom-[-44px] w-full flex justify-between items-center mt-[20px]"
+    >
+      <a class="text-tt-secondary-text" href="https://teamtells.ru"
+        >teamtells.ru</a
+      >
+      <a class="text-sm font-medium flex items-center" href="/login">
+        Зарегистрироваться
+        <svg-arrow-right class="h-3 w-2 ms-2" />
+      </a>
+    </div>
+  </section>
+</div>

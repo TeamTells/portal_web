@@ -30,6 +30,13 @@ export class SvgArrow {}
 
 @Component({
   standalone: true,
+  selector: 'svg-arrow-right',
+  templateUrl: '../../../../assets/arrow-right.svg',
+})
+export class SvgArrowRight {}
+
+@Component({
+  standalone: true,
   selector: 'svg-dot',
   templateUrl: '../../../../assets/dot.svg',
 })
@@ -76,3 +83,17 @@ export class SvgSuccess {}
   templateUrl: '../../../../assets/search.svg',
 })
 export class SvgSearch {}
+
+@Component({
+  standalone: true,
+  selector: 'svg-loading',
+  templateUrl: '../../../../assets/loading.svg',
+})
+export class SvgLoading {}
+
+@Component({
+  standalone: true,
+  selector: 'svg-button-loading',
+  templateUrl: '../../../../assets/button-loading.svg',
+})
+export class SvgButtonLoading {}

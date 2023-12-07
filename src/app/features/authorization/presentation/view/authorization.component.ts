@@ -1,18 +1,24 @@
-import {Component} from '@angular/core';
-import {AuthorizationState} from "../state/authorization-state";
-import {AuthorizationExecutor} from "../state/authorization-executor";
-import {AuthorizationAction, AuthorizationActionTypes} from "../state/authorization-action";
-import {AuthorizationResultAction} from "../state/authorization-result-action";
-import {AuthorizationReducer} from "../state/authorization-reducer";
-import {Store} from "../../../../core/mvi/store";
+import { Component } from '@angular/core';
+import { AuthorizationState } from '../state/authorization-state';
+import { AuthorizationExecutor } from '../state/authorization-executor';
+import {
+  AuthorizationAction,
+  AuthorizationActionTypes,
+} from '../state/authorization-action';
+import { AuthorizationResultAction } from '../state/authorization-result-action';
+import { AuthorizationReducer } from '../state/authorization-reducer';
+import { Store } from 'src/app/core/mvi/store';
 
 @Component({
   selector: 'app-authorization',
   templateUrl: './authorization.component.html',
-  styleUrls: ['./authorization.component.scss']
 })
-export class AuthorizationComponent extends Store<AuthorizationState, AuthorizationExecutor, AuthorizationAction, AuthorizationResultAction> {
-
+export class AuthorizationComponent extends Store<
+  AuthorizationState,
+  AuthorizationExecutor,
+  AuthorizationAction,
+  AuthorizationResultAction
+> {
   constructor(
     state: AuthorizationState,
     executor: AuthorizationExecutor,
@@ -22,4 +28,11 @@ export class AuthorizationComponent extends Store<AuthorizationState, Authorizat
   }
 
   protected readonly AuthorizationActionTypes = AuthorizationActionTypes;
+
+  public savePas = true;
+
+  toggleSavePas() {
+    this.savePas = !this.savePas;
+    console.log(this.savePas);
+  }
 }

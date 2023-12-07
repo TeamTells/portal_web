@@ -28,6 +28,7 @@ import {
   SvgWarning,
   SvgXMark,
 } from './svg-components/svg.components';
+import { CheckboxFieldComponent } from './checkbox-field/checkbox-field.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import {
     ErrorToastComponent,
     SuccessToastComponent,
     MultiselectFieldComponent,
+    CheckboxFieldComponent,
   ],
   exports: [
     CardComponent,
@@ -69,6 +71,7 @@ import {
     ErrorToastComponent,
     SuccessToastComponent,
     MultiselectFieldComponent,
+    CheckboxFieldComponent,
   ],
   imports: [
     CommonModule,

@@ -40,19 +40,20 @@
         </span>
       </p>
     </button>
-    <ul
+    <div
       *ngIf="items.length !== 0"
       [class.hidden]="!opened"
       class="z-50 absolute w-full top-[55px] text-start bg-tt-field-background ring-2 ring-tt-field-border outline outline-1 outline-tt-field-border rounded-t-none rounded-tt-input"
     >
-      <li
+      <button
+        type="button"
         *ngFor="let item of items"
         (click)="onSelectItem(item.id)"
         class="cursor-pointer h-[40px] px-[20px] w-full bg-tt-field-background hover:bg-tt-light-light-gray transition flex items-center border-b border-tt-field-border last:border-b-0"
       >
         <span class="text-tt-field">{{ item.name }}</span>
-      </li>
-    </ul>
+      </button>
+    </div>
   </div>
   <app-field-error-message [error]="error" />
 </div>

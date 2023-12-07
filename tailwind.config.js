@@ -21,7 +21,7 @@ module.exports = {
         "tt-field-border-success": "rgba(192, 236, 212, 1)",
         "tt-field-background-error": "rgba(255, 245, 245, 1)",
         "tt-field-background-success": "rgba(241, 255, 244, 1)",
-
+        "tt-icon": "rgba(104, 105, 105, 1)",
 
         "tt-light-light-gray": "#F2F3F7",
         "tt-gray": "#88888D",
@@ -45,6 +45,7 @@ module.exports = {
         "tt-toast": "0.25rem",
         "tt-card": "1rem",
         "tt-card-large": "4rem",
+        "tt-card-big": "2.25rem",
         "tt-bth": "0.5rem",
       },
       textColor: {

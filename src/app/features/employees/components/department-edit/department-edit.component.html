@@ -6,14 +6,16 @@
         Редактирование департамента
       </h2>
     </div>
+
     <app-core-button-red
-      text="Сохранить"
-      (buttonClick)="
+      (onClick)="
         performAction({
           type: DepartmentEditActionTypes.EDIT
         })
       "
-    />
+    >
+      Сохранить
+    </app-core-button-red>
   </div>
   <app-core-input-field
     type="text"
