@@ -2,7 +2,7 @@
   <div class="flex justify-between gap-1 flex-wrap font-bold mb-9">
     <div class="flex gap-4">
       <app-core-button-back />
-      <h2 class="text-[28px] font-medium text-tt-black">
+      <h2 class="text-[28px] font-medium text-tt-main-text">
         Создание департамента
       </h2>
     </div>
@@ -30,32 +30,40 @@
     class="my-3"
     placeholder="Выберите департамент"
     [selectedItem]="getSelectedParentDepartmentDropdownItem()"
-    (onClick)="performAction({
-      type: DepartmentNewActionTypes.OPEN_DEPARTAMENT_MODAL
-    })"
+    (onClick)="
+      performAction({
+        type: DepartmentNewActionTypes.OPEN_DEPARTAMENT_MODAL
+      })
+    "
     [error]="state.parentDepartmentError"
   />
   <app-core-dropdown-field
     placeholder="Выберите руководителя"
     [selectedItem]="getSelectedSipervisorDropdownItem()"
-    (onClick)="performAction({
-      type: DepartmentNewActionTypes.OPEN_SUPERVISOR_MODAL
-    })"
+    (onClick)="
+      performAction({
+        type: DepartmentNewActionTypes.OPEN_SUPERVISOR_MODAL
+      })
+    "
     [error]="state.supervisorError"
   />
 </app-core-main-content-card>
 
 <app-core-main-content-card>
-  <h3 class="text-2xl text-tt-black font-medium">
+  <h3 class="text-2xl text-tt-main-text font-medium">
     Участники
     <span *ngIf="state.employees.length !== 0" class="text-tt-gray"
       >({{ state.employees.length }})</span
     >
   </h3>
   <app-core-search-field class="my-6" (onChange)="onChangeSearchStr($event)" />
-  <app-core-add-employees (buttonClick)="performAction({
-    type: DepartmentNewActionTypes.OPEN_EMPLOYEES_MODAL
-  })" />
+  <app-core-add-employees
+    (buttonClick)="
+      performAction({
+        type: DepartmentNewActionTypes.OPEN_EMPLOYEES_MODAL
+      })
+    "
+  />
   <div *ngFor="let employee of state.employees">
     <div *ngIf="employee.name.toLowerCase().includes(searchStr.toLowerCase())">
       <app-core-employee-item
@@ -71,31 +79,47 @@
   </div>
 </app-core-main-content-card>
 
-<select-department-modal-window *ngIf="state.visibleSelectDepartmentModal"
-  (closeClicked)="performAction({
-    type: DepartmentNewActionTypes.CLOSE_DEPARTAMENT_MODAL
-  })"
-  (submitClicked)="performAction({
-    type: DepartmentNewActionTypes.CHANGE_PARENT_DEPARTMENT,
-    parentDepartment: $event
-  })" />
-
-<select-supervisor-modal-window *ngIf="state.visibleSelectSupervisorModal"
-  (closeClicked)="performAction({
-    type: DepartmentNewActionTypes.OPEN_SUPERVISOR_MODAL
-  })"
-  (submitClicked)="performAction({
-    type: DepartmentNewActionTypes.CHANGE_SUPERVISOR,
-    supervisor: $event
-  })"
+<select-department-modal-window
+  *ngIf="state.visibleSelectDepartmentModal"
+  (closeClicked)="
+    performAction({
+      type: DepartmentNewActionTypes.CLOSE_DEPARTAMENT_MODAL
+    })
+  "
+  (submitClicked)="
+    performAction({
+      type: DepartmentNewActionTypes.CHANGE_PARENT_DEPARTMENT,
+      parentDepartment: $event
+    })
+  "
 />
 
-<select-employees-modal-window *ngIf="state.visibleSelectEmployeesModal"
-  (closeClicked)="performAction({
-    type: DepartmentNewActionTypes.CLOSE_EMPLOYEES_MODAL
-  })"
-  (submitClicked)="performAction({
-    type: DepartmentNewActionTypes.ADD_EMPLOYEES,
-    employees: $event
-  })"
+<select-supervisor-modal-window
+  *ngIf="state.visibleSelectSupervisorModal"
+  (closeClicked)="
+    performAction({
+      type: DepartmentNewActionTypes.OPEN_SUPERVISOR_MODAL
+    })
+  "
+  (submitClicked)="
+    performAction({
+      type: DepartmentNewActionTypes.CHANGE_SUPERVISOR,
+      supervisor: $event
+    })
+  "
+/>
+
+<select-employees-modal-window
+  *ngIf="state.visibleSelectEmployeesModal"
+  (closeClicked)="
+    performAction({
+      type: DepartmentNewActionTypes.CLOSE_EMPLOYEES_MODAL
+    })
+  "
+  (submitClicked)="
+    performAction({
+      type: DepartmentNewActionTypes.ADD_EMPLOYEES,
+      employees: $event
+    })
+  "
 />

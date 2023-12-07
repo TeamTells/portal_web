@@ -32,6 +32,10 @@ import {
 import { SelectDepartmentModalComponent } from './components/select-department-modal/select-department-modal.component';
 import { SelectSupervisorModalComponent } from './components/select-supervisor-modal/select-supervisor-modal.component';
 import { SelectEmployeesModalComponent } from './components/select-employees-modal/select-employees-modall.component';
+import {
+  SvgTripleDot,
+  SvgXMark,
+} from 'src/app/core/components/svg-components/svg.components';
 
 @NgModule({
   declarations: [
@@ -53,10 +57,16 @@ import { SelectEmployeesModalComponent } from './components/select-employees-mod
     EmployeeEditComponent,
     SelectDepartmentModalComponent,
     SelectSupervisorModalComponent,
-    SelectEmployeesModalComponent
+    SelectEmployeesModalComponent,
   ],
   exports: [EmployeesComponent],
-  imports: [CommonModule, ComponentsModule, RouterOutlet],
+  imports: [
+    CommonModule,
+    ComponentsModule,
+    RouterOutlet,
+    SvgXMark,
+    SvgTripleDot,
+  ],
   providers: [
     {
       provide: 'NewEmployeeEmailValidator',

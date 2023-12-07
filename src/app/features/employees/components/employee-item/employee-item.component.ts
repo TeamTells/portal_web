@@ -4,6 +4,7 @@ import {
   EmployeesNavItem,
   EmployeesNavigator,
 } from '../../navigation/employees-navigator';
+
 @Component({
   selector: 'app-core-employee-item',
   templateUrl: './employee-item.component.html',
@@ -37,12 +38,9 @@ export class EmployeeItemComponent {
   }
 
   onClick(event: any): void {
-    if (event.ctrlKey) 
-    {
+    if (event.ctrlKey) {
       this.ctrlClicked.emit(this.employee);
-    }
-    else
-    {
+    } else {
       this.clicked.emit(this.employee);
     }
   }

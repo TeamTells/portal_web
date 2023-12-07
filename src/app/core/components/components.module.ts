@@ -20,6 +20,14 @@ import { ErrorToastComponent } from './toast-alert/error-toast/error-toast.compo
 import { SuccessToastComponent } from './toast-alert/success-toast/success-toast.component';
 import { MultiselectFieldComponent } from './multiselect-field/multiselect-field.component';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
+import {
+  SvgBorderedArrow,
+  SvgPlus,
+  SvgSearch,
+  SvgSuccess,
+  SvgWarning,
+  SvgXMark,
+} from './svg-components/svg.components';
 
 @NgModule({
   declarations: [
@@ -62,7 +70,17 @@ import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
     SuccessToastComponent,
     MultiselectFieldComponent,
   ],
-  imports: [CommonModule, AppRoutingModule, NgxMaskDirective],
+  imports: [
+    CommonModule,
+    AppRoutingModule,
+    NgxMaskDirective,
+    SvgBorderedArrow,
+    SvgPlus,
+    SvgXMark,
+    SvgWarning,
+    SvgSearch,
+    SvgSuccess,
+  ],
   providers: [provideNgxMask()],
 })
 export class ComponentsModule {}

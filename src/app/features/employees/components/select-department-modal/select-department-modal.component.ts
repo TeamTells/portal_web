@@ -80,7 +80,7 @@ export class SelectDepartmentModalComponent {
       this.toastService.createToast({
         title: "Департамент не выбран",
         description: "Пожалуйста выберите департамент",
-        state: ToastState.ERROR //TODO Заменить на WARNING как появится
+        state: ToastState.SUCCESS //TODO Заменить на WARNING как появится
       })
     }
   }

@@ -2,7 +2,7 @@
   <div class="flex justify-between gap-1 flex-wrap font-bold mb-9">
     <div class="flex gap-4">
       <app-core-button-back />
-      <h2 class="text-[28px] text-tt-black">Новый пользователь</h2>
+      <h2 class="text-[28px] text-tt-main-text">Новый пользователь</h2>
     </div>
     <app-core-button-red text="Сохранить" (buttonClick)="
         performAction({
@@ -10,7 +10,7 @@
         })
       " />
   </div>
-  <h3 class="text-xl text-tt-black font-bold mb-3">Основная информация</h3>
+  <h3 class="text-xl text-tt-main-text font-bold mb-3">Основная информация</h3>
   <form>
     <app-core-input-field type="text" placeholder="Фамилия*" [error]="state.lastNameError" (onChange)="
         performAction({
@@ -68,7 +68,7 @@
       type: EmployeeNewActionTypes.OPEN_DEPARTMENT_MODAL
     })" 
     />
-  <h3 class="text-xl text-tt-black font-bold my-3">Права доступа</h3>
+  <h3 class="text-xl text-tt-main-text font-bold my-3">Права доступа</h3>
   <app-core-multiselect-field placeholder="Выберите роль" [items]="state.roles" [selectedItems]="state.selectedRoles"
     (onSelect)="
       performAction({
