@@ -15,9 +15,14 @@ export class RegistrationReducer
 {
   reduce(
     state: RegistrationState,
-    action: RegistrationResultAction,
+    action: RegistrationResultAction
   ): RegistrationState {
     switch (action.type) {
+      case RegistrationResultActionTypes.CHANGE_STATUS_STATE:
+        return clone(state, {
+          status: action.status,
+        });
+
       case RegistrationResultActionTypes.CHANGE_NAME:
         return clone(state, {
           name: action.name,

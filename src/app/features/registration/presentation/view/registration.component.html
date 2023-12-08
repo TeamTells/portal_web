@@ -6,20 +6,19 @@
 </a>
 
 <div
-  class="bg-tt-unaccented-background min-h-[100dvh] min-w-[100dwh] flex items-center flex-col justify-center px-2"
+  class="bg-tt-unaccented-background min-h-[100dvh] min-w-[100dvw] flex items-center flex-col justify-center px-2"
 >
   <section
-    class="relative bg-tt-main-background rounded-tt-card-large mt-4 mb-16"
+    class="relative bg-tt-main-background rounded-tt-card sm:rounded-tt-card-big mt-4 mb-16 p-[24px] sm:p-12 w-full"
     [ngClass]="{
-      'mt-4 mb-16': state.status === 'idle',
-      'max-w-[706px] min-h-[396px] pt-12 pb-6': state.status !== 'idle'
+      'max-w-[1104px]': state.status === 'idle',
+      'max-w-[706px] min-h-[396px]': state.status !== 'idle'
     }"
   >
-    <div *ngIf="state.status === 'idle'" class="max-w-[784px] mx-36 my-16">
+    <div *ngIf="state.status === 'idle'" class="max-w-[784px] mx-auto">
       <h1 class="text-2xl sm:text-[36px] font-bold mb-7 block text-center">
         Регистрация в <span class="text-tt-primary">TeamTells</span>
       </h1>
-      <input type="text" prefix="+7" mask="(000) 000 00 00" />
       <app-core-input-field
         placeholder="Ваше имя*"
         [error]="state.nameError"
@@ -107,7 +106,7 @@
           </p>
         </div>
         <app-core-button-red
-          class="whitespace-nowrap h-[56px]"
+          class="whitespace-nowrap h-[56px] w-full sm:w-auto text-lg sm:text-base"
           (onClick)="
             performAction({
               type: RegistrationActionTypes.CREATE
@@ -121,9 +120,11 @@
 
     <div
       *ngIf="
-        state.status === 'pending' || state.status === 'success' || 'error'
+        state.status === 'pending' ||
+        state.status === 'success' ||
+        state.status === 'error'
       "
-      class="mx-auto w-[400px]"
+      class="mx-auto max-w-[400px]"
     >
       <div *ngIf="state.status === 'error'" class="flex items-center flex-col">
         <h2 class="text-2xl text-center inline-block my-6">
@@ -139,7 +140,7 @@
           src="../../../../assets/registration-success.png"
           alt="Registration Success"
         />
-        <h2 class="text-2xl text-center inline-block my-6">
+        <h2 class="text-xl sm:text-2xl text-center inline-block my-6">
           Аккаунт успешно создан
         </h2>
         <span class="text-center">
@@ -158,7 +159,7 @@
       >
         <svg-loading class="animate-spin text-tt-primary w-24 h-24" />
 
-        <h2 class="text-2xl text-center inline-block mt-10 mb-6">
+        <h2 class="text-xl sm:text-2xl text-center inline-block mt-10 mb-6">
           Подождите, создаем ваш аккаунт
         </h2>
         <span class="text-center">

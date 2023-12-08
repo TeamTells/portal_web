@@ -43,7 +43,6 @@ export class ResetPasswordExecutor extends Executor<
 
   private handleReset() {
     let emailError = this.emailValidator.validate(this.getState().email);
-    this.reduce({ type: ResetPasswordResultActionTypes.CHANGE_LOADING_STATE });
 
     if (emailError != null) {
       this.reduce({
@@ -52,6 +51,8 @@ export class ResetPasswordExecutor extends Executor<
       });
       return;
     }
+    
+    this.reduce({ type: ResetPasswordResultActionTypes.CHANGE_LOADING_STATE });
 
     setTimeout(() => {
       this.reduce({
