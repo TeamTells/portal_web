@@ -16,6 +16,7 @@ import { RegistrationModule } from './features/registration/registration.module'
 import { ProfileModule } from './features/profile/profile.module';
 import { SectionModule } from './features/documentation/section-menu/impl/section.module';
 import { SectionsModule } from './features/documentation/sections/impl/sections.module';
+import { ResetPasswordModule } from './features/reset-password/reset-password.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,6 +31,7 @@ import { SectionsModule } from './features/documentation/sections/impl/sections.
     RegistrationModule,
     ProfileModule,
     SectionModule,
+    ResetPasswordModule,
   ],
   providers: [
     {

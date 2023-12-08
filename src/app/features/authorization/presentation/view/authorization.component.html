@@ -1,15 +1,15 @@
 <a
   href="https://teamtells.ru"
-  class="w-11 h-11 rounded-full bg-tt-background-icon flex items-center justify-center text-tt-icon fixed right-7 top-7"
+  class="z-10 w-11 h-11 rounded-full bg-tt-background-icon flex items-center justify-center text-tt-icon fixed right-3 top-3 sm:right-7 sm:top-7"
 >
   <svg-x-mark class="w-4 fill-tt-icon" />
 </a>
 
 <div
-  class="bg-tt-unaccented-background min-h-[100dvh] min-w-[100dwh] flex items-center flex-col justify-center"
+  class="bg-tt-unaccented-background min-h-[100dvh] min-w-[100dwh] flex items-center flex-col justify-center px-2"
 >
   <section
-    class="relative bg-tt-main-background rounded-tt-card-big mt-4 mb-16 p-12"
+    class="relative bg-tt-main-background rounded-tt-card sm:rounded-tt-card-big mt-4 mb-16 p-[24px] sm:p-12 w-full max-w-[515px]"
     (keyup.enter)="performAction({ type: AuthorizationActionTypes.LOGIN })"
   >
     <h1 class="text-2xl sm:text-[36px] font-bold mb-7 block text-center">
@@ -42,11 +42,17 @@
       />
       <div class="flex justify-between items-center h-6 mb-[20px]">
         <app-core-checkbox-field
-          [value]="savePas"
-          (onToggle)="toggleSavePas()"
+          [value]="state.rememberMe"
+          (onToggle)="
+            performAction({
+              type: AuthorizationActionTypes.TOGGLE_REMEMBER_ME
+            })
+          "
           label="Запомнить меня"
         />
-        <button type="button" class="text-sm">Забыли пароль?</button>
+        <a type="button" class="text-sm" href="/reset-password">
+          Забыли пароль?
+        </a>
       </div>
       <app-core-button-red
         class="w-full h-[56px] text-lg"
@@ -68,7 +74,7 @@
       <a class="text-tt-secondary-text" href="https://teamtells.ru"
         >teamtells.ru</a
       >
-      <a class="text-sm font-medium flex items-center" href="/login">
+      <a class="text-sm font-medium flex items-center" href="/signup">
         Зарегистрироваться
         <svg-arrow-right class="h-3 w-2 ms-2" />
       </a>

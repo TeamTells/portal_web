@@ -12,14 +12,14 @@ import { EmployeeNewComponent } from './features/employees/components/employee-n
 import { DepartmentNewComponent } from './features/employees/components/department-new/department-new.component';
 import { EmployeeEditComponent } from './features/employees/components/employee-edit/employee-edit.component';
 import { DepartmentEditComponent } from './features/employees/components/department-edit/department-edit.component';
-import { RegistrationComponent } from './features/registration/presentation/registration.component';
-
+import { RegistrationComponent } from './features/registration/presentation/view/registration.component';
 import { ProfileInfoComponent } from './features/profile/profile-info/profile-info.component';
 import { ProfileSecurityComponent } from './features/profile/profile-security/profile-security.component';
 import { ProfileComponent } from './features/profile/profile/profile.component';
 import { ProfileChangePasswordComponent } from './features/profile/profile-change-password/presentation/view/profile-change-password.component';
 import { SectionsComponent } from './features/documentation/sections/impl/presentation/view/sections.component';
 import { SectionComponent } from './features/documentation/section-menu/impl/presentation/view/section.component';
+import { ResetPasswordComponent } from './features/reset-password/presentation/view/reset-password.component';
 
 const employeesItems: Routes = [
   { path: 'new-employee', component: EmployeeNewComponent },
@@ -60,6 +60,11 @@ const appRoutes: Routes = [
   {
     path: 'signup',
     component: RegistrationComponent,
+    canActivate: [alreadyLoginGuardFunction],
+  },
+  {
+    path: 'reset-password',
+    component: ResetPasswordComponent,
     canActivate: [alreadyLoginGuardFunction],
   },
   {

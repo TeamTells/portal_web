@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RegistrationComponent } from './presentation/registration.component';
+import { RegistrationComponent } from './presentation/view/registration.component';
 import { ComponentsModule } from 'src/app/core/components/components.module';
 import { Validator } from 'src/app/core/validators/validator';
 import { EmptyRule, MaxLengthRule } from 'src/app/core/validators/rule';
@@ -8,7 +8,6 @@ import {
   emailValidatorFactory,
   phoneNumberValidatorFactory,
 } from 'src/app/core/validators/validators';
-import { NgxMaskDirective } from 'ngx-mask';
 import {
   SvgArrowRight,
   SvgLoading,
@@ -20,7 +19,6 @@ import {
   imports: [
     CommonModule,
     ComponentsModule,
-    NgxMaskDirective,
     SvgXMark,
     SvgLoading,
     SvgArrowRight,

@@ -28,11 +28,4 @@ export class AuthorizationComponent extends Store<
   }
 
   protected readonly AuthorizationActionTypes = AuthorizationActionTypes;
-
-  public savePas = true;
-
-  toggleSavePas() {
-    this.savePas = !this.savePas;
-    console.log(this.savePas);
-  }
 }

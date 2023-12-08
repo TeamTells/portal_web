@@ -1,22 +1,22 @@
 <a
   href="https://teamtells.ru"
-  class="w-11 h-11 rounded-full bg-tt-background-icon flex items-center justify-center text-tt-icon fixed right-7 top-7"
+  class="z-10 w-11 h-11 rounded-full bg-tt-background-icon flex items-center justify-center text-tt-icon fixed right-3 top-3 sm:right-7 sm:top-7"
 >
   <svg-x-mark class="w-4 fill-tt-icon" />
 </a>
 
 <div
-  class="bg-tt-unaccented-background min-h-[100dvh] min-w-[100dwh] flex items-center flex-col justify-center"
+  class="bg-tt-unaccented-background min-h-[100dvh] min-w-[100dwh] flex items-center flex-col justify-center px-2"
 >
   <section
     class="relative bg-tt-main-background rounded-tt-card-large mt-4 mb-16"
     [ngClass]="{
       'mt-4 mb-16': state.status === 'idle',
-      'w-[706px] min-h-[396px] pt-12 pb-6': state.status !== 'idle'
+      'max-w-[706px] min-h-[396px] pt-12 pb-6': state.status !== 'idle'
     }"
   >
     <div *ngIf="state.status === 'idle'" class="max-w-[784px] mx-36 my-16">
-      <h1 class="text-[36px] font-bold mb-7 block text-center">
+      <h1 class="text-2xl sm:text-[36px] font-bold mb-7 block text-center">
         Регистрация в <span class="text-tt-primary">TeamTells</span>
       </h1>
       <input type="text" prefix="+7" mask="(000) 000 00 00" />
@@ -66,7 +66,7 @@
           })
         "
       />
-      <div class="flex gap-[20px] my-[20px]">
+      <div class="flex flex-col sm:flex-row gap-[20px] my-[20px]">
         <app-core-input-field
           class="flex-1"
           placeholder="Электронная почта*"
@@ -93,7 +93,7 @@
         />
       </div>
       <div class="h-[1px] w-full bg-tt-field-border my-7"></div>
-      <div class="flex gap-4 items-center">
+      <div class="flex flex-col sm:flex-row gap-4 items-center">
         <div>
           <p class="text-tt-secondary-text text-sm leading-6">
             Заполняя форму, я принимаю
