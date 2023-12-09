@@ -3,7 +3,7 @@ import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {Editor2Service} from "./domain/editor-service";
 import {Editor2ServiceImpl} from "./data/editor-service-impl";
 import {SlateModule} from 'slate-angular';
-import {EditorComponent2} from "./presentation/editor/editor2.component";
+import {EditorComponent} from "./presentation/editor/editor.component";
 import {FormsModule} from "@angular/forms";
 import {TextMarkComponent} from "./presentation/editor/components/text/text.component";
 import {BreadcrumbsComponent} from "./presentation/editor/components/bread";
@@ -15,7 +15,7 @@ import { GutterButtonComponent } from './presentation/editor/components/gutter-b
 @NgModule({
   declarations: [
     TextMarkComponent,
-    EditorComponent2,
+    EditorComponent,
     BreadcrumbsComponent,
     SelectionContextMenuComponent,
     GutterButtonComponent,

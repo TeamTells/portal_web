@@ -42,12 +42,11 @@ const HOTKEYS_COMMANDS: { [hotkey: string]: EditorCommand } = {
 const LIST_TYPES = ['numbered-list', 'bulleted-list'];
 
 @Component({
-  // standalone: true,
   selector: 'app-editor',
-  templateUrl: './editor2.component.html',
-  styleUrls: ['./editor2.component.scss'],
+  templateUrl: './editor.component.html',
+  styleUrls: ['./editor.component.scss'],
 })
-export class EditorComponent2 implements OnInit {
+export class EditorComponent implements OnInit {
   value: DocumentDataModel;
   blurSelection: any;
   removeButton = {

@@ -3,7 +3,7 @@
  * 1 | @use 'slate-angular/styles/index.scss';
  *   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
  *   '
- *   editor2.component.scss 1:1  root stylesheet */
+ *   editor.component.scss 1:1  root stylesheet */
 
 body::before {
   font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",

@@ -27,12 +27,12 @@ import {
 import {SectionsComponent} from "./features/documentation/sections/impl/presentation/view/sections.component";
 import {SectionComponent} from "./features/documentation/section-menu/impl/presentation/view/section.component";
 import {
-  SectionContentComponent
+    SectionContentComponent
 } from "./features/documentation/contents/impl/presentation/view/section-content.component";
 import {
-  SectionSettingsComponent
+    SectionSettingsComponent
 } from "./features/documentation/section-settings/impl/presentation/view/section-settings.component";
-import {EditorComponent2} from "./features/editor2/presentation/editor/editor2.component";
+import {EditorComponent} from "./features/editor2/presentation/editor/editor.component";
 
 const employeesItems: Routes = [
     {path: 'new-employee', component: EmployeeNewComponent},
@@ -53,8 +53,9 @@ const profileItems: Routes = [
 
 
 const sectionRotes: Routes = [
-  {path: 'content', component: SectionContentComponent},
-  {path: 'settings', component: SectionSettingsComponent},
+    {path: 'content', component: SectionContentComponent},
+    {path: 'settings', component: SectionSettingsComponent},
+    {path: 'editor', component: EditorComponent},
 ]
 
 const mainItems: Routes = [
@@ -64,12 +65,15 @@ const mainItems: Routes = [
         children: employeesItems,
     },
     {path: 'settings', component: SettingsComponent},
-    {path: 'sections', component: SectionsComponent,
+    {
+        path: 'sections', component: SectionsComponent,
     },
-  {path: 'section/:id', component: SectionComponent,
-    children: sectionRotes},
+    {
+        path: 'section/:id', component: SectionComponent,
+        children: sectionRotes
+    },
     {path: 'profile', component: ProfileComponent, children: profileItems},
-    {path: 'editor', component: EditorComponent2},
+    {path: 'editor', component: EditorComponent},
 ];
 
 const appRoutes: Routes = [

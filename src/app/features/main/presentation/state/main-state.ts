@@ -4,7 +4,7 @@ import {Injectable} from "@angular/core";
   providedIn: 'root'
 })
 export class MainState {
-  readonly selectedItem: NavItem = NavItem.EDITOR
+  readonly selectedItem: NavItem = NavItem.SECTIONS
   showSideBar: boolean = false;
 }
 

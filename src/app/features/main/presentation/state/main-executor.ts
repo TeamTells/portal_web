@@ -16,7 +16,7 @@ export class MainExecutor extends Executor<MainState, MainAction, MainResultActi
         private router: Router,
     ) {
         super();
-        router.navigate(['editor'])
+        router.navigate(['sections'])
     }
 
     execute(action: MainAction) {

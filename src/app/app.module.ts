@@ -10,7 +10,7 @@ import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {fakeBackendProvider} from './features/authorization/data/interceptors/fake-backend';
 import {appInitializer} from './features/authorization/data/app-initializer';
 import {MainModule} from './features/main/main.module';
-import {EditorModule2} from "./features/editor2/editor-module2.module";
+import {EditorModule2} from "./features/editor2/editor-module.module";
 import {EmployeesModule} from './features/employees/employees.module';
 import {ComponentsModule} from './core/components/components.module';
 import {RegistrationModule} from './features/registration/registration.module';
