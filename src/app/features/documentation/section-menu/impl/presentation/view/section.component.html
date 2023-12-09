@@ -1,4 +1,4 @@
-<div class="flex h-screen flex-col bg-white rounded-2xl hover:bg-tt-light-light-gray">
+<div class="flex h-screen bg-white">
 
   <div
     class="w-[360px] max-w-[420px] min-w-[280px] hover:resize-x h-full bg-tt-unaccented-background overflow-auto cursor-pointer">
@@ -32,18 +32,16 @@
           class="document-icon"
           (click)="this.performAction({
           type: SectionActionTypes.CHANGE_CONTENT_OPEN_STATE
-          })"
-        ></svg-bordered-arrow>
+          })"></svg-bordered-arrow>
+
         <svg-bordered-arrow
           *ngIf="!state.isOpen"
           class="document-icon -rotate-90"
           (click)="this.performAction({
           type: SectionActionTypes.CHANGE_CONTENT_OPEN_STATE
-          })"
-        ></svg-bordered-arrow>
+          })"></svg-bordered-arrow>
 
-        <div class="text-base ms-[8px] text-tt-main-text font-medium group-hover:text-tt-selected-section-text-color"
-        >
+        <div class="text-base ms-[8px] text-tt-main-text font-medium group-hover:text-tt-selected-section-text-color">
           Содержание
         </div>
       </div>

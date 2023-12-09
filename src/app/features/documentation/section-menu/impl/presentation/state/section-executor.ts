@@ -5,6 +5,7 @@ import {SectionResultAction, SectionResultActionTypes} from "./section-result-ac
 import {SectionService} from "../../domain/section-service";
 import {Executor, Reducer} from "../../../../../../core/mvi/store";
 import {ActivatedRoute, Router} from "@angular/router";
+import {SectionNavigator} from "../navigation/section-navigator";
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +15,9 @@ export class SectionExecutor extends Executor<SectionState, SectionAction, Secti
   constructor(
     private route: ActivatedRoute,
     private sectionService: SectionService,
-    private router: Router,
+    private sectionNavigator: SectionNavigator,
   ) {
     super();
-    this.router.navigate(['content'])
   }
 
   override init(reducer: Reducer<SectionState, SectionResultAction>, getState: () => SectionState, onReduced: (state: SectionState) => void) {
@@ -31,6 +31,7 @@ export class SectionExecutor extends Executor<SectionState, SectionAction, Secti
 
     this.route.paramMap.subscribe((params: any) => {
       const sectionId = +params.get('id');
+      this.sectionNavigator.openContent(sectionId)
       this.sectionService.fetchSection(sectionId)
     })
   }
