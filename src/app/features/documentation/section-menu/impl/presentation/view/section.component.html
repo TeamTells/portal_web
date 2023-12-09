@@ -1,4 +1,4 @@
-<div class="flex h-screen flex-col bg-white rounded-2xl hover:bg-tt-light-light-gray">
+<div class="flex h-screen bg-white">
 
   <div
     class="w-[360px] max-w-[420px] min-w-[280px] hover:resize-x h-full bg-tt-unaccented-background overflow-auto cursor-pointer">
@@ -9,6 +9,9 @@
     </div>
 
     <div
+      (click)="this.performAction({
+          type: SectionActionTypes.OPEN_CONTENT
+      })"
       class="group flex px-[8px] mx-[8px] py-[8px] items-center rounded-xl hover:bg-selected-section-icon-background-color">
       <svg-square class="document-icon"></svg-square>
       <div class="text-base font-normal ms-[8px] text-tt-main-text group-hover:text-tt-selected-section-text-color">Все
@@ -16,7 +19,9 @@
       </div>
     </div>
 
-    <div
+    <div (click)="this.performAction({
+          type: SectionActionTypes.OPEN_SETTINGS
+      })"
       class="group flex px-[8px] mx-[8px]  py-[8px] items-center rounded-xl hover:bg-selected-section-icon-background-color">
       <svg-gear-shape class="p-[2px] document-icon"></svg-gear-shape>
       <div class="text-base ms-[8px] text-tt-main-text font-normal group-hover:text-tt-selected-section-text-color">
@@ -24,7 +29,9 @@
       </div>
     </div>
 
-    <div
+    <div (click)="this.performAction({
+          type: SectionActionTypes.OPEN_CONTENT
+      })"
       class="group flex justify-between mt-[16px] px-[8px] mx-[8px] py-[8px] rounded-xl hover:bg-selected-section-icon-background-color">
       <div class="flex">
         <svg-bordered-arrow
@@ -32,15 +39,14 @@
           class="document-icon"
           (click)="this.performAction({
           type: SectionActionTypes.CHANGE_CONTENT_OPEN_STATE
-          })"
-        ></svg-bordered-arrow>
+          })"></svg-bordered-arrow>
+
         <svg-bordered-arrow
           *ngIf="!state.isOpen"
           class="document-icon -rotate-90"
           (click)="this.performAction({
           type: SectionActionTypes.CHANGE_CONTENT_OPEN_STATE
-          })"
-        ></svg-bordered-arrow>
+          })"></svg-bordered-arrow>
 
         <div class="text-base ms-[8px] text-tt-main-text font-medium group-hover:text-tt-selected-section-text-color">
           Содержание
@@ -72,4 +78,6 @@
       </div>
     </div>
   </div>
+
+  <router-outlet></router-outlet>
 </div>

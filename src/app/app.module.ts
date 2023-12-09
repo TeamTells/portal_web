@@ -17,6 +17,7 @@ import {RegistrationModule} from './features/registration/registration.module';
 import {ProfileModule} from "./features/profile/profile.module";
 import {SectionModule} from "./features/documentation/section-menu/impl/section.module";
 import {SectionsModule} from "./features/documentation/sections/impl/sections.module";
+import {SettingsModule} from "./features/settings/settings.module";
 
 @NgModule({
     declarations: [AppComponent],
@@ -31,8 +32,8 @@ import {SectionsModule} from "./features/documentation/sections/impl/sections.mo
         RegistrationModule,
         ProfileModule,
         EditorModule2,
-        SectionModule
-    ],
+        SectionModule,
+    SettingsModule],
     providers: [
         {
             provide: AuthService,

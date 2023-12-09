@@ -26,6 +26,12 @@ import {
 } from './features/profile/profile-change-password/presentation/view/profile-change-password.component';
 import {SectionsComponent} from "./features/documentation/sections/impl/presentation/view/sections.component";
 import {SectionComponent} from "./features/documentation/section-menu/impl/presentation/view/section.component";
+import {
+  SectionContentComponent
+} from "./features/documentation/contents/impl/presentation/view/section-content.component";
+import {
+  SectionSettingsComponent
+} from "./features/documentation/section-settings/impl/presentation/view/section-settings.component";
 import {EditorComponent2} from "./features/editor2/presentation/editor/editor2.component";
 
 const employeesItems: Routes = [
@@ -36,8 +42,7 @@ const employeesItems: Routes = [
     {path: 'department/:id', component: DepartmentInfoComponent},
     {path: 'roles', component: RolesComponent},
     {path: '', component: EmployeesListComponent},
-    {path: 'sections', component: SectionsComponent},
-    {path: 'sections/:id', component: SectionComponent},
+
 ];
 
 const profileItems: Routes = [
@@ -47,6 +52,11 @@ const profileItems: Routes = [
 ]
 
 
+const sectionRotes: Routes = [
+  {path: 'content', component: SectionContentComponent},
+  {path: 'settings', component: SectionSettingsComponent},
+]
+
 const mainItems: Routes = [
     {
         path: 'employees',
@@ -54,8 +64,10 @@ const mainItems: Routes = [
         children: employeesItems,
     },
     {path: 'settings', component: SettingsComponent},
-    {path: 'sections', component: SectionsComponent},
-    {path: 'section/:id', component: SectionComponent},
+    {path: 'sections', component: SectionsComponent,
+    },
+  {path: 'section/:id', component: SectionComponent,
+    children: sectionRotes},
     {path: 'profile', component: ProfileComponent, children: profileItems},
     {path: 'editor', component: EditorComponent2},
 ];
