@@ -13,7 +13,7 @@ import {
   SvgDot,
   SvgPlus,
   SvgTripleDot
-} from "../../../employees/components/svg-components/svg.components";
+} from "../../../../core/components/svg-components/svg.components";
 
 @NgModule({
   declarations: [

@@ -9,7 +9,7 @@ import {
     SvgGearShape,
     SvgPlus,
     SvgSquare
-} from "../../../employees/components/svg-components/svg.components";
+} from "../../../../core/components/svg-components/svg.components";
 import {RouterOutlet} from "@angular/router";
 import {SectionContentComponent} from "../../contents/impl/presentation/view/section-content.component";
 

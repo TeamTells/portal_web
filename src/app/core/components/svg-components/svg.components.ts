@@ -3,7 +3,7 @@ import {Component} from "@angular/core";
 @Component({
   standalone: true,
   selector: 'svg-square',
-  templateUrl: '../../../../../assets/square.svg',
+  templateUrl: '../../../../assets/square.svg',
 })
 export class SvgSquare {
 }
@@ -11,7 +11,7 @@ export class SvgSquare {
 @Component({
   standalone: true,
   selector: 'svg-gear-shape',
-  templateUrl: '../../../../../assets/gearshape.svg',
+  templateUrl: '../../../../assets/gearshape.svg',
 })
 export class SvgGearShape {
 }
@@ -19,7 +19,7 @@ export class SvgGearShape {
 @Component({
   standalone: true,
   selector: 'svg-bordered-arrow',
-  templateUrl: '../../../../../assets/arrow-borded.svg',
+  templateUrl: '../../../../assets/arrow-borded.svg',
 })
 export class SvgBorderedArrow {
 }
@@ -27,7 +27,7 @@ export class SvgBorderedArrow {
 @Component({
   standalone: true,
   selector: 'svg-arrow',
-  templateUrl: '../../../../../assets/arrow.svg',
+  templateUrl: '../../../../assets/arrow.svg',
 })
 export class SvgArrow {
 }
@@ -35,7 +35,7 @@ export class SvgArrow {
 @Component({
   standalone: true,
   selector: 'svg-dot',
-  templateUrl: '../../../../../assets/dot.svg',
+  templateUrl: '../../../../assets/dot.svg',
 })
 export class SvgDot {
 }
@@ -43,7 +43,7 @@ export class SvgDot {
 @Component({
   standalone: true,
   selector: 'svg-plus',
-  templateUrl: '../../../../../assets/plus.svg',
+  templateUrl: '../../../../assets/plus.svg',
 })
 export class SvgPlus {
 }
@@ -51,7 +51,7 @@ export class SvgPlus {
 @Component({
   standalone: true,
   selector: 'svg-triple-dot',
-  templateUrl: '../../../../../assets/triple-dot.svg',
+  templateUrl: '../../../../assets/triple-dot.svg',
 })
 export class SvgTripleDot {
 }
