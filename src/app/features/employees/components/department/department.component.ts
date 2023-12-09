@@ -1,11 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { EmployeeEntity } from '../employee-item/employee-item.component';
-import { Store } from 'src/app/core/mvi/store';
-import { DepartmentState } from './state/department-state';
-import { DepartmentExecutor } from './state/department-executor';
-import { DepartmentAction, DepartmentActionTypes } from './state/department-action';
-import { DepartmentResultAction } from './state/department-result-action';
-import { DepartmentReducer } from './state/department-reducer';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { EmployeeItemEntity } from '../employee-item/employee-item.component';
+import { EmployeesNavItem, EmployeesNavigator } from '../../navigation/employees-navigator';
+import { EmployeeDto, EmployeesDataService } from '../../data/employees-data-service';
 
 @Component({
   selector: 'app-core-department',
@@ -13,10 +9,12 @@ import { DepartmentReducer } from './state/department-reducer';
   styleUrls: ['./department.component.scss']
 })
 
-export class DepartmentComponent extends Store<DepartmentState, DepartmentExecutor, DepartmentAction, DepartmentResultAction> implements OnInit {
+export class DepartmentComponent implements OnInit {
   @Input() public department: DepartmentEntity = {
     id: -1,
-    name: "Department",
+    name: "Not found department",
+    isSelect: false,
+    visibleContent: false,
     supervisor: {
       id: -1,
       name: "test supervisor",
@@ -26,25 +24,82 @@ export class DepartmentComponent extends Store<DepartmentState, DepartmentExecut
     departments: [],
     employees: []
   };
-  
-  protected readonly DepartmentActionTypes = DepartmentActionTypes;
 
-  constructor(
-    state: DepartmentState,
-    executor: DepartmentExecutor,
-    reducer: DepartmentReducer) {
-      super(state, executor, reducer)
-    }
-  
+  @Input() public offset: number = 0
+  oneOffsetStepSize = 36
+  countOfEmploees: number = 0;
+  @Input() employeesVisible: boolean = true
+
+  @Output() arrowClicked = new EventEmitter<DepartmentEntity>()
+  @Output() ctrlClicked = new EventEmitter<DepartmentEntity>()
+  @Output() clicked = new EventEmitter<DepartmentEntity>()
+  @Output() employeeClicked = new EventEmitter<EmployeeItemEntity>()
+  @Output() employeeCtrlClicked = new EventEmitter<EmployeeItemEntity>()
+
   ngOnInit(): void {
-    this.performAction({type: DepartmentActionTypes.GET_COUNT_EMPLOYEES, department: this.department})
+    this.countOfEmploees = this.getCountEmployees(this.department)
+  }
+
+  changeVisibilityContent(): void
+  {
+    this.department.visibleContent = !this.department.visibleContent
+  }
+
+  departmentClicked(event: any): void
+  {
+    if (event.ctrlKey)
+    {
+      this.ctrlClicked.emit(this.department)
+    }
+    else
+    {
+      this.clicked.emit(this.department)
+    }
+  }
+
+  getMarginOffset(): string
+  {
+    if(this.department.isSelect)
+    {
+      return 0 + 'px'
+    }
+    else
+    {
+      return this.offset + 'px'
+    }
+  }
+
+  getPaddingOffset(): string
+  {
+    if(this.department.isSelect)
+    {
+      return (this.offset + 8) + 'px'
+    }
+    else
+    {
+      return 8 + 'px'
+    }
+  }
+
+
+  public getCountEmployees(folder: DepartmentEntity): number
+  {
+    let counter = folder.employees.length;
+    folder.departments.forEach(element => {
+      counter += this.getCountEmployees(element);
+    });
+    return counter;
   }
 }
 
-export interface DepartmentEntity{
+
+
+export interface DepartmentEntity {
   id: number,
   name: string,
-  supervisor: EmployeeEntity,
+  isSelect: boolean,
+  visibleContent: boolean,
+  supervisor: EmployeeDto,
   departments: DepartmentEntity[],
-  employees: EmployeeEntity[]
+  employees: EmployeeItemEntity[]
 } 

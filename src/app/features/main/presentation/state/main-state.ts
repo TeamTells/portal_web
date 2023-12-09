@@ -5,11 +5,15 @@ import {Injectable} from "@angular/core";
 })
 export class MainState {
   readonly selectedItem: NavItem = NavItem.EDITOR
+  showSideBar: boolean = false;
 }
 
 export enum NavItem {
-  NEWS,
+  SECTIONS,
   EMPLOYEES,
   SETTINGS,
+  PROFILE,
   EDITOR,
 }
+
+

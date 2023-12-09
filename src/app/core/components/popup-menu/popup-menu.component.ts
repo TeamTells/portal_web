@@ -1,40 +1,55 @@
-import { AfterViewInit, Component, ContentChild, Input } from '@angular/core';
+import {
+  Component,
+  ContentChild,
+  HostListener,
+  Input,
+} from '@angular/core';
 import { PopupMenuButtonComponent } from './popup-menu-button/popup-menu-button.component';
-import { Subscription } from 'rxjs';
 import { PopupMenuContentComponent } from './popup-menu-content/popup-menu-content.component';
 
 @Component({
   selector: 'app-popup-menu',
-  templateUrl: './popup-menu.component.html'
+  templateUrl: './popup-menu.component.html',
 })
-export class PopupMenuComponent implements AfterViewInit{
-  @ContentChild(PopupMenuButtonComponent) buttonComponent?: PopupMenuButtonComponent;
-  @ContentChild(PopupMenuContentComponent) contentComponent?: PopupMenuContentComponent;
+export class PopupMenuComponent {
+  @ContentChild(PopupMenuButtonComponent)
+  buttonComponent?: PopupMenuButtonComponent;
+  @ContentChild(PopupMenuContentComponent)
+  contentComponent?: PopupMenuContentComponent;
   @Input() leftOffset: number = 0;
   @Input() topOffset: number = 0;
-  
-  private buttonSubscription?: Subscription;
+  private isActive: boolean = false;
 
-  private onActivation(val: boolean): void{
-    if(this.contentComponent){
-     this.contentComponent.hidenStyle = (val) ? "hidden" : "block";
+  private changeVisibility(){
+    if (this.contentComponent) {
+      this.contentComponent.hidenStyle =  this.isActive ? 'block' : 'hidden';
     }
-    if(this.contentComponent){
+    if (this.contentComponent) {
       this.contentComponent.leftOffset = `${this.leftOffset}px`;
-      this.contentComponent.topOffset =  `${this.topOffset}px`;
+      this.contentComponent.topOffset = `${this.topOffset}px`;
     }
   }
 
-  ngAfterViewInit(): void {
-    if(!this.buttonComponent) {
-      return;
-    }
-    this.buttonSubscription = this.buttonComponent.isActiveEmitter.subscribe(this.onActivation.bind(this));
+  private onActivation(val: boolean): void {
+    this.isActive = !this.isActive;
+    this.changeVisibility();
   }
 
-  ngOnDestroy() {
-    if (this.buttonSubscription) {
-      this.buttonSubscription.unsubscribe();
+  @HostListener('document:click', ['$event.target'])
+  private onClickedOutside(target: any): void{
+    if (this.contentComponent && this.buttonComponent) {
+      const clickedOnButton = this.buttonComponent.buttonContent.nativeElement.contains(target);
+      if (clickedOnButton){
+        this.isActive = !this.isActive;
+        this.changeVisibility();
+        return;
+      }
+      const clickedOnMenu = this.contentComponent.menuContent.nativeElement.contains(target);
+      if (!clickedOnMenu && !clickedOnButton && this.isActive){
+        this.isActive = !this.isActive;
+        this.changeVisibility();
+        return;
+      }
     }
   }
 }

@@ -1,14 +1,12 @@
-import { Component, Input } from '@angular/core';
-
+import { Component, ElementRef, EventEmitter, HostListener, Output, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-popup-menu-content',
-  templateUrl: './popup-menu-content.component.html'
+  templateUrl: './popup-menu-content.component.html',
 })
-export class PopupMenuContentComponent{
-
-  hidenStyle: string = "hidden";
-  leftOffset: string = "0px";
-  topOffset: string = "0px";
-
+export class PopupMenuContentComponent {
+  @ViewChild("menuContent",{read:ElementRef}) menuContent!: ElementRef ;  
+  hidenStyle: string = 'hidden';
+  leftOffset: string = '0px';
+  topOffset: string = '0px';
 }
