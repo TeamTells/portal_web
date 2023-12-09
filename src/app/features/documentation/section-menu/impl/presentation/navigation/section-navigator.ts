@@ -15,4 +15,8 @@ export class SectionNavigator {
     this.router.navigate(['section', sectionId, "content"])
   }
 
+  openSettings(sectionId: number) {
+    this.router.navigate(['section', sectionId, "settings"])
+  }
+
 }

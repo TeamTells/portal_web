@@ -28,6 +28,9 @@ import {SectionComponent} from "./features/documentation/section-menu/impl/prese
 import {
   SectionContentComponent
 } from "./features/documentation/contents/impl/presentation/view/section-content.component";
+import {
+  SectionSettingsComponent
+} from "./features/documentation/section-settings/impl/presentation/view/section-settings.component";
 
 const employeesItems: Routes = [
   {path: 'new-employee', component: EmployeeNewComponent},
@@ -48,6 +51,7 @@ const profileItems: Routes = [
 
 const sectionRotes: Routes = [
   {path: 'content', component: SectionContentComponent},
+  {path: 'settings', component: SectionSettingsComponent},
 ]
 
 const mainItems: Routes = [

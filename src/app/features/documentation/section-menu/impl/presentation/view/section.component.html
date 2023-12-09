@@ -9,6 +9,9 @@
     </div>
 
     <div
+      (click)="this.performAction({
+          type: SectionActionTypes.OPEN_CONTENT
+      })"
       class="group flex px-[8px] mx-[8px] py-[8px] items-center rounded-xl hover:bg-selected-section-icon-background-color">
       <svg-square class="document-icon"></svg-square>
       <div class="text-base font-normal ms-[8px] text-tt-main-text group-hover:text-tt-selected-section-text-color">Все
@@ -16,7 +19,9 @@
       </div>
     </div>
 
-    <div
+    <div (click)="this.performAction({
+          type: SectionActionTypes.OPEN_SETTINGS
+      })"
       class="group flex px-[8px] mx-[8px]  py-[8px] items-center rounded-xl hover:bg-selected-section-icon-background-color">
       <svg-gear-shape class="p-[2px] document-icon"></svg-gear-shape>
       <div class="text-base ms-[8px] text-tt-main-text font-normal group-hover:text-tt-selected-section-text-color">
@@ -24,7 +29,9 @@
       </div>
     </div>
 
-    <div
+    <div (click)="this.performAction({
+          type: SectionActionTypes.OPEN_CONTENT
+      })"
       class="group flex justify-between mt-[16px] px-[8px] mx-[8px] py-[8px] rounded-xl hover:bg-selected-section-icon-background-color">
       <div class="flex">
         <svg-bordered-arrow
