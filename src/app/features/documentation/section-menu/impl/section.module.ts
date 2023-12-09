@@ -1,14 +1,14 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {SectionComponent} from './presentation/view/section.component';
-import {SectionService} from "./domain/section-service";
-import {SectionServiceImpl} from "./data/section-service-impl";
-import {SectionsModule} from "../../sections/impl/sections.module";
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { SectionComponent } from './presentation/view/section.component';
+import { SectionService } from './domain/section-service';
+import { SectionServiceImpl } from './data/section-service-impl';
+import { SectionsModule } from '../../sections/impl/sections.module';
 import {
-    SvgBorderedArrow,
-    SvgGearShape,
-    SvgPlus,
-    SvgSquare
+  SvgBorderedArrow,
+  SvgGearShape,
+  SvgPlus,
+  SvgSquare,
 } from "../../../../core/components/svg-components/svg.components";
 import {RouterOutlet} from "@angular/router";
 import {SectionContentComponent} from "../../contents/impl/presentation/view/section-content.component";
@@ -30,9 +30,8 @@ import {SectionContentComponent} from "../../contents/impl/presentation/view/sec
   providers: [
     {
       provide: SectionService,
-      useClass: SectionServiceImpl
+      useClass: SectionServiceImpl,
     },
-  ]
+  ],
 })
-export class SectionModule {
-}
+export class SectionModule {}

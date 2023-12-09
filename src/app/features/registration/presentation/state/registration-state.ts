@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { DropdownItem } from 'src/app/core/components/dropdown-field/dropdown-field.component';
 
+export type RegistrationStatus = 'idle' | 'pending' | 'success' | 'error';
+
 @Injectable({
   providedIn: 'root',
 })
 export class RegistrationState {
-  readonly status: 'idle' | 'pending' | 'success' | 'error' = 'idle';
+  readonly status: RegistrationStatus = 'idle';
 
   readonly name: string = '';
   readonly nameError: string = '';

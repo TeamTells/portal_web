@@ -3,7 +3,9 @@
     <p class="my-auto font-medium text-[28px]">{{ strings.users }}</p>
     <app-popup-menu [leftOffset]="-140" [topOffset]="20">
       <app-popup-menu-button>
-        <app-core-button-red class="my-auto" [text]="strings.create" />
+        <app-core-button-red class="my-auto">
+          {{ strings.create }}
+        </app-core-button-red>
       </app-popup-menu-button>
 
       <app-popup-menu-content class="w-[240px]">

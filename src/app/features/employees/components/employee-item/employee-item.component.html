@@ -23,17 +23,17 @@
     />
 
     <div class="ml-4 my-auto">
-      <p class="font-medium text-[16px] text-tt-dark-gray">
+      <p class="font-medium text-tt-dark-gray">
         {{ employee.name }}
       </p>
-      <p class="font-normal text-[16px] text-tt-gray">{{ employee.mail }}</p>
+      <p class="font-normal text-tt-gray">{{ employee.mail }}</p>
     </div>
   </div>
 
   <app-popup-menu [leftOffset]="-212" [topOffset]="16">
     <app-popup-menu-button class="mt-[14px]">
       <button class="w-5 h-5 my-auto">
-        <img draggable="false" src="../../../../assets/triple-dot.svg" />
+        <svg-triple-dot class="icon" />
       </button>
     </app-popup-menu-button>
     <app-popup-menu-content>
@@ -43,7 +43,7 @@
       <app-popup-menu-option [divider]="true">
         {{ strings.actions.move }}
       </app-popup-menu-option>
-      <app-popup-menu-option class="text-tt-red">
+      <app-popup-menu-option class="text-tt-primary">
         {{ strings.actions.delete }}
       </app-popup-menu-option>
     </app-popup-menu-content>

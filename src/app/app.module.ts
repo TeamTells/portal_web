@@ -14,9 +14,10 @@ import {EditorModule2} from "./features/editor2/editor-module.module";
 import {EmployeesModule} from './features/employees/employees.module';
 import {ComponentsModule} from './core/components/components.module';
 import {RegistrationModule} from './features/registration/registration.module';
-import {ProfileModule} from "./features/profile/profile.module";
-import {SectionModule} from "./features/documentation/section-menu/impl/section.module";
-import {SectionsModule} from "./features/documentation/sections/impl/sections.module";
+import {ProfileModule} from './features/profile/profile.module';
+import {SectionModule} from './features/documentation/section-menu/impl/section.module';
+import {SectionsModule} from './features/documentation/sections/impl/sections.module';
+import {ResetPasswordModule} from './features/reset-password/reset-password.module';
 import {SettingsModule} from "./features/settings/settings.module";
 
 @NgModule({
@@ -31,15 +32,21 @@ import {SettingsModule} from "./features/settings/settings.module";
         ComponentsModule,
         RegistrationModule,
         ProfileModule,
-        EditorModule2,
         SectionModule,
-    SettingsModule],
+        EditorModule2,
+        ResetPasswordModule,
+    ],
     providers: [
         {
             provide: AuthService,
             useClass: AuthServiceImpl,
         },
-        {provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [AuthService],},
+        {
+            provide: APP_INITIALIZER,
+            useFactory: appInitializer,
+            multi: true,
+            deps: [AuthService],
+        },
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
         fakeBackendProvider,
     ],

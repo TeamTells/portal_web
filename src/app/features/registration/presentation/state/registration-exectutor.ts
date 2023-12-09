@@ -23,7 +23,7 @@ export class RegistrationExecutor extends Executor<
     @Inject('RegistrationEmailValidator') private emailValidator: Validator,
     @Inject('RegistrationNameValidator') private nameValidator: Validator,
     @Inject('RegistrationPhoneNumberValidator')
-    private phoneNumberValidator: Validator,
+    private phoneNumberValidator: Validator
   ) {
     super();
   }
@@ -56,7 +56,7 @@ export class RegistrationExecutor extends Executor<
           type: RegistrationResultActionTypes.CHANGE_SPECIALIZING,
           specializing:
             this.getState().specializations.find(
-              (s) => s.id === action.specializingId,
+              (s) => s.id === action.specializingId
             ) ?? null,
         });
         break;
@@ -72,7 +72,7 @@ export class RegistrationExecutor extends Executor<
           type: RegistrationResultActionTypes.CHANGE_STAFF_SIZE,
           staffSize:
             this.getState().possibleStaffSize.find(
-              (s) => s.id === action.staffSizeId,
+              (s) => s.id === action.staffSizeId
             ) ?? null,
         });
         break;
@@ -92,9 +92,8 @@ export class RegistrationExecutor extends Executor<
   private handleCreate() {
     const nameError = this.nameValidator.validate(this.getState().name);
     const phoneNumberError = this.phoneNumberValidator.validate(
-      this.getState().phoneNumber,
+      this.getState().phoneNumber
     );
-    console.log(phoneNumberError);
     const emailError = this.emailValidator.validate(this.getState().email);
     const staffSizeError = this.getState().selectedStaffSize
       ? null
@@ -102,8 +101,6 @@ export class RegistrationExecutor extends Executor<
     const specializingError = this.getState().selectedSpecializing
       ? null
       : 'Укажите в какой отрасли работает ваша компания';
-
-    console.log(this.getState());
 
     if (
       specializingError != null ||
@@ -124,7 +121,15 @@ export class RegistrationExecutor extends Executor<
     }
 
     this.reduce({
-      type: RegistrationResultActionTypes.CREATE,
+      type: RegistrationResultActionTypes.CHANGE_STATUS_STATE,
+      status: 'pending',
     });
+
+    setTimeout(() => {
+      this.reduce({
+        type: RegistrationResultActionTypes.CHANGE_STATUS_STATE,
+        status: 'success',
+      });
+    }, 3000);
   }
 }

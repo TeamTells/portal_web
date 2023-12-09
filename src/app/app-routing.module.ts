@@ -16,16 +16,16 @@ import {
 import {DepartmentNewComponent} from './features/employees/components/department-new/department-new.component';
 import {EmployeeEditComponent} from './features/employees/components/employee-edit/employee-edit.component';
 import {DepartmentEditComponent} from './features/employees/components/department-edit/department-edit.component';
-import {RegistrationComponent} from './features/registration/presentation/registration.component';
-
+import {RegistrationComponent} from './features/registration/presentation/view/registration.component';
 import {ProfileInfoComponent} from './features/profile/profile-info/profile-info.component';
 import {ProfileSecurityComponent} from './features/profile/profile-security/profile-security.component';
 import {ProfileComponent} from './features/profile/profile/profile.component';
 import {
     ProfileChangePasswordComponent
 } from './features/profile/profile-change-password/presentation/view/profile-change-password.component';
-import {SectionsComponent} from "./features/documentation/sections/impl/presentation/view/sections.component";
-import {SectionComponent} from "./features/documentation/section-menu/impl/presentation/view/section.component";
+import { SectionsComponent } from './features/documentation/sections/impl/presentation/view/sections.component';
+import { SectionComponent } from './features/documentation/section-menu/impl/presentation/view/section.component';
+import { ResetPasswordComponent } from './features/reset-password/presentation/view/reset-password.component';
 import {
     SectionContentComponent
 } from "./features/documentation/contents/impl/presentation/view/section-content.component";
@@ -46,11 +46,10 @@ const employeesItems: Routes = [
 ];
 
 const profileItems: Routes = [
-    {path: '', component: ProfileInfoComponent,},
-    {path: 'security', component: ProfileSecurityComponent},
-    {path: 'change-password', component: ProfileChangePasswordComponent},
-]
-
+    { path: '', component: ProfileInfoComponent },
+    { path: 'security', component: ProfileSecurityComponent },
+    { path: 'change-password', component: ProfileChangePasswordComponent },
+];
 
 const sectionRotes: Routes = [
     {path: 'content', component: SectionContentComponent},
@@ -88,7 +87,12 @@ const appRoutes: Routes = [
         canActivate: [alreadyLoginGuardFunction],
     },
     {
-        path: '',
+        path: 'reset-password',
+    component: ResetPasswordComponent,
+    canActivate: [alreadyLoginGuardFunction],
+  },
+  {
+    path: '',
         component: MainComponent,
         canActivate: [loginGuardFunction],
         children: mainItems,
