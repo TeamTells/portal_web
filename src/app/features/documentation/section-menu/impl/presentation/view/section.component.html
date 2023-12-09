@@ -64,6 +64,10 @@
     <div *ngIf="state.isOpen">
       <div *ngFor="let document of state.documents">
         <app-document-item
+          (openDocumentClicked)="this.performAction({
+          type: SectionActionTypes.OPEN_DOCUMENT,
+          documentId: $event
+        })"
           (arrowClicked)="this.performAction({
           type: SectionActionTypes.CHANGE_DOCUMENT_OPEN_STATE,
           documentId: $event

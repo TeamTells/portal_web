@@ -3,6 +3,7 @@ export type SectionAction = ChangeDocumentOpenStateAction
     | CreateDocumentAction
     | OpenContent
     | OpenSettings
+    | OpenDocumentAction
 
 export enum SectionActionTypes {
     CHANGE_DOCUMENT_OPEN_STATE,
@@ -10,6 +11,7 @@ export enum SectionActionTypes {
     CREATE_DOCUMENT,
     OPEN_CONTENT,
     OPEN_SETTINGS,
+    OPEN_DOCUMENT
 }
 
 export interface ChangeDocumentOpenStateAction {
@@ -32,4 +34,9 @@ export interface OpenContent {
 
 export interface OpenSettings {
     readonly type: SectionActionTypes.OPEN_SETTINGS
+}
+
+export interface OpenDocumentAction {
+    readonly type: SectionActionTypes.OPEN_DOCUMENT
+    readonly documentId: number
 }

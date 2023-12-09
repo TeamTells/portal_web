@@ -19,4 +19,8 @@ export class SectionNavigator {
     this.router.navigate(['section', sectionId, "settings"])
   }
 
+  openDocument(sectionId: number, documentId: number) {
+    this.router.navigate(['section', sectionId, "editor"])
+  }
+
 }

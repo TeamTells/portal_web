@@ -4,8 +4,8 @@ import {SectionAction, SectionActionTypes} from "./section-action";
 import {SectionResultAction, SectionResultActionTypes} from "./section-result-action";
 import {SectionService} from "../../domain/section-service";
 import {Executor, Reducer} from "../../../../../../core/mvi/store";
-import {ActivatedRoute, Router} from "@angular/router";
-import {SectionNavigator} from "../navigation/section-navigator";
+import {ActivatedRoute} from "@angular/router";
+import {SectionNavigator} from "../../navigation/section-navigator";
 
 @Injectable({
     providedIn: 'root'
@@ -64,6 +64,9 @@ export class SectionExecutor extends Executor<SectionState, SectionAction, Secti
             case SectionActionTypes.OPEN_SETTINGS:
                 this.sectionNavigator.openSettings(this.getState().id)
                 break
+
+            case SectionActionTypes.OPEN_DOCUMENT:
+                this.sectionNavigator.openDocument(this.getState().id, action.documentId)
         }
     }
 
