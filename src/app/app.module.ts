@@ -13,9 +13,10 @@ import { MainModule } from './features/main/main.module';
 import { EmployeesModule } from './features/employees/employees.module';
 import { ComponentsModule } from './core/components/components.module';
 import { RegistrationModule } from './features/registration/registration.module';
-import {ProfileModule} from "./features/profile/profile.module";
-import {SectionModule} from "./features/documentation/section-menu/impl/section.module";
-import {SectionsModule} from "./features/documentation/sections/impl/sections.module";
+import { ProfileModule } from './features/profile/profile.module';
+import { SectionModule } from './features/documentation/section-menu/impl/section.module';
+import { SectionsModule } from './features/documentation/sections/impl/sections.module';
+import { ResetPasswordModule } from './features/reset-password/reset-password.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,7 +30,8 @@ import {SectionsModule} from "./features/documentation/sections/impl/sections.mo
     ComponentsModule,
     RegistrationModule,
     ProfileModule,
-    SectionModule
+    SectionModule,
+    ResetPasswordModule,
   ],
   providers: [
     {

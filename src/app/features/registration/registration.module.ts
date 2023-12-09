@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RegistrationComponent } from './presentation/registration.component';
+import { RegistrationComponent } from './presentation/view/registration.component';
 import { ComponentsModule } from 'src/app/core/components/components.module';
 import { Validator } from 'src/app/core/validators/validator';
 import { EmptyRule, MaxLengthRule } from 'src/app/core/validators/rule';
@@ -8,10 +8,21 @@ import {
   emailValidatorFactory,
   phoneNumberValidatorFactory,
 } from 'src/app/core/validators/validators';
+import {
+  SvgArrowRight,
+  SvgLoading,
+  SvgXMark,
+} from 'src/app/core/components/svg-components/svg.components';
 
 @NgModule({
   declarations: [RegistrationComponent],
-  imports: [CommonModule, ComponentsModule],
+  imports: [
+    CommonModule,
+    ComponentsModule,
+    SvgXMark,
+    SvgLoading,
+    SvgArrowRight,
+  ],
   providers: [
     {
       provide: 'RegistrationEmailValidator',

@@ -2,92 +2,156 @@
   <div class="flex justify-between gap-1 flex-wrap font-bold mb-9">
     <div class="flex gap-4">
       <app-core-button-back />
-      <h2 class="text-[28px] text-tt-black">Новый пользователь</h2>
+      <h2 class="text-[28px] text-tt-main-text">Новый пользователь</h2>
     </div>
-    <app-core-button-red text="Сохранить" (buttonClick)="
+    <app-core-button-red
+      (onClick)="
         performAction({
           type: EmployeeNewActionTypes.CREATE
         })
-      " />
+      "
+    >
+      Создать
+    </app-core-button-red>
   </div>
-  <h3 class="text-xl text-tt-black font-bold mb-3">Основная информация</h3>
+  <h3 class="text-xl text-tt-main-text font-bold mb-3">Основная информация</h3>
   <form>
-    <app-core-input-field type="text" placeholder="Фамилия*" [error]="state.lastNameError" (onChange)="
+    <app-core-input-field
+      type="text"
+      placeholder="Фамилия*"
+      [error]="state.lastNameError"
+      (onChange)="
         performAction({
           type: EmployeeNewActionTypes.CHANGE_LAST_NAME,
           lastName: $event
         })
-      " />
-    <app-core-input-field class="my-3" type="text" placeholder="Имя*" [error]="state.firstNameError" (onChange)="
+      "
+    />
+    <app-core-input-field
+      class="my-3"
+      type="text"
+      placeholder="Имя*"
+      [error]="state.firstNameError"
+      (onChange)="
         performAction({
           type: EmployeeNewActionTypes.CHANGE_FIRST_NAME,
           firstName: $event
         })
-      " />
-    <app-core-input-field class="mb-3" type="text" placeholder="Отчество" (onChange)="
+      "
+    />
+    <app-core-input-field
+      class="mb-3"
+      type="text"
+      placeholder="Отчество"
+      (onChange)="
         performAction({
           type: EmployeeNewActionTypes.CHANGE_PATRONYMIC,
           patronymic: $event
         })
-      " />
-    <app-core-input-field type="text" placeholder="Должность*" [error]="state.jobTitleError" (onChange)="
+      "
+    />
+    <app-core-input-field
+      type="text"
+      placeholder="Должность*"
+      [error]="state.jobTitleError"
+      (onChange)="
         performAction({
           type: EmployeeNewActionTypes.CHANGE_JOB_TITLE,
           jobTitle: $event
         })
-      " />
-    <app-core-input-field class="my-3" type="text" placeholder="Дата рождения*" [error]="state.dateOfBirthErorr"
+      "
+    />
+    <app-core-input-field
+      class="my-3"
+      type="text"
+      placeholder="Дата рождения*"
+      [error]="state.dateOfBirthErorr"
       (onChange)="
         performAction({
           type: EmployeeNewActionTypes.CHANGE_DATE_OF_BIRTH,
           dateOfBirth: $event
         })
-      " />
-    <app-core-input-field class="mb-3" type="text" placeholder="E-mail*" [error]="state.emailError" (onChange)="
+      "
+    />
+    <app-core-input-field
+      class="mb-3"
+      type="text"
+      placeholder="E-mail*"
+      [error]="state.emailError"
+      (onChange)="
         performAction({
           type: EmployeeNewActionTypes.CHANGE_EMAIL,
           email: $event
         })
-      " />
-    <app-core-input-field type="text" placeholder="Номер телефона*" [error]="state.phoneNumberError" (onChange)="
+      "
+    />
+    <app-core-input-field
+      type="text"
+      placeholder="Номер телефона*"
+      prefix="+7"
+      mask="(000) 000-00-00"
+      [error]="state.phoneNumberError"
+      (onChange)="
         performAction({
           type: EmployeeNewActionTypes.CHANGE_PHONE_NUMBER,
           phoneNumber: $event
         })
-      " />
-    <app-core-input-field class="my-3" type="password" autocomplete="current-password" placeholder="Пароль*"
-      [error]="state.passwordError" (onChange)="
+      "
+    />
+    <app-core-input-field
+      class="my-3"
+      type="password"
+      autocomplete="current-password"
+      placeholder="Пароль*"
+      [error]="state.passwordError"
+      (onChange)="
         performAction({
           type: EmployeeNewActionTypes.CHANGE_PASSWORD,
           password: $event
         })
-      " />
-  </form>
-  <app-core-dropdown-field placeholder="Выберите департамент" [selectedItem]="getSelectedDepartmentDropdownItem()"
-    (onClick)="performAction({
-      type: EmployeeNewActionTypes.OPEN_DEPARTMENT_MODAL
-    })" 
+      "
     />
-  <h3 class="text-xl text-tt-black font-bold my-3">Права доступа</h3>
-  <app-core-multiselect-field placeholder="Выберите роль" [items]="state.roles" [selectedItems]="state.selectedRoles"
+  </form>
+  <app-core-dropdown-field
+    placeholder="Выберите департамент"
+    [selectedItem]="getSelectedDepartmentDropdownItem()"
+    (onClick)="
+      performAction({
+        type: EmployeeNewActionTypes.OPEN_DEPARTMENT_MODAL
+      })
+    "
+  />
+  <h3 class="text-xl text-tt-main-text font-bold my-3">Права доступа</h3>
+  <app-core-multiselect-field
+    placeholder="Выберите роль"
+    [items]="state.roles"
+    [selectedItems]="state.selectedRoles"
     (onSelect)="
       performAction({
         type: EmployeeNewActionTypes.ADD_ROLE,
         roleId: $event
       })
-    " (onUnselect)="
+    "
+    (onUnselect)="
       performAction({
         type: EmployeeNewActionTypes.REMOVE_ROLE,
         roleId: $event
       })
-    " />
+    "
+  />
 </app-core-main-content-card>
 <div class="h-[500px]"></div>
-<select-department-modal-window *ngIf="state.visibleSelectDepartmentModal"
-  (closeClicked)="performAction({
-    type: EmployeeNewActionTypes.CLOSE_DEPARTMENT_MODAL
-  })" 
-  (submitClicked)="performAction({
-    type: EmployeeNewActionTypes.SELECT_DEPARTMENT,
-    department: $event
-  })"/>
+<select-department-modal-window
+  *ngIf="state.visibleSelectDepartmentModal"
+  (closeClicked)="
+    performAction({
+      type: EmployeeNewActionTypes.CLOSE_DEPARTMENT_MODAL
+    })
+  "
+  (submitClicked)="
+    performAction({
+      type: EmployeeNewActionTypes.SELECT_DEPARTMENT,
+      department: $event
+    })
+  "
+/>

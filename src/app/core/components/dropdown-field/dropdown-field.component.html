@@ -2,17 +2,17 @@
   <div class="relative w-full h-tt-field">
     <button
       type="button"
-      [class.bg-tt-bg-error]="error"
-      [class.bg-tt-white]="!error"
-      [class.outline-tt-stroke-error]="error"
-      [class.ring-tt-stroke-error]="error"
+      [class.bg-tt-field-background-error]="error"
+      [class.bg-tt-field-background]="!error"
+      [class.outline-tt-field-border-error]="error"
+      [class.ring-tt-field-border-error]="error"
       [class.ring-2]="opened"
       (click)="onClickDropwdown()"
-      class="h-full w-full outline outline-1 outline-tt-stroke rounded-tt-input px-[20px] ring-tt-stroke focus:ring-2 focus:outline-none"
+      class="h-full w-full outline outline-1 outline-tt-field-border rounded-tt-input px-[20px] ring-tt-field-border focus:ring-2 focus:outline-none"
       type="button"
     >
       <p class="flex justify-between items-center">
-        <span *ngIf="selectedItem" class="text-tt-field">
+        <span *ngIf="selectedItem" class="text-tt-main-text">
           {{ selectedItem.name }}
         </span>
         <span *ngIf="!selectedItem" class="text-tt-light-gray">
@@ -23,21 +23,9 @@
             *ngIf="this.onUnselect.observed && selectedItem"
             (click)="onUnselectItem($event, selectedItem!.id)"
             type="button"
-            class="flex justify-center items-center h-[28px] w-[28px] hover:bg-tt-light-light-gray rounded-full transition-colors"
+            class="flex justify-center items-center h-[28px] w-[28px] hover:bg-tt-main-backgorund rounded-full transition-colors"
           >
-            <svg
-              class="ml-[1.1px] h-[14px] w-[14px]"
-              width="14"
-              height="14"
-              viewBox="0 0 14 14"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M0.507812 12.8594C0.414062 12.7708 0.351562 12.6667 0.320312 12.5469C0.294271 12.4271 0.296875 12.3073 0.328125 12.1875C0.359375 12.0677 0.419271 11.9635 0.507812 11.875L5.50781 6.86719L0.507812 1.86719C0.419271 1.77865 0.359375 1.67448 0.328125 1.55469C0.302083 1.4349 0.302083 1.3151 0.328125 1.19531C0.359375 1.07552 0.419271 0.971354 0.507812 0.882812C0.596354 0.789062 0.700521 0.729167 0.820312 0.703125C0.940104 0.671875 1.0599 0.671875 1.17969 0.703125C1.30469 0.729167 1.41146 0.789062 1.5 0.882812L6.5 5.88281L11.5 0.882812C11.5885 0.789062 11.6927 0.729167 11.8125 0.703125C11.9323 0.671875 12.0521 0.671875 12.1719 0.703125C12.2917 0.729167 12.3984 0.789062 12.4922 0.882812C12.5807 0.971354 12.6406 1.07552 12.6719 1.19531C12.7031 1.3151 12.7031 1.4349 12.6719 1.55469C12.6406 1.67448 12.5807 1.77865 12.4922 1.86719L7.49219 6.86719L12.4922 11.875C12.5807 11.9635 12.638 12.0677 12.6641 12.1875C12.6953 12.3073 12.6953 12.4271 12.6641 12.5469C12.638 12.6667 12.5807 12.7708 12.4922 12.8594C12.4036 12.9531 12.2969 13.013 12.1719 13.0391C12.0521 13.0703 11.9323 13.0703 11.8125 13.0391C11.6927 13.0078 11.5885 12.9479 11.5 12.8594L6.5 7.85938L1.5 12.8594C1.41146 12.9479 1.30729 13.0078 1.1875 13.0391C1.06771 13.0703 0.947917 13.0703 0.828125 13.0391C0.708333 13.0078 0.601562 12.9479 0.507812 12.8594Z"
-                fill="#BCC1C6"
-              />
-            </svg>
+            <svg-x-mark class="icon-sm"></svg-x-mark>
           </button>
           <button
             *ngIf="
@@ -45,38 +33,27 @@
               (!this.onSelect.observed && this.items.length === 0)
             "
             type="button"
-            class="flex justify-center items-center h-[28px] w-[28px] hover:bg-tt-light-light-gray rounded-full transition-colors"
+            class="flex justify-center items-center h-[28px] w-[28px] hover:bg-tt-main-backgorund rounded-full transition-colors"
           >
-            <svg
-              class="h-[16px]"
-              width="14"
-              height="9"
-              viewBox="0 0 14 9"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M7 8.02344C6.80208 8.02344 6.625 7.94792 6.46875 7.79688L0.421875 1.60938C0.354167 1.54167 0.302083 1.46615 0.265625 1.38281C0.229167 1.29427 0.210938 1.20052 0.210938 1.10156C0.210938 0.966146 0.242188 0.84375 0.304688 0.734375C0.367188 0.625 0.450521 0.539062 0.554688 0.476562C0.664062 0.414062 0.786458 0.382812 0.921875 0.382812C1.11979 0.382812 1.28906 0.450521 1.42969 0.585938L7.41406 6.70312H6.57812L12.5625 0.585938C12.7083 0.450521 12.8776 0.382812 13.0703 0.382812C13.2057 0.382812 13.3255 0.414062 13.4297 0.476562C13.5391 0.539062 13.625 0.625 13.6875 0.734375C13.75 0.84375 13.7812 0.966146 13.7812 1.10156C13.7812 1.29427 13.7109 1.46094 13.5703 1.60156L7.52344 7.79688C7.45573 7.86979 7.375 7.92708 7.28125 7.96875C7.19271 8.00521 7.09896 8.02344 7 8.02344Z"
-                fill="#BCC1C6"
-              />
-            </svg>
+            <svg-bordered-arrow class="icon" />
           </button>
         </span>
       </p>
     </button>
-    <ul
+    <div
       *ngIf="items.length !== 0"
       [class.hidden]="!opened"
-      class="z-50 absolute w-full top-[55px] text-start bg-tt-white ring-2 ring-tt-stroke outline outline-1 outline-tt-stroke rounded-t-none rounded-tt-input"
+      class="z-50 absolute w-full top-[55px] text-start bg-tt-field-background ring-2 ring-tt-field-border outline outline-1 outline-tt-field-border rounded-t-none rounded-tt-input"
     >
-      <li
+      <button
+        type="button"
         *ngFor="let item of items"
         (click)="onSelectItem(item.id)"
-        class="cursor-pointer h-[40px] px-[20px] w-full bg-tt-white hover:bg-tt-light-light-gray transition flex items-center border-b border-tt-stroke last:border-b-0"
+        class="cursor-pointer py-2 min-h-[40px] px-[20px] w-full bg-tt-field-background hover:bg-tt-light-light-gray transition flex items-center border-b border-tt-field-border last:border-b-0"
       >
         <span class="text-tt-field">{{ item.name }}</span>
-      </li>
-    </ul>
+      </button>
+    </div>
   </div>
   <app-field-error-message [error]="error" />
 </div>

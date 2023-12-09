@@ -2,18 +2,20 @@
   <div class="flex justify-between gap-1 flex-wrap font-bold mb-9">
     <div class="flex gap-4">
       <app-core-button-back />
-      <h2 class="text-[28px] font-medium text-tt-black">
+      <h2 class="text-[28px] font-medium text-tt-main-text">
         Редактирование департамента
       </h2>
     </div>
+
     <app-core-button-red
-      text="Сохранить"
-      (buttonClick)="
+      (onClick)="
         performAction({
           type: DepartmentEditActionTypes.EDIT
         })
       "
-    />
+    >
+      Сохранить
+    </app-core-button-red>
   </div>
   <app-core-input-field
     type="text"
@@ -43,7 +45,7 @@
 </app-core-main-content-card>
 
 <app-core-main-content-card>
-  <h3 class="text-2xl text-tt-black font-medium">
+  <h3 class="text-2xl text-tt-main-text font-medium">
     Участники
     <span *ngIf="state.employees.length !== 0" class="text-tt-gray"
       >({{ state.employees.length }})</span

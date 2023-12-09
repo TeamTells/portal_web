@@ -1,148 +1,150 @@
 <app-core-main-content-card>
-    <div class="flex justify-between gap-1 flex-wrap font-bold mb-9">
-      <div class="flex gap-4">
-        <app-core-button-back />
-        <h2 class="text-[28px] text-tt-black">Редактировать пользователя</h2>
-      </div>
-      <app-core-button-red
-        text="Сохранить"
-        (buttonClick)="
-          performAction({
-            type: EmployeeEditActionTypes.EDIT
-          })
-        "
-      />
+  <div class="flex justify-between gap-1 flex-wrap font-bold mb-9">
+    <div class="flex gap-4">
+      <app-core-button-back />
+      <h2 class="text-[28px] text-tt-main-text">Редактировать пользователя</h2>
     </div>
-    <h3 class="text-xl text-tt-black font-bold mb-3">Основная информация</h3>
-    <form>
-      <app-core-input-field
-        type="text"
-        placeholder="Фамилия*"
-        [error]="state.lastNameError"
-        [defaultValue]="state.lastName"
-        (onChange)="
-          performAction({
-            type: EmployeeEditActionTypes.CHANGE_LAST_NAME,
-            lastName: $event
-          })
-        "
-      />
-      <app-core-input-field
-        class="my-3"
-        type="text"
-        placeholder="Имя*"
-        [error]="state.firstNameError"
-        [defaultValue]="state.firstName"
-        (onChange)="
-          performAction({
-            type: EmployeeEditActionTypes.CHANGE_FIRST_NAME,
-            firstName: $event
-          })
-        "
-      />
-      <app-core-input-field
-        class="mb-3"
-        type="text"
-        placeholder="Отчество"
-        [defaultValue]="state.patronymic"
-        (onChange)="
-          performAction({
-            type: EmployeeEditActionTypes.CHANGE_PATRONYMIC,
-            patronymic: $event
-          })
-        "
-      />
-      <app-core-input-field
-        type="text"
-        placeholder="Должность*"
-        [error]="state.jobTitleError"
-        (onChange)="
-          performAction({
-            type: EmployeeEditActionTypes.CHANGE_JOB_TITLE,
-            jobTitle: $event
-          })
-        "
-      />
-      <app-core-input-field
-        class="my-3"
-        type="text"
-        placeholder="Дата рождения*"
-        [error]="state.dateOfBirthErorr"
-        [defaultValue]="state.dateOfBirth"
-        (onChange)="
-          performAction({
-            type: EmployeeEditActionTypes.CHANGE_DATE_OF_BIRTH,
-            dateOfBirth: $event
-          })
-        "
-      />
-      <app-core-input-field
-        class="mb-3"
-        type="text"
-        placeholder="E-mail*"
-        [error]="state.emailError"
-        [defaultValue]="state.email"
-        (onChange)="
-          performAction({
-            type: EmployeeEditActionTypes.CHANGE_EMAIL,
-            email: $event
-          })
-        "
-      />
-      <app-core-input-field
-        type="text"
-        placeholder="Номер телефона*"
-        [error]="state.phoneNumberError"
-        (onChange)="
-          performAction({
-            type: EmployeeEditActionTypes.CHANGE_PHONE_NUMBER,
-            phoneNumber: $event
-          })
-        "
-      />
-      <app-core-input-field
-        class="my-3"
-        type="password"
-        autocomplete="current-password"
-        placeholder="Пароль*"
-        [error]="state.passwordError"
-        [defaultValue]="state.password"
-        (onChange)="
-          performAction({
-            type: EmployeeEditActionTypes.CHANGE_PASSWORD,
-            password: $event
-          })
-        "
-      />
-    </form>
-    <app-core-dropdown-field
-      placeholder="Выберите департамент"
-      [selectedItem]="getSelectedDepartmentDropdownItem()"
-      (onClick)="openSelectDepartment()"
-      (onUnselect)="
+    <app-core-button-red
+      (onClick)="
         performAction({
-          type: EmployeeEditActionTypes.REMOVE_DEPARTMENT
+          type: EmployeeEditActionTypes.EDIT
+        })
+      "
+    >
+      Сохранить
+    </app-core-button-red>
+  </div>
+  <h3 class="text-xl text-tt-main-text font-bold mb-3">Основная информация</h3>
+  <form>
+    <app-core-input-field
+      type="text"
+      placeholder="Фамилия*"
+      [error]="state.lastNameError"
+      [defaultValue]="state.lastName"
+      (onChange)="
+        performAction({
+          type: EmployeeEditActionTypes.CHANGE_LAST_NAME,
+          lastName: $event
         })
       "
     />
-    <h3 class="text-xl text-tt-black font-bold my-3">Права доступа</h3>
-    <app-core-multiselect-field
-      placeholder="Выберите роль"
-      [items]="getRolesDropdownItems()"
-      [selectedItems]="getSelectedRolesDropdownItems()"
-      (onSelect)="
+    <app-core-input-field
+      class="my-3"
+      type="text"
+      placeholder="Имя*"
+      [error]="state.firstNameError"
+      [defaultValue]="state.firstName"
+      (onChange)="
         performAction({
-          type: EmployeeEditActionTypes.ADD_ROLE,
-          roleId: +$event
-        })
-      "
-      (onUnselect)="
-        performAction({
-          type: EmployeeEditActionTypes.REMOVE_ROLE,
-          roleId: +$event
+          type: EmployeeEditActionTypes.CHANGE_FIRST_NAME,
+          firstName: $event
         })
       "
     />
-  </app-core-main-content-card>
-  <div class="h-[500px]"></div>
-  
+    <app-core-input-field
+      class="mb-3"
+      type="text"
+      placeholder="Отчество"
+      [defaultValue]="state.patronymic"
+      (onChange)="
+        performAction({
+          type: EmployeeEditActionTypes.CHANGE_PATRONYMIC,
+          patronymic: $event
+        })
+      "
+    />
+    <app-core-input-field
+      type="text"
+      placeholder="Должность*"
+      [error]="state.jobTitleError"
+      (onChange)="
+        performAction({
+          type: EmployeeEditActionTypes.CHANGE_JOB_TITLE,
+          jobTitle: $event
+        })
+      "
+    />
+    <app-core-input-field
+      class="my-3"
+      type="text"
+      placeholder="Дата рождения*"
+      [error]="state.dateOfBirthErorr"
+      [defaultValue]="state.dateOfBirth"
+      (onChange)="
+        performAction({
+          type: EmployeeEditActionTypes.CHANGE_DATE_OF_BIRTH,
+          dateOfBirth: $event
+        })
+      "
+    />
+    <app-core-input-field
+      class="mb-3"
+      type="text"
+      placeholder="E-mail*"
+      [error]="state.emailError"
+      [defaultValue]="state.email"
+      (onChange)="
+        performAction({
+          type: EmployeeEditActionTypes.CHANGE_EMAIL,
+          email: $event
+        })
+      "
+    />
+    <app-core-input-field
+      type="text"
+      placeholder="Номер телефона*"
+      prefix="+7"
+      mask="(000) 000-00-00"
+      [error]="state.phoneNumberError"
+      (onChange)="
+        performAction({
+          type: EmployeeEditActionTypes.CHANGE_PHONE_NUMBER,
+          phoneNumber: $event
+        })
+      "
+    />
+    <app-core-input-field
+      class="my-3"
+      type="password"
+      autocomplete="current-password"
+      placeholder="Пароль*"
+      [error]="state.passwordError"
+      [defaultValue]="state.password"
+      (onChange)="
+        performAction({
+          type: EmployeeEditActionTypes.CHANGE_PASSWORD,
+          password: $event
+        })
+      "
+    />
+  </form>
+  <app-core-dropdown-field
+    placeholder="Выберите департамент"
+    [selectedItem]="getSelectedDepartmentDropdownItem()"
+    (onClick)="openSelectDepartment()"
+    (onUnselect)="
+      performAction({
+        type: EmployeeEditActionTypes.REMOVE_DEPARTMENT
+      })
+    "
+  />
+  <h3 class="text-xl text-tt-main-textfont-bold my-3">Права доступа</h3>
+  <app-core-multiselect-field
+    placeholder="Выберите роль"
+    [items]="getRolesDropdownItems()"
+    [selectedItems]="getSelectedRolesDropdownItems()"
+    (onSelect)="
+      performAction({
+        type: EmployeeEditActionTypes.ADD_ROLE,
+        roleId: +$event
+      })
+    "
+    (onUnselect)="
+      performAction({
+        type: EmployeeEditActionTypes.REMOVE_ROLE,
+        roleId: +$event
+      })
+    "
+  />
+</app-core-main-content-card>
+<div class="h-[500px]"></div>
