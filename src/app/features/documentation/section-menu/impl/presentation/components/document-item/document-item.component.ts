@@ -24,11 +24,9 @@ export class DocumentItemComponent {
 
   @Output() createDocumentClicked: EventEmitter<number> = new EventEmitter<number>()
 
-  constructor() {
-  }
+  @Output() openDocumentClicked: EventEmitter<number> = new EventEmitter<number>()
 
-  getMarginOffset(): string {
-    return this.level * 8 + 'px';
+  constructor() {
   }
 
   isOpen(documentId: number): boolean {
@@ -37,12 +35,16 @@ export class DocumentItemComponent {
     }) != undefined
   }
 
-  onArrowClicked(departmentId: number): void {
-    this.arrowClicked.emit(departmentId)
+  onArrowClicked(documentId: number): void {
+    this.arrowClicked.emit(documentId)
   }
 
-  onCreateDocumentClicked(departmentId: number): void {
-    this.createDocumentClicked.emit(departmentId)
+  onCreateDocumentClicked(parentDocumentId: number): void {
+    this.createDocumentClicked.emit(parentDocumentId)
+  }
+
+  onOpenDocumentClicked(documentId: number): void {
+    this.openDocumentClicked.emit(documentId)
   }
 
 

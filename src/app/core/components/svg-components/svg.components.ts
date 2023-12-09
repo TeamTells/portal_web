@@ -1,99 +1,113 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
-  standalone: true,
-  selector: 'svg-square',
-  templateUrl: '../../../../assets/square.svg',
+    standalone: true,
+    selector: 'svg-square',
+    templateUrl: '../../../../assets/square.svg',
 })
-export class SvgSquare {}
+export class SvgSquare {
+}
 
 @Component({
-  standalone: true,
-  selector: 'svg-gear-shape',
-  templateUrl: '../../../../assets/gearshape.svg',
+    standalone: true,
+    selector: 'svg-gear-shape',
+    templateUrl: '../../../../assets/gearshape.svg',
 })
-export class SvgGearShape {}
+export class SvgGearShape {
+}
 
 @Component({
-  standalone: true,
-  selector: 'svg-bordered-arrow',
-  templateUrl: '../../../../assets/arrow-borded.svg',
+    standalone: true,
+    selector: 'svg-bordered-arrow',
+    templateUrl: '../../../../assets/arrow-borded.svg',
 })
-export class SvgBorderedArrow {}
+export class SvgBorderedArrow {
+}
 
 @Component({
-  standalone: true,
-  selector: 'svg-arrow',
-  templateUrl: '../../../../assets/arrow.svg',
+    standalone: true,
+    selector: 'svg-arrow',
+    templateUrl: '../../../../assets/arrow.svg',
 })
-export class SvgArrow {}
+export class SvgArrow {
+}
 
 @Component({
-  standalone: true,
-  selector: 'svg-arrow-right',
-  templateUrl: '../../../../assets/arrow-right.svg',
+    standalone: true,
+    selector: 'svg-arrow-right',
+    templateUrl: '../../../../assets/arrow-right.svg',
 })
-export class SvgArrowRight {}
+export class SvgArrowRight {
+}
 
 @Component({
-  standalone: true,
-  selector: 'svg-dot',
-  templateUrl: '../../../../assets/dot.svg',
+    standalone: true,
+    selector: 'svg-dot',
+    templateUrl: '../../../../assets/dot.svg',
 })
-export class SvgDot {}
+export class SvgDot {
+}
 
 @Component({
-  standalone: true,
-  selector: 'svg-plus',
-  templateUrl: '../../../../assets/plus.svg',
+    standalone: true,
+    selector: 'svg-plus',
+    templateUrl: '../../../../assets/plus.svg',
 })
-export class SvgPlus {}
+export class SvgPlus {
+}
 
 @Component({
-  standalone: true,
-  selector: 'svg-triple-dot',
-  templateUrl: '../../../../assets/triple-dot.svg',
+    standalone: true,
+    selector: 'svg-triple-dot',
+    templateUrl: '../../../../assets/triple-dot.svg',
 })
-export class SvgTripleDot {}
+export class SvgTripleDot {
+}
 
 @Component({
-  standalone: true,
-  selector: 'svg-x-mark',
-  templateUrl: '../../../../assets/xmark.svg',
+    standalone: true,
+    selector: 'svg-x-mark',
+    templateUrl: '../../../../assets/xmark.svg',
 })
-export class SvgXMark {}
+export class SvgXMark {
+}
 
 @Component({
-  standalone: true,
-  selector: 'svg-warning',
-  templateUrl: '../../../../assets/warning.svg',
+    standalone: true,
+    selector: 'svg-warning',
+    templateUrl: '../../../../assets/warning.svg',
 })
-export class SvgWarning {}
+export class SvgWarning {
+}
 
 @Component({
-  standalone: true,
-  selector: 'svg-success',
-  templateUrl: '../../../../assets/success.svg',
+    standalone: true,
+    selector: 'svg-success',
+    templateUrl: '../../../../assets/success.svg',
 })
-export class SvgSuccess {}
+export class SvgSuccess {
+}
 
 @Component({
-  standalone: true,
-  selector: 'svg-search',
-  templateUrl: '../../../../assets/search.svg',
+    standalone: true,
+    selector: 'svg-search',
+    templateUrl: '../../../../assets/search.svg',
 })
-export class SvgSearch {}
+export class SvgSearch {
+}
 
 @Component({
-  standalone: true,
-  selector: 'svg-loading',
-  templateUrl: '../../../../assets/loading.svg',
+    standalone: true,
+    selector: 'svg-loading',
+    templateUrl: '../../../../assets/loading.svg',
 })
-export class SvgLoading {}
+export class SvgLoading {
+}
 
 @Component({
-  standalone: true,
-  selector: 'svg-button-loading',
-  templateUrl: '../../../../assets/button-loading.svg',
+    standalone: true,
+    selector: 'svg-button-loading',
+    templateUrl: '../../../../assets/button-loading.svg',
 })
-export class SvgButtonLoading {}
+export class SvgButtonLoading {
+}

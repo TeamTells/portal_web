@@ -9,10 +9,15 @@ import {
   SvgGearShape,
   SvgPlus,
   SvgSquare,
-} from 'src/app/core/components/svg-components/svg.components';
+} from "../../../../core/components/svg-components/svg.components";
+import {RouterOutlet} from "@angular/router";
+import {SectionContentComponent} from "../../contents/impl/presentation/view/section-content.component";
 
 @NgModule({
-  declarations: [SectionComponent],
+  declarations: [
+    SectionComponent,
+    SectionContentComponent
+  ],
   imports: [
     CommonModule,
     SectionsModule,
@@ -20,6 +25,7 @@ import {
     SvgSquare,
     SvgBorderedArrow,
     SvgPlus,
+    RouterOutlet,
   ],
   providers: [
     {

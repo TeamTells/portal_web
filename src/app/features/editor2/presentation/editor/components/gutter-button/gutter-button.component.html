@@ -1,0 +1,18 @@
+<div *ngIf="isVisible" style="position: absolute; top: {{top}}px; left: {{left}}px;">
+
+  <img class="hover:scale-110 cursor-pointer" (click)="switch()" src="{{imageSrc}}" alt="Add">
+
+  <div
+    class="absolute z-10 m-2 hidden bg-white divide-y divide-gray-100 w-44 dark:bg-gray-700 bg-white rounded-lg shadow flex-col justify-start items-start inline-flex"
+    [@dialogAnimation]="dialogState" *ngIf="items.length !== 0" >
+
+    <div *ngFor="let item of items"
+         class="hover-gray-100 self-stretch justify-start items-center gap-2 inline-flex" (click)="onSelectItem(item.id)">
+      <div class="grow shrink basis-0 h-12 p-2.5 rounded-lg justify-start items-center gap-2.5 flex">
+        <div class="justify-start items-center gap-2 flex">
+          <div class="text-black text-base font-normal">{{item.name}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
