@@ -27,7 +27,8 @@ export class SelectSupervisorModalComponent {
     toolsVisible: false,
     blueBoxVisible: true,
     countType: CountType.Single,
-    clickType: ClickType.Clicked
+    clickType: ClickType.Clicked,
+    overflowScroll: true
   }
 
   public modalWindowData: ModalWindowData = {

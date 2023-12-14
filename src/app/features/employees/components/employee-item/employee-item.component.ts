@@ -1,20 +1,17 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { EmployeesDataService } from '../../data/employees-data-service';
 import {
   EmployeesNavItem,
   EmployeesNavigator,
 } from '../../navigation/employees-navigator';
+
 @Component({
   selector: 'app-core-employee-item',
   templateUrl: './employee-item.component.html',
 })
-export class EmployeeItemComponent {
-  constructor(
-    private data: EmployeesDataService,
-    private navigator: EmployeesNavigator
-  ) {}
 
+export class EmployeeItemComponent {
   showDots: boolean = false;
+  name: string[] = [];
 
   @Input() public employee: EmployeeItemEntity = {
     id: -1,
@@ -23,11 +20,34 @@ export class EmployeeItemComponent {
     mail: 'not-found@mail.ru',
     isSelect: false,
   };
-
+  @Input() public highlightedPart: string = ""
   @Input() public offset: number = 0;
 
   @Output() clicked = new EventEmitter<EmployeeItemEntity>();
   @Output() ctrlClicked = new EventEmitter<EmployeeItemEntity>();
+  @Output() deleteClicked = new EventEmitter<EmployeeItemEntity>()
+
+  constructor(
+    private navigator: EmployeesNavigator
+  ) {
+
+  }
+
+  ngOnChanges(){
+    this.getName()
+  }
+
+  getName() {
+    if (this.highlightedPart.length != 0) {
+      this.name.push(this.employee.name.slice(0, this.employee.name.indexOf(this.highlightedPart)))
+      this.name.push(this.highlightedPart)
+      this.name.push(this.employee.name.slice(this.employee.name.indexOf(this.highlightedPart) + this.highlightedPart.length))
+    }
+    else {
+      this.name.push(this.employee.name)
+    }
+
+  }
 
   editEmployee() {
     this.navigator.showContent({
@@ -37,12 +57,10 @@ export class EmployeeItemComponent {
   }
 
   onClick(event: any): void {
-    if (event.ctrlKey) 
-    {
+    if (event.ctrlKey) {
       this.ctrlClicked.emit(this.employee);
     }
-    else
-    {
+    else {
       this.clicked.emit(this.employee);
     }
   }

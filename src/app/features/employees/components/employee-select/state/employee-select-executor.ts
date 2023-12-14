@@ -9,6 +9,7 @@ import { elementAt } from "rxjs";
 import { EmployeesNavItem, EmployeesNavigator } from "../../../navigation/employees-navigator";
 import { NavItem } from "src/app/features/main/presentation/state/main-state";
 import { CountType } from "../interfaces/employee-select-settings";
+import { SearchEmployeeDepartmentData } from "../interfaces/search-employee-department-data";
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,9 @@ export class EmployeeSelectExecutor extends Executor<EmployeeSelectState, Employ
           departments: action.departments,
           employees: action.employees
         })
+        break
+      case EmployeeSelectActionTypes.SEARCH_FIELD_CHANGE:
+        this.handleSearchFieldChange(action.str)
         break
       case EmployeeSelectActionTypes.SELECT_EMPLOYEE:
         this.handleSelectEmployee(action.employee)
@@ -63,16 +67,89 @@ export class EmployeeSelectExecutor extends Executor<EmployeeSelectState, Employ
         break
     }
   }
+//#region "handleSearchFieldChange"
+  private handleSearchFieldChange(searchStr: string)
+  {
+    let resultEmployeeDepartments: SearchEmployeeDepartmentData[] = []
+
+    if(searchStr.length != 0)
+    {
+      resultEmployeeDepartments = resultEmployeeDepartments.concat(this.searchEmployeesInDepartments(searchStr, '', this.getState().departments))
+      let searchRoot = this.searchInRoot(searchStr)
+      if(searchRoot)
+      {
+        resultEmployeeDepartments.push(searchRoot)
+      }
+    }
+
+    this.reduce({
+      type: EmployeeSelectResultActionTypes.SEARCH_FIELD_CHANGE,
+      str: searchStr,
+      searchDepartments: resultEmployeeDepartments
+    })
+  }
+
+  private searchInRoot(searchStr: string): SearchEmployeeDepartmentData | undefined
+  {
+    let searchRoot: SearchEmployeeDepartmentData = {
+      deprtmentsStr: "Корень всей организации",
+      employees: [],
+      searchStr: searchStr
+    }
+
+    this.getState().employees.forEach((empl) => {
+      if(empl.name.includes(searchStr))
+      {
+        searchRoot.employees.push(empl)
+      }
+    })
+
+    if(searchRoot.employees.length != 0)
+    {
+      return searchRoot
+    }
+    return undefined
+  }
+
+  private searchEmployeesInDepartments(searchStr: string, curentDepartmentsString: string, curentDepartments: DepartmentEntity[]): SearchEmployeeDepartmentData[]
+  {
+    let findDepartments: SearchEmployeeDepartmentData[] = []
+
+    curentDepartments.forEach((dep)=> {
+      let searchDep: SearchEmployeeDepartmentData = {
+        deprtmentsStr: curentDepartmentsString == ''? dep.name : curentDepartmentsString + " / " + dep.name,
+        employees: [],
+        searchStr: searchStr
+      }
+
+      findDepartments = findDepartments.concat(this.searchEmployeesInDepartments(searchStr, searchDep.deprtmentsStr, dep.departments))
+
+      dep.employees.forEach((empl) => {
+        if(empl.name.includes(searchStr))
+        {
+          searchDep.employees.push(empl)
+        }
+      })
+
+      if(searchDep.employees.length != 0)
+      {
+        findDepartments.push(searchDep)
+      }
+    })
+
+    return findDepartments
+  }
+//#endregion
 
 //#region "handleSelectEmployee"
   private handleSelectEmployee(employee: EmployeeItemEntity): void {
     let employees = this.getState().employees
     let departments = this.getState().departments
     let selectedCount = this.getSelectedCount(employee)
-    let findEmployee = employees.indexOf(employee)
+    let findEmployee = employees.find((element)=> { return element.id == employee.id})
 
-    if (findEmployee != -1) {
-      this.selectEmployee(employees[findEmployee])
+    if (findEmployee) {
+      this.selectEmployee(findEmployee)
     }
     else {
       departments.forEach((element) => { this.findEmployeeInDepartment(element, employee) })
@@ -104,10 +181,10 @@ export class EmployeeSelectExecutor extends Executor<EmployeeSelectState, Employ
 
   private findEmployeeInDepartment(department: DepartmentEntity, employee: EmployeeItemEntity): boolean {
     let findFlag = false
-    let findEmployee = department.employees.indexOf(employee)
+    let findEmployee = department.employees.find((element)=> { return element.id == employee.id})
 
-    if (findEmployee != -1) {
-      this.selectEmployee(department.employees[findEmployee])
+    if (findEmployee) {
+      this.selectEmployee(findEmployee)
       findFlag = true;
     }
     else {
@@ -123,6 +200,7 @@ export class EmployeeSelectExecutor extends Executor<EmployeeSelectState, Employ
   }
   
   private selectEmployee(employee: EmployeeItemEntity): void{
+    this.updateSelectInSearchDepartment(employee)
     if(employee.isSelect)
     {
       employee.isSelect = false
@@ -135,6 +213,30 @@ export class EmployeeSelectExecutor extends Executor<EmployeeSelectState, Employ
       }
       employee.isSelect = true
     }
+  }
+
+  private updateSelectInSearchDepartment(employee: EmployeeItemEntity)
+  {
+    let searchDepartments = this.getState().searchDepartments
+
+    searchDepartments.forEach((dep)=>{
+      let findEmployee = dep.employees.find((element)=> { return element.id == employee.id})
+      if(findEmployee)
+      {
+        if(findEmployee.isSelect)
+        {
+          findEmployee.isSelect = false
+        }
+        else
+        {
+          if(this.getState().settings.countType == CountType.Single)
+          {
+            this.unselectAll()
+          }
+          findEmployee.isSelect = true
+        }
+      }
+    })
   }
 //#endregion
 
@@ -257,7 +359,11 @@ export class EmployeeSelectExecutor extends Executor<EmployeeSelectState, Employ
   {
     let employees = this.getState().employees
     let departments = this.getState().departments
+    let searchDepartments = this.getState().searchDepartments
 
+    searchDepartments.forEach((dep) => {
+      dep.employees.forEach((empl)=> {empl.isSelect = false})
+    })
     departments.forEach((element)=> {this.unselectDepartment(element)})
     employees.forEach((element) => {element.isSelect = false})
   }

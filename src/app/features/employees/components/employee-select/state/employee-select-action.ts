@@ -3,6 +3,7 @@ import { EmployeeItemEntity } from "../../employee-item/employee-item.component"
 import { EmployeeSelectSettings } from "../interfaces/employee-select-settings"
 
 export type EmployeeSelectAction = InitDataAction
+    | SearchFieldChangeAction
     | SelectEmployeeAction
     | SelectDepartmentAction
     | UnselectAllAction
@@ -14,6 +15,7 @@ export type EmployeeSelectAction = InitDataAction
 
 export enum EmployeeSelectActionTypes {
     INIT_DATA,
+    SEARCH_FIELD_CHANGE,
     SELECT_EMPLOYEE,
     SELECT_DEPARTMENT,
     UNSELECT_ALL,
@@ -29,6 +31,11 @@ export interface InitDataAction {
     readonly settings: EmployeeSelectSettings
     readonly employees: EmployeeItemEntity[]
     readonly departments: DepartmentEntity[]
+}
+
+export interface SearchFieldChangeAction {
+    readonly type: EmployeeSelectActionTypes.SEARCH_FIELD_CHANGE
+    readonly str: string
 }
 
 export interface SelectEmployeeAction {

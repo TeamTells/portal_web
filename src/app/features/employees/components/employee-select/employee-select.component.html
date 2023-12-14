@@ -1,42 +1,67 @@
-<div class="flex p-3 gap-3 rounded-2xl bg-tt-light-blue"
-  *ngIf="state.visibleTools && state.settings.blueBoxVisible">
-  <button (click)="performAction({
-    type: EmployeeSelectActionTypes.UNSELECT_ALL
-    })"
-  >
-    <img class="p-1" width="24px" height="24px" src="../../../../../assets/black-xmark.svg">
-  </button>
-  <p class="font-normal text-base">{{strings.selected}}: {{state.selectedCount}}</p>
-  <div class="flex gap-3"
-    *ngIf="state.settings.toolsVisible">
+<app-core-search-field (onChange)="performAction({
+  type: EmployeeSelectActionTypes.SEARCH_FIELD_CHANGE,
+  str: $event
+})"/>
+
+<div [ngClass]="{ 
+  'h-[283px] overflow-scroll overflow-x-hidden no-scrollbar': state.settings.overflowScroll
+  }">
+
+  <div class="mt-6 flex p-3 gap-3 rounded-2xl bg-tt-light-blue"
+    *ngIf="state.visibleTools && state.settings.blueBoxVisible">
     <button (click)="performAction({
-      type: EmployeeSelectActionTypes.MOVE_TO_DEPARTMENT
-    })">
-      <img width="26px" src="../../../../../assets/person.and.arrow.left.and.arrow.right.svg">
+      type: EmployeeSelectActionTypes.UNSELECT_ALL
+      })"
+    >
+      <img class="p-1" width="24px" height="24px" src="../../../../../assets/black-xmark.svg">
     </button>
-    <button>
-      <img width="27px" src="../../../../../assets/folder.badge.plus.svg">
-    </button>
-    <button>
-      <img width="19px" src="../../../../../assets/trash.svg">
-    </button>
+    <p class="font-normal text-base">{{strings.selected}}: {{state.selectedCount}}</p>
+    <div class="flex gap-3"
+      *ngIf="state.settings.toolsVisible">
+      <button (click)="performAction({
+        type: EmployeeSelectActionTypes.MOVE_TO_DEPARTMENT
+      })">
+        <img width="26px" src="../../../../../assets/person.and.arrow.left.and.arrow.right.svg">
+      </button>
+      <button>
+        <img width="27px" src="../../../../../assets/folder.badge.plus.svg">
+      </button>
+      <button>
+        <img width="19px" src="../../../../../assets/trash.svg">
+      </button>
+    </div>
   </div>
-</div>
 
-<div class="mt-6">
-  <app-core-department *ngFor="let item of state.departments" 
-    [department]="item"
-    (employeeCtrlClicked)="employeeCtrlClicked($event)"
-    (employeeClicked)="employeeClicked($event)"
-    (clicked)="departmentClicked($event)"
-    (ctrlClicked)="departmentCtrlClicked($event)"
-  />
+  <div class="mt-6">
+    <div *ngIf="state.searchField.length == 0">
+      <app-core-department *ngFor="let item of state.departments" 
+        [department]="item"
+        (employeeCtrlClicked)="employeeCtrlClicked($event)"
+        (employeeClicked)="employeeClicked($event)"
+        (clicked)="departmentClicked($event)"
+        (ctrlClicked)="departmentCtrlClicked($event)"
+      />
 
-  <app-core-employee-item *ngFor="let item of state.employees" 
-    [employee]="item"  
-    (clicked)="employeeClicked($event)"
-    (ctrlClicked)="employeeCtrlClicked($event)"
-  />
+      <app-core-employee-item *ngFor="let item of state.employees" 
+        [employee]="item"  
+        (clicked)="employeeClicked($event)"
+        (ctrlClicked)="employeeCtrlClicked($event)"
+      />
+    </div>
+
+    <div *ngIf="state.searchField.length != 0">
+      <div *ngFor="let item of state.searchDepartments">
+        <p class="text-sm font-normal text-tt-gray">{{item.deprtmentsStr}}</p>
+        <app-core-employee-item *ngFor="let item of item.employees"
+          [employee]="item"
+          [highlightedPart]="state.searchField"
+          (clicked)="employeeClicked($event)"
+          (ctrlClicked)="employeeCtrlClicked($event)"
+        />
+      </div>
+    </div>
+
+  </div>
 </div>
 
 <select-department-modal-window *ngIf="state.visibleChangeDepartmentModal"

@@ -66,6 +66,10 @@
           mail: employee.mail,
           isSelect: false
         }"
+        (deleteClicked)="performAction({
+          type: DepartmentNewActionTypes.REMOVE_EMPLOYEE,
+          employee: $event
+        })"
       />
     </div>
   </div>
@@ -82,7 +86,7 @@
 
 <select-supervisor-modal-window *ngIf="state.visibleSelectSupervisorModal"
   (closeClicked)="performAction({
-    type: DepartmentNewActionTypes.OPEN_SUPERVISOR_MODAL
+    type: DepartmentNewActionTypes.CLOSE_SUPERVISOR_MODAL
   })"
   (submitClicked)="performAction({
     type: DepartmentNewActionTypes.CHANGE_SUPERVISOR,

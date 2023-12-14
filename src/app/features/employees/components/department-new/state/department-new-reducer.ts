@@ -52,7 +52,7 @@ export class DepartmentNewReducer
           visibleSelectEmployeesModal: false
         });
 
-      case DepartmentNewResultActionTypes.REMOVE_EMPOYESS:
+      case DepartmentNewResultActionTypes.REMOVE_EMPLOYEES:
         return clone(state, {
           employees: state.employees.filter(
             (a) => !action.empoyees.some((b) => a === b)
