@@ -59,6 +59,17 @@ module.exports = {
       boxShadow: {
         "tt-popup-menu": "0px 0px 30px 0px rgba(0, 0, 0, 0.25)",
       },
+      spacing: {
+        "tt-auth-field-margin": "20px",
+        "tt-auth-container-padding": "48px",
+        "tt-auth-mobile-container-padding": "24px",
+      },
+      maxWidth: {
+        "tt-auth-container": "515px",
+      },
+      fontSize: {
+        "tt-auth-title": "36px",
+      },
     },
   },
   plugins: [],

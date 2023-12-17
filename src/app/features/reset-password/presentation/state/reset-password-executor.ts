@@ -1,7 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { Executor } from 'src/app/core/mvi/store';
 import { Validator } from 'src/app/core/validators/validator';
-import { ResetPasswordState } from './reset-password-state';
 import {
   ResetAction,
   ResetPasswordAction,
@@ -11,6 +10,7 @@ import {
   ResetPasswordResultAction,
   ResetPasswordResultActionTypes,
 } from './reset-password-result-action';
+import { ResetPasswordState } from './reset-password-state';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +21,7 @@ export class ResetPasswordExecutor extends Executor<
   ResetPasswordResultAction
 > {
   constructor(
-    @Inject('ResetPasswordEmailValidator') private emailValidator: Validator
+    @Inject('ResetPasswordEmailValidator') private emailValidator: Validator,
   ) {
     super();
   }
@@ -51,13 +51,16 @@ export class ResetPasswordExecutor extends Executor<
       });
       return;
     }
-    
+
     this.reduce({ type: ResetPasswordResultActionTypes.CHANGE_LOADING_STATE });
 
     setTimeout(() => {
       this.reduce({
         type: ResetPasswordResultActionTypes.CHANGE_STATUS_STATE,
         status: 'success',
+      });
+      this.reduce({
+        type: ResetPasswordResultActionTypes.CHANGE_LOADING_STATE,
       });
     }, 3000);
   }
