@@ -14,6 +14,7 @@ import { InputFieldComponent } from './input-field/input-field.component';
 import { MainContentCardComponent } from './main-content-card/main-content-card.component';
 import { MultiselectFieldComponent } from './multiselect-field/multiselect-field.component';
 import { PageShadingComponent } from './page-shading/page-shading.component';
+import { PhoneNumberFieldComponent } from './phone-number-field/phone-number-field.component';
 import { PopupMenuButtonComponent } from './popup-menu/popup-menu-button/popup-menu-button.component';
 import { PopupMenuContentComponent } from './popup-menu/popup-menu-content/popup-menu-content.component';
 import { PopupMenuOptionComponent } from './popup-menu/popup-menu-option/popup-menu-option.component';
@@ -53,6 +54,7 @@ import { ToastComponent } from './toast-alert/toast-alert.component';
     MultiselectFieldComponent,
     CheckboxFieldComponent,
     AuthLayoutComponent,
+    PhoneNumberFieldComponent,
   ],
   exports: [
     CardComponent,
@@ -75,6 +77,7 @@ import { ToastComponent } from './toast-alert/toast-alert.component';
     MultiselectFieldComponent,
     CheckboxFieldComponent,
     AuthLayoutComponent,
+    PhoneNumberFieldComponent,
   ],
   imports: [
     CommonModule,
