@@ -85,11 +85,7 @@
         })
       "
     />
-    <app-core-input-field
-      type="text"
-      placeholder="Номер телефона*"
-      prefix="+7"
-      mask="(000) 000-00-00"
+    <app-core-phone-number-field
       [error]="state.phoneNumberError"
       (onChange)="
         performAction({

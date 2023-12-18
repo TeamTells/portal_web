@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { Executor } from 'src/app/core/mvi/store';
-import { RegistrationState } from './registration-state';
+import { Validator } from 'src/app/core/validators/validator';
 import {
   RegistrationAction,
   RegistrationActionTypes,
@@ -9,7 +9,7 @@ import {
   RegistrationResultAction,
   RegistrationResultActionTypes,
 } from './registration-result-action';
-import { Validator } from 'src/app/core/validators/validator';
+import { RegistrationState } from './registration-state';
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +23,7 @@ export class RegistrationExecutor extends Executor<
     @Inject('RegistrationEmailValidator') private emailValidator: Validator,
     @Inject('RegistrationNameValidator') private nameValidator: Validator,
     @Inject('RegistrationPhoneNumberValidator')
-    private phoneNumberValidator: Validator
+    private phoneNumberValidator: Validator,
   ) {
     super();
   }
@@ -56,7 +56,7 @@ export class RegistrationExecutor extends Executor<
           type: RegistrationResultActionTypes.CHANGE_SPECIALIZING,
           specializing:
             this.getState().specializations.find(
-              (s) => s.id === action.specializingId
+              (s) => s.id === action.specializingId,
             ) ?? null,
         });
         break;
@@ -72,7 +72,7 @@ export class RegistrationExecutor extends Executor<
           type: RegistrationResultActionTypes.CHANGE_STAFF_SIZE,
           staffSize:
             this.getState().possibleStaffSize.find(
-              (s) => s.id === action.staffSizeId
+              (s) => s.id === action.staffSizeId,
             ) ?? null,
         });
         break;
@@ -92,7 +92,7 @@ export class RegistrationExecutor extends Executor<
   private handleCreate() {
     const nameError = this.nameValidator.validate(this.getState().name);
     const phoneNumberError = this.phoneNumberValidator.validate(
-      this.getState().phoneNumber
+      this.getState().phoneNumber,
     );
     const emailError = this.emailValidator.validate(this.getState().email);
     const staffSizeError = this.getState().selectedStaffSize

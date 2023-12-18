@@ -1,22 +1,15 @@
-<a
-  href="https://teamtells.ru"
-  class="z-10 w-11 h-11 rounded-full bg-tt-background-icon flex items-center justify-center text-tt-icon fixed right-3 top-3 sm:right-7 sm:top-7"
->
-  <svg-x-mark class="w-4 fill-tt-icon" />
-</a>
-
-<div
-  class="bg-tt-unaccented-background min-h-[100dvh] min-w-[100dvw] flex items-center flex-col justify-center px-2"
->
+<app-auth-layout>
   <section
-    class="relative bg-tt-main-background rounded-tt-card sm:rounded-tt-card-big mt-4 mb-16 p-[24px] sm:p-12 w-full"
+    class="relative bg-tt-main-background rounded-tt-card sm:rounded-tt-card-big mt-4 mb-16 p-tt-auth-mobile-container-padding sm:p-tt-auth-container-padding w-full"
     [ngClass]="{
       'max-w-[1104px]': state.status === 'idle',
       'max-w-[706px] min-h-[396px]': state.status !== 'idle'
     }"
   >
     <div *ngIf="state.status === 'idle'" class="max-w-[784px] mx-auto">
-      <h1 class="text-2xl sm:text-[36px] font-bold mb-7 block text-center">
+      <h1
+        class="text-2xl sm:text-tt-auth-title font-bold mb-7 block text-center"
+      >
         Регистрация в <span class="text-tt-primary">TeamTells</span>
       </h1>
       <app-core-input-field
@@ -30,7 +23,7 @@
         "
       />
       <app-core-dropdown-field
-        class="my-[20px]"
+        class="my-tt-auth-field-margin"
         placeholder="Из какой отрасли ваша компания?"
         [error]="state.specializingError"
         [items]="state.specializations"
@@ -65,7 +58,9 @@
           })
         "
       />
-      <div class="flex flex-col sm:flex-row gap-[20px] my-[20px]">
+      <div
+        class="flex flex-col sm:flex-row gap-tt-auth-field-margin my-tt-auth-field-margin"
+      >
         <app-core-input-field
           class="flex-1"
           placeholder="Электронная почта*"
@@ -77,11 +72,8 @@
             })
           "
         />
-        <app-core-input-field
+        <app-core-phone-number-field
           class="flex-1"
-          placeholder="Мобильный телефон*"
-          prefix="+7"
-          mask="(000) 000-00-00"
           [error]="state.phoneNumberError"
           (onChange)="
             performAction({
@@ -170,15 +162,15 @@
 
     <div
       *ngIf="state.status !== 'pending'"
-      class="absolute left-0 bottom-[-44px] w-full flex justify-between items-center mt-[20px]"
+      class="absolute left-0 bottom-[-44px] w-full flex justify-between items-center mt-tt-auth-field-margin"
     >
-      <a class="text-tt-secondary-text" href="https://teamtells.ru"
-        >teamtells.ru</a
-      >
+      <a class="text-tt-secondary-text" href="https://teamtells.ru">
+        teamtells.ru
+      </a>
       <a class="text-sm font-medium flex items-center" href="/login">
         Войти в учетную запись
         <svg-arrow-right class="h-3 w-2 ms-2" />
       </a>
     </div>
   </section>
-</div>
+</app-auth-layout>
