@@ -1,0 +1,176 @@
+<app-auth-layout>
+  <section
+    class="relative bg-tt-main-background rounded-tt-card sm:rounded-tt-card-big mt-4 mb-16 p-tt-auth-mobile-container-padding sm:p-tt-auth-container-padding w-full"
+    [ngClass]="{
+      'max-w-[1104px]': state.status === 'idle',
+      'max-w-[706px] min-h-[396px]': state.status !== 'idle'
+    }"
+  >
+    <div *ngIf="state.status === 'idle'" class="max-w-[784px] mx-auto">
+      <h1
+        class="text-2xl sm:text-tt-auth-title font-bold mb-7 block text-center"
+      >
+        Регистрация в <span class="text-tt-primary">TeamTells</span>
+      </h1>
+      <app-core-input-field
+        placeholder="Ваше имя*"
+        [error]="state.nameError"
+        (onChange)="
+          performAction({
+            type: RegistrationActionTypes.CHANGE_NAME,
+            name: $event
+          })
+        "
+      />
+      <app-core-dropdown-field
+        class="my-tt-auth-field-margin"
+        placeholder="Из какой отрасли ваша компания?"
+        [error]="state.specializingError"
+        [items]="state.specializations"
+        [selectedItem]="state.selectedSpecializing"
+        (onSelect)="
+          performAction({
+            type: RegistrationActionTypes.CHANGE_SPECIALIZING,
+            specializingId: $event
+          })
+        "
+        (onUnselect)="
+          performAction({
+            type: RegistrationActionTypes.REMOVE_SPECIALIZING
+          })
+        "
+      />
+      <app-core-dropdown-field
+        class="max-w-none"
+        placeholder="Сколько человек работает в компании?"
+        [error]="state.staffSizeError"
+        [items]="state.possibleStaffSize"
+        [selectedItem]="state.selectedStaffSize"
+        (onSelect)="
+          performAction({
+            type: RegistrationActionTypes.CHANGE_STAFF_SIZE,
+            staffSizeId: $event
+          })
+        "
+        (onUnselect)="
+          performAction({
+            type: RegistrationActionTypes.REMOVE_STAFF_SIZE
+          })
+        "
+      />
+      <div
+        class="flex flex-col sm:flex-row gap-tt-auth-field-margin my-tt-auth-field-margin"
+      >
+        <app-core-input-field
+          class="flex-1"
+          placeholder="Электронная почта*"
+          [error]="state.emailError"
+          (onChange)="
+            performAction({
+              type: RegistrationActionTypes.CHANGE_EMAIL,
+              email: $event
+            })
+          "
+        />
+        <app-core-phone-number-field
+          class="flex-1"
+          [error]="state.phoneNumberError"
+          (onChange)="
+            performAction({
+              type: RegistrationActionTypes.CHANGE_PHONE_NUMBER,
+              phoneNumber: $event
+            })
+          "
+        />
+      </div>
+      <div class="h-[1px] w-full bg-tt-field-border my-7"></div>
+      <div class="flex flex-col sm:flex-row gap-4 items-center">
+        <div>
+          <p class="text-tt-secondary-text text-sm leading-6">
+            Заполняя форму, я принимаю
+            <a href="#" class="text-tt-secondary"
+              >условия передачи информации</a
+            >
+            и даю
+            <a href="#" class="text-tt-secondary">
+              согласие на получение информации о продуктах компании и партнеров
+            </a>
+          </p>
+        </div>
+        <app-core-button-red
+          class="whitespace-nowrap h-[56px] w-full sm:w-auto text-lg sm:text-base"
+          (onClick)="
+            performAction({
+              type: RegistrationActionTypes.CREATE
+            })
+          "
+        >
+          Создать аккаунт
+        </app-core-button-red>
+      </div>
+    </div>
+
+    <div
+      *ngIf="
+        state.status === 'pending' ||
+        state.status === 'success' ||
+        state.status === 'error'
+      "
+      class="mx-auto max-w-[400px]"
+    >
+      <div *ngIf="state.status === 'error'" class="flex items-center flex-col">
+        <h2 class="text-2xl text-center inline-block my-6">
+          Не удалось создать аккаунт
+        </h2>
+      </div>
+      <div
+        *ngIf="state.status === 'success'"
+        class="flex items-center flex-col"
+      >
+        <img
+          class="w-28 h-28"
+          src="../../../../assets/registration-success.png"
+          alt="Registration Success"
+        />
+        <h2 class="text-xl sm:text-2xl text-center inline-block my-6">
+          Аккаунт успешно создан
+        </h2>
+        <span class="text-center">
+          Данные аккаунта отправили на email, который вы указали при регистрации
+        </span>
+        <a
+          href="/"
+          class="mt-6 bg-tt-light-light-gray block py-3 px-6 text-tt-secondary rounded-tt-bth"
+        >
+          На главную
+        </a>
+      </div>
+      <div
+        *ngIf="state.status === 'pending'"
+        class="flex items-center flex-col"
+      >
+        <svg-loading class="animate-spin text-tt-primary w-24 h-24" />
+
+        <h2 class="text-xl sm:text-2xl text-center inline-block mt-10 mb-6">
+          Подождите, создаем ваш аккаунт
+        </h2>
+        <span class="text-center">
+          Данные аккаунта отправили на email, который вы указали при регистрации
+        </span>
+      </div>
+    </div>
+
+    <div
+      *ngIf="state.status !== 'pending'"
+      class="absolute left-0 bottom-[-44px] w-full flex justify-between items-center mt-tt-auth-field-margin"
+    >
+      <a class="text-tt-secondary-text" href="https://teamtells.ru">
+        teamtells.ru
+      </a>
+      <a class="text-sm font-medium flex items-center" href="/login">
+        Войти в учетную запись
+        <svg-arrow-right class="h-3 w-2 ms-2" />
+      </a>
+    </div>
+  </section>
+</app-auth-layout>

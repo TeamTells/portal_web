@@ -1,0 +1,25 @@
+<div [ngClass]="class">
+  <div class="relative h-tt-field w-full">
+    <input
+      (input)="onChangeValue($event)"
+      type="text"
+      [defaultValue]="defaultValue"
+      prefix="+"
+      mask="0 (000) 000-00-00||00 (000) 000-00-00||000 (000) 000-00-00"
+      [class.pt-0]="!placeholder"
+      [class.bg-tt-field-background-error]="error"
+      [class.bg-tt-field-background]="!error"
+      [class.outline-tt-field-border-error]="error"
+      [class.ring-tt-field-border-error]="error"
+      class="peer h-full w-full px-[20px] pt-[14px] text-base font-normal text-tt-main-text tracking-wider rounded-tt-input outline outline-1 outline-tt-field-border ring-tt-field-border focus:ring-2 focus:outline-none"
+      placeholder=" "
+    />
+    <label
+      *ngIf="placeholder"
+      class="pointer-events-none absolute left-[20px] top-[10px] flex h-full w-full select-none text-[12px] tracking-wider font-normal leading-none text-tt-field-icon transition-all peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-[20px] peer-focus:text-[12px] peer-focus:leading-none peer-focus:top-[10px]"
+    >
+      {{ placeholder }}
+    </label>
+  </div>
+  <app-field-error-message [error]="error" />
+</div>

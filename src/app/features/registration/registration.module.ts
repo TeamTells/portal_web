@@ -1,17 +1,21 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RegistrationComponent } from './presentation/registration.component';
+import { NgModule } from '@angular/core';
 import { ComponentsModule } from 'src/app/core/components/components.module';
-import { Validator } from 'src/app/core/validators/validator';
+import {
+  SvgArrowRight,
+  SvgLoading,
+} from 'src/app/core/components/svg-components/svg.components';
 import { EmptyRule, MaxLengthRule } from 'src/app/core/validators/rule';
+import { Validator } from 'src/app/core/validators/validator';
 import {
   emailValidatorFactory,
   phoneNumberValidatorFactory,
 } from 'src/app/core/validators/validators';
+import { RegistrationComponent } from './presentation/view/registration.component';
 
 @NgModule({
   declarations: [RegistrationComponent],
-  imports: [CommonModule, ComponentsModule],
+  imports: [CommonModule, ComponentsModule, SvgLoading, SvgArrowRight],
   providers: [
     {
       provide: 'RegistrationEmailValidator',

@@ -1,0 +1,9 @@
+.show {
+  transform: rotate(90deg);
+}
+
+.hide {
+  transform: rotate(-90deg);
+}
+
+/*# sourceMappingURL=department.component.css.map */

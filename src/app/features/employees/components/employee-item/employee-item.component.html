@@ -23,7 +23,7 @@
     />
 
     <div class="ml-4 my-auto">
-
+      
       <div class="flex font-medium text-[16px] text-tt-dark-gray">
         <span *ngIf="name.length != 0" class="">{{ name[0].trim() }}</span>
         <span *ngIf="name[0].endsWith(' ')">&nbsp;</span>
@@ -45,7 +45,7 @@
   <app-popup-menu [leftOffset]="-212" [topOffset]="16">
     <app-popup-menu-button class="mt-[14px]">
       <button class="w-5 h-5 my-auto">
-        <img draggable="false" src="../../../../assets/triple-dot.svg" />
+        <svg-triple-dot class="icon" />
       </button>
     </app-popup-menu-button>
     <app-popup-menu-content>

@@ -1,0 +1,227 @@
+@use 'slate-angular/styles/index.scss';
+
+$editor-width: 800px;
+
+.content {
+  position: relative;
+  z-index: 1;
+  display: block;
+  height: 100%;
+  overflow: auto;
+  margin-left: 269px;
+  margin-top: 32px;
+}
+
+.rich-editor-wrapper {
+  max-width: 42em;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.05);
+  .slate-editable-container {
+    padding: 0px 0px 0px 30px;
+  }
+  .demo-element-image {
+    display: block;
+    img {
+      display: block;
+      max-width: 100%;
+      max-height: 20em;
+      box-shadow: none;
+      box-sizing: border-box;
+    }
+    .outline {
+      box-shadow: 0 0 0 2px #348fe4;
+    }
+  }
+}
+
+.demo-table-editor-wrapper {
+  padding: 0px;
+  .slate-editable-container {
+    padding: 40px;
+  }
+  table {
+    border-spacing: 0;
+    word-wrap: break-word;
+    box-sizing: border-box;
+    border-collapse: collapse;
+    margin: 13px 8px 0px 0px;
+    border: 1px solid #ddd;
+    border-top: none;
+    table-layout: fixed;
+    overflow: visible;
+    margin-right: 0;
+    width: 100%;
+  }
+  td {
+    word-wrap: break-word;
+    border: 1px solid #ddd;
+    border-width: 1px 0 0 1px;
+    vertical-align: top;
+    padding: 8px;
+    cursor: text;
+  }
+}
+
+//@media screen and (max-width: 768px) {
+//  .header-bars {
+//    display: flex;
+//    position: relative;
+//    margin-top: 53px;
+//    padding-left: 1em;
+//    height: 42px;
+//    color: #666;
+//    align-items: center;
+//    .header-bars-name {
+//      font-size: 14px;
+//      margin-left: 1em;
+//    }
+//    .material-icons {
+//      cursor: pointer;
+//    }
+//  }
+//  .sidenav {
+//    position: relative;
+//    top: 0;
+//    z-index: 10;
+//    left: -100%;
+//    transition: all 0.3s;
+//    .nav-menu {
+//      left: -100%;
+//      background-color: #fff;
+//      transition: all 0.3s;
+//      top: 95px;
+//    }
+//    &:after {
+//      content: '';
+//      position: absolute;
+//      width: 100%;
+//      height: calc(100vh - 95px);
+//      background: rgba(0, 0, 0, 0.3);
+//    }
+//  }
+//  .animate-sidenav {
+//    left: 0;
+//    .nav-menu {
+//      left: 0;
+//      overflow: scroll;
+//    }
+//  }
+//  .content {
+//    margin-left: 0px;
+//    margin-top: 0px;
+//  }
+//  .sidenav-content {
+//    overflow: hidden;
+//    height: calc(100vh - 100px);
+//  }
+//  .rich-editor-wrapper {
+//    margin-top: 0;
+//  }
+//}
+
+//
+//div:empty:before {
+//  content:attr(data-placeholder);
+//  color:gray;
+//}
+//
+//span:empty:before {
+//  content: attr(span-data-placeholder);
+//  color: grey;
+//}
+
+.slate-editable-container {
+  [slate-underlined][slate-strike] {
+    text-decoration: underline line-through;
+  }
+  [slate-strike] {
+    text-decoration: line-through;
+  }
+  [slate-underline] {
+    text-decoration: underline;
+  }
+  [slate-italic] {
+    font-style: italic;
+  }
+  [slate-bold] {
+    font-weight: bold;
+  }
+  [slate-code-line] {
+    margin: 0 4px;
+    padding: 2px 3px;
+    border: 1px solid rgba($color: #000000, $alpha: 0.08);
+    border-radius: 2px;
+    background-color: rgba($color: #000000, $alpha: 0.06);
+  }
+  blockquote {
+    margin: 0;
+    color: #888;
+    padding-left: 10px !important;
+    border-left: 4px solid #eee;
+  }
+  & > [data-slate-node='element'],
+  & > slate-block-card {
+    margin-bottom: 24px;
+  }
+
+  h1 {
+    font-size: 44px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+
+  h2 {
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+
+  //.paragraph {
+  //  color: #2E343B;
+  //  font-size: 16px;
+  //  font-style: normal;
+  //  line-height: normal;
+  //}
+
+  .demo-element-button {
+    margin: 0 0.1em;
+    background-color: #efefef;
+    padding: 2px 6px;
+    border: 1px solid #767676;
+    border-radius: 2px;
+    font-size: 0.9em;
+  }
+
+  .demo-element-link-active {
+    box-shadow: 0 0 0 3px #ddd;
+  }
+
+  ul {
+    //line-height: 1.8;
+    list-style: square inside;
+  }
+
+  //ul li:not(:last-child) {
+  //  display: block;
+  //}
+
+  ol {
+    counter-reset: item;
+    list-style-type: none;
+  }
+
+  ol li {
+    display: block;
+  }
+
+  ol li:before {
+    content: counter(item);
+    margin-right: 16px;
+    counter-increment: item;
+  }
+}
+

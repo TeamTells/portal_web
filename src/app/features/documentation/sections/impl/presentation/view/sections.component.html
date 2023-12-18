@@ -1,0 +1,153 @@
+<div class="flex h-screen flex-col bg-white">
+  <div class="mt-12 lg:px-72 md:px-40 sm:px-8 max-sm:px-8">
+    <div class="flex justify-between w-full">
+      <h1 class="text-3xl font-semibold relative">Разделы</h1>
+      <app-core-button-red (onClick)="changeCreateSectionModalVisibility(true)"
+        >Создать раздел</app-core-button-red
+      >
+    </div>
+
+    <div class="flex justify-start mt-4">
+      <form>
+        <label
+          for="default-search"
+          class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+          >Search</label
+        >
+
+        <div class="relative">
+          <div
+            class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
+          >
+            <svg
+              class="w-4 h-4 text-gray-500 dark:text-gray-400"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 20 20"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+              />
+            </svg>
+          </div>
+
+          <input
+            type="search"
+            id="default-search"
+            class="lg:w-96 md:w-72 sm:w-60 max-sm:w-48 ps-10 pt-2 pb-2 pe-4 text-sm text-gray-700 rounded-lg bg-gray-200"
+            placeholder="Введите назание"
+            required
+            (input)="onFilterChange($event)"
+          />
+        </div>
+      </form>
+
+      <div class="place-self-center ms-8 space-x-3 hover:scale-y-105">
+        <i
+          class="bi bi-star hover:scale-110 cursor-pointer"
+          *ngIf="!state.filtersState.onlyFavorite"
+          (click)="changeFavoriteFilterState()"
+        ></i>
+        <i
+          class="bi-star-fill text-yellow-500 hover:scale-110 cursor-pointer"
+          *ngIf="state.filtersState.onlyFavorite"
+          (click)="changeFavoriteFilterState()"
+        ></i>
+        <span>Только избранные</span>
+      </div>
+    </div>
+
+    <div class="w-full mt-10 flex flex-col">
+      <div
+        *ngFor="let item of state.filteredSections"
+        class="flex px-2 py-3 rounded-2xl hover:bg-tt-background-hover-2"
+      >
+        <div
+          class="flex justify-between w-full cursor-pointer"
+          (click)="toSection(item.id)"
+        >
+          <div class="text-base flex">
+            <div class="w-8 h-8">
+              <img class="text-2xl" [src]="item.url" />
+            </div>
+
+            <span class="font-sans ml-4 mt-1">{{ item.title }}</span>
+          </div>
+        </div>
+
+        <div class="flex space-x-3.5">
+          <i
+            class="bi bi-star hover:scale-110 cursor-pointer"
+            *ngIf="!item.isFavorite"
+            (click)="onStarClicked(item.id)"
+          ></i>
+          <i
+            class="bi-star-fill text-yellow-500 hover:scale-110 cursor-pointer"
+            *ngIf="item.isFavorite"
+            (click)="onStarClicked(item.id)"
+          ></i>
+          <i class="bi bi-three-dots hover:scale-110 cursor-pointer"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  id="static-modal"
+  *ngIf="state.createSectionState.isVisible"
+  class="fixed bg-gray-950 bg-opacity-20 top-0 right-0 left-0 z-50 w-full md:inset-0 max-h-full flex justify-center items-center"
+>
+  <div class="w-full max-w-2xl max-h-full">
+    <div class="relative bg-white rounded-xl">
+      <div class="flex items-center justify-between px-4 pt-4 rounded-t">
+        <span class="text-3xl font-semibold relative"
+          >Создание нового раздела</span
+        >
+        <button
+          type="button"
+          (click)="changeCreateSectionModalVisibility(false)"
+          class="text-gray-400 bg-transparent hover:text-gray-900 w-8 h-8 ms-auto inline-flex justify-center items-center"
+          data-modal-hide="static-modal"
+        >
+          <svg
+            class="w-4 h-4"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 14 14"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+            />
+          </svg>
+        </button>
+      </div>
+      <app-core-input-field
+        class="px-4"
+        placeholder="Название"
+        type="text"
+        [error]=""
+        (onChange)="onSectionChange($event)"
+      />
+      <div class="px-4 pb-4 flex justify-end">
+        <app-core-button-light-gray
+          text="Отмена"
+          (buttonClick)="changeCreateSectionModalVisibility(false)"
+        />
+        <app-core-button-red class="ms-3" (onClick)="createSection()">
+          Создать
+        </app-core-button-red>
+      </div>
+    </div>
+  </div>
+</div>
