@@ -75,6 +75,10 @@
           mail: employee.mail,
           isSelect: false
         }"
+        (deleteClicked)="performAction({
+          type: DepartmentNewActionTypes.REMOVE_EMPLOYEE,
+          employee: $event
+        })"
       />
     </div>
   </div>

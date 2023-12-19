@@ -27,7 +27,8 @@ export class SelectEmployeesModalComponent {
     toolsVisible: false,
     blueBoxVisible: true,
     countType: CountType.Multiple,
-    clickType: ClickType.Clicked
+    clickType: ClickType.Clicked,
+    overflowScroll: true
   }
 
   public modalWindowData: ModalWindowData = {
@@ -38,15 +39,16 @@ export class SelectEmployeesModalComponent {
 
   submitClick(): void
   {
-    if(this.selectedEmployees)
+    console.log(this.selectedEmployees)
+    if(this.selectedEmployees.length != 0)
     {
       this.submitClicked.emit(this.selectedEmployees)
     }
     else
     {
       this.toastService.createToast({
-        title: "Руководитель не выбран",
-        description: "Пожалуйста выберите руководителя",
+        title: "Ни одного сотрудника не выбрано",
+        description: "Пожалуйста выберите хотя бы одного сотрудника",
         state: ToastState.ERROR //TODO Заменить на WARNING как появится
       })
     }

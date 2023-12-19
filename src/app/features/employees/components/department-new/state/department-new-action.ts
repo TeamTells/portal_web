@@ -8,6 +8,7 @@ export type DepartmentNewAction =
   | ChangeParentDepartamentAction
   | RemoveParentDepartamentAction
   | AddEmpoyeesAction
+  | RemoveEmpoyeeAction
   | RemoveEmpoyeesAction
   | CreateAction
   | OpenDepartmentModalAction
@@ -30,7 +31,8 @@ export enum DepartmentNewActionTypes {
   CHANGE_PARENT_DEPARTMENT,
   REMOVE_PARENT_DEPARTMENT,
   ADD_EMPLOYEES,
-  REMOVE_EMPOYEES,
+  REMOVE_EMPLOYEE,
+  REMOVE_EMPLOYEES,
   CREATE,
 }
 
@@ -62,8 +64,13 @@ export interface AddEmpoyeesAction {
   readonly employees: EmployeeDto[];
 }
 
+export interface RemoveEmpoyeeAction {
+  readonly type: DepartmentNewActionTypes.REMOVE_EMPLOYEE;
+  readonly employee: EmployeeDto;
+}
+
 export interface RemoveEmpoyeesAction {
-  readonly type: DepartmentNewActionTypes.REMOVE_EMPOYEES;
+  readonly type: DepartmentNewActionTypes.REMOVE_EMPLOYEES;
   readonly employees: EmployeeDto[];
 }
 

@@ -1,8 +1,6 @@
 <employees-modal-window [data]="modalWindowData" (submitClick)="submitClick()" (closeClick)="closeClicked.emit()">
 
-    <app-core-search-field class="mt-4"/>
-
-    <div class="mt-4 h-[283px] overflow-scroll overflow-x-hidden no-scrollbar">
+    <div class="mt-4">
         <employees-select (selectClicked)="selectClick($event)" [settings]="settings"/>
     </div>
     

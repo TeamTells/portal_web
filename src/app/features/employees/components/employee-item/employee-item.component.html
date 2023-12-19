@@ -23,10 +23,22 @@
     />
 
     <div class="ml-4 my-auto">
-      <p class="font-medium text-tt-dark-gray">
-        {{ employee.name }}
-      </p>
-      <p class="font-normal text-tt-gray">{{ employee.mail }}</p>
+      
+      <div class="flex font-medium text-[16px] text-tt-dark-gray">
+        <span *ngIf="name.length != 0" class="">{{ name[0].trim() }}</span>
+        <span *ngIf="name[0].endsWith(' ')">&nbsp;</span>
+        <div *ngIf="name.length >= 2" class="bg-tt-select-blue">
+          <span *ngIf="name[1].startsWith(' ')">&nbsp;</span>
+          <span>{{ name[1].trim() }}</span>
+          <span *ngIf="name[1].endsWith(' ') && !name[1].startsWith(' ')">&nbsp;</span>
+        </div>
+        <div *ngIf="name.length >= 3">
+          <span *ngIf="name[2].startsWith(' ')">&nbsp;</span>
+          <span >{{ name[2].trim() }}</span>
+        </div>
+      </div>
+      
+      <p class="font-normal text-[16px] text-tt-gray">{{ employee.mail }}</p>
     </div>
   </div>
 
@@ -43,7 +55,7 @@
       <app-popup-menu-option [divider]="true">
         {{ strings.actions.move }}
       </app-popup-menu-option>
-      <app-popup-menu-option class="text-tt-primary">
+      <app-popup-menu-option class="text-tt-red" (onClick)="deleteClicked.emit(employee)">
         {{ strings.actions.delete }}
       </app-popup-menu-option>
     </app-popup-menu-content>

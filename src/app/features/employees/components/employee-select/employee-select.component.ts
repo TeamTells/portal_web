@@ -21,7 +21,8 @@ export class EmployeeSelectComponent extends Store<EmployeeSelectState, Employee
     toolsVisible: true,
     blueBoxVisible: true,
     countType: CountType.Multiple,
-    clickType: ClickType.CtrlClicked
+    clickType: ClickType.CtrlClicked,
+    overflowScroll: false
   }
   @Output() public selectClicked = new EventEmitter<EmployeeItemEntity[]>
 
@@ -126,13 +127,19 @@ export class EmployeeSelectComponent extends Store<EmployeeSelectState, Employee
     let result: EmployeeItemEntity[] = []
 
     departments.forEach((dep) => {
+      dep.departments.forEach((element) => {
+        result = result.concat(this.getSelectedInDepartments(element.departments))
+        element.employees.forEach((empl) => {
+          if(empl.isSelect){
+            result.push(empl)
+          }
+        })
+      })
+
       dep.employees.forEach((element) => {
         if(element.isSelect){
           result.push(element)
         }
-      })
-      dep.departments.forEach((element) => {
-        result.concat(this.getSelectedInDepartments(element.departments)) 
       })
     })
 

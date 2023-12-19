@@ -8,7 +8,7 @@ export type DepartmentNewResultAction =
   | ChangeParentDepartamentResultAction
   | RemoveParentDepartamentResultAction
   | AddEmpoyeesResultAction
-  | RemoveEmpoyeesResultAction
+  | RemoveEmployeesResultAction
   | ValidationResultAction
   | ChangeVisibleDepartmentModalResultAction
   | ChangeVisibleEmployeesModalResultAction
@@ -24,7 +24,7 @@ export enum DepartmentNewResultActionTypes {
   CHANGE_PARENT_DEPARTAMENT,
   REMOVE_PARENT_DEPARTAMENT,
   ADD_EMPLOYEES,
-  REMOVE_EMPOYESS,
+  REMOVE_EMPLOYEES,
   VALIDATION_ERROR,
 }
 
@@ -56,8 +56,8 @@ export interface AddEmpoyeesResultAction {
   readonly empoyees: EmployeeDto[];
 }
 
-export interface RemoveEmpoyeesResultAction {
-  readonly type: DepartmentNewResultActionTypes.REMOVE_EMPOYESS;
+export interface RemoveEmployeesResultAction {
+  readonly type: DepartmentNewResultActionTypes.REMOVE_EMPLOYEES;
   readonly empoyees: EmployeeDto[];
 }
 

@@ -15,7 +15,6 @@
       [ngClass]="{'show': department.visibleContent}"
       [ngClass]="{'hide': !department.visibleContent}"
       *ngIf="!(department.departments.length == 0 && !(department.employees.length == 0 || employeesVisible))">
-    <img class="w-9 h-7 my-auto ml-3 " src="../../../../assets/folder.svg">
 
     <button class="flex" (click)="departmentClicked($event)">
       <p class="ml-3 my-auto font-medium text-[16px] text-tt-dark-gray">{{department.name}}</p>

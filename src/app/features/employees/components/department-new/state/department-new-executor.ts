@@ -67,9 +67,27 @@ export class DepartmentNewExecutor extends Executor<
         });
         break;
 
-      case DepartmentNewActionTypes.REMOVE_EMPOYEES:
+        case DepartmentNewActionTypes.REMOVE_EMPLOYEE:
+          let employees = this.getState().employees
+          let i = 0
+          let findElement = employees.find((employee, j) => {
+            if(employee.id == action.employee.id)
+            {
+              i = j
+              return true
+            }
+            return false
+          })
+          if(findElement)
+          {
+            employees.splice(i, 1)
+          }
+          
+          break;
+
+      case DepartmentNewActionTypes.REMOVE_EMPLOYEES:
         this.reduce({
-          type: DepartmentNewResultActionTypes.REMOVE_EMPOYESS,
+          type: DepartmentNewResultActionTypes.REMOVE_EMPLOYEES,
           empoyees: action.employees,
         });
         break;

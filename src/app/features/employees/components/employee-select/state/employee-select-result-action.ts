@@ -1,8 +1,10 @@
 import { DepartmentEntity } from "../../department/department.component"
 import { EmployeeItemEntity } from "../../employee-item/employee-item.component"
 import { EmployeeSelectSettings } from "../interfaces/employee-select-settings"
+import { SearchEmployeeDepartmentData } from "../interfaces/search-employee-department-data"
 
 export type EmployeeSelectResultAction = InitDataResultAction
+  | SearchFieldChangeAction
   | SelectResultAction
   | MoveToDepartmentResultAction
   | NewDepartmentResultAction
@@ -10,6 +12,7 @@ export type EmployeeSelectResultAction = InitDataResultAction
 
 export enum EmployeeSelectResultActionTypes {
   INIT_DATA,
+  SEARCH_FIELD_CHANGE,
   SELECT,
   MOVE_TO_DEPARTMENT,
   MOVE_TO_DEPARTMENT_CLOSE,
@@ -22,6 +25,12 @@ export interface InitDataResultAction {
   readonly settings: EmployeeSelectSettings
   readonly employees: EmployeeItemEntity[]
   readonly departments: DepartmentEntity[]
+}
+
+export interface SearchFieldChangeAction {
+  readonly type: EmployeeSelectResultActionTypes.SEARCH_FIELD_CHANGE
+  readonly str: string
+  readonly searchDepartments: SearchEmployeeDepartmentData[]
 }
 
 export interface SelectResultAction {

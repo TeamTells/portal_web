@@ -28,6 +28,7 @@ module.exports = {
         "tt-dark-gray": "#5F6367",
         "tt-light-gray": "#9B9EA1",
         "tt-light-blue": "#C2E7FE",
+        "tt-select-blue": "#C2E7FE",
         "tt-lighter-gray": "#BCC1C6",
 
         "tt-selected-section-text-color": "#1268E4",
