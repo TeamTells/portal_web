@@ -7,7 +7,7 @@
       Вход в <span class="text-tt-primary">TeamTells</span>
     </h1>
 
-    <form>
+    <div>
       <app-core-input-field
         placeholder="E-mail"
         type="text"
@@ -59,7 +59,7 @@
         </div>
         <span *ngIf="!state.isLoading">Войти</span>
       </app-core-button-red>
-    </form>
+    </div>
 
     <div
       class="absolute left-0 bottom-[-44px] w-full flex justify-between items-center mt-tt-auth-field-margin"
