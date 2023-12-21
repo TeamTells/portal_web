@@ -1,3 +1,3 @@
 export const environment = {
-  apiUrl: 'http://localhost:8705'
+  apiUrl: 'https://dev5.env.teamtells.ru'
 };
