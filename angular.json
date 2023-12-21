@@ -115,10 +115,6 @@
               "browserTarget": "portal_web:build:fake_api"
             }
           },
-          "options": {
-            "browserTarget": "move-safe:build",
-            "proxyConfig": "src/proxy.conf.json"
-          },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
