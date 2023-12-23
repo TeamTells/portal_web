@@ -3,24 +3,31 @@
 @tailwind utilities;
 
 @layer base {
-
-    html,
-    body {
-        font-family: 'Open Sans', sans-serif;
-    }
+  html,
+  body {
+    font-family: "Open Sans", sans-serif;
+  }
 }
 
 @layer utilities {
-    @variants responsive {
-      /* Hide scrollbar for Chrome, Safari and Opera */
-      .no-scrollbar::-webkit-scrollbar {
-          display: none;
-      }
+  @variants responsive {
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
 
-      /* Hide scrollbar for IE, Edge and Firefox */
-      .no-scrollbar {
-          -ms-overflow-style: none;  /* IE and Edge */
-          scrollbar-width: none;  /* Firefox */
-      }
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
     }
   }
+}
+
+.icon {
+  @apply w-6 h-6  fill-tt-icon;
+}
+
+.icon-sm {
+  @apply w-3 h-3 fill-tt-icon;
+}

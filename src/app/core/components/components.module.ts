@@ -1,24 +1,36 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CardComponent } from './card/card.component';
-import { MainContentCardComponent } from './main-content-card/main-content-card.component';
-import { ButtonRedComponent } from './button-red/button-red.component';
+import { NgModule } from '@angular/core';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { AppRoutingModule } from 'src/app/app-routing.module';
+import { AuthLayoutComponent } from './auth-layout/auth-layout.component';
 import { ButtonBackComponent } from './button-back/button-back.component';
-import { InputFieldComponent } from './input-field/input-field.component';
-import { SearchFieldComponent } from './search-field/search-field.component';
+import { ButtonLightGrayComponent } from './button-light-gray/button-light-gray.component';
+import { ButtonRedComponent } from './button-red/button-red.component';
+import { CardComponent } from './card/card.component';
+import { CheckboxFieldComponent } from './checkbox-field/checkbox-field.component';
 import { DropdownFieldComponent } from './dropdown-field/dropdown-field.component';
 import { FieldErrorMessageComponent } from './field-error-message/field-error-message.component';
-import { ButtonLightGrayComponent } from './button-light-gray/button-light-gray.component';
-import { PopupMenuComponent } from './popup-menu/popup-menu.component';
+import { InputFieldComponent } from './input-field/input-field.component';
+import { MainContentCardComponent } from './main-content-card/main-content-card.component';
+import { MultiselectFieldComponent } from './multiselect-field/multiselect-field.component';
+import { PageShadingComponent } from './page-shading/page-shading.component';
+import { PhoneNumberFieldComponent } from './phone-number-field/phone-number-field.component';
 import { PopupMenuButtonComponent } from './popup-menu/popup-menu-button/popup-menu-button.component';
 import { PopupMenuContentComponent } from './popup-menu/popup-menu-content/popup-menu-content.component';
 import { PopupMenuOptionComponent } from './popup-menu/popup-menu-option/popup-menu-option.component';
-import { PageShadingComponent } from './page-shading/page-shading.component';
-import { ToastComponent } from './toast-alert/toast-alert.component';
+import { PopupMenuComponent } from './popup-menu/popup-menu.component';
+import { SearchFieldComponent } from './search-field/search-field.component';
+import {
+  SvgBorderedArrow,
+  SvgPlus,
+  SvgSearch,
+  SvgSuccess,
+  SvgWarning,
+  SvgXMark,
+} from './svg-components/svg.components';
 import { ErrorToastComponent } from './toast-alert/error-toast/error-toast.component';
 import { SuccessToastComponent } from './toast-alert/success-toast/success-toast.component';
-import { MultiselectFieldComponent } from './multiselect-field/multiselect-field.component';
+import { ToastComponent } from './toast-alert/toast-alert.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +52,9 @@ import { MultiselectFieldComponent } from './multiselect-field/multiselect-field
     ErrorToastComponent,
     SuccessToastComponent,
     MultiselectFieldComponent,
+    CheckboxFieldComponent,
+    AuthLayoutComponent,
+    PhoneNumberFieldComponent,
   ],
   exports: [
     CardComponent,
@@ -60,7 +75,21 @@ import { MultiselectFieldComponent } from './multiselect-field/multiselect-field
     ErrorToastComponent,
     SuccessToastComponent,
     MultiselectFieldComponent,
+    CheckboxFieldComponent,
+    AuthLayoutComponent,
+    PhoneNumberFieldComponent,
   ],
-  imports: [CommonModule, AppRoutingModule],
+  imports: [
+    CommonModule,
+    AppRoutingModule,
+    NgxMaskDirective,
+    SvgBorderedArrow,
+    SvgPlus,
+    SvgXMark,
+    SvgWarning,
+    SvgSearch,
+    SvgSuccess,
+  ],
+  providers: [provideNgxMask()],
 })
 export class ComponentsModule {}

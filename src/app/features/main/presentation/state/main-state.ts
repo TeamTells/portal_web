@@ -12,7 +12,8 @@ export enum NavItem {
   SECTIONS,
   EMPLOYEES,
   SETTINGS,
-  PROFILE
+  PROFILE,
+  EDITOR,
 }
 
 

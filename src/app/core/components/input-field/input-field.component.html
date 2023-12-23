@@ -5,17 +5,23 @@
       [type]="type"
       [autocomplete]="autocomplete"
       [defaultValue]="defaultValue"
+      [mask]="mask"
+      [prefix]="prefix"
+      [showMaskTyped]="showMaskTyped"
+      [attr.shownMaskExpression]="
+        shownMaskExpression ? shownMaskExpression : null
+      "
       [class.pt-0]="!placeholder"
-      [class.bg-tt-bg-error]="error"
-      [class.bg-tt-white]="!error"
-      [class.outline-tt-stroke-error]="error"
-      [class.ring-tt-stroke-error]="error"
-      class="peer h-full w-full px-[20px] pt-[14px] text-base font-normal text-tt-field tracking-wider rounded-tt-input outline outline-1 outline-tt-stroke ring-tt-stroke focus:ring-2 focus:outline-none"
+      [class.bg-tt-field-background-error]="error"
+      [class.bg-tt-field-background]="!error"
+      [class.outline-tt-field-border-error]="error"
+      [class.ring-tt-field-border-error]="error"
+      class="peer h-full w-full px-[20px] pt-[14px] text-base font-normal text-tt-main-text tracking-wider rounded-tt-input outline outline-1 outline-tt-field-border ring-tt-field-border focus:ring-2 focus:outline-none"
       placeholder=" "
     />
     <label
       *ngIf="placeholder"
-      class="pointer-events-none absolute left-[20px] top-[10px] flex h-full w-full select-none text-[12px] tracking-wider font-normal leading-none text-tt-light-gray transition-all peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-[20px] peer-focus:text-[12px] peer-focus:leading-none peer-focus:top-[10px]"
+      class="pointer-events-none absolute left-[20px] top-[10px] flex h-full w-full select-none text-[12px] tracking-wider font-normal leading-none text-tt-field-icon transition-all peer-placeholder-shown:text-[16px] peer-placeholder-shown:top-[20px] peer-focus:text-[12px] peer-focus:leading-none peer-focus:top-[10px]"
     >
       {{ placeholder }}
     </label>

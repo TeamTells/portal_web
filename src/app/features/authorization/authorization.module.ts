@@ -1,49 +1,43 @@
-import {NgModule} from '@angular/core';
-import {CommonModule, NgOptimizedImage} from '@angular/common';
-import {AuthorizationComponent} from './presentation/view/authorization.component';
-import {ComponentsModule} from "../../core/components/components.module";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {Validator} from "../../core/validators/validator";
-import {EmptyRule} from "../../core/validators/rule";
-import {HttpClientModule} from "@angular/common/http";
+import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import {
+  SvgArrowRight,
+  SvgButtonLoading,
+} from 'src/app/core/components/svg-components/svg.components';
+import { ComponentsModule } from '../../core/components/components.module';
+import { EmptyRule } from '../../core/validators/rule';
+import { Validator } from '../../core/validators/validator';
+import { AuthorizationComponent } from './presentation/view/authorization.component';
 
 @NgModule({
-  declarations: [
-    AuthorizationComponent,
-
-  ],
-  exports: [
-    AuthorizationComponent
-  ],
+  declarations: [AuthorizationComponent],
+  exports: [AuthorizationComponent],
   imports: [
     CommonModule,
     ComponentsModule,
     NgOptimizedImage,
-    ReactiveFormsModule,
     HttpClientModule,
-    FormsModule,
+    SvgArrowRight,
+    SvgButtonLoading,
   ],
   providers: [
     {
-      provide: "EmailValidator",
+      provide: 'EmailValidator',
       useExisting: Validator,
       useFactory: AuthorizationModule.emailValidatorFactory,
     },
     {
-      provide: "PasswordValidator",
+      provide: 'PasswordValidator',
       useExisting: Validator,
       useFactory: AuthorizationModule.passwordValidatorFactory,
-    }
-  ]
+    },
+  ],
 })
 export class AuthorizationModule {
+  public static emailValidatorFactory = () =>
+    new Validator([new EmptyRule('Введите E-mail')]);
 
-  public static emailValidatorFactory = () => new Validator([
-    new EmptyRule("Введите E-mail"),
-  ])
-
-  public static passwordValidatorFactory = () => new Validator([
-    new EmptyRule("Введите пароль"),
-  ])
-
+  public static passwordValidatorFactory = () =>
+    new Validator([new EmptyRule('Введите пароль')]);
 }

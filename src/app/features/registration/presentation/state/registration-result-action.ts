@@ -1,4 +1,5 @@
 import { DropdownItem } from 'src/app/core/components/dropdown-field/dropdown-field.component';
+import { RegistrationStatus } from './registration-state';
 
 export type RegistrationResultAction =
   | ChangeEmailResultAction
@@ -8,6 +9,7 @@ export type RegistrationResultAction =
   | RemoveSpecializingResultAction
   | ChangeStaffSizeResultAction
   | RemoveStaffSizeResultAction
+  | ChangeStatusStateResultAction
   | ValidationResultAction
   | CreateResultAction;
 
@@ -20,6 +22,7 @@ export enum RegistrationResultActionTypes {
   CHANGE_SPECIALIZING,
   REMOVE_SPECIALIZING,
   VALIDATION_ERROR,
+  CHANGE_STATUS_STATE,
   CREATE,
 }
 
@@ -67,4 +70,9 @@ export interface ValidationResultAction {
 
 export interface CreateResultAction {
   readonly type: RegistrationResultActionTypes.CREATE;
+}
+
+export interface ChangeStatusStateResultAction {
+  readonly type: RegistrationResultActionTypes.CHANGE_STATUS_STATE;
+  readonly status: RegistrationStatus;
 }

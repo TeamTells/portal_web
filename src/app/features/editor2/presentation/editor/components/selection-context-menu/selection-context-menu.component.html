@@ -1,0 +1,63 @@
+<div class="card px-4 bg-white rounded-lg shadow justify-start items-center gap-2 no-select" [ngStyle]="cardStyle"
+     [@dialogAnimation]="dialogState">
+  <div class="inline-flex">
+    <div class="p-2 justify-center items-center gap-1 flex">
+      <div class="text-zinc-600 text-base font-normal font-['Open Sans']">{{state.textStyle}}</div>
+      <img ngSrc="assets/chevron.down.svg" height="6" width="12" alt="select...">
+    </div>
+    <div class="w-px h-10 relative bg-neutral-100"></div>
+    <div class="p-2 justify-center items-center gap-1 flex">
+      <div class="text-zinc-600 text-base font-normal font-['Open Sans']">{{state.textSize}}</div>
+      <img ngSrc="assets/chevron.down.svg" height="6" width="12" alt="select...">
+    </div>
+    <div class="w-px h-10 relative bg-neutral-100"></div>
+    <div class="p-1 justify-center items-center flex" [attr.tooltip]="tooltips.bold" tooltip-position="top"
+         (click)="onCommand.emit({type:'bold'})" >
+      <div class="p-1 justify-center hover-gray-100 rounded-lg items-center flex" [ngClass]="{ 'bg-neutral-200': state.isBold }">
+        <img ngSrc="assets/bold.tool.svg" height="24" width="24" alt="select...">
+      </div>
+    </div>
+    <div class="p-1 justify-center items-center flex" [attr.tooltip]="tooltips.italic" tooltip-position="top"
+         (click)="onCommand.emit({type:'italic'})" >
+      <div class="p-1 justify-center hover-gray-100 rounded-lg items-center flex" [ngClass]="{ 'bg-neutral-200': state.isItalic }">
+        <img ngSrc="assets/italic.tool.svg" height="24" width="24" alt="select...">
+      </div>
+    </div>
+    <div class="p-1 justify-center items-center flex" [attr.tooltip]="tooltips.underline" tooltip-position="top"
+         (click)="onCommand.emit({type:'underline'})" >
+      <div class="p-1 justify-center hover-gray-100 rounded-lg items-center flex" [ngClass]="{ 'bg-neutral-200': state.isUnderlined }">
+        <img ngSrc="assets/underline.tool.svg" height="24" width="24" alt="select...">
+      </div>
+    </div>
+    <div class="w-px h-10 relative bg-neutral-100"></div>
+    <div class="p-1 justify-center items-center flex">
+      <div class="p-1 justify-center hover-gray-100 rounded-lg items-center flex">
+        <img ngSrc="assets/brush.tool.svg" height="24" width="24" alt="select...">
+      </div>
+    </div>
+    <div class="p-1 justify-center items-center flex">
+      <div class="p-1 justify-center hover-gray-100 rounded-lg items-center flex">
+        <img ngSrc="assets/erase.tool.svg" height="24" width="24" alt="select...">
+      </div>
+    </div>
+    <div class="w-px h-10 relative bg-neutral-100"></div>
+    <div class="p-1 justify-center items-center flex" [attr.tooltip]="tooltips.align_left" tooltip-position="top">
+      <div class="p-1 justify-center hover-gray-100 rounded-lg items-center flex"
+           [ngClass]="{ 'bg-neutral-200': state.paragraphAlignment === 'left' }">
+        <img ngSrc="assets/left.align.tool.svg" height="24" width="24" alt="select...">
+      </div>
+    </div>
+    <div class="p-1 justify-center items-center flex" [attr.tooltip]="tooltips.align_center" tooltip-position="top">
+      <div class="p-1 justify-center hover-gray-100 rounded-lg items-center flex"
+           [ngClass]="{ 'bg-neutral-200': state.paragraphAlignment === 'center' }">
+        <img ngSrc="assets/center.align.tool.svg" height="24" width="24" alt="select...">
+      </div>
+    </div>
+    <div class="p-1 justify-center items-center flex" [attr.tooltip]="tooltips.align_right" tooltip-position="top">
+      <div class="p-1 justify-center hover-gray-100 rounded-lg items-center flex"
+           [ngClass]="{ 'bg-neutral-200': state.paragraphAlignment === 'right' }">
+        <img ngSrc="assets/right.align.tool.svg" height="24" width="24" alt="select...">
+      </div>
+    </div>
+  </div>
+</div>

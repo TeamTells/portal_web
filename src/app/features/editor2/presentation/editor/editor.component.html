@@ -1,0 +1,51 @@
+<div class="rich-editor-wrapper">
+  <app-gutter-button [top]="plusButton.offsetTop" [left]="plusButton.offsetLeft" [isVisible]="plusButton.visible"
+                     [items]="[
+  {id: 'paragraph', name:'Text'},
+  {id: 'heading-one', name:'Heading 1'},
+  {id: 'heading-two', name:'Heading 2'},
+  {id: 'bulleted-list', name:'Bulleted list'},
+  {id: 'numbered-list', name:'Numbered List'},
+  {id: 'image', name:'Image'},
+  {id: 'video', name:'Video'},
+  ]" (onSelect)="onContextCommand({type:'create_typed_element', kind: $event})"></app-gutter-button>
+
+  <app-gutter-button [top]="removeButton.offsetTop" [left]="removeButton.offsetLeft" [isVisible]="removeButton.visible"
+                     [imageSrc]="'assets/trashbin.svg'" (onClick)="onContextCommand({type:'delete_current_element'})"></app-gutter-button>
+  <app-selection-context-menu [top]="selMenu.offsetTop" [left]="selMenu.offsetLeft" [isVisible]="selMenu.visible"
+                              [state]="contextMenuOptions"
+                              (onCommand)="onContextCommand($event)"></app-selection-context-menu>
+  <!--  <app-plus-context-menu [top]="selMenuOffsetTop" [left]="selMenuOffsetLeft" [isVisible]="selMenuVisible"></app-plus-context-menu>-->
+  <slate-editable
+    class="slate-editable-container"
+    [editor]="editor"
+    [(ngModel)]="value"
+    (ngModelChange)="valueChange($event)"
+    [renderElement]="renderElement"
+    [renderText]="renderText"
+    [keydown]="keydown"
+    (blur)="onBlur($event)"
+  >
+    <ng-template #heading_1 let-context="context" let-viewContext="viewContext">
+      <h1 slateElement [context]="context" [viewContext]="viewContext"></h1>
+    </ng-template>
+    <ng-template #heading_2 let-context="context" let-viewContext="viewContext">
+      <h2 slateElement [context]="context" [viewContext]="viewContext"></h2>
+    </ng-template>
+    <ng-template #heading_3 let-context="context" let-viewContext="viewContext">
+      <h3 slateElement [context]="context" [viewContext]="viewContext"></h3>
+    </ng-template>
+    <ng-template #blockquote let-context="context" let-viewContext="viewContext">
+      <blockquote slateElement [context]="context" [viewContext]="viewContext"></blockquote>
+    </ng-template>
+    <ng-template #ul let-context="context" let-viewContext="viewContext">
+      <ul slateElement [context]="context" [viewContext]="viewContext"></ul>
+    </ng-template>
+    <ng-template #ol let-context="context" let-viewContext="viewContext">
+      <ol slateElement [context]="context" [viewContext]="viewContext"></ol>
+    </ng-template>
+    <ng-template #li let-context="context" let-viewContext="viewContext">
+      <li slateElement [context]="context" [viewContext]="viewContext"></li>
+    </ng-template>
+  </slate-editable>
+</div>

@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { Executor } from 'src/app/core/mvi/store';
-import { RegistrationState } from './registration-state';
+import { Validator } from 'src/app/core/validators/validator';
 import {
   RegistrationAction,
   RegistrationActionTypes,
@@ -9,7 +9,7 @@ import {
   RegistrationResultAction,
   RegistrationResultActionTypes,
 } from './registration-result-action';
-import { Validator } from 'src/app/core/validators/validator';
+import { RegistrationState } from './registration-state';
 
 @Injectable({
   providedIn: 'root',
@@ -94,7 +94,6 @@ export class RegistrationExecutor extends Executor<
     const phoneNumberError = this.phoneNumberValidator.validate(
       this.getState().phoneNumber,
     );
-    console.log(phoneNumberError);
     const emailError = this.emailValidator.validate(this.getState().email);
     const staffSizeError = this.getState().selectedStaffSize
       ? null
@@ -102,8 +101,6 @@ export class RegistrationExecutor extends Executor<
     const specializingError = this.getState().selectedSpecializing
       ? null
       : 'Укажите в какой отрасли работает ваша компания';
-
-    console.log(this.getState());
 
     if (
       specializingError != null ||
@@ -124,7 +121,15 @@ export class RegistrationExecutor extends Executor<
     }
 
     this.reduce({
-      type: RegistrationResultActionTypes.CREATE,
+      type: RegistrationResultActionTypes.CHANGE_STATUS_STATE,
+      status: 'pending',
     });
+
+    setTimeout(() => {
+      this.reduce({
+        type: RegistrationResultActionTypes.CHANGE_STATUS_STATE,
+        status: 'success',
+      });
+    }, 3000);
   }
 }

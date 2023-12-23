@@ -60,8 +60,7 @@ export class EmployeeItemComponent {
   onClick(event: any): void {
     if (event.ctrlKey) {
       this.ctrlClicked.emit(this.employee);
-    }
-    else {
+    } else {
       this.clicked.emit(this.employee);
     }
   }
