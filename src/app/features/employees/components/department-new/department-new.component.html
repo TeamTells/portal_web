@@ -116,6 +116,7 @@
 
 <select-employees-modal-window
   *ngIf="state.visibleSelectEmployeesModal"
+  [addedEmployees]="state.employees"
   (closeClicked)="
     performAction({
       type: DepartmentNewActionTypes.CLOSE_EMPLOYEES_MODAL

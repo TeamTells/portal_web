@@ -1,17 +1,22 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, Input } from '@angular/core';
 import { ModalWindowData } from '../modal-window/modal-window.component';
 import { ToastsService } from 'src/app/core/components/toast-alert/services/toast-alert.service';
 import { ToastState } from 'src/app/core/components/toast-alert/toast-alert.component';
 import { EmployeeItemEntity } from '../employee-item/employee-item.component';
 import { EmployeeSelectSettings, CountType, ClickType } from '../employee-select/interfaces/employee-select-settings';
+import { EmployeeDto } from '../../data/employees-data-service';
 
 @Component({
   selector: 'select-employees-modal-window',
   templateUrl: './select-employees-modal.component.html',
 })
 export class SelectEmployeesModalComponent {
+  @Input() addedEmployees: EmployeeDto[] = []
+
   @Output() closeClicked = new EventEmitter()
   @Output() submitClicked = new EventEmitter<EmployeeItemEntity[]>()
+
+  public addedIds: number[] = []
 
   constructor(private toastService: ToastsService){}
 
@@ -21,6 +26,13 @@ export class SelectEmployeesModalComponent {
     title: "Выберите сотрудников",
     change: "Выбрать",
     cancel: "Отмена"
+  }
+
+  ngOnChanges(){
+    this.addedIds = []
+    this.addedEmployees.forEach((element)=>{
+      this.addedIds.push(element.id)
+    })
   }
 
   public settings: EmployeeSelectSettings = {
@@ -39,19 +51,7 @@ export class SelectEmployeesModalComponent {
 
   submitClick(): void
   {
-    console.log(this.selectedEmployees)
-    if(this.selectedEmployees.length != 0)
-    {
-      this.submitClicked.emit(this.selectedEmployees)
-    }
-    else
-    {
-      this.toastService.createToast({
-        title: "Ни одного сотрудника не выбрано",
-        description: "Пожалуйста выберите хотя бы одного сотрудника",
-        state: ToastState.ERROR //TODO Заменить на WARNING как появится
-      })
-    }
+    this.submitClicked.emit(this.selectedEmployees)
   }
 
   selectClick(employees: EmployeeItemEntity[]): void

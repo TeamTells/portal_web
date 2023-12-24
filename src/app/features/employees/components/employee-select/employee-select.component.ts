@@ -24,6 +24,9 @@ export class EmployeeSelectComponent extends Store<EmployeeSelectState, Employee
     clickType: ClickType.CtrlClicked,
     overflowScroll: false
   }
+
+  @Input() public alreadySelectedEmployeeIds: number[] = []
+
   @Output() public selectClicked = new EventEmitter<EmployeeItemEntity[]>
 
   strings = {
@@ -43,7 +46,8 @@ export class EmployeeSelectComponent extends Store<EmployeeSelectState, Employee
       type: EmployeeSelectActionTypes.INIT_DATA,
       settings: this.settings,
       employees: data.ConvertToEmployeeItemEntityList(data.employees),
-      departments: data.ConvertToDepartmentEntityList(data.departments)
+      departments: data.ConvertToDepartmentEntityList(data.departments),
+      alreadySelectedEmployeeIds: this.alreadySelectedEmployeeIds
     })
   }
   
@@ -53,7 +57,8 @@ export class EmployeeSelectComponent extends Store<EmployeeSelectState, Employee
       type: EmployeeSelectActionTypes.INIT_DATA,
       settings: this.settings,
       employees: this.data.ConvertToEmployeeItemEntityList(this.data.employees),
-      departments: this.data.ConvertToDepartmentEntityList(this.data.departments)
+      departments: this.data.ConvertToDepartmentEntityList(this.data.departments),
+      alreadySelectedEmployeeIds: this.alreadySelectedEmployeeIds
     })
   }
 

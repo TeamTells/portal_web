@@ -19,24 +19,5 @@ export class DepartmentNewState {
   readonly visibleSelectEmployeesModal: boolean = false;
   readonly visibleSelectSupervisorModal: boolean = false;
 
-  readonly employees: EmployeeDto[] = [
-    {
-      id: 1,
-      img: 'https://cdn.betterttv.net/emote/6436b06d48b8cab3008407d4/3x.png',
-      mail: 'firdavsinurov@site.com',
-      name: 'Фирдавси Нуров',
-    },
-    {
-      id: 2,
-      img: 'https://cdn.betterttv.net/emote/6436b06d48b8cab3008407d4/3x.png',
-      mail: '',
-      name: 'Firdavsi Nurov',
-    },
-    {
-      id: 3,
-      img: '',
-      mail: '',
-      name: '',
-    },
-  ];
+  readonly employees: EmployeeDto[] = [];
 }
