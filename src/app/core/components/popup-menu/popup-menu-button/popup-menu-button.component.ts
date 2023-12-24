@@ -1,12 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  HostListener,
-  Input,
-  Output,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-popup-menu-button',
@@ -14,5 +6,6 @@ import {
 })
 export class PopupMenuButtonComponent {
   @Input() class: string | string[] = [];
-  @ViewChild("popupMenuButton",{read:ElementRef}) buttonContent!: ElementRef;
+  @ViewChild('popupMenuButton', { read: ElementRef })
+  buttonContent!: ElementRef;
 }
