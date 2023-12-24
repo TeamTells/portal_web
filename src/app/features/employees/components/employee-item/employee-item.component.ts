@@ -8,9 +8,9 @@ import {
   selector: 'app-core-employee-item',
   templateUrl: './employee-item.component.html',
 })
-
 export class EmployeeItemComponent {
-  showDots: boolean = false;
+  isHovered = false;
+  isMenuActive = false;
   name: string[] = [];
 
   @Input() public employee: EmployeeItemEntity = {
@@ -20,33 +20,37 @@ export class EmployeeItemComponent {
     mail: 'not-found@mail.ru',
     isSelect: false,
   };
-  @Input() public highlightedPart: string = ""
+  @Input() public highlightedPart: string = '';
   @Input() public offset: number = 0;
 
   @Output() clicked = new EventEmitter<EmployeeItemEntity>();
   @Output() ctrlClicked = new EventEmitter<EmployeeItemEntity>();
-  @Output() deleteClicked = new EventEmitter<EmployeeItemEntity>()
+  @Output() deleteClicked = new EventEmitter<EmployeeItemEntity>();
 
-  constructor(
-    private navigator: EmployeesNavigator
-  ) {
+  constructor(private navigator: EmployeesNavigator) {}
 
-  }
-
-  ngOnChanges(){
-    this.getName()
+  ngOnChanges() {
+    this.getName();
   }
 
   getName() {
     if (this.highlightedPart.length != 0) {
-      this.name.push(this.employee.name.slice(0, this.employee.name.indexOf(this.highlightedPart)))
-      this.name.push(this.highlightedPart)
-      this.name.push(this.employee.name.slice(this.employee.name.indexOf(this.highlightedPart) + this.highlightedPart.length))
+      this.name.push(
+        this.employee.name.slice(
+          0,
+          this.employee.name.indexOf(this.highlightedPart),
+        ),
+      );
+      this.name.push(this.highlightedPart);
+      this.name.push(
+        this.employee.name.slice(
+          this.employee.name.indexOf(this.highlightedPart) +
+            this.highlightedPart.length,
+        ),
+      );
+    } else {
+      this.name.push(this.employee.name);
     }
-    else {
-      this.name.push(this.employee.name)
-    }
-
   }
 
   editEmployee() {
@@ -56,7 +60,7 @@ export class EmployeeItemComponent {
     });
   }
 
-  onClick(event: any): void {
+  onClick(event: any) {
     if (event.ctrlKey) {
       this.ctrlClicked.emit(this.employee);
     } else {
@@ -64,7 +68,7 @@ export class EmployeeItemComponent {
     }
   }
 
-  getMarginOffset(): string {
+  getMarginOffset() {
     if (this.employee.isSelect) {
       return 0 + 'px';
     } else {
@@ -72,7 +76,7 @@ export class EmployeeItemComponent {
     }
   }
 
-  getPaddingOffset(): string {
+  getPaddingOffset() {
     if (this.employee.isSelect) {
       return this.offset + 8 + 'px';
     } else {
@@ -80,12 +84,16 @@ export class EmployeeItemComponent {
     }
   }
 
-  onMouseOver(): void {
-    this.showDots = true;
+  onMouseOver() {
+    this.isHovered = true;
   }
 
-  onMouseOut(): void {
-    this.showDots = false;
+  onMouseOut() {
+    this.isHovered = false;
+  }
+
+  onToggleMenu(value: boolean) {
+    this.isMenuActive = value;
   }
 
   strings = {
