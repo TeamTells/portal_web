@@ -43,7 +43,7 @@ export class AuthServiceImpl implements AuthService {
       .pipe(mergeMap((response) => {
           const hashPassword = CryptUtils.toSha256Hash(data.password, response.salt)
           const body = {login: data.login, password: hashPassword}
-          return this.http.post<LoginResponseJson>(`${environment.apiUrl}/authorization/login1`, body, {withCredentials: true})
+          return this.http.post<LoginResponseJson>(`${environment.apiUrl}/authorization/login`, body, {withCredentials: true})
             .pipe(map(response => {
               const user = new User(response.user.id)
               const company = new Company(response.company.id)
