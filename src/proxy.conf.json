@@ -1,6 +1,6 @@
 {
   "/api/*": {
-    "target": "https://dev5.env.teamtells.ru",
+    "target": "https://localhost:8705",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": false,
