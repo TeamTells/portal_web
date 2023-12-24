@@ -1,7 +1,6 @@
 <employees-modal-window [data]="modalWindowData" (closeClick)="closeClicked.emit()">
     <div class="mb-[28px] font-normal leading-normal text-[16px]">После подтверждения этого действия подразделение будет удалено.</div>
     <div class="flex flex-row mb-[29px] font-normal leading-normal text-[16px]">
-        <input class="w-[24px] h-[24px] mr-[12px] rounded-[4px] bg-[#ECF1F7]" type="checkbox" id="subunits" name="subunits">
-        <label for="subunits">Удалить дочерние подразделения и пользователей</label>
+        <app-core-checkbox-field label="Удалить дочерние подразделения и пользователей"/>
     </div>
 </employees-modal-window>
