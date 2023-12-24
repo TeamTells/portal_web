@@ -25,7 +25,8 @@ export class SelectDepartmentModalComponent {
   public modalWindowData: ModalWindowData = {
     title: this.strings.title,
     submit: this.strings.change,
-    cancel: this.strings.cancel
+    cancel: this.strings.cancel,
+    windowWidth: 963,
   }
 
   constructor(private dataService: EmployeesDataService, 

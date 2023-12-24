@@ -1,15 +1,18 @@
 <app-core-page-shading>
   <div
-    class="absolute inset-0 m-[auto] w-[963px] h-[521px] min-h-[20%] max-h-[60%] bg-tt-main-backgorund rounded-tt-card p-6 z-10"
+    class="flex flex-col gap-4 justify-between inset-0 m-[auto] min-h-[20%] max-h-[80%] bg-tt-main-backgorund rounded-tt-card p-6 z-10"
+    [style.width.px]="data.windowWidth"
   >
-    <div class="flex flex-row h-10 mb-8">
-      <div class="text-[28px] font-medium w-full">{{ data.title }}</div>
-      <svg-x-mark class="icon cursor-pointer" (click)="closeClick.emit()" />
+    <div>
+      <div class="flex flex-row h-10 mb-[16px]">
+        <div class="text-[28px] font-medium w-full">{{ data.title }}</div>
+        <svg-x-mark class="icon cursor-pointer mt-[8px]" (click)="closeClick.emit()" />
+      </div>
+  
+      <ng-content></ng-content>
     </div>
 
-    <ng-content></ng-content>
-
-    <div class="flex justify-end mt-4">
+    <div class="flex justify-end items-end ">
       <app-core-button-light-gray
         class="mr-[16px]"
         (buttonClick)="closeClick.emit()"
