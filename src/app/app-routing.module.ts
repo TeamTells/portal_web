@@ -42,7 +42,7 @@ const employeesItems: Routes = [
     component: EmployeeEditComponent,
   },
   {
-    path: 'edit-department',
+    path: 'edit-department/:id',
     component: DepartmentEditComponent,
   },
   {

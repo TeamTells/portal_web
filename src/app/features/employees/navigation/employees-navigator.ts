@@ -10,25 +10,25 @@ export class EmployeesNavigator {
   public showContent(item: EmployeesNavEntity) {
     switch (item.navItem) {
       case EmployeesNavItem.ROLES:
-        this.router.navigate(['employees/roles']);
+        this.router.navigate(['employees/roles' + item.params]);
         break;
       case EmployeesNavItem.USERS:
-        this.router.navigate(['employees']);
+        this.router.navigate(['employees' + item.params]);
         break;
       case EmployeesNavItem.NEW_EMPLOYEE:
-        this.router.navigate(['employees/new-employee/']);
+        this.router.navigate(['employees/new-employee/' + item.params]);
         break;
       case EmployeesNavItem.EDIT_EMPLOYEE:
-        this.router.navigate(['employees/edit-employee/']);
+        this.router.navigate(['employees/edit-employee/' + item.params]);
         break;
       case EmployeesNavItem.DEPARTMENT:
         this.router.navigate(['employees/department/' + item.params]);
         break;
       case EmployeesNavItem.NEW_DEPARTMENT:
-        this.router.navigate(['employees/new-department/']);
+        this.router.navigate(['employees/new-department/' + item.params]);
         break;
       case EmployeesNavItem.EDIT_DEPARTMENT:
-        this.router.navigate(['employees/edit-department/']);
+        this.router.navigate(['employees/edit-department/' + item.params]);
         break;
     }
   }
