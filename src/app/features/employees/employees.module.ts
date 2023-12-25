@@ -36,6 +36,9 @@ import {
   SvgTripleDot,
   SvgXMark,
 } from 'src/app/core/components/svg-components/svg.components';
+import { DeleteEmployeeModal } from './components/delete-emoloyee-modal/delete-emoloyee-modal.component';
+import { DeleteUnitModal } from './components/delete-unit-modal/delete-unit-modal.component';
+
 
 @NgModule({
   declarations: [
@@ -58,6 +61,8 @@ import {
     SelectDepartmentModalComponent,
     SelectSupervisorModalComponent,
     SelectEmployeesModalComponent,
+    DeleteEmployeeModal,
+    DeleteUnitModal
   ],
   exports: [EmployeesComponent],
   imports: [
