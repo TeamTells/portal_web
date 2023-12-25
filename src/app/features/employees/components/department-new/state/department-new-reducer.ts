@@ -48,14 +48,14 @@ export class DepartmentNewReducer
 
       case DepartmentNewResultActionTypes.ADD_EMPLOYEES:
         return clone(state, {
-          employees: [...state.employees, ...action.empoyees],
+          employees: action.employees,
           visibleSelectEmployeesModal: false
         });
 
       case DepartmentNewResultActionTypes.REMOVE_EMPLOYEES:
         return clone(state, {
           employees: state.employees.filter(
-            (a) => !action.empoyees.some((b) => a === b)
+            (a) => !action.employees.some((b) => a === b)
           ),
         });
 

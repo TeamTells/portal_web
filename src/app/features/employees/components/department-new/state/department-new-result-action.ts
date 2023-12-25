@@ -53,12 +53,12 @@ export interface RemoveParentDepartamentResultAction {
 
 export interface AddEmpoyeesResultAction {
   readonly type: DepartmentNewResultActionTypes.ADD_EMPLOYEES;
-  readonly empoyees: EmployeeDto[];
+  readonly employees: EmployeeDto[];
 }
 
 export interface RemoveEmployeesResultAction {
   readonly type: DepartmentNewResultActionTypes.REMOVE_EMPLOYEES;
-  readonly empoyees: EmployeeDto[];
+  readonly employees: EmployeeDto[];
 }
 
 export interface ValidationResultAction {
