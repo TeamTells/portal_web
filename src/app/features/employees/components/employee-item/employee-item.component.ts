@@ -35,21 +35,13 @@ export class EmployeeItemComponent {
 
   getName() {
     if (this.highlightedPart.length != 0) {
-      this.name.push(
-        this.employee.name.slice(
-          0,
-          this.employee.name.indexOf(this.highlightedPart),
-        ),
-      );
-      this.name.push(this.highlightedPart);
-      this.name.push(
-        this.employee.name.slice(
-          this.employee.name.indexOf(this.highlightedPart) +
-            this.highlightedPart.length,
-        ),
-      );
-    } else {
-      this.name.push(this.employee.name);
+      let highlightedPartIndex = this.employee.name.toLowerCase().indexOf(this.highlightedPart)
+      this.name.push(this.employee.name.slice(0, highlightedPartIndex))
+      this.name.push(this.employee.name.slice(highlightedPartIndex, highlightedPartIndex + this.highlightedPart.length))
+      this.name.push(this.employee.name.slice(highlightedPartIndex + this.highlightedPart.length))
+    }
+    else {
+      this.name.push(this.employee.name)
     }
   }
 

@@ -71,11 +71,13 @@ export class EmployeeSelectExecutor extends Executor<EmployeeSelectState, Employ
   private handleSearchFieldChange(searchStr: string)
   {
     let resultEmployeeDepartments: SearchEmployeeDepartmentData[] = []
+    let lowerSearhStr = searchStr.toLowerCase()
 
-    if(searchStr.length != 0)
+    if(lowerSearhStr.length != 0)
     {
-      resultEmployeeDepartments = resultEmployeeDepartments.concat(this.searchEmployeesInDepartments(searchStr, '', this.getState().departments))
-      let searchRoot = this.searchInRoot(searchStr)
+      resultEmployeeDepartments = resultEmployeeDepartments.concat(
+        this.searchEmployeesInDepartments(lowerSearhStr, '', this.getState().departments, 0))
+      let searchRoot = this.searchInRoot(lowerSearhStr)
       if(searchRoot)
       {
         resultEmployeeDepartments.push(searchRoot)
@@ -84,7 +86,7 @@ export class EmployeeSelectExecutor extends Executor<EmployeeSelectState, Employ
 
     this.reduce({
       type: EmployeeSelectResultActionTypes.SEARCH_FIELD_CHANGE,
-      str: searchStr,
+      str: lowerSearhStr,
       searchDepartments: resultEmployeeDepartments
     })
   }
@@ -98,7 +100,7 @@ export class EmployeeSelectExecutor extends Executor<EmployeeSelectState, Employ
     }
 
     this.getState().employees.forEach((empl) => {
-      if(empl.name.includes(searchStr))
+      if(empl.name.toLowerCase().includes(searchStr))
       {
         searchRoot.employees.push(empl)
       }
@@ -111,21 +113,27 @@ export class EmployeeSelectExecutor extends Executor<EmployeeSelectState, Employ
     return undefined
   }
 
-  private searchEmployeesInDepartments(searchStr: string, curentDepartmentsString: string, curentDepartments: DepartmentEntity[]): SearchEmployeeDepartmentData[]
+  private searchEmployeesInDepartments(
+    searchStr: string,
+    curentDepartmentsString: string,
+    curentDepartments: DepartmentEntity[],
+    countFatherObjects: number): SearchEmployeeDepartmentData[]
   {
     let findDepartments: SearchEmployeeDepartmentData[] = []
+    let currentCountFatherObjects = countFatherObjects + 1
 
     curentDepartments.forEach((dep)=> {
+
       let searchDep: SearchEmployeeDepartmentData = {
-        deprtmentsStr: curentDepartmentsString == ''? dep.name : curentDepartmentsString + " / " + dep.name,
+        deprtmentsStr: this.getDepartmentsStr(curentDepartmentsString, dep.name, currentCountFatherObjects),
         employees: [],
         searchStr: searchStr
       }
 
-      findDepartments = findDepartments.concat(this.searchEmployeesInDepartments(searchStr, searchDep.deprtmentsStr, dep.departments))
+      findDepartments = findDepartments.concat(this.searchEmployeesInDepartments(searchStr, searchDep.deprtmentsStr, dep.departments, currentCountFatherObjects))
 
       dep.employees.forEach((empl) => {
-        if(empl.name.includes(searchStr))
+        if(empl.name.toLowerCase().includes(searchStr))
         {
           searchDep.employees.push(empl)
         }
@@ -138,6 +146,26 @@ export class EmployeeSelectExecutor extends Executor<EmployeeSelectState, Employ
     })
 
     return findDepartments
+  }
+
+  private getDepartmentsStr(curentDepartmentsString: string, curentDepartmentName: string, countFatherObjects: number): string
+  {
+    let departmentsStr = ''
+
+    if(curentDepartmentsString == '')
+    {
+      departmentsStr = curentDepartmentName
+    }
+    else if(countFatherObjects <= 2)
+    {
+      departmentsStr = curentDepartmentsString + " / " + curentDepartmentName
+    }
+    else
+    {
+      departmentsStr = curentDepartmentsString.slice(0, curentDepartmentsString.indexOf("/") + 1) + ".../" + curentDepartmentName
+    }
+
+    return departmentsStr;
   }
 //#endregion
 
