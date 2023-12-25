@@ -100,9 +100,7 @@ export class EmployeesDataService {
       img: '',
     },
   ];
-  public selectedEmployees: EmployeeItemEntity[] = [];
-  public selectedDepartments: DepartmentEntity[] = [];
-
+  
   public ConvertToDepartmentEntityList(
     departments: DepartmentDto[]
   ): DepartmentEntity[] {

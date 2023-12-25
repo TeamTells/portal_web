@@ -20,6 +20,7 @@ export class EmployeesListComponent {
     this.navigator.showContent({
       navItem: EmployeesNavItem.NEW_EMPLOYEE,
       params: '',
+      data:{}
     });
   }
 
@@ -27,6 +28,7 @@ export class EmployeesListComponent {
     this.navigator.showContent({
       navItem: EmployeesNavItem.NEW_DEPARTMENT,
       params: '',
+      data:{}
     });
   }
 

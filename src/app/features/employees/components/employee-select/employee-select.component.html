@@ -23,7 +23,9 @@
       })">
         <img width="26px" src="../../../../../assets/person.and.arrow.left.and.arrow.right.svg">
       </button>
-      <button>
+      <button (click)="performAction({
+        type: EmployeeSelectActionTypes.NEW_DEPARTMENT
+      })">
         <img width="27px" src="../../../../../assets/folder.badge.plus.svg">
       </button>
       <button>
