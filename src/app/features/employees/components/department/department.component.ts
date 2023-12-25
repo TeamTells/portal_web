@@ -35,9 +35,17 @@ export class DepartmentComponent implements OnInit {
   @Output() clicked = new EventEmitter<DepartmentEntity>()
   @Output() employeeClicked = new EventEmitter<EmployeeItemEntity>()
   @Output() employeeCtrlClicked = new EventEmitter<EmployeeItemEntity>()
+  @Output() deleteClicked = new EventEmitter<DepartmentEntity>()
+  constructor(
+    private navigator: EmployeesNavigator
+  ) {}
 
   ngOnInit(): void {
     this.countOfEmploees = this.getCountEmployees(this.department)
+  }
+
+  editDepartment(){
+    this.navigator.showContent({navItem: EmployeesNavItem.EDIT_DEPARTMENT, params: this.department.id.toString()})
   }
 
   changeVisibilityContent(): void
@@ -90,6 +98,13 @@ export class DepartmentComponent implements OnInit {
     });
     return counter;
   }
+  strings = {
+    actions: {
+      edit: 'Редактировать',
+      move: 'Переместить в другой отдел',
+      delete: 'Удалить',
+    },
+  };
 }
 
 

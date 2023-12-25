@@ -9,16 +9,18 @@ export class ModalWindowComponent {
   {
     title: "Test",
     submit: "Submit",
-    cancel: "Cancel"
+    cancel: "Cancel",
+    windowWidth: 963,
   }
+
 
   @Output() closeClick = new EventEmitter()
   @Output() submitClick = new EventEmitter()
-  
 }
 
 export interface ModalWindowData{
   title: string,
   submit: string,
-  cancel: string
+  cancel: string,
+  windowWidth: number,
 }
