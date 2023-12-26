@@ -46,16 +46,17 @@ export class EmailRule extends Rule {
 }
 
 export class DateRule extends Rule {
-  private pattern = /^\d{1,2}\.\d{1,2}\.\d{4}$/;
+  private pattern = /^\d{4}\-\d{2}\-\d{2}$/;
 
   check(value: String): boolean {
     const strValue = value.toString();
     if (!this.pattern.test(strValue)) return false;
 
-    const parts = value.split('.');
-    const day = parseInt(parts[0], 10);
+    const parts = value.split('-');
+    const year = parseInt(parts[0], 10);
     const month = parseInt(parts[1], 10);
-    const year = parseInt(parts[2], 10);
+    const day = parseInt(parts[2], 10);
+
     if (!(day >= 1 && day <= 31 && month >= 1 && month <= 12)) return false;
 
     const maxYear = new Date().getFullYear();

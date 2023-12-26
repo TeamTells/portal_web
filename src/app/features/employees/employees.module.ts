@@ -1,44 +1,43 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { EmployeesComponent } from './presentation/employees.component';
-import { ComponentsModule } from 'src/app/core/components/components.module';
-import { EmployeesListComponent } from './components/employees-list/employees-list.component';
-import { DepartmentInfoComponent } from './components/department-info/department-info.component';
+import { NgModule } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { MenuComponent } from './components/menu/menu.component';
-import { MenuItemComponent } from './components/menu/menu-item/menu-item.component';
-import { DepartmentComponent } from './components/department/department.component';
-import { EmployeeItemComponent } from './components/employee-item/employee-item.component';
-import { RolesComponent } from './components/roles/roles.component';
-import { RoleItemComponent } from './components/roles/role-item/role-item.component';
-import { AddEmployeesComponent } from './components/add-employees/add-employees.component';
-import { ModalWindowComponent } from './components/modal-window/modal-window.component';
-import { EmployeeSelectComponent } from './components/employee-select/employee-select.component';
-import { DepartmentNewComponent } from './components/department-new/department-new.component';
-import { EmployeeNewComponent } from './components/employee-new/employee-new.component';
-import { DepartmentEditComponent } from './components/department-edit/department-edit.component';
-import { EmployeeEditComponent } from './components/employee-edit/employee-edit.component';
-import { Validator } from 'src/app/core/validators/validator';
+import { ComponentsModule } from 'src/app/core/components/components.module';
+import {
+  SvgTripleDot,
+  SvgXMark,
+} from 'src/app/core/components/svg-components/svg.components';
 import {
   DateRule,
   EmptyRule,
   MaxLengthRule,
 } from 'src/app/core/validators/rule';
+import { Validator } from 'src/app/core/validators/validator';
 import {
   emailValidatorFactory,
   passwordValidatorFactory,
   phoneNumberValidatorFactory,
 } from 'src/app/core/validators/validators';
-import { SelectDepartmentModalComponent } from './components/select-department-modal/select-department-modal.component';
-import { SelectSupervisorModalComponent } from './components/select-supervisor-modal/select-supervisor-modal.component';
-import { SelectEmployeesModalComponent } from './components/select-employees-modal/select-employees-modall.component';
-import {
-  SvgTripleDot,
-  SvgXMark,
-} from 'src/app/core/components/svg-components/svg.components';
+import { AddEmployeesComponent } from './components/add-employees/add-employees.component';
 import { DeleteEmployeeModal } from './components/delete-emoloyee-modal/delete-emoloyee-modal.component';
 import { DeleteUnitModal } from './components/delete-unit-modal/delete-unit-modal.component';
-
+import { DepartmentEditComponent } from './components/department-edit/department-edit.component';
+import { DepartmentInfoComponent } from './components/department-info/department-info.component';
+import { DepartmentNewComponent } from './components/department-new/department-new.component';
+import { DepartmentComponent } from './components/department/department.component';
+import { EmployeeEditComponent } from './components/employee-edit/employee-edit.component';
+import { EmployeeItemComponent } from './components/employee-item/employee-item.component';
+import { EmployeeNewComponent } from './components/employee-new/employee-new.component';
+import { EmployeeSelectComponent } from './components/employee-select/employee-select.component';
+import { EmployeesListComponent } from './components/employees-list/employees-list.component';
+import { MenuItemComponent } from './components/menu/menu-item/menu-item.component';
+import { MenuComponent } from './components/menu/menu.component';
+import { ModalWindowComponent } from './components/modal-window/modal-window.component';
+import { RoleItemComponent } from './components/roles/role-item/role-item.component';
+import { RolesComponent } from './components/roles/roles.component';
+import { SelectDepartmentModalComponent } from './components/select-department-modal/select-department-modal.component';
+import { SelectEmployeesModalComponent } from './components/select-employees-modal/select-employees-modall.component';
+import { SelectSupervisorModalComponent } from './components/select-supervisor-modal/select-supervisor-modal.component';
+import { EmployeesComponent } from './presentation/employees.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +61,7 @@ import { DeleteUnitModal } from './components/delete-unit-modal/delete-unit-moda
     SelectSupervisorModalComponent,
     SelectEmployeesModalComponent,
     DeleteEmployeeModal,
-    DeleteUnitModal
+    DeleteUnitModal,
   ],
   exports: [EmployeesComponent],
   imports: [
@@ -138,7 +137,7 @@ export class EmployeesModule {
     new Validator([
       new EmptyRule('Введите дату рождения'),
       new DateRule(
-        'Введите корректную строку даты в формате день.месяц.год (Пример: 05.10.2002)'
+        'Введите корректную строку даты в формате гггг-мм-дд (Пример: 2002-10-05)',
       ),
     ]);
 
@@ -147,7 +146,7 @@ export class EmployeesModule {
       new EmptyRule('Введите название департамента'),
       new MaxLengthRule(
         'Название департамента не должно быть больше 50 символов',
-        50
+        50,
       ),
     ]);
 }

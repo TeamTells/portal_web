@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { clone } from 'cloneable-ts';
-import { EmployeeNewState } from './employee-new-state';
 import { Reducer } from 'src/app/core/mvi/store';
 import {
   EmployeeNewResultAction,
   EmployeeNewResultActionTypes,
 } from './employee-new-result-action';
+import { EmployeeNewState } from './employee-new-state';
 
 @Injectable({
   providedIn: 'root',
@@ -50,7 +50,7 @@ export class EmployeeNewReducer
       case EmployeeNewResultActionTypes.CHANGE_DATE_OF_BIRTH:
         return clone(state, {
           dateOfBirth: action.dateOfBirth,
-          dateOfBirthErorr: '',
+          dateOfBirthError: '',
         });
 
       case EmployeeNewResultActionTypes.CHANGE_LAST_NAME:
@@ -66,7 +66,11 @@ export class EmployeeNewReducer
         return clone(state, { password: action.password, passwordError: '' });
 
       case EmployeeNewResultActionTypes.SELECT_DEPARTMENT:
-        return { ...state, department: action.department, visibleSelectDepartmentModal: false };
+        return {
+          ...state,
+          department: action.department,
+          visibleSelectDepartmentModal: false,
+        };
 
       case EmployeeNewResultActionTypes.REMOVE_DEPARTMENT:
         return { ...state, department: undefined };
@@ -91,7 +95,7 @@ export class EmployeeNewReducer
         return clone(state, { ...action });
 
       case EmployeeNewResultActionTypes.CHANGE_DEPARTMENT_MODAL_VISIBLE:
-        return clone(state, { visibleSelectDepartmentModal: action.visible })
+        return clone(state, { visibleSelectDepartmentModal: action.visible });
     }
   }
 }
