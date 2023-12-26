@@ -38,7 +38,7 @@ export class EmployeeEditState implements IEmployeeEditState {
   readonly patronymic: string = '';
 
   readonly dateOfBirth: string = '';
-  readonly dateOfBirthErorr: string = '';
+  readonly dateOfBirthError: string = '';
 
   readonly email: string = '';
   readonly emailError: string = '';

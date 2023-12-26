@@ -67,8 +67,9 @@
     <app-core-input-field
       class="my-3"
       type="text"
+      mask="0000-00-00"
       placeholder="Дата рождения*"
-      [error]="state.dateOfBirthErorr"
+      [error]="state.dateOfBirthError"
       [defaultValue]="state.dateOfBirth"
       (onChange)="
         performAction({

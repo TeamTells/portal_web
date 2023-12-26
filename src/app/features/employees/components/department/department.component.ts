@@ -1,47 +1,50 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { EmployeeDto } from '../../data/employees-data-service';
+import {
+  EmployeesNavItem,
+  EmployeesNavigator,
+} from '../../navigation/employees-navigator';
 import { EmployeeItemEntity } from '../employee-item/employee-item.component';
-import { EmployeesNavItem, EmployeesNavigator } from '../../navigation/employees-navigator';
-import { EmployeeDto, EmployeesDataService } from '../../data/employees-data-service';
 
 @Component({
   selector: 'app-core-department',
   templateUrl: './department.component.html',
-  styleUrls: ['./department.component.scss']
+  styleUrls: ['./department.component.scss'],
 })
-
 export class DepartmentComponent implements OnInit {
+  isHovered = false;
+  isMenuActive = false;
+
   @Input() public department: DepartmentEntity = {
     id: -1,
-    name: "Not found department",
+    name: 'Not found department',
     isSelect: false,
     visibleContent: false,
     supervisor: {
       id: -1,
-      name: "test supervisor",
-      mail: "",
-      img: ""
+      name: 'test supervisor',
+      mail: '',
+      img: '',
     },
     departments: [],
-    employees: []
+    employees: [],
   };
 
-  @Input() public offset: number = 0
-  oneOffsetStepSize = 36
+  @Input() public offset: number = 0;
+  oneOffsetStepSize = 36;
   countOfEmploees: number = 0;
-  @Input() employeesVisible: boolean = true
+  @Input() employeesVisible: boolean = true;
 
-  @Output() arrowClicked = new EventEmitter<DepartmentEntity>()
-  @Output() ctrlClicked = new EventEmitter<DepartmentEntity>()
-  @Output() clicked = new EventEmitter<DepartmentEntity>()
-  @Output() employeeClicked = new EventEmitter<EmployeeItemEntity>()
-  @Output() employeeCtrlClicked = new EventEmitter<EmployeeItemEntity>()
-  @Output() deleteClicked = new EventEmitter<DepartmentEntity>()
-  constructor(
-    private navigator: EmployeesNavigator
-  ) {}
+  @Output() arrowClicked = new EventEmitter<DepartmentEntity>();
+  @Output() ctrlClicked = new EventEmitter<DepartmentEntity>();
+  @Output() clicked = new EventEmitter<DepartmentEntity>();
+  @Output() employeeClicked = new EventEmitter<EmployeeItemEntity>();
+  @Output() employeeCtrlClicked = new EventEmitter<EmployeeItemEntity>();
+  @Output() deleteClicked = new EventEmitter<DepartmentEntity>();
+  constructor(private navigator: EmployeesNavigator) {}
 
   ngOnInit(): void {
-    this.countOfEmploees = this.getCountEmployees(this.department)
+    this.countOfEmploees = this.getCountEmployees(this.department);
   }
 
   editDepartment(){
@@ -52,56 +55,54 @@ export class DepartmentComponent implements OnInit {
     })
   }
 
-  changeVisibilityContent(): void
-  {
-    this.department.visibleContent = !this.department.visibleContent
+  changeVisibilityContent(): void {
+    this.department.visibleContent = !this.department.visibleContent;
   }
 
-  departmentClicked(event: any): void
-  {
-    if (event.ctrlKey)
-    {
-      this.ctrlClicked.emit(this.department)
-    }
-    else
-    {
-      this.clicked.emit(this.department)
+  departmentClicked(event: any): void {
+    if (event.ctrlKey) {
+      this.ctrlClicked.emit(this.department);
+    } else {
+      this.clicked.emit(this.department);
     }
   }
 
-  getMarginOffset(): string
-  {
-    if(this.department.isSelect)
-    {
-      return 0 + 'px'
-    }
-    else
-    {
-      return this.offset + 'px'
+  getMarginOffset(): string {
+    if (this.department.isSelect) {
+      return 0 + 'px';
+    } else {
+      return this.offset + 'px';
     }
   }
 
-  getPaddingOffset(): string
-  {
-    if(this.department.isSelect)
-    {
-      return (this.offset + 8) + 'px'
-    }
-    else
-    {
-      return 8 + 'px'
+  getPaddingOffset(): string {
+    if (this.department.isSelect) {
+      return this.offset + 8 + 'px';
+    } else {
+      return 8 + 'px';
     }
   }
 
+  onMouseOver() {
+    this.isHovered = true;
+  }
 
-  public getCountEmployees(folder: DepartmentEntity): number
-  {
+  onMouseOut() {
+    this.isHovered = false;
+  }
+
+  onToggleMenu(value: boolean) {
+    this.isMenuActive = value;
+  }
+
+  public getCountEmployees(folder: DepartmentEntity): number {
     let counter = folder.employees.length;
-    folder.departments.forEach(element => {
+    folder.departments.forEach((element) => {
       counter += this.getCountEmployees(element);
     });
     return counter;
   }
+
   strings = {
     actions: {
       edit: 'Редактировать',
@@ -110,8 +111,6 @@ export class DepartmentComponent implements OnInit {
     },
   };
 }
-
-
 
 export interface DepartmentEntity {
   id: number,

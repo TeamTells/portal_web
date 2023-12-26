@@ -1,5 +1,5 @@
 <div
-  class="flex justify-between pr-2 py-1 my-1"
+  class="flex justify-between pr-2 py-1"
   [style.marginLeft]="getMarginOffset()"
   [style.paddingLeft]="getPaddingOffset()"
   [ngClass]="{
@@ -46,11 +46,12 @@
 
   <div
     [ngClass]="{
-      'opacity-0': !isHovered && !isMenuActive
+      'opacity-0': !isHovered && !isMenuActive,
+      hidden: employee.isSelect
     }"
   >
     <app-popup-menu
-      [leftOffset]="-212"
+      [leftOffset]="-216"
       [topOffset]="16"
       (onToggle)="onToggleMenu($event)"
     >

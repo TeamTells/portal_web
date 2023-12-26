@@ -143,7 +143,7 @@ const appRoutes: Routes = [
   {
     path: '',
     component: MainComponent,
-    //canActivate: [loginGuardFunction],
+    canActivate: [loginGuardFunction],
     children: mainItems,
   },
 ];

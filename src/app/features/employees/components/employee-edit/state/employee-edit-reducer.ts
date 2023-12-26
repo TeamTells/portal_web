@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { clone } from 'cloneable-ts';
-import { EmployeeEditState } from './employee-edit-state';
 import { Reducer } from 'src/app/core/mvi/store';
 import {
   EmployeeEditResultAction,
   EmployeeEditResultActionTypes,
 } from './employee-edit-result-action';
+import { EmployeeEditState } from './employee-edit-state';
 
 @Injectable({
   providedIn: 'root',
@@ -44,7 +44,7 @@ export class EmployeeEditReducer
       case EmployeeEditResultActionTypes.CHANGE_DATE_OF_BIRTH:
         return clone(state, {
           dateOfBirth: action.dateOfBirth,
-          dateOfBirthErorr: '',
+          dateOfBirthError: '',
         });
 
       case EmployeeEditResultActionTypes.CHANGE_LAST_NAME:
@@ -86,7 +86,7 @@ export class EmployeeEditReducer
           ...action.state,
           jobTitleError: '',
           phoneNumberError: '',
-          dateOfBirthErorr: '',
+          dateOfBirthError: '',
           emailError: '',
           firstNameError: '',
           lastNameError: '',

@@ -1,13 +1,12 @@
-<div [ngClass]="class" class="relative w-full">
+<div [ngClass]="class" class="relative w-ful">
   <input
     type="search"
     [placeholder]="placeholder"
-    class="w-full h-[40px] bg-tt-light-light-gray ps-12 pe-4 rounded-2xl border-2 placeholder:text-tt-gray text-tt-main-text focus:outline-none"
+    class="w-full h-[56px] bg-tt-light-light-gray ps-12 pe-4 rounded-tt-bth border-2 placeholder:text-tt-gray text-tt-main-text focus:outline-none"
     (input)="onChangeValue($event)"
     (keyup.enter)="onSubmitValue($event)"
   />
-  <svg-search class="icon absolute left-4 top-2 cursor-pointer" />
-  <span class="absolute left-4 top-2 cursor-pointer">
-    <svg-search class="icon" />
-  </span>
+  <svg-search
+    class="icon absolute left-4 top-4 cursor-pointer fill-tt-field-icon"
+  />
 </div>
