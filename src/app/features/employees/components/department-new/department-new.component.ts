@@ -8,6 +8,7 @@ import {
 import { DepartmentNewResultAction } from './state/department-new-result-action';
 import { Store } from 'src/app/core/mvi/store';
 import { DepartmentNewReducer } from './state/department-new-reducer';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'department-new',
@@ -22,12 +23,18 @@ export class DepartmentNewComponent extends Store<
   constructor(
     state: DepartmentNewState,
     executor: DepartmentNewExecutor,
-    reducer: DepartmentNewReducer
+    reducer: DepartmentNewReducer,
+    private location: Location
   ) {
     super(state, executor, reducer);
   }
 
   protected readonly DepartmentNewActionTypes = DepartmentNewActionTypes;
+
+  ngOnInit()
+  {
+    console.log(this.location.getState())
+  }
 
   searchStr = '';
   onChangeSearchStr(value: string) {

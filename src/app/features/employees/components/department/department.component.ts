@@ -45,7 +45,11 @@ export class DepartmentComponent implements OnInit {
   }
 
   editDepartment(){
-    this.navigator.showContent({navItem: EmployeesNavItem.EDIT_DEPARTMENT, params: this.department.id.toString()})
+    this.navigator.showContent({
+      navItem: EmployeesNavItem.EDIT_DEPARTMENT,
+       params: this.department.id.toString(),
+       data:{}
+    })
   }
 
   changeVisibilityContent(): void
