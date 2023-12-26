@@ -10,6 +10,7 @@ import { EmployeesNavItem, EmployeesNavigator } from "../../../navigation/employ
 import { NavItem } from "src/app/features/main/presentation/state/main-state";
 import { CountType } from "../interfaces/employee-select-settings";
 import { SearchEmployeeDepartmentData } from "../interfaces/search-employee-department-data";
+import { EmployeeService } from "../../../data/employee-service";
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,8 @@ import { SearchEmployeeDepartmentData } from "../interfaces/search-employee-depa
 export class EmployeeSelectExecutor extends Executor<EmployeeSelectState, EmployeeSelectAction, EmployeeSelectResultAction> {
 
   constructor(
-    private navigator: EmployeesNavigator
+    private navigator: EmployeesNavigator,
+    private employeeService: EmployeeService
   ) {
     super();
   }
@@ -66,7 +68,6 @@ export class EmployeeSelectExecutor extends Executor<EmployeeSelectState, Employ
         })
         break
       case EmployeeSelectActionTypes.DELETE:
-
         break
     }
   }

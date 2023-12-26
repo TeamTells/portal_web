@@ -4,6 +4,7 @@ import { EmployeeItemEntity } from '../components/employee-item/employee-item.co
 import { DepartmentWithEmployeesDto } from 'src/app/features/employees/data/dto/department-with-employees-dto';
 import { EmployeeFullDto } from 'src/app/features/employees/data/dto/employee-full-dto';
 import { DepartmentItemDto } from 'src/app/features/employees/data/dto/department-item-dto';
+import { DepartmentFullDto } from './dto/department-full-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -155,6 +156,25 @@ export class EmployeesDataService {
       isSelect: false,
       visibleContent: false,
       supervisor: null,
+      departments: this.ConvertToDepartmentEntityList(department.departments),
+      employees: this.ConvertToEmployeeItemEntityList(department.employees),
+    };
+  }
+
+  public ConvertDepartmentFullToDepartmentEntity(
+    department: DepartmentFullDto
+  ): DepartmentEntity {
+    return {
+      id: department.id,
+      name: department.name,
+      isSelect: false,
+      visibleContent: false,
+      supervisor: {
+        id: department.supervisor.id,
+        img: '',
+        name: department.supervisor.name,
+        mail: ''
+      },
       departments: this.ConvertToDepartmentEntityList(department.departments),
       employees: this.ConvertToEmployeeItemEntityList(department.employees),
     };
