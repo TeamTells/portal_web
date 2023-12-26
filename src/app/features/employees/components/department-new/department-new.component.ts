@@ -8,6 +8,10 @@ import {
 import { DepartmentNewResultAction } from './state/department-new-result-action';
 import { Store } from 'src/app/core/mvi/store';
 import { DepartmentNewReducer } from './state/department-new-reducer';
+import { Location } from '@angular/common';
+import { EmployeeService } from '../../data/employee-service';
+import { Router } from '@angular/router';
+import { EmployeesDataService } from '../../data/employees-data-service';
 
 @Component({
   selector: 'department-new',
@@ -22,9 +26,35 @@ export class DepartmentNewComponent extends Store<
   constructor(
     state: DepartmentNewState,
     executor: DepartmentNewExecutor,
-    reducer: DepartmentNewReducer
+    reducer: DepartmentNewReducer,
+    private router: Router,
+    private dataService: EmployeesDataService,
+    private employeeService: EmployeeService,
   ) {
     super(state, executor, reducer);
+
+    let nav = this.router.getCurrentNavigation()
+    if(nav)
+    {
+      if(nav.extras.state)
+      {
+        let ids = nav.extras.state['ids']
+        if(this.isArrayOfnumber(ids))
+        {
+          employeeService.getEmployeesByIDs(ids).subscribe((empls)=> {
+            this.performAction({
+              type: DepartmentNewActionTypes.ADD_EMPLOYEES,
+              employees: dataService.ConvertToEmployeeItemEntityList(empls)
+            })
+          })
+        }
+      }
+    }
+  }
+
+  isArrayOfnumber  (value: unknown): value is number[] {
+    return Array.isArray(value) 
+        && value.every(item => typeof item === "number");
   }
 
   protected readonly DepartmentNewActionTypes = DepartmentNewActionTypes;

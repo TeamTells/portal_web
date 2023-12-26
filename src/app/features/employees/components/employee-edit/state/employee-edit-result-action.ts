@@ -1,3 +1,4 @@
+import { EmployeeWithConnectionsDto } from '../../../data/dto/employee-with-connections-dto'; 
 import { DepartmentEntity } from '../../department/department.component';
 import { RoleEntity } from '../../roles/role-item/role-item.component';
 import { IEmployeeEditState } from './employee-edit-state';
@@ -16,7 +17,9 @@ export type EmployeeEditResultAction =
   | ChangePhoneNumberResultAction
   | ChangeJobTitleResultAction
   | InitializeResultAction
-  | ValidationResultAction;
+  | ValidationResultAction
+  | ChangeDepartmentModalVisibleResultAction
+  | InitEmployeeFieldResultAction
 
 export enum EmployeeEditResultActionTypes {
   CHANGE_JOB_TITLE,
@@ -34,7 +37,15 @@ export enum EmployeeEditResultActionTypes {
   SELECT_RIGHT,
   INITIALIZE,
   VALIDATION_ERROR,
+  CHANGE_DEPARTMENT_MODAL_VISIBLE,
+  INIT_EMPLOYEE_FIELD
 }
+
+export interface InitEmployeeFieldResultAction {
+  readonly type: EmployeeEditResultActionTypes.INIT_EMPLOYEE_FIELD;
+  readonly employee: EmployeeWithConnectionsDto
+}
+
 
 export interface ChangePhoneNumberResultAction {
   readonly type: EmployeeEditResultActionTypes.CHANGE_PHONE_NUMBER;
@@ -98,6 +109,11 @@ export interface RemoveRoleResultAction {
 export interface InitializeResultAction {
   readonly type: EmployeeEditResultActionTypes.INITIALIZE;
   readonly state: IEmployeeEditState;
+}
+
+export interface ChangeDepartmentModalVisibleResultAction {
+  readonly type: EmployeeEditResultActionTypes.CHANGE_DEPARTMENT_MODAL_VISIBLE;
+  readonly visible: boolean;
 }
 
 export interface ValidationResultAction {

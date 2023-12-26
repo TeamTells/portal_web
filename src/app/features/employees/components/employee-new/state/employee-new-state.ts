@@ -26,9 +26,6 @@ export class EmployeeNewState {
   readonly email: string = '';
   readonly emailError: string = '';
 
-  readonly password: string = '';
-  readonly passwordError: string = '';
-
   readonly department?: DepartmentEntity;
 
   readonly roles: DropdownItem[] = [

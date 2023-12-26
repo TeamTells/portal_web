@@ -18,7 +18,7 @@ export class MenuComponent {
         ? (element.selected = true)
         : (element.selected = false);
     });
-    this.navigator.showContent({ navItem: item, params: '' });
+    this.navigator.showContent({navItem: item, params: "", ids: []});
   }
 
   public menuItems: MenuItemEntity[] = [

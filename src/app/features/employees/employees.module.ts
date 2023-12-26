@@ -38,6 +38,8 @@ import { SelectDepartmentModalComponent } from './components/select-department-m
 import { SelectEmployeesModalComponent } from './components/select-employees-modal/select-employees-modall.component';
 import { SelectSupervisorModalComponent } from './components/select-supervisor-modal/select-supervisor-modal.component';
 import { EmployeesComponent } from './presentation/employees.component';
+import { EmployeeService } from 'src/app/features/employees/data/employee-service';
+import { DepartmentService } from './data/department-service';
 
 @NgModule({
   declarations: [
@@ -112,6 +114,8 @@ import { EmployeesComponent } from './presentation/employees.component';
       useExisting: Validator,
       useFactory: EmployeesModule.jobTitleValidatorFactory,
     },
+    EmployeeService, 
+    DepartmentService
   ],
 })
 export class EmployeesModule {

@@ -10,6 +10,8 @@ import {
   DepartmentNewResultActionTypes,
 } from './department-new-result-action';
 import { Validator } from 'src/app/core/validators/validator';
+import { DepartmentService } from '../../../data/department-service';
+import { EmployeesNavItem, EmployeesNavigator } from '../../../navigation/employees-navigator';
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +23,8 @@ export class DepartmentNewExecutor extends Executor<
 > {
   constructor(
     @Inject('NewDepartmentNameValidator') private nameValidator: Validator,
+    private departmentService: DepartmentService,
+    private navigator: EmployeesNavigator
   ) {
     super();
   }
@@ -147,12 +151,9 @@ export class DepartmentNewExecutor extends Executor<
       ? null
       : 'Назначьте руководителя';
 
-    console.log(this.getState());
-
     if (
       nameError != null ||
-      supervisorError != null ||
-      parentDepartmentError != null
+      supervisorError != null
     ) {
       this.reduce({
         type: DepartmentNewResultActionTypes.VALIDATION_ERROR,
@@ -164,6 +165,21 @@ export class DepartmentNewExecutor extends Executor<
       return;
     }
 
-    console.log(this.getState());
+    let state = this.getState()
+
+    this.departmentService.createDepartment({
+      name: state.name,
+      supervisorID: state.supervisor ? state.supervisor.id : null,
+      parentDepartmentID: state.parentDepartment? state.parentDepartment.id : null,
+      employeeIDs: state.employees.map((empl) => {
+        return empl.id
+      }),
+    }).subscribe(()=>{
+      this.navigator.showContent({
+        navItem: EmployeesNavItem.USERS,
+        params: '',
+        ids: []
+      })
+    })
   }
 }

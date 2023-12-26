@@ -1,4 +1,4 @@
-import { EmployeeDto } from '../../../data/employees-data-service';
+import { EmployeeItemEntity } from '../../employee-item/employee-item.component'; 
 import { DepartmentEntity } from '../../department/department.component';
 
 export type DepartmentNewAction =
@@ -43,7 +43,7 @@ export interface ChangeNameAction {
 
 export interface ChangeSupervisorAction {
   readonly type: DepartmentNewActionTypes.CHANGE_SUPERVISOR;
-  readonly supervisor: EmployeeDto;
+  readonly supervisor: EmployeeItemEntity;
 }
 
 export interface RemoveSupervisorAction {
@@ -61,17 +61,17 @@ export interface RemoveParentDepartamentAction {
 
 export interface AddEmpoyeesAction {
   readonly type: DepartmentNewActionTypes.ADD_EMPLOYEES;
-  readonly employees: EmployeeDto[];
+  readonly employees: EmployeeItemEntity[];
 }
 
 export interface RemoveEmpoyeeAction {
   readonly type: DepartmentNewActionTypes.REMOVE_EMPLOYEE;
-  readonly employee: EmployeeDto;
+  readonly employee: EmployeeItemEntity;
 }
 
 export interface RemoveEmpoyeesAction {
   readonly type: DepartmentNewActionTypes.REMOVE_EMPLOYEES;
-  readonly employees: EmployeeDto[];
+  readonly employees: EmployeeItemEntity[];
 }
 
 export interface CreateAction {

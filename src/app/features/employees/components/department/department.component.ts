@@ -47,11 +47,12 @@ export class DepartmentComponent implements OnInit {
     this.countOfEmploees = this.getCountEmployees(this.department);
   }
 
-  editDepartment() {
+  editDepartment(){
     this.navigator.showContent({
       navItem: EmployeesNavItem.EDIT_DEPARTMENT,
-      params: this.department.id.toString(),
-    });
+       params: this.department.id.toString(),
+       ids: []
+    })
   }
 
   changeVisibilityContent(): void {
@@ -112,11 +113,11 @@ export class DepartmentComponent implements OnInit {
 }
 
 export interface DepartmentEntity {
-  id: number;
-  name: string;
-  isSelect: boolean;
-  visibleContent: boolean;
-  supervisor: EmployeeDto;
-  departments: DepartmentEntity[];
-  employees: EmployeeItemEntity[];
-}
+  id: number,
+  name: string,
+  isSelect: boolean,
+  visibleContent: boolean,
+  supervisor: EmployeeDto | null,
+  departments: DepartmentEntity[],
+  employees: EmployeeItemEntity[]
+} 

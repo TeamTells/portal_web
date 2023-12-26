@@ -87,24 +87,12 @@
       "
     />
     <app-core-phone-number-field
+      class="my-3"
       [error]="state.phoneNumberError"
       (onChange)="
         performAction({
           type: EmployeeNewActionTypes.CHANGE_PHONE_NUMBER,
           phoneNumber: $event
-        })
-      "
-    />
-    <app-core-input-field
-      class="my-3"
-      type="password"
-      autocomplete="current-password"
-      placeholder="Пароль*"
-      [error]="state.passwordError"
-      (onChange)="
-        performAction({
-          type: EmployeeNewActionTypes.CHANGE_PASSWORD,
-          password: $event
         })
       "
     />
@@ -132,7 +120,7 @@
     (onUnselect)="
       performAction({
         type: EmployeeNewActionTypes.REMOVE_ROLE,
-        roleId: $event
+        roleId: $event.toString()
       })
     "
   />

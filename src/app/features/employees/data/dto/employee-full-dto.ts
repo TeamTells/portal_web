@@ -2,9 +2,9 @@ export interface EmployeeFullDto
 {
     id: number,
     firstName: string,
-    secondtName: string,
+    secondName: string,
     surname: string,
-    dateOfBirth: Date,
+    dateOfBirth: string,
     telephoneNumber: string,
     email: string,
     icon: string

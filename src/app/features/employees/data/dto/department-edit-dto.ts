@@ -1,6 +1,6 @@
 export interface DepartmentEditDto {
     name: string,
-    supervisorID: number,
-    parentDepartmentID: number,
+    supervisorID: number | null,
+    parentDepartmentID: number | null
     employeeIDs: number[]
 }
