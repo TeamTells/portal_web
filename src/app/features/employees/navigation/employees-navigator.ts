@@ -25,7 +25,7 @@ export class EmployeesNavigator {
         this.router.navigateByUrl('employees/department/' + item.params);
         break;
       case EmployeesNavItem.NEW_DEPARTMENT:
-        this.router.navigateByUrl('employees/new-department', {state: {data: item.data}});
+        this.router.navigateByUrl('employees/new-department', {state: {ids: item.ids} });
         break;
       case EmployeesNavItem.EDIT_DEPARTMENT:
         this.router.navigateByUrl('employees/edit-department/' + item.params);
@@ -47,5 +47,5 @@ export enum EmployeesNavItem {
 export interface EmployeesNavEntity {
   navItem: EmployeesNavItem;
   params: string;
-  data: any // TODO: Не забыть потом сделать через типы
+  ids: number[];
 }

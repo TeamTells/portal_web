@@ -48,7 +48,7 @@ export class DepartmentComponent implements OnInit {
     this.navigator.showContent({
       navItem: EmployeesNavItem.EDIT_DEPARTMENT,
        params: this.department.id.toString(),
-       data:{}
+       ids: []
     })
   }
 

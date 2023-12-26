@@ -14,7 +14,7 @@ export class MenuComponent {
     this.menuItems.forEach((element) => {
       element.type == item ? element.selected = true : element.selected = false
     });
-    this.navigator.showContent({navItem: item, params: "", data:{}});
+    this.navigator.showContent({navItem: item, params: "", ids: []});
   }
 
   public menuItems: MenuItemEntity[] = [

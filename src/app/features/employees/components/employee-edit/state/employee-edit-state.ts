@@ -3,6 +3,7 @@ import { DepartmentEntity } from '../../department/department.component';
 import { RoleEntity } from '../../roles/role-item/role-item.component';
 
 export interface IEmployeeEditState {
+  readonly id: number
   readonly firstName: string;
   readonly lastName: string;
   readonly patronymic: string;
@@ -20,6 +21,8 @@ export interface IEmployeeEditState {
   providedIn: 'root',
 })
 export class EmployeeEditState implements IEmployeeEditState {
+  readonly id: number = 0;
+
   readonly jobTitle: string = '';
   readonly jobTitleError: string = '';
 
@@ -81,4 +84,6 @@ export class EmployeeEditState implements IEmployeeEditState {
   ];
 
   readonly isLoading = false;
+
+  readonly visibleSelectDepartmentModal: boolean = false;
 }

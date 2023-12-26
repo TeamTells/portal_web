@@ -91,6 +91,7 @@
       "
     />
     <app-core-phone-number-field
+      class="my-3"
       [error]="state.phoneNumberError"
       [error]="state.phoneNumberError"
       (onChange)="
@@ -100,25 +101,14 @@
         })
       "
     />
-    <app-core-input-field
-      class="my-3"
-      type="password"
-      autocomplete="current-password"
-      placeholder="Пароль*"
-      [error]="state.passwordError"
-      [defaultValue]="state.password"
-      (onChange)="
-        performAction({
-          type: EmployeeEditActionTypes.CHANGE_PASSWORD,
-          password: $event
-        })
-      "
-    />
+    
   </form>
   <app-core-dropdown-field
     placeholder="Выберите департамент"
     [selectedItem]="getSelectedDepartmentDropdownItem()"
-    (onClick)="openSelectDepartment()"
+    (onClick)="performAction({
+      type: EmployeeEditActionTypes.OPEN_DEPARTMENT_MODAL
+    })"
     (onUnselect)="
       performAction({
         type: EmployeeEditActionTypes.REMOVE_DEPARTMENT
@@ -145,3 +135,17 @@
   />
 </app-core-main-content-card>
 <div class="h-[500px]"></div>
+<select-department-modal-window
+  *ngIf="state.visibleSelectDepartmentModal"
+  (closeClicked)="
+    performAction({
+      type: EmployeeEditActionTypes.CLOSE_DEPARTMENT_MODAL
+    })
+  "
+  (submitClicked)="
+    performAction({
+      type: EmployeeEditActionTypes.SELECT_DEPARTMENT,
+      department: $event
+    })
+  "
+/>

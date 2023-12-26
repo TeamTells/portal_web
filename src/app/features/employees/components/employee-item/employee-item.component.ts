@@ -49,7 +49,7 @@ export class EmployeeItemComponent {
     this.navigator.showContent({
       navItem: EmployeesNavItem.EDIT_EMPLOYEE,
       params: this.employee.id.toString(),
-      data:{}
+      ids: []
     });
   }
 

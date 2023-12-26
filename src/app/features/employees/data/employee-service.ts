@@ -1,11 +1,12 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { environment } from "src/environments/environment";
 import { AllEmployeesDto } from "./dto/all-employees-dto";
 import { EmployeeInfoDto } from "./dto/employee-info";
 import { EmployeeEditDto } from "./dto/employee-edit-dto";
 import { MoveEmployeesDto } from "./dto/move-employees-dto";
+import { EmployeeFullDto } from "./dto/employee-full-dto";
 
 @Injectable()
 export class EmployeeService {
@@ -19,9 +20,14 @@ export class EmployeeService {
         return this.httpClient.get<AllEmployeesDto>(`${this.apiUrl}/all`);
     }
 
-    public getEmployee(id: number) : Observable<EmployeeInfoDto[]>
+    public getEmployee(id: number) : Observable<EmployeeInfoDto>
     {
-        return this.httpClient.get<EmployeeInfoDto[]>(`${this.apiUrl}/${id}`);
+        return this.httpClient.get<EmployeeInfoDto>(`${this.apiUrl}/${id}`);
+    }
+
+    public getEmployeesByIDs(ids: number[]) : Observable<EmployeeFullDto[]>
+    {
+        return this.httpClient.post<EmployeeFullDto[]>(`${this.apiUrl}/list`, ids);
     }
 
     public createEmployee(employee: EmployeeEditDto): Observable<null>

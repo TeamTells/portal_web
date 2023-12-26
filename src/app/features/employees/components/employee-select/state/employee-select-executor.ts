@@ -43,7 +43,7 @@ export class EmployeeSelectExecutor extends Executor<EmployeeSelectState, Employ
         this.navigator.showContent({
           navItem: EmployeesNavItem.DEPARTMENT,
           params: action.id.toString(),
-          data: {}
+          ids: []
         })
         break
       case EmployeeSelectActionTypes.MOVE_TO_DEPARTMENT:
@@ -62,7 +62,7 @@ export class EmployeeSelectExecutor extends Executor<EmployeeSelectState, Employ
         this.navigator.showContent({
           navItem: EmployeesNavItem.NEW_DEPARTMENT,
           params: "",
-          data: { employeeIDs: this.getSelectedIds() }
+          ids: this.getSelectedIds() 
         })
         break
       case EmployeeSelectActionTypes.DELETE:

@@ -60,7 +60,7 @@ export class EmployeeEditReducer
         return clone(state, { password: action.password, passwordError: '' });
 
       case EmployeeEditResultActionTypes.SELECT_DEPARTMENT:
-        return { ...state, department: action.department };
+        return { ...state, department: action.department, visibleSelectDepartmentModal: false };
 
       case EmployeeEditResultActionTypes.REMOVE_DEPARTMENT:
         return { ...state, department: null };
@@ -92,10 +92,27 @@ export class EmployeeEditReducer
           lastNameError: '',
           passwordError: '',
           isLoading: false,
+          visibleSelectDepartmentModal: false
         };
 
       case EmployeeEditResultActionTypes.VALIDATION_ERROR:
         return clone(state, { ...action });
+      
+      case EmployeeEditResultActionTypes.INIT_EMPLOYEE_FIELD:
+        return clone(state, { 
+          id: action.employee.id,
+          firstName: action.employee.firstName,
+          lastName: action.employee.secondName,
+          patronymic: action.employee.surname,
+          dateOfBirth: action.employee.dateOfBirth,
+          email: action.employee.email,
+          phoneNumber: action.employee.telephoneNumber
+        });
+
+      case EmployeeEditResultActionTypes.CHANGE_DEPARTMENT_MODAL_VISIBLE:
+        return clone(state, { visibleSelectDepartmentModal: action.visible })
     }
+    
+    
   }
 }

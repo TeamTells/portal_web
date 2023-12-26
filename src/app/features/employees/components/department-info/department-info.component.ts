@@ -36,7 +36,7 @@ export class DepartmentInfoComponent {
     this.navigator.showContent({
       navItem: EmployeesNavItem.EDIT_DEPARTMENT,
       params: '',
-      data:{}
+      ids: []
     });
   }
 

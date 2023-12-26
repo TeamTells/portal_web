@@ -11,6 +11,7 @@ import {
 } from './employee-new-action';
 import { Validator } from 'src/app/core/validators/validator';
 import { EmployeeService } from '../../../data/employee-service';
+import { EmployeesNavItem, EmployeesNavigator } from '../../../navigation/employees-navigator';
 
 @Injectable({
   providedIn: 'root',
@@ -34,7 +35,8 @@ export class EmployeeNewExecutor extends Executor<
     private phoneNumberValidator: Validator,
     @Inject('NewEmployeeJobTitleValidator')
     private jobTitleValidator: Validator,
-    private employeeService: EmployeeService
+    private employeeService: EmployeeService,
+    private navigator: EmployeesNavigator
   ) {
     super();
   }
@@ -193,6 +195,12 @@ export class EmployeeNewExecutor extends Executor<
       email: state.email,
       icon: '',
       departmentID: state.department? state.department.id : null
-    }).subscribe()
+    }).subscribe(()=>{
+      this.navigator.showContent({
+        navItem: EmployeesNavItem.USERS,
+        params: '',
+        ids: []
+      })
+    })
   }
 }
