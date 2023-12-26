@@ -44,34 +44,15 @@ export class EmployeeSelectComponent extends Store<EmployeeSelectState, Employee
     private employeesService: EmployeeService
   ) {
     super(state, executor, reducer);
-<<<<<<< Updated upstream
-    this.performAction({
-      type: EmployeeSelectActionTypes.INIT_DATA,
-      settings: this.settings,
-      employees: data.ConvertToEmployeeItemEntityList(data.employees),
-      departments: data.ConvertToDepartmentEntityList(data.departments),
-      alreadySelectedEmployeeIds: this.alreadySelectedEmployeeIds
-    })
-  }
-  
-  ngOnChanges()
-  {
-    this.performAction({
-      type: EmployeeSelectActionTypes.INIT_DATA,
-      settings: this.settings,
-      employees: this.data.ConvertToEmployeeItemEntityList(this.data.employees),
-      departments: this.data.ConvertToDepartmentEntityList(this.data.departments),
-      alreadySelectedEmployeeIds: this.alreadySelectedEmployeeIds
-=======
     employeesService.getEmployees().subscribe((empls)=>{
       this.performAction({
         type: EmployeeSelectActionTypes.INIT_DATA,
         settings: this.settings,
         employees: dataService.ConvertToEmployeeItemEntityList(empls.employees),
         departments: dataService.ConvertToDepartmentEntityList(empls.departments),
+        alreadySelectedEmployeeIds: this.alreadySelectedEmployeeIds,
         isEditable: empls.isEditable
       })
->>>>>>> Stashed changes
     })
   }
 
