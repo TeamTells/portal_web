@@ -17,8 +17,7 @@
       class="w-6 h-6 my-auto"
       src="../../../../assets/folder-dot.svg"
       *ngIf="
-        department.departments.length == 0 &&
-        !(department.employees.length == 0 || employeesVisible)
+        department.departments.length == 0 && department.employees.length == 0 
       "
     />
     <img
@@ -27,11 +26,7 @@
       (click)="changeVisibilityContent()"
       [ngClass]="{ show: department.visibleContent }"
       [ngClass]="{ hide: !department.visibleContent }"
-      *ngIf="
-        !(
-          department.departments.length == 0 &&
-          !(department.employees.length == 0 || employeesVisible)
-        )
+      *ngIf="department.departments.length != 0 || department.employees.length != 0
       "
     />
 
@@ -65,9 +60,6 @@
         <app-popup-menu-option [divider]="true" (onClick)="editDepartment()">
           {{ strings.actions.edit }}
         </app-popup-menu-option>
-        <app-popup-menu-option [divider]="true">
-          {{ strings.actions.move }}
-        </app-popup-menu-option>
         <app-popup-menu-option
           class="text-tt-red"
           (onClick)="deleteClicked.emit(department)"
@@ -89,6 +81,7 @@
       (ctrlClicked)="ctrlClicked.emit($event)"
       (employeeClicked)="employeeClicked.emit($event)"
       (employeeCtrlClicked)="employeeCtrlClicked.emit($event)"
+      (deleteClicked)="deleteClicked.emit($event)"
       [employeesVisible]="employeesVisible"
     />
     <div *ngIf="employeesVisible">

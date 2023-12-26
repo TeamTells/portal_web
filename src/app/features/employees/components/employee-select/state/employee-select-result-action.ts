@@ -9,15 +9,23 @@ export type EmployeeSelectResultAction = InitDataResultAction
   | MoveToDepartmentResultAction
   | NewDepartmentResultAction
   | DeleteResultAction
+  | UpdateDataResultAction
 
 export enum EmployeeSelectResultActionTypes {
   INIT_DATA,
+  UPDATE_DATA,
   SEARCH_FIELD_CHANGE,
   SELECT,
   MOVE_TO_DEPARTMENT,
   MOVE_TO_DEPARTMENT_CLOSE,
   NEW_DEPARTMENT,
   DELETE,
+}
+
+export interface UpdateDataResultAction {
+  readonly type: EmployeeSelectResultActionTypes.UPDATE_DATA,
+  readonly employees: EmployeeItemEntity[]
+  readonly departments: DepartmentEntity[]
 }
 
 export interface InitDataResultAction {

@@ -1,4 +1,4 @@
-export interface DeleteEmployeesDto{
-    departmentID: number,
+export interface DeleteEmployeeDto{
+    departmentID: number | null,
     employeeID: number
 }
