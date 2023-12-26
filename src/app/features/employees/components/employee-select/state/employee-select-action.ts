@@ -12,6 +12,7 @@ export type EmployeeSelectAction = InitDataAction
     | MoveToDepartmentCloseAction
     | NewDepartmentAction
     | DeleteAction
+    | UpdateDataAction
 
 export enum EmployeeSelectActionTypes {
     INIT_DATA,
@@ -23,6 +24,7 @@ export enum EmployeeSelectActionTypes {
     MOVE_TO_DEPARTMENT,
     MOVE_TO_DEPARTMENT_CLOSE,
     NEW_DEPARTMENT,
+    UPDATE_DATA,
     DELETE,
 }
 
@@ -38,6 +40,10 @@ export interface InitDataAction {
 export interface SearchFieldChangeAction {
     readonly type: EmployeeSelectActionTypes.SEARCH_FIELD_CHANGE
     readonly str: string
+}
+
+export interface UpdateDataAction{
+    readonly type: EmployeeSelectActionTypes.UPDATE_DATA
 }
 
 export interface SelectEmployeeAction {

@@ -54,6 +54,11 @@ export class DepartmentComponent implements OnInit {
        ids: []
     })
   }
+  
+  deleteDepartment()
+  {
+    this.deleteClicked.emit(this.department)
+  }
 
   changeVisibilityContent(): void {
     this.department.visibleContent = !this.department.visibleContent;

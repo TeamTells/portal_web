@@ -10,6 +10,7 @@ import { EmployeeSelectReducer } from './state/employee-select-reducer';
 import { EmployeeSelectSettings, CountType, ClickType } from './interfaces/employee-select-settings';
 import { DepartmentEntity } from '../department/department.component';
 import { EmployeeService } from 'src/app/features/employees/data/employee-service';
+import { DepartmentService } from '../../data/department-service';
 
 @Component({
   selector: 'employees-select',
@@ -41,7 +42,8 @@ export class EmployeeSelectComponent extends Store<EmployeeSelectState, Employee
     executor: EmployeeSelectExecutor,
     reducer: EmployeeSelectReducer,
     private dataService: EmployeesDataService,
-    private employeesService: EmployeeService
+    private employeesService: EmployeeService,
+    private departmentService: DepartmentService
   ) {
     super(state, executor, reducer);
     employeesService.getEmployees().subscribe((empls)=>{
@@ -62,6 +64,15 @@ export class EmployeeSelectComponent extends Store<EmployeeSelectState, Employee
       employee: employee
     })
     this.selectClicked.emit(this.getSelected())
+  }
+
+  departmentDelete(department:DepartmentEntity): void{
+    console.log(department)
+    this.departmentService.deleteDepartment(department.id).subscribe((res)=>{
+      this.performAction({
+        type: EmployeeSelectActionTypes.UPDATE_DATA
+      })
+    })
   }
 
   departmentClicked(department: DepartmentEntity): void

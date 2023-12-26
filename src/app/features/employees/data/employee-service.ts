@@ -7,6 +7,7 @@ import { EmployeeInfoDto } from "./dto/employee-info";
 import { EmployeeEditDto } from "./dto/employee-edit-dto";
 import { MoveEmployeesDto } from "./dto/move-employees-dto";
 import { EmployeeFullDto } from "./dto/employee-full-dto";
+import { DeleteEmployeeDto } from "./dto/delete-employees-dto";
 
 @Injectable()
 export class EmployeeService {
@@ -40,9 +41,9 @@ export class EmployeeService {
         return this.httpClient.post<null>(`${this.apiUrl}/${id}/edit`, employee);
     }
 
-    public deleteEmployee(id: number): Observable<null>
+    public deleteEmployees(deleteElements: DeleteEmployeeDto[]): Observable<null>
     {
-        return this.httpClient.delete<null>(`${this.apiUrl}/${id}/delete`);
+        return this.httpClient.delete<null>(`${this.apiUrl}/delete`, {body: deleteElements});
     }
 
     public employeeMoveToDepartment(moveDto: MoveEmployeesDto): Observable<null>

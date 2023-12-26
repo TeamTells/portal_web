@@ -11,6 +11,8 @@ import { NavItem } from "src/app/features/main/presentation/state/main-state";
 import { CountType } from "../interfaces/employee-select-settings";
 import { SearchEmployeeDepartmentData } from "../interfaces/search-employee-department-data";
 import { EmployeeService } from "../../../data/employee-service";
+import { DeleteEmployeeDto } from "../../../data/dto/delete-employees-dto";
+import { EmployeesDataService } from "../../../data/employees-data-service";
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +21,8 @@ export class EmployeeSelectExecutor extends Executor<EmployeeSelectState, Employ
 
   constructor(
     private navigator: EmployeesNavigator,
-    private employeeService: EmployeeService
+    private employeeService: EmployeeService,
+    private dataService: EmployeesDataService
   ) {
     super();
   }
@@ -68,8 +71,62 @@ export class EmployeeSelectExecutor extends Executor<EmployeeSelectState, Employ
         })
         break
       case EmployeeSelectActionTypes.DELETE:
+        this.handleDelete()
+        break
+      case EmployeeSelectActionTypes.UPDATE_DATA:
+        this.employeeService.getEmployees().subscribe((res)=>{
+          this.reduce({
+            type: EmployeeSelectResultActionTypes.UPDATE_DATA,
+            employees: this.dataService.ConvertToEmployeeItemEntityList(res.employees),
+            departments: this.dataService.ConvertToDepartmentEntityList(res.departments)
+          })
+        })
         break
     }
+  }
+
+  private handleDelete(): void{
+    let deleteElements: DeleteEmployeeDto[] = []
+    let state = this.getState()
+
+    state.employees.forEach((empl)=>{
+      if (empl.isSelect) {
+        deleteElements.push({departmentID: null, employeeID: empl.id})
+      }
+    })
+
+    deleteElements = deleteElements.concat(this.getDeletedInDepartments(state.departments))
+
+    this.employeeService.deleteEmployees(deleteElements).subscribe((res)=>{
+      this.execute({
+        type: EmployeeSelectActionTypes.UPDATE_DATA
+      })
+    })
+
+    
+  }
+
+  getDeletedInDepartments(departments: DepartmentEntity[]): DeleteEmployeeDto[] {
+    let result: DeleteEmployeeDto[] = []
+
+    departments.forEach((dep) => {
+      dep.departments.forEach((element) => {
+        result = result.concat(this.getDeletedInDepartments(element.departments))
+        element.employees.forEach((empl) => {
+          if (empl.isSelect) {
+            result.push({departmentID: element.id, employeeID: empl.id})
+          }
+        })
+      })
+
+      dep.employees.forEach((element) => {
+        if (element.isSelect) {
+          result.push({departmentID: dep.id, employeeID: element.id})
+        }
+      })
+    })
+
+    return result;
   }
 
   private getSelectedIds(): number[] {
