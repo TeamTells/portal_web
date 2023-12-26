@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DepartmentEntity } from '../../department/department.component';
-import { EmployeeDto } from '../../../data/employees-data-service';
+import { EmployeeItemEntity } from '../../employee-item/employee-item.component'; 
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +9,7 @@ export class DepartmentNewState {
   readonly name: string = '';
   readonly nameError: string = '';
 
-  readonly supervisor: EmployeeDto | null = null;
+  readonly supervisor: EmployeeItemEntity | null = null;
   readonly supervisorError: string = '';
 
   readonly parentDepartment: DepartmentEntity | null = null;
@@ -19,5 +19,5 @@ export class DepartmentNewState {
   readonly visibleSelectEmployeesModal: boolean = false;
   readonly visibleSelectSupervisorModal: boolean = false;
 
-  readonly employees: EmployeeDto[] = [];
+  readonly employees: EmployeeItemEntity[] = [];
 }

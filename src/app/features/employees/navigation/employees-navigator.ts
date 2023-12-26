@@ -10,25 +10,25 @@ export class EmployeesNavigator {
   public showContent(item: EmployeesNavEntity) {
     switch (item.navItem) {
       case EmployeesNavItem.ROLES:
-        this.router.navigate(['employees/roles' + item.params]);
+        this.router.navigateByUrl('employees/roles', );
         break;
       case EmployeesNavItem.USERS:
-        this.router.navigate(['employees' + item.params]);
+        this.router.navigateByUrl('employees');
         break;
       case EmployeesNavItem.NEW_EMPLOYEE:
-        this.router.navigate(['employees/new-employee/' + item.params]);
+        this.router.navigateByUrl('employees/new-employee');
         break;
       case EmployeesNavItem.EDIT_EMPLOYEE:
-        this.router.navigate(['employees/edit-employee/' + item.params]);
+        this.router.navigateByUrl('employees/edit-employee/' + item.params);
         break;
       case EmployeesNavItem.DEPARTMENT:
-        this.router.navigate(['employees/department/' + item.params]);
+        this.router.navigateByUrl('employees/department/' + item.params);
         break;
       case EmployeesNavItem.NEW_DEPARTMENT:
-        this.router.navigate(['employees/new-department/' + item.params]);
+        this.router.navigateByUrl('employees/new-department', {state: {ids: item.ids} });
         break;
       case EmployeesNavItem.EDIT_DEPARTMENT:
-        this.router.navigate(['employees/edit-department/' + item.params]);
+        this.router.navigateByUrl('employees/edit-department/' + item.params);
         break;
     }
   }
@@ -47,4 +47,5 @@ export enum EmployeesNavItem {
 export interface EmployeesNavEntity {
   navItem: EmployeesNavItem;
   params: string;
+  ids: number[];
 }

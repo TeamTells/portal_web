@@ -12,7 +12,7 @@
   </div>
   <div class="mt-6 flex font-normal text-[16px]">
     <p class="text-tt-light-gray">{{ strings.supervisor }}:</p>
-    <p class="ml-1 text-tt-black">{{ department.supervisor.name }}</p>
+    <p class="ml-1 text-tt-black" *ngIf="department.supervisor">{{ department.supervisor.name }}</p>
   </div>
 </app-core-main-content-card>
 

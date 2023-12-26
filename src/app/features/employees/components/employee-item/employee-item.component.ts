@@ -48,7 +48,8 @@ export class EmployeeItemComponent {
   editEmployee() {
     this.navigator.showContent({
       navItem: EmployeesNavItem.EDIT_EMPLOYEE,
-      params: '',
+      params: this.employee.id.toString(),
+      ids: []
     });
   }
 

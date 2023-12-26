@@ -1,26 +1,26 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { HttpClient } from "@angular/common/http";
-import { DepartmentItemDto } from "../dto/department-item-dto";
-import { DepartmentFullDto } from "../dto/department-full-dto";
-import { DepartmentEditDto } from "../dto/department-edit-dto";
+import { environment } from "src/environments/environment";
+import { DepartmentEditDto } from "./dto/department-edit-dto";
+import { AllDepartmentsDto } from "./dto/all-departments-dto";
+import { DepartmentInfoDto } from "./dto/department-info";
 
 @Injectable()
-export class EmployeeApi {
-    //api в корне в proxy.conf.json
-    private readonly apiUrl: string = '/api/department';
+export class DepartmentService {
+    private readonly apiUrl: string = `${environment.apiUrl}/department`;
 
     constructor(private httpClient: HttpClient) {
     }
 
-    public getDepartments() : Observable<DepartmentItemDto[]>
+    public getDepartments() : Observable<AllDepartmentsDto>
     {
-        return this.httpClient.get<DepartmentItemDto[]>(`${this.apiUrl}/all`);
+        return this.httpClient.get<AllDepartmentsDto>(`${this.apiUrl}/all`);
     }
 
-    public getDepartment(id: number): Observable<DepartmentFullDto>
+    public getDepartment(id: number): Observable<DepartmentInfoDto>
     {
-        return this.httpClient.get<DepartmentFullDto>(`${this.apiUrl}/${id}`);
+        return this.httpClient.get<DepartmentInfoDto>(`${this.apiUrl}/${id}`);
     }
 
     public createDepartment(department: DepartmentEditDto): Observable<null>

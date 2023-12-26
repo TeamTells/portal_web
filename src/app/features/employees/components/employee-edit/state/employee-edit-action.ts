@@ -1,3 +1,4 @@
+import { EmployeeWithConnectionsDto } from '../../../data/dto/employee-with-connections-dto'; 
 import { DepartmentEntity } from '../../department/department.component';
 import { IEmployeeEditState } from './employee-edit-state';
 
@@ -15,7 +16,10 @@ export type EmployeeEditAction =
   | ChangePhoneNumberAction
   | ChangeJobTitleAction
   | InitializeAction
-  | EditAction;
+  | EditAction
+  | OpenDepartmentModalAction
+  | CloseDepartmentModalAction
+  | InitEmployeeFieldAction
 
 export enum EmployeeEditActionTypes {
   CHANGE_JOB_TITLE,
@@ -33,6 +37,14 @@ export enum EmployeeEditActionTypes {
   SELECT_RIGHT,
   INITIALIZE,
   EDIT,
+  OPEN_DEPARTMENT_MODAL,
+  CLOSE_DEPARTMENT_MODAL,
+  INIT_EMPLOYEE_FIELD
+}
+
+export interface InitEmployeeFieldAction {
+  readonly type: EmployeeEditActionTypes.INIT_EMPLOYEE_FIELD;
+  readonly employee: EmployeeWithConnectionsDto
 }
 
 export interface ChangeJobTitleAction {
@@ -101,4 +113,12 @@ export interface InitializeAction {
 
 export interface EditAction {
   readonly type: EmployeeEditActionTypes.EDIT;
+}
+
+export interface OpenDepartmentModalAction {
+  readonly type: EmployeeEditActionTypes.OPEN_DEPARTMENT_MODAL;
+}
+
+export interface CloseDepartmentModalAction {
+  readonly type: EmployeeEditActionTypes.CLOSE_DEPARTMENT_MODAL;
 }

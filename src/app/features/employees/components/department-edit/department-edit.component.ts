@@ -8,6 +8,8 @@ import {
 import { DepartmentEditResultAction } from './state/department-edit-result-action';
 import { Store } from 'src/app/core/mvi/store';
 import { DepartmentEditReducer } from './state/department-edit-reducer';
+import { ActivatedRoute } from '@angular/router';
+import { DepartmentService } from '../../data/department-service';
 
 @Component({
   selector: 'department-edit',
@@ -22,9 +24,19 @@ export class DepartmentEditComponent extends Store<
   constructor(
     state: DepartmentEditState,
     executor: DepartmentEditExecutor,
-    reducer: DepartmentEditReducer
+    reducer: DepartmentEditReducer,
+    private route: ActivatedRoute,
+    private departmentService: DepartmentService
   ) {
     super(state, executor, reducer);
+    let id = this.route.snapshot.paramMap.get('id')
+
+    departmentService.getDepartment(Number(id)).subscribe((dep)=>{
+      this.performAction({
+        type: DepartmentEditActionTypes.INIT_FIELD,
+        department: dep.department
+      })
+    })
   }
 
   protected readonly DepartmentEditActionTypes = DepartmentEditActionTypes;

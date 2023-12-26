@@ -4,7 +4,7 @@
 })"/>
 
 <div [ngClass]="{ 
-  'h-[283px] overflow-scroll overflow-x-hidden no-scrollbar': state.settings.overflowScroll
+  'h-[350px] overflow-scroll overflow-x-hidden no-scrollbar': state.settings.overflowScroll
   }">
 
   <div class="mt-6 flex p-3 gap-3 rounded-2xl bg-tt-light-blue"
@@ -23,10 +23,14 @@
       })">
         <img width="26px" src="../../../../../assets/person.and.arrow.left.and.arrow.right.svg">
       </button>
-      <button>
+      <button (click)="performAction({
+        type: EmployeeSelectActionTypes.NEW_DEPARTMENT
+      })">
         <img width="27px" src="../../../../../assets/folder.badge.plus.svg">
       </button>
-      <button>
+      <button (click)="performAction({
+        type: EmployeeSelectActionTypes.DELETE
+      })">
         <img width="19px" src="../../../../../assets/trash.svg">
       </button>
     </div>

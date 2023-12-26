@@ -32,6 +32,7 @@ export interface InitDataAction {
     readonly employees: EmployeeItemEntity[]
     readonly departments: DepartmentEntity[]
     readonly alreadySelectedEmployeeIds: number[]
+    readonly isEditable: boolean
 }
 
 export interface SearchFieldChangeAction {

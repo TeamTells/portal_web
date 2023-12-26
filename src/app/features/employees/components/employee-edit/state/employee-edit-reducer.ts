@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { clone } from 'cloneable-ts';
-import { EmployeeEditState } from './employee-edit-state';
 import { Reducer } from 'src/app/core/mvi/store';
 import {
   EmployeeEditResultAction,
   EmployeeEditResultActionTypes,
 } from './employee-edit-result-action';
+import { EmployeeEditState } from './employee-edit-state';
 
 @Injectable({
   providedIn: 'root',
@@ -44,7 +44,7 @@ export class EmployeeEditReducer
       case EmployeeEditResultActionTypes.CHANGE_DATE_OF_BIRTH:
         return clone(state, {
           dateOfBirth: action.dateOfBirth,
-          dateOfBirthErorr: '',
+          dateOfBirthError: '',
         });
 
       case EmployeeEditResultActionTypes.CHANGE_LAST_NAME:
@@ -60,7 +60,7 @@ export class EmployeeEditReducer
         return clone(state, { password: action.password, passwordError: '' });
 
       case EmployeeEditResultActionTypes.SELECT_DEPARTMENT:
-        return { ...state, department: action.department };
+        return { ...state, department: action.department, visibleSelectDepartmentModal: false };
 
       case EmployeeEditResultActionTypes.REMOVE_DEPARTMENT:
         return { ...state, department: null };
@@ -86,16 +86,33 @@ export class EmployeeEditReducer
           ...action.state,
           jobTitleError: '',
           phoneNumberError: '',
-          dateOfBirthErorr: '',
+          dateOfBirthError: '',
           emailError: '',
           firstNameError: '',
           lastNameError: '',
           passwordError: '',
           isLoading: false,
+          visibleSelectDepartmentModal: false
         };
 
       case EmployeeEditResultActionTypes.VALIDATION_ERROR:
         return clone(state, { ...action });
+      
+      case EmployeeEditResultActionTypes.INIT_EMPLOYEE_FIELD:
+        return clone(state, { 
+          id: action.employee.id,
+          firstName: action.employee.firstName,
+          lastName: action.employee.secondName,
+          patronymic: action.employee.surname,
+          dateOfBirth: action.employee.dateOfBirth,
+          email: action.employee.email,
+          phoneNumber: action.employee.telephoneNumber
+        });
+
+      case EmployeeEditResultActionTypes.CHANGE_DEPARTMENT_MODAL_VISIBLE:
+        return clone(state, { visibleSelectDepartmentModal: action.visible })
     }
+    
+    
   }
 }

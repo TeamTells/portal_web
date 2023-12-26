@@ -10,6 +10,9 @@ import {
   EmployeeEditActionTypes,
 } from './employee-edit-action';
 import { Validator } from 'src/app/core/validators/validator';
+import { EmployeeService } from '../../../data/employee-service';
+import { ActivatedRoute } from '@angular/router';
+import { EmployeesNavItem, EmployeesNavigator } from '../../../navigation/employees-navigator';
 
 @Injectable({
   providedIn: 'root',
@@ -33,6 +36,9 @@ export class EmployeeEditExecutor extends Executor<
     private phoneNumberValidator: Validator,
     @Inject('NewEmployeeJobTitleValidator')
     private jobTitleValidator: Validator,
+    private employeeService: EmployeeService,
+    private route: ActivatedRoute,
+    private navigator: EmployeesNavigator
   ) {
     super();
   }
@@ -132,6 +138,28 @@ export class EmployeeEditExecutor extends Executor<
       case EmployeeEditActionTypes.EDIT:
         this.handleEdit();
         break;
+
+      case EmployeeEditActionTypes.OPEN_DEPARTMENT_MODAL:
+        this.reduce({
+          type: EmployeeEditResultActionTypes.CHANGE_DEPARTMENT_MODAL_VISIBLE,
+          visible: true
+        })
+        break;
+      case EmployeeEditActionTypes.CLOSE_DEPARTMENT_MODAL:
+        this.reduce({
+          type: EmployeeEditResultActionTypes.CHANGE_DEPARTMENT_MODAL_VISIBLE,
+          visible: false
+        })
+        break;
+
+      case EmployeeEditActionTypes.INIT_EMPLOYEE_FIELD:
+        this.reduce({
+          type: EmployeeEditResultActionTypes.INIT_EMPLOYEE_FIELD,
+          employee: action.employee
+        })
+        console.log(this.getState())
+        break;
+
     }
   }
 
@@ -156,11 +184,17 @@ export class EmployeeEditExecutor extends Executor<
       this.getState().dateOfBirth,
     );
 
+    console.log(phoneNumberError)
+    console.log(jobTitleError)
+    console.log(emailError)
+    console.log(firstNameError)
+    console.log(lastNameError)
+    console.log(dateOfBirthError)
+
     if (
       phoneNumberError != null ||
       jobTitleError != null ||
       emailError != null ||
-      passwordError != null ||
       firstNameError != null ||
       lastNameError != null ||
       dateOfBirthError != null
@@ -178,6 +212,26 @@ export class EmployeeEditExecutor extends Executor<
       return;
     }
 
-    console.log(this.getState());
+    let state = this.getState()
+    this.employeeService.editEmployee( state.id,{
+      firstName: state.firstName,
+      secondName: state.lastName,
+      surname: state.patronymic,
+      roles: state.selectedRoles.map((role): number => {
+        return Number(role.id)
+      }),
+      dateOfBirth: '1212-12-12',
+      telephoneNumber: state.phoneNumber,
+      email: state.email,
+      icon: '',
+      departmentID: state.department? state.department.id : null
+    }).subscribe(()=>{
+      this.navigator.showContent({
+        navItem: EmployeesNavItem.USERS,
+        params: '',
+        ids: []
+      })
+    })
+    
   }
 }

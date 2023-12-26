@@ -38,7 +38,7 @@ const employeesItems: Routes = [
     component: DepartmentNewComponent,
   },
   {
-    path: 'edit-employee',
+    path: 'edit-employee/:id',
     component: EmployeeEditComponent,
   },
   {
@@ -143,7 +143,7 @@ const appRoutes: Routes = [
   {
     path: '',
     component: MainComponent,
-    //canActivate: [loginGuardFunction],
+    canActivate: [loginGuardFunction],
     children: mainItems,
   },
 ];

@@ -8,6 +8,8 @@ import {
 } from './state/employee-edit-action';
 import { EmployeeEditResultAction } from './state/employee-edit-result-action';
 import { EmployeeEditReducer } from './state/employee-edit-reducer';
+import { EmployeeService } from '../../data/employee-service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'employee-edit',
@@ -22,9 +24,19 @@ export class EmployeeEditComponent extends Store<
   constructor(
     state: EmployeeEditState,
     executor: EmployeeEditExecutor,
-    reducer: EmployeeEditReducer
+    reducer: EmployeeEditReducer,
+    private employeeService: EmployeeService,
+    private route: ActivatedRoute
   ) {
     super(state, executor, reducer);
+    let id = this.route.snapshot.paramMap.get('id')
+    employeeService.getEmployee(Number(id)).subscribe((empl)=>{
+      console.log(empl)
+      this.performAction({
+        type: EmployeeEditActionTypes.INIT_EMPLOYEE_FIELD,
+        employee: empl.employee
+      })
+    })
   }
 
   protected readonly EmployeeEditActionTypes = EmployeeEditActionTypes;

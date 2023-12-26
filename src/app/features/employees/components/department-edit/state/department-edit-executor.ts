@@ -10,6 +10,8 @@ import {
   DepartmentEditResultActionTypes,
 } from './department-edit-result-action';
 import { Validator } from 'src/app/core/validators/validator';
+import { DepartmentService } from '../../../data/department-service';
+import { EmployeesNavItem, EmployeesNavigator } from '../../../navigation/employees-navigator';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +22,9 @@ export class DepartmentEditExecutor extends Executor<
   DepartmentEditResultAction
 > {
   constructor(
-    @Inject('NewDepartmentNameValidator') private nameValidator: Validator
+    @Inject('NewDepartmentNameValidator') private nameValidator: Validator,
+    private departmentService: DepartmentService,
+    private navigator: EmployeesNavigator
   ) {
     super();
   }
@@ -80,6 +84,51 @@ export class DepartmentEditExecutor extends Executor<
           state: action.state,
         });
         break;
+      case DepartmentEditActionTypes.INIT_FIELD:
+        this.reduce({
+          type: DepartmentEditResultActionTypes.INIT_FIELD,
+          department: action.department,
+        });
+        break;
+        case DepartmentEditActionTypes.OPEN_DEPARTAMENT_MODAL:
+          this.reduce({
+            type: DepartmentEditResultActionTypes.CHANGE_VISIBLE_DEPARTAMENT_MODAL,
+            visible: true
+          })  
+          break;
+  
+        case DepartmentEditActionTypes.CLOSE_DEPARTAMENT_MODAL:
+          this.reduce({
+            type: DepartmentEditResultActionTypes.CHANGE_VISIBLE_DEPARTAMENT_MODAL,
+            visible: false
+          })
+          break;
+  
+        case DepartmentEditActionTypes.OPEN_EMPLOYEES_MODAL:
+          this.reduce({
+            type: DepartmentEditResultActionTypes.CHANGE_VISIBLE_EMPLOYEES_MODAL,
+            visible: true
+          })  
+          break;
+  
+        case DepartmentEditActionTypes.CLOSE_EMPLOYEES_MODAL:
+          this.reduce({
+            type: DepartmentEditResultActionTypes.CHANGE_VISIBLE_EMPLOYEES_MODAL,
+            visible: false
+          })
+          break;
+        case DepartmentEditActionTypes.OPEN_SUPERVISOR_MODAL:
+          this.reduce({
+            type: DepartmentEditResultActionTypes.CHANGE_VISIBLE_SUPERVISOR_MODAL,
+            visible: true
+          })  
+          break;
+        case DepartmentEditActionTypes.CLOSE_SUPERVISOR_MODAL:
+          this.reduce({
+            type: DepartmentEditResultActionTypes.CHANGE_VISIBLE_SUPERVISOR_MODAL,
+            visible: false
+          })
+          break;
 
       case DepartmentEditActionTypes.EDIT:
         this.handleEdit();
@@ -96,12 +145,9 @@ export class DepartmentEditExecutor extends Executor<
       ? null
       : 'Назначьте руководителя';
 
-    console.log(this.getState());
-
     if (
       nameError != null ||
-      supervisorError != null ||
-      parentDepartmentError != null
+      supervisorError != null 
     ) {
       this.reduce({
         type: DepartmentEditResultActionTypes.VALIDATION_ERROR,
@@ -113,6 +159,21 @@ export class DepartmentEditExecutor extends Executor<
       return;
     }
 
-    console.log(this.getState());
+    let state = this.getState()
+    
+    this.departmentService.editDepartment(state.id, {
+      name: state.name,
+      supervisorID: state.supervisor ? state.supervisor.id : null,
+      parentDepartmentID: state.parentDepartment? state.parentDepartment.id : null,
+      employeeIDs: state.employees.map((empl) => {
+        return empl.id
+      }),
+    }).subscribe(()=>{
+      this.navigator.showContent({
+        navItem: EmployeesNavItem.USERS,
+        params: '',
+        ids: []
+      })
+    })
   }
 }
