@@ -4,6 +4,7 @@ import { DepartmentEntity } from '../department/department.component';
 import { ModalWindowData } from '../modal-window/modal-window.component';
 import { ToastsService } from 'src/app/core/components/toast-alert/services/toast-alert.service';
 import { ToastState } from 'src/app/core/components/toast-alert/toast-alert.component';
+import { DepartmentService } from '../../data/department-service';
 
 @Component({
   selector: 'select-department-modal-window',
@@ -13,7 +14,7 @@ export class SelectDepartmentModalComponent {
   @Output() closeClicked = new EventEmitter()
   @Output() submitClicked = new EventEmitter<DepartmentEntity>()
 
-  public departments: DepartmentEntity[] = this.dataService.ConvertToDepartmentEntityList(this.dataService.departments)
+  public departments: DepartmentEntity[] = []
   public selectedDepartment!: DepartmentEntity 
   
   strings = {
@@ -29,8 +30,15 @@ export class SelectDepartmentModalComponent {
     windowWidth: 963,
   }
 
-  constructor(private dataService: EmployeesDataService, 
-    private toastService: ToastsService){}
+  constructor(private dataService: EmployeesDataService,
+    private departmentService: DepartmentService, 
+    private toastService: ToastsService)
+  {
+    departmentService.getDepartments().subscribe((depsDto)=>
+    {
+      this.departments = dataService.ConvertItemsToDepartmentEntityList(depsDto.departments)
+    })
+  }
 
   selectDepartment(department: DepartmentEntity)
   {

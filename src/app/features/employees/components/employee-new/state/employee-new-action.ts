@@ -6,7 +6,6 @@ export type EmployeeNewAction =
   | ChangePatronymicAction
   | ChangeDateOfBirthAction
   | ChangeEmailAction
-  | ChangePasswordAction
   | ChangeDepartmentAction
   | RemoveDepartmentAction
   | AddRoleAction
@@ -25,7 +24,6 @@ export enum EmployeeNewActionTypes {
   CHANGE_PATRONYMIC,
   CHANGE_DATE_OF_BIRTH,
   CHANGE_EMAIL,
-  CHANGE_PASSWORD,
   SELECT_DEPARTMENT,
   REMOVE_DEPARTMENT,
   ADD_ROLE,
@@ -68,11 +66,6 @@ export interface ChangeDateOfBirthAction {
 export interface ChangeEmailAction {
   readonly type: EmployeeNewActionTypes.CHANGE_EMAIL;
   readonly email: string;
-}
-
-export interface ChangePasswordAction {
-  readonly type: EmployeeNewActionTypes.CHANGE_PASSWORD;
-  readonly password: string;
 }
 
 export interface ChangeDepartmentAction {

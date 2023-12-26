@@ -38,6 +38,8 @@ import {
 } from 'src/app/core/components/svg-components/svg.components';
 import { DeleteEmployeeModal } from './components/delete-emoloyee-modal/delete-emoloyee-modal.component';
 import { DeleteUnitModal } from './components/delete-unit-modal/delete-unit-modal.component';
+import { EmployeeService } from 'src/app/features/employees/data/employee-service';
+import { DepartmentService } from './data/department-service';
 
 
 @NgModule({
@@ -113,6 +115,8 @@ import { DeleteUnitModal } from './components/delete-unit-modal/delete-unit-moda
       useExisting: Validator,
       useFactory: EmployeesModule.jobTitleValidatorFactory,
     },
+    EmployeeService, 
+    DepartmentService
   ],
 })
 export class EmployeesModule {

@@ -25,6 +25,9 @@ export interface InitDataResultAction {
   readonly settings: EmployeeSelectSettings
   readonly employees: EmployeeItemEntity[]
   readonly departments: DepartmentEntity[]
+  readonly selectedCount: number
+  readonly visibleTools: boolean
+  readonly isEditable: boolean
 }
 
 export interface SearchFieldChangeAction {

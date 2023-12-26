@@ -1,11 +1,12 @@
 export interface EmployeeEditDto
 {
     firstName: string,
-    secondtName: string,
+    secondName: string,
     surname: string,
-    roleIDs: number[],
-    dateOfBirth: Date,
+    roles: number[],
+    dateOfBirth: string,
     telephoneNumber: string,
     email: string,
     icon: string
+    departmentID: number | null
 }

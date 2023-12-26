@@ -1,7 +1,7 @@
 <employees-modal-window [data]="modalWindowData" (submitClick)="submitClick()" (closeClick)="closeClicked.emit()">
 
     <div class="mt-4">
-        <employees-select (selectClicked)="selectClick($event)" [settings]="settings"/>
+        <employees-select [alreadySelectedEmployeeIds]="addedIds" (selectClicked)="selectClick($event)" [settings]="settings"/>
     </div>
     
 </employees-modal-window>

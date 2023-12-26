@@ -63,7 +63,7 @@ export class DepartmentNewExecutor extends Executor<
       case DepartmentNewActionTypes.ADD_EMPLOYEES:
         this.reduce({
           type: DepartmentNewResultActionTypes.ADD_EMPLOYEES,
-          empoyees: action.employees,
+          employees: action.employees,
         });
         break;
 
@@ -88,7 +88,7 @@ export class DepartmentNewExecutor extends Executor<
       case DepartmentNewActionTypes.REMOVE_EMPLOYEES:
         this.reduce({
           type: DepartmentNewResultActionTypes.REMOVE_EMPLOYEES,
-          empoyees: action.employees,
+          employees: action.employees,
         });
         break;
 

@@ -1,22 +1,22 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { HttpClient } from "@angular/common/http";
-import { AllEmployeesDto } from "../dto/all-employees-dto";
-import { EmployeeInfoDto } from "../dto/employee-info";
-import { EmployeeEditDto } from "../dto/employee-edit-dto";
-import { MoveEmployeesDto } from "../dto/move-employees-dto";
+import { environment } from "src/environments/environment";
+import { AllEmployeesDto } from "./dto/all-employees-dto";
+import { EmployeeInfoDto } from "./dto/employee-info";
+import { EmployeeEditDto } from "./dto/employee-edit-dto";
+import { MoveEmployeesDto } from "./dto/move-employees-dto";
 
 @Injectable()
-export class EmployeeApi {
-    //api в корне в proxy.conf.json
-    private readonly apiUrl: string = '/api/employee';
+export class EmployeeService {
+    private readonly apiUrl: string = `${environment.apiUrl}/employee`;
 
     constructor(private httpClient: HttpClient) {
     }
 
-    public getEmployees() : Observable<AllEmployeesDto[]>
+    public getEmployees() : Observable<AllEmployeesDto>
     {
-        return this.httpClient.get<AllEmployeesDto[]>(`${this.apiUrl}/all`);
+        return this.httpClient.get<AllEmployeesDto>(`${this.apiUrl}/all`);
     }
 
     public getEmployee(id: number) : Observable<EmployeeInfoDto[]>

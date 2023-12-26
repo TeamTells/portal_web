@@ -1,6 +1,6 @@
 import { Executor } from "src/app/core/mvi/store";
 import { EmployeeSelectState } from "./employee-select-state";
-import { EmployeeSelectAction, EmployeeSelectActionTypes } from "./employee-select-action";
+import { EmployeeSelectAction, EmployeeSelectActionTypes, InitDataAction } from "./employee-select-action";
 import { EmployeeSelectResultAction, EmployeeSelectResultActionTypes } from "./employee-select-result-action";
 import { Injectable } from "@angular/core";
 import { EmployeeItemEntity } from "../../employee-item/employee-item.component";
@@ -25,12 +25,7 @@ export class EmployeeSelectExecutor extends Executor<EmployeeSelectState, Employ
   execute(action: EmployeeSelectAction) {
     switch (action.type) {
       case EmployeeSelectActionTypes.INIT_DATA:
-        this.reduce({
-          type: EmployeeSelectResultActionTypes.INIT_DATA,
-          settings: action.settings,
-          departments: action.departments,
-          employees: action.employees
-        })
+        this.handleInitData(action)
         break
       case EmployeeSelectActionTypes.SEARCH_FIELD_CHANGE:
         this.handleSearchFieldChange(action.str)
@@ -109,21 +104,71 @@ export class EmployeeSelectExecutor extends Executor<EmployeeSelectState, Employ
 
     return result;
   }
-  //#region "handleSearchFieldChange"
-  private handleSearchFieldChange(searchStr: string) {
-    let resultEmployeeDepartments: SearchEmployeeDepartmentData[] = []
 
-    if (searchStr.length != 0) {
-      resultEmployeeDepartments = resultEmployeeDepartments.concat(this.searchEmployeesInDepartments(searchStr, '', this.getState().departments))
-      let searchRoot = this.searchInRoot(searchStr)
-      if (searchRoot) {
+//#region handleInitData
+  private handleInitData(action: InitDataAction): void
+  {
+    let employees = action.employees
+    let departments = action.departments
+    let selectedIds = action.alreadySelectedEmployeeIds
+
+    this.selectByIdsInEmployees(employees, selectedIds)
+    departments.forEach((element) => {
+      this.selectByIdsInDepartment(selectedIds, element)
+    })
+
+    this.reduce({
+      type: EmployeeSelectResultActionTypes.INIT_DATA,
+      settings: action.settings,
+      departments: action.departments,
+      employees: action.employees,
+      selectedCount: selectedIds.length,
+      visibleTools: selectedIds.length != 0,
+      isEditable: action.isEditable
+    })
+  }
+
+  private selectByIdsInEmployees(employees: EmployeeItemEntity[], ids: number[]): void
+  {
+    employees.forEach((element)=>{
+      let i = ids.indexOf(element.id)
+      if(i != -1)
+      {
+        element.isSelect = true
+      }
+    })
+  }
+
+  private selectByIdsInDepartment(ids: number[], department: DepartmentEntity)
+  {
+    this.selectByIdsInEmployees(department.employees, ids)
+    department.departments.forEach((element) => {
+      this.selectByIdsInDepartment(ids, element)
+    })
+  }
+//#endregion
+
+//#region "handleSearchFieldChange"
+  private handleSearchFieldChange(searchStr: string)
+  {
+
+    let resultEmployeeDepartments: SearchEmployeeDepartmentData[] = []
+    let lowerSearhStr = searchStr.toLowerCase()
+
+    if(lowerSearhStr.length != 0)
+    {
+      resultEmployeeDepartments = resultEmployeeDepartments.concat(
+        this.searchEmployeesInDepartments(lowerSearhStr, '', this.getState().departments, 0))
+      let searchRoot = this.searchInRoot(lowerSearhStr)
+      if(searchRoot)
+      {
         resultEmployeeDepartments.push(searchRoot)
       }
     }
 
     this.reduce({
       type: EmployeeSelectResultActionTypes.SEARCH_FIELD_CHANGE,
-      str: searchStr,
+      str: lowerSearhStr,
       searchDepartments: resultEmployeeDepartments
     })
   }
@@ -136,7 +181,9 @@ export class EmployeeSelectExecutor extends Executor<EmployeeSelectState, Employ
     }
 
     this.getState().employees.forEach((empl) => {
-      if (empl.name.includes(searchStr)) {
+
+      if(empl.name.toLowerCase().includes(searchStr))
+      {
         searchRoot.employees.push(empl)
       }
     })
@@ -147,20 +194,30 @@ export class EmployeeSelectExecutor extends Executor<EmployeeSelectState, Employ
     return undefined
   }
 
-  private searchEmployeesInDepartments(searchStr: string, curentDepartmentsString: string, curentDepartments: DepartmentEntity[]): SearchEmployeeDepartmentData[] {
+  private searchEmployeesInDepartments(
+    searchStr: string,
+    curentDepartmentsString: string,
+    curentDepartments: DepartmentEntity[],
+    countFatherObjects: number): SearchEmployeeDepartmentData[]
+  {
     let findDepartments: SearchEmployeeDepartmentData[] = []
+    let currentCountFatherObjects = countFatherObjects + 1
 
-    curentDepartments.forEach((dep) => {
+    curentDepartments.forEach((dep)=> {
+
       let searchDep: SearchEmployeeDepartmentData = {
-        deprtmentsStr: curentDepartmentsString == '' ? dep.name : curentDepartmentsString + " / " + dep.name,
+        deprtmentsStr: this.getDepartmentsStr(curentDepartmentsString, dep.name, currentCountFatherObjects),
+
         employees: [],
         searchStr: searchStr
       }
 
-      findDepartments = findDepartments.concat(this.searchEmployeesInDepartments(searchStr, searchDep.deprtmentsStr, dep.departments))
+      findDepartments = findDepartments.concat(this.searchEmployeesInDepartments(searchStr, searchDep.deprtmentsStr, dep.departments, currentCountFatherObjects))
 
       dep.employees.forEach((empl) => {
-        if (empl.name.includes(searchStr)) {
+
+        if(empl.name.toLowerCase().includes(searchStr))
+        {
           searchDep.employees.push(empl)
         }
       })
@@ -172,7 +229,27 @@ export class EmployeeSelectExecutor extends Executor<EmployeeSelectState, Employ
 
     return findDepartments
   }
-  //#endregion
+
+  private getDepartmentsStr(curentDepartmentsString: string, curentDepartmentName: string, countFatherObjects: number): string
+  {
+    let departmentsStr = ''
+
+    if(curentDepartmentsString == '')
+    {
+      departmentsStr = curentDepartmentName
+    }
+    else if(countFatherObjects <= 2)
+    {
+      departmentsStr = curentDepartmentsString + " / " + curentDepartmentName
+    }
+    else
+    {
+      departmentsStr = curentDepartmentsString.slice(0, curentDepartmentsString.indexOf("/") + 1) + ".../" + curentDepartmentName
+    }
+
+    return departmentsStr;
+  }
+//#endregion
 
   //#region "handleSelectEmployee"
   private handleSelectEmployee(employee: EmployeeItemEntity): void {
@@ -260,7 +337,8 @@ export class EmployeeSelectExecutor extends Executor<EmployeeSelectState, Employ
       }
     })
   }
-  //#endregion
+  
+//#endregion
 
   //#region "handleSelectDepartment"
   private handleSelectDepartment(department: DepartmentEntity): void {
