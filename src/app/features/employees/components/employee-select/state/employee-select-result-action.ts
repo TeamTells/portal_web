@@ -27,6 +27,7 @@ export interface InitDataResultAction {
   readonly departments: DepartmentEntity[]
   readonly selectedCount: number
   readonly visibleTools: boolean
+  readonly isEditable: boolean
 }
 
 export interface SearchFieldChangeAction {

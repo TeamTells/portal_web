@@ -25,7 +25,17 @@ export class EmployeeSelectExecutor extends Executor<EmployeeSelectState, Employ
   execute(action: EmployeeSelectAction) {
     switch (action.type) {
       case EmployeeSelectActionTypes.INIT_DATA:
+<<<<<<< Updated upstream
         this.handleInitData(action)
+=======
+        this.reduce({
+          type: EmployeeSelectResultActionTypes.INIT_DATA,
+          settings: action.settings,
+          departments: action.departments,
+          employees: action.employees,
+          isEditable: action.isEditable
+        })
+>>>>>>> Stashed changes
         break
       case EmployeeSelectActionTypes.SEARCH_FIELD_CHANGE:
         this.handleSearchFieldChange(action.str)

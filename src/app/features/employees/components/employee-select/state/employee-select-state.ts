@@ -15,7 +15,7 @@ export class EmployeeSelectState {
     clickType: ClickType.CtrlClicked,
     overflowScroll: false
   }
-
+  readonly isEditable: boolean = false
   readonly searchField: string = ''
   readonly employees: EmployeeItemEntity[] = []
   readonly departments: DepartmentEntity[] = []

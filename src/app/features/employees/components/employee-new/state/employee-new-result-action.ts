@@ -7,7 +7,6 @@ export type EmployeeNewResultAction =
   | ChangePatronymicResultAction
   | ChangeDateOfBirthResultAction
   | ChangeEmailResultAction
-  | ChangePasswordResultAction
   | ChangeDepartmentResultAction
   | RemoveDepartmentResultAction
   | AddRoleResultAction
@@ -25,7 +24,6 @@ export enum EmployeeNewResultActionTypes {
   CHANGE_PATRONYMIC,
   CHANGE_DATE_OF_BIRTH,
   CHANGE_EMAIL,
-  CHANGE_PASSWORD,
   SELECT_DEPARTMENT,
   REMOVE_DEPARTMENT,
   ADD_ROLE,
@@ -69,11 +67,6 @@ export interface ChangeEmailResultAction {
   readonly email: string;
 }
 
-export interface ChangePasswordResultAction {
-  readonly type: EmployeeNewResultActionTypes.CHANGE_PASSWORD;
-  readonly password: string;
-}
-
 export interface ChangeDepartmentResultAction {
   readonly type: EmployeeNewResultActionTypes.SELECT_DEPARTMENT;
   readonly department?: DepartmentEntity;
@@ -106,5 +99,4 @@ export interface ValidationResultAction {
   readonly lastNameError: string;
   readonly dateOfBirthError: string;
   readonly emailError: string;
-  readonly passwordError: string;
 }

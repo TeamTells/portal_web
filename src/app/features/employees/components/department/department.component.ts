@@ -114,7 +114,7 @@ export interface DepartmentEntity {
   name: string,
   isSelect: boolean,
   visibleContent: boolean,
-  supervisor: EmployeeDto,
+  supervisor: EmployeeDto | null,
   departments: DepartmentEntity[],
   employees: EmployeeItemEntity[]
 } 

@@ -62,9 +62,6 @@ export class EmployeeNewReducer
       case EmployeeNewResultActionTypes.CHANGE_EMAIL:
         return clone(state, { email: action.email, emailError: '' });
 
-      case EmployeeNewResultActionTypes.CHANGE_PASSWORD:
-        return clone(state, { password: action.password, passwordError: '' });
-
       case EmployeeNewResultActionTypes.SELECT_DEPARTMENT:
         return { ...state, department: action.department, visibleSelectDepartmentModal: false };
 

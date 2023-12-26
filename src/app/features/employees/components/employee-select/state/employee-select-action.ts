@@ -31,7 +31,11 @@ export interface InitDataAction {
     readonly settings: EmployeeSelectSettings
     readonly employees: EmployeeItemEntity[]
     readonly departments: DepartmentEntity[]
+<<<<<<< Updated upstream
     readonly alreadySelectedEmployeeIds: number[]
+=======
+    readonly isEditable: boolean
+>>>>>>> Stashed changes
 }
 
 export interface SearchFieldChangeAction {

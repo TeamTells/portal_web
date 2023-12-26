@@ -10,6 +10,7 @@ import {
   EmployeeNewActionTypes,
 } from './employee-new-action';
 import { Validator } from 'src/app/core/validators/validator';
+import { EmployeeService } from '../../../data/employee-service';
 
 @Injectable({
   providedIn: 'root',
@@ -33,6 +34,7 @@ export class EmployeeNewExecutor extends Executor<
     private phoneNumberValidator: Validator,
     @Inject('NewEmployeeJobTitleValidator')
     private jobTitleValidator: Validator,
+    private employeeService: EmployeeService
   ) {
     super();
   }
@@ -85,13 +87,6 @@ export class EmployeeNewExecutor extends Executor<
         this.reduce({
           type: EmployeeNewResultActionTypes.CHANGE_EMAIL,
           email: action.email,
-        });
-        break;
-
-      case EmployeeNewActionTypes.CHANGE_PASSWORD:
-        this.reduce({
-          type: EmployeeNewResultActionTypes.CHANGE_PASSWORD,
-          password: action.password,
         });
         break;
 
@@ -148,9 +143,7 @@ export class EmployeeNewExecutor extends Executor<
       this.getState().jobTitle,
     );
     let emailError = this.emailValidator.validate(this.getState().email);
-    let passwordError = this.passwordValidator.validate(
-      this.getState().password,
-    );
+
     let firstNameError = this.firstNameValidator.validate(
       this.getState().firstName,
     );
@@ -160,12 +153,16 @@ export class EmployeeNewExecutor extends Executor<
     let dateOfBirthError = this.dateOfBirthValidator.validate(
       this.getState().dateOfBirth,
     );
-
+    console.log(phoneNumberError)
+    console.log(jobTitleError)
+    console.log(emailError)
+    console.log(firstNameError)
+    console.log(lastNameError)
+    console.log(dateOfBirthError)
     if (
       phoneNumberError != null ||
       jobTitleError != null ||
       emailError != null ||
-      passwordError != null ||
       firstNameError != null ||
       lastNameError != null ||
       dateOfBirthError != null
@@ -175,15 +172,27 @@ export class EmployeeNewExecutor extends Executor<
         phoneNumberError: phoneNumberError != null ? phoneNumberError : '',
         jobTitleError: jobTitleError != null ? jobTitleError : '',
         emailError: emailError != null ? emailError : '',
-        passwordError: passwordError != null ? passwordError : '',
         firstNameError: firstNameError != null ? firstNameError : '',
         lastNameError: lastNameError != null ? lastNameError : '',
         dateOfBirthError: dateOfBirthError != null ? dateOfBirthError : '',
       });
       return;
     }
+    
+    let state = this.getState()
 
-    // Успех. Все валлидно 👻
-    console.log(this.getState());
+    this.employeeService.createEmployee({
+      firstName: state.firstName,
+      secondName: state.lastName,
+      surname: state.patronymic,
+      roles: state.selectedRoles.map((role): number => {
+        return Number(role.id)
+      }),
+      dateOfBirth: '1212-12-12',
+      telephoneNumber: state.phoneNumber,
+      email: state.email,
+      icon: '',
+      departmentID: state.department? state.department.id : null
+    }).subscribe()
   }
 }
